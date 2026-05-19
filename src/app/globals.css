@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Design tokens v1 — hex only */
+  --color-bg: #121110;
+  --color-bg-elevated: #1a1917;
+  --color-text: #f2ede6;
+  --color-text-muted: #9b948b;
+  --color-accent: #c9a962;
+  --color-accent-hover: #d4b56e;
+
+  --content-max: 1400px;
+  --vignette: radial-gradient(
+    ellipse 85% 75% at 50% 45%,
+    rgba(18, 17, 16, 0) 0%,
+    rgba(18, 17, 16, 0.35) 62%,
+    rgba(18, 17, 16, 0.72) 100%
+  );
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+@layer utilities {
+  .vignette-overlay {
+    background-image: var(--vignette);
+  }
+}
+
+/* Separate frosted-glass pills (not a shared opaque capsule) */
+.hero-nav-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.hero-nav-pair__divider {
+  width: 1px;
+  height: 2.25rem;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.glass-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 0.875rem 1rem;
+  text-align: center;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 4px 24px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    letter-spacing 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  .glass-pill {
+    padding: 1rem 2rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0.3em;
+  }
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+  letter-spacing: 0.32em;
+}
+
+/* Hide Next.js dev overlays / issue badge */
+[data-nextjs-toast],
+[data-nextjs-toast-wrapper],
+[data-nextjs-dialog-overlay],
+nextjs-portal,
+#__next-build-watcher {
+  display: none !important;
+}
