@@ -35,6 +35,22 @@ body {
   }
 }
 
+/* Tech section titles — full content width on desktop, one line */
+.tech-section-title {
+  font-size: clamp(2.4rem, 4.6vw, 3.75rem);
+}
+
+@media (min-width: 769px) {
+  .tech-section-title {
+    white-space: nowrap;
+    font-size: clamp(2rem, 3.35vw, 3.75rem);
+  }
+}
+
+.tech-section-body {
+  text-align: left;
+}
+
 /* Separate frosted-glass pills (not a shared opaque capsule) */
 .hero-nav-pair {
   display: inline-flex;
