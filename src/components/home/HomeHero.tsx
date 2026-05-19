@@ -128,7 +128,6 @@ export function HomeHero() {
                   autoPlay
                   playsInline
                   muted
-                  defaultMuted
                   loop
                   preload="auto"
                   poster={HERO_POSTER}
