@@ -4,7 +4,8 @@ export type TechSection = {
   paragraphs: string[];
   detailTitle: string;
   detailIntro: string;
-  detailBlocks: { heading: string; body: string }[];
+  detailBlocks: { heading?: string; body: string }[];
+  bookCallSubject?: string;
 };
 
 export const techSections: TechSection[] = [
@@ -12,29 +13,29 @@ export const techSections: TechSection[] = [
     slug: "cv-linkedin",
     title: "CV & LinkedIn AI Optimization",
     paragraphs: [
-      "Your CV may be filtered by AI long before a human recruiter sees it. I work with you to adapt your CV and LinkedIn for how hiring systems and recruiters actually read profiles today. Your voice stays intact.",
+      "Right now, everyone is optimizing everything. Recruiters too. If your CV does not pass AI and ATS filters, it will not reach a live recruiter. I optimize CV and LinkedIn for how hiring works today.",
     ],
     detailTitle: "CV & LinkedIn AI Optimization",
     detailIntro:
-      "A structured process to align your professional story with how hiring systems and recruiters actually read profiles today.",
+      "Right now, everyone is optimizing everything. Recruiters too.",
     detailBlocks: [
       {
-        heading: "The problem",
-        body: "Most applications never reach a person. ATS and AI screening filter on structure, keywords, and signal clarity long before your experience is considered.",
+        body: "Recruiters hand to AI the work they do not like doing themselves. Filtering out candidates who are not a fit. The first pass often runs through AI and ATS. If your CV does not pass that filter, it will not reach a live recruiter.",
       },
       {
-        heading: "How I work with you",
-        body: "I rebuild your CV and LinkedIn for clarity, hierarchy, and relevance. You stay in the loop at every step. Every edit serves readability for both machines and humans, while keeping your voice intact.",
+        heading: "On the call",
+        body: "On the call, we go through your position and your field. I optimize your CV and LinkedIn for current requirements and ATS filters. Then we look at which AI skills recruiters in your field most often search for, for your position and your field. We make your CV as attractive and appealing as possible for them. You may already use some AI tools, but not know how to name them correctly on your CV. I explain that. I tell you how long it will take you to learn these skills and bring them into your daily work.",
       },
       {
-        heading: "Deliverables",
-        body: "Restructured CV, LinkedIn narrative alignment, keyword strategy where appropriate, and a concise guide for future updates you can maintain yourself.",
+        heading: "Option 1",
+        body: "CV and LinkedIn optimization only, built around the skills you already have.",
       },
       {
-        heading: "Visual cases",
-        body: "Before-and-after structure studies and profile direction samples will be presented here as the case archive grows.",
+        heading: "Option 2",
+        body: "A short training plan on AI tools, individual to you, to use them in today's work and in daily life.",
       },
     ],
+    bookCallSubject: "ARLIX - CV & LinkedIn - Book a Call",
   },
   {
     slug: "career-adaptation",
@@ -44,23 +45,43 @@ export const techSections: TechSection[] = [
     ],
     detailTitle: "Private Career AI Adaptation",
     detailIntro:
-      "One-to-one sessions for professionals who need practical integration. Not theory, not generic courses.",
+      "I'm a millennial myself, and I clearly remember when the internet first appeared.",
     detailBlocks: [
       {
-        heading: "Who this is for",
-        body: "Established professionals navigating a shift in how work is done (executives, founders, specialists, and creatives who need tools that respect their time).",
+        body: "I remember the phone line, the crackling modem sounds, and how suspicious people were of all of it. Back then, the internet felt like something for geeks, hackers and outsiders.",
       },
       {
-        heading: "How I work with you",
-        body: "Short private sessions focused on one workflow at a time. Together we implement, test, and refine inside your real tools until the habit holds.",
+        body: "And then it completely changed our lives.",
       },
       {
-        heading: "Workflow",
-        body: "Assessment. Priority mapping. Guided implementation. Follow-up. No slides. No fluff. Only what changes your week.",
+        body: "People started building businesses online, meeting online, working remotely and maintaining friendships across countries through digital systems.",
       },
       {
-        heading: "Examples",
-        body: "Session notes, workflow maps, and anonymized case outlines will be added here as reference material.",
+        body: "I spent many years working in hotel & real estate projects, and I remember how everything depended on personal connections, expos, flights and face to face meetings. We literally flew across the world and pushed through jungles just to inspect a property and negotiate with developers. And long ago, most of that stopped being necessary because huge parts of those processes moved online.",
+      },
+      {
+        body: "Right now we are standing at the exact same point with AI. This is even bigger than the invention of electricity. So hiding by candlelight is no longer an option…",
+      },
+      {
+        body: "Just two years ago, most people thought AI was just another toy people would play with and forget about. Now it's obvious that AI has become part of everyday work, hiring systems, business operations and daily routines. And the longer someone postpones learning these tools, the harder they become to understand.",
+      },
+      {
+        body: "I completely understand the fear, resistance and frustration because I went through it myself. But at some point, I stopped looking at AI as a threat and started seeing it as a way to delegate the kind of work I never enjoyed doing in the first place. Routine. Repetitive processes. Organizational chaos. Endless operational clutter.",
+      },
+      {
+        body: "AI gives me control over my time, workflows, daily routines and, of course, privacy. Honestly, I'm far less concerned about some distant server overseas than about an overly talkative secretary who knows all my business. Many systems can also be configured locally, without anything leaving your own computer or laptop.",
+      },
+      {
+        body: "I'm also strongly against endless group courses, public Zoom calls and huge amounts of unnecessary information. These groups usually gather completely different kinds of people together. From Gen Z TikTok creators to seventy year old housewives trying to write a book with ChatGPT.",
+      },
+      {
+        body: "And when you already have your own life, work, family and constant communication around you, the last thing you need is yet another noisy online community and endless networking.",
+      },
+      {
+        body: "My goal is not to overwhelm you with technology, but to integrate AI smoothly into your career, daily life and workflows.",
+      },
+      {
+        body: "You already have experience. AI is simply the next tool.",
       },
     ],
   },

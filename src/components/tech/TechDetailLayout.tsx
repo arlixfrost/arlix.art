@@ -24,17 +24,25 @@ export function TechDetailLayout({ section }: Props) {
             {section.detailTitle}
           </h1>
 
-          <p className="tech-section-body mx-auto mt-8 max-w-[56ch] font-sans text-[15px] font-normal leading-relaxed text-[var(--color-text-muted)]">
-            {section.detailIntro}
-          </p>
-
-          <div className="tech-section-body mx-auto mt-10 max-w-[56ch] space-y-8">
-            {section.detailBlocks.map((block) => (
-              <div key={block.heading}>
-                <h2 className="font-sans text-[14px] font-medium leading-relaxed text-[var(--color-text)]">
-                  {block.heading}
-                </h2>
-                <p className="mt-2 font-sans text-[14px] leading-relaxed text-[var(--color-text-muted)]">
+          <div className="tech-section-body mx-auto mt-8 max-w-[56ch] space-y-6 text-left">
+            {section.detailIntro ? (
+              <p className="font-sans text-[15px] font-normal leading-[1.75] text-[var(--color-text-muted)]">
+                {section.detailIntro}
+              </p>
+            ) : null}
+            {section.detailBlocks.map((block, index) => (
+              <div
+                key={block.heading ?? `block-${index}`}
+                className={block.heading ? "pt-4" : undefined}
+              >
+                {block.heading ? (
+                  <h2 className="font-sans text-[15px] font-medium leading-[1.75] text-[var(--color-text)]">
+                    {block.heading}
+                  </h2>
+                ) : null}
+                <p
+                  className={`font-sans text-[15px] font-normal leading-[1.75] text-[var(--color-text-muted)] ${block.heading ? "mt-3" : ""}`}
+                >
                   {block.body}
                 </p>
               </div>
@@ -42,12 +50,21 @@ export function TechDetailLayout({ section }: Props) {
           </div>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-6">
-            <a
-              href="mailto:hello@arlix.art?subject=ARLIX%20Tech%20-%20Contact"
-              className="glass-pill"
-            >
-              Contact
-            </a>
+            {section.bookCallSubject ? (
+              <a
+                href={`mailto:hello@arlix.art?subject=${encodeURIComponent(section.bookCallSubject)}`}
+                className="glass-pill"
+              >
+                Book a Call
+              </a>
+            ) : (
+              <a
+                href="mailto:hello@arlix.art?subject=ARLIX%20Tech%20-%20Contact"
+                className="glass-pill"
+              >
+                Contact
+              </a>
+            )}
             <Link
               href="/tech"
               className="font-sans text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent-hover)]"
