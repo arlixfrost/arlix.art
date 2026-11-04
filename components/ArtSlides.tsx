@@ -12,6 +12,7 @@ import { soloAudio } from "@/components/audio";
 
 type Video = { src: string; poster: string; title: string };
 type Section = {
+  menu?: string;
   id: string;
   title: string;
   work: string;
@@ -28,6 +29,7 @@ const sections: Section[] = [
   {
     id: "brand-fashion-films",
     title: "Brand & Fashion Films",
+    menu: "Brand &\nFashion Films",
     work: "Film",
     video: { src: "/art/brand-fashion-films.mp4", poster: "/art/brand-fashion-films.jpg", title: "Hervé Léger · origin film" },
   },
@@ -40,8 +42,8 @@ const sections: Section[] = [
     video: { src: "/art/hybrid/le-plongeoir.mp4", poster: "/art/hybrid/le-plongeoir.jpg", title: "Le Plongeoir · Nice · hybrid film" },
     note: "Film + process carousel (10 slides, Instagram order)",
   },
-  { id: "food-restaurants", title: "Food & Restaurants", work: "Food / restaurant piece" },
-  { id: "animation", title: "Animation", work: "Animation" },
+  { id: "food-restaurants", title: "Food & Restaurants", menu: "Food & Resto", work: "Food / restaurant piece" },
+  { id: "animation", title: "Animation", menu: "Cartoons", work: "Animation" },
   {
     id: "commercials",
     title: "Commercials",
@@ -55,6 +57,7 @@ const sections: Section[] = [
   {
     id: "ai-models-ugc",
     title: "AI Models & UGC",
+    menu: "AI Models",
     work: "AI model / UGC piece",
     portrait: true,
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
@@ -62,6 +65,7 @@ const sections: Section[] = [
   {
     id: "social-content",
     title: "Social Content",
+    menu: "Social",
     work: "Social piece",
     portrait: true,
     video: { src: "/art/social/paris-red-suit.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
@@ -161,7 +165,7 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
 
 const slides = [
   { id: "intro", label: "Intro" },
-  ...sections.map((s) => ({ id: s.id, label: s.title })),
+  ...sections.map((s) => ({ id: s.id, label: s.menu ?? s.title })),
   { id: "pricing", label: "Pricing" },
   { id: "contact", label: "Contact" },
 ];
@@ -287,8 +291,8 @@ export default function ArtSlides() {
             if (Math.abs(i - active) > 1) return null;
             return (
               <li key={s.id} className="flex">
-                <button onClick={() => go(i)} aria-label={s.label} aria-current={on ? "true" : undefined}
-                  className={`relative font-body uppercase whitespace-nowrap leading-none rotate-180 [writing-mode:vertical-rl] tracking-[0.18em] transition-colors duration-300 ${on ? "text-[#F2EDE6] text-[16px] border-r border-[#C9A962] pr-1.5" : "text-[#8A837A] text-[13px] hover:text-[#C9A962]"}`}>
+                <button onClick={() => go(i)} aria-label={s.label.replace("\n", " ")} aria-current={on ? "true" : undefined}
+                  className={`relative font-body uppercase whitespace-pre leading-[1.2] rotate-180 [writing-mode:vertical-rl] tracking-[0.18em] transition-colors duration-300 ${on ? "text-[#F2EDE6] text-[16px] border-r border-[#C9A962] pr-1.5" : "text-[#8A837A] text-[13px] hover:text-[#C9A962]"}`}>
                   {s.label}
                 </button>
               </li>

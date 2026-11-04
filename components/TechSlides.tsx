@@ -9,17 +9,18 @@ type Item = { id: string; title: string; menu?: string; text?: string; price?: s
 
 // Individual consultations and Training for small business are merged into one block.
 const items: Item[] = [
-  { id: "cv-linkedin", title: "CV / LinkedIn + Career" },
+  { id: "cv-linkedin", title: "CV / LinkedIn + Career", menu: "CV adaptation" },
   { id: "web-design", title: "Web Design" },
-  { id: "assistants-agents", title: "Assistants / Agents" },
+  { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents" },
   {
     id: "content-factory",
     title: "Content Factory",
+    menu: "Content\nFactory",
     text: "Your brand's visuals, handled every month: 30 to 60 pieces of content, carousels, short reels and UGC-style videos, all in one consistent look.",
     price: "From €1,500 / month",
   },
-  { id: "consultations-training", title: "Individual Consultations & Small Business Training", menu: "Consultations & Training" },
-  { id: "royalty-free-music", title: "Royalty Free music" },
+  { id: "consultations-training", title: "Individual Consultations & Small Business Training", menu: "Consultations\n& Training" },
+  { id: "royalty-free-music", title: "Royalty Free music", menu: "Royalty Free\nMusic" },
 ];
 
 const slides = [
@@ -98,8 +99,8 @@ export default function TechSlides() {
             if (Math.abs(i - active) > 1) return null;
             return (
               <li key={s.id} className="flex">
-                <button onClick={() => go(i)} aria-label={s.label} aria-current={on ? "true" : undefined}
-                  className={`relative font-body uppercase whitespace-nowrap leading-[1.25] [writing-mode:vertical-rl] tracking-[0.18em] transition-colors duration-300 ${on ? "text-[#F2EDE6] text-[16px] border-l border-[#C9A962] pl-1.5" : "text-[#8A837A] text-[13px] hover:text-[#C9A962]"}`}>
+                <button onClick={() => go(i)} aria-label={s.label.replace("\n", " ")} aria-current={on ? "true" : undefined}
+                  className={`relative font-body uppercase whitespace-pre leading-[1.25] [writing-mode:vertical-rl] tracking-[0.18em] transition-colors duration-300 ${on ? "text-[#F2EDE6] text-[16px] border-l border-[#C9A962] pl-1.5" : "text-[#8A837A] text-[13px] hover:text-[#C9A962]"}`}>
                   {s.label}
                 </button>
               </li>
