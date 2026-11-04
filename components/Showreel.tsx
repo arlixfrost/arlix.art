@@ -37,10 +37,10 @@ export default function Showreel({ className = "", children }: { className?: str
       <div className="relative h-full">{children}</div>
       <button
         onClick={toggle}
-        className="absolute bottom-5 right-5 z-20 rounded-full border border-white/40 bg-black/50 px-4 py-2 text-xs tracking-wide hover:bg-black/70"
-        aria-label={muted ? "Unmute showreel" : "Mute showreel"}
+        className="frame-btn absolute bottom-6 right-6 z-20 !min-w-0 !h-11 !px-5 !text-[11px] !tracking-[0.24em]"
+        aria-label={muted ? "Turn sound on" : "Turn sound off"}
       >
-        {muted ? "🔇 Sound off · tap to unmute" : "🔊 Sound on · tap to mute"}
+        {muted ? "Sound on" : "Sound off"}
       </button>
     </div>
   );
