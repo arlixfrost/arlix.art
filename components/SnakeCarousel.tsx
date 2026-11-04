@@ -18,7 +18,7 @@ export default function SnakeCarousel() {
   useEffect(() => {
     const onResize = () => {
       const vw = window.innerWidth;
-      const w = Math.round(Math.min(vw < 768 ? vw * 0.74 : vw * 0.56, 980));
+      const w = Math.round(Math.min(vw < 768 ? vw * 0.52 : vw * 0.39, 680));
       setSize({ w, h: Math.round(w * 0.6) });
     };
     onResize();
@@ -30,9 +30,9 @@ export default function SnakeCarousel() {
     const { w } = size;
     const gap = w * 0.05;
     const sw = w / STRIPS;
-    const L = w * 0.42; // length of one wave bend
-    const A = w * 0.15; // depth of the wave
-    const z = (x: number) => A * (Math.cos(x / L) - 1) - (x * x) / (w * 6);
+    const L = (w * 1.6) / (2 * Math.PI); // one full S-wave every 1.6 card widths
+    const A = w * 0.12; // depth of the wave
+    const z = (x: number) => A * Math.sin(x / L) - (x * x) / (w * 5);
     for (let i = 0; i < n; i++) {
       for (let j = 0; j < STRIPS; j++) {
         const el = strips.current[i * STRIPS + j];
@@ -90,19 +90,19 @@ export default function SnakeCarousel() {
     window.scrollTo({ top: start + (k / (n - 1)) * run, behavior: "smooth" });
   };
 
-  const stageH = Math.round(size.h * 1.3);
+  const stageH = Math.round(size.h * 1.6);
 
   return (
     <section ref={section} aria-label="Selected work" className="relative bg-[#0B0B0C] pt-16" style={{ height: `calc(${n} * 55svh + 100svh)` }}>
       <div ref={stage} className="sticky overflow-hidden" style={{ top: `calc((100svh - ${stageH}px) / 2)`, height: stageH }}>
-        <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: `${size.w * 1.6}px` }}>
-          <div className="relative" style={{ width: 0, height: size.h, transformStyle: "preserve-3d" }}>
+        {/* Strips are direct children of the perspective box: real 3D depth in Safari too, no preserve-3d needed. */}
+        <div className="absolute inset-0" style={{ perspective: `${size.w * 1.4}px` }}>
             {cards.map((c, i) =>
               Array.from({ length: STRIPS }, (_, j) => (
                 <div key={`${i}-${j}`} ref={(el) => { strips.current[i * STRIPS + j] = el; }}
                   onClick={() => go(i)}
-                  className="absolute top-0 left-0 overflow-hidden cursor-pointer will-change-transform"
-                  style={{ width: size.w / STRIPS + 4, height: size.h, backfaceVisibility: "hidden", outline: "1px solid transparent" }}>
+                  className="absolute left-1/2 top-1/2 overflow-hidden cursor-pointer will-change-transform"
+                  style={{ width: size.w / STRIPS + 2, height: size.h, marginTop: -size.h / 2, backfaceVisibility: "hidden", outline: "1px solid transparent" }}>
                   <div className="absolute top-0 h-full" style={{ width: size.w, left: -j * (size.w / STRIPS) }}>
                     <div className="h-full w-full border border-[rgba(242,237,230,0.22)]"
                       style={{ background: `linear-gradient(135deg, #1c1b1a ${i * 6}%, #2a2724 60%, #141312)`, borderRadius: j === 0 ? "10px 0 0 10px" : j === STRIPS - 1 ? "0 10px 10px 0" : 0 }}>
@@ -113,7 +113,6 @@ export default function SnakeCarousel() {
                 </div>
               ))
             )}
-          </div>
         </div>
 
         <button onClick={() => go(active - 1)} aria-label="Previous" disabled={active === 0}

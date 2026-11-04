@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen">
         <Nav />
         {children}
-        <footer className="bg-[#0B0B0C] border-t border-[rgba(242,237,230,0.12)] px-6 sm:px-8 py-8 flex flex-wrap justify-between gap-4 font-body text-[12px] tracking-[0.24em] uppercase text-[#9B948B]">
+        <footer className="bg-[#0B0B0C] mt-16 border-t border-[rgba(242,237,230,0.12)] px-6 sm:px-8 pt-8 pb-[calc(2rem+env(safe-area-inset-bottom))] flex flex-wrap justify-between gap-4 font-body text-[12px] tracking-[0.24em] uppercase text-[#9B948B]">
           <span>© 2026 Arlix</span>
         </footer>
       </body>
