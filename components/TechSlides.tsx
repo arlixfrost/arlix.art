@@ -29,10 +29,10 @@ const slides = [
   { id: "contact", label: "Contact" },
 ];
 
-// Same motion as Art, so the two pages feel like one site.
-const ENTER = { yPercent: -20, scale: 1.3, rotate: 7, opacity: 0.5 };
+// Mirror of Art: the menu is on the right, so pages pivot around the right edge and turn the other way.
+const ENTER = { yPercent: -20, scale: 1.3, rotate: -7, opacity: 0.5 };
 const CENTER = { yPercent: 0, scale: 1, rotate: 0, opacity: 1 };
-const LEAVE = { yPercent: 20, scale: 1.3, rotate: -7, opacity: 0.5 };
+const LEAVE = { yPercent: 20, scale: 1.3, rotate: 7, opacity: 0.5 };
 
 export default function TechSlides() {
   const root = useRef<HTMLDivElement>(null);
@@ -82,7 +82,7 @@ export default function TechSlides() {
   }, [active]);
 
   const slide = "relative h-[100svh] w-full snap-start snap-always overflow-hidden bg-[#121110]";
-  const inner = "h-full w-full will-change-transform origin-center";
+  const inner = "h-full w-full will-change-transform origin-right";
   const pad = "pl-8 sm:pl-16 lg:pl-24 pr-16 sm:pr-24";
 
   return (
