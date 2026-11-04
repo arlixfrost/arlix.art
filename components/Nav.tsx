@@ -12,7 +12,7 @@ const links = [
 export default function Nav() {
   const path = usePathname();
   const [lang, setLang] = useState<"EN" | "DE">("EN");
-  const home = path === "/";
+  const home = path === "/" || path === "/white" || path === "/white/";
   const overlay = home || path.startsWith("/art") || path.startsWith("/tech");
   return (
     <header className={`${home ? "fixed bg-gradient-to-b from-black/45 to-transparent" : overlay ? "fixed bg-[#0B0B0C]/85 backdrop-blur" : "sticky bg-[#0B0B0C]/90 backdrop-blur border-b border-white/10"} top-0 inset-x-0 z-50 font-body text-[#F2EDE6]`}>

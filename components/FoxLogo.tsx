@@ -10,7 +10,7 @@ const PX = 751.76, PY = 403.45; // pivot: base of the tail
 const AMP = (3 * Math.PI) / 180; // 3 degrees each way
 const PERIOD = 2600; // ms
 
-export default function FoxLogo({ className = "" }: { className?: string }) {
+export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.png" }: { className?: string; src?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function FoxLogo({ className = "" }: { className?: string }) {
     let stop = false;
     const logo = new Image();
     const mask = new Image();
-    logo.src = "/arlix-logo.png";
+    logo.src = logoSrc;
     mask.src = "/arlix-logo-tail.png";
     Promise.all([logo.decode(), mask.decode()]).then(() => {
       if (stop) return;
@@ -65,7 +65,7 @@ export default function FoxLogo({ className = "" }: { className?: string }) {
       raf = requestAnimationFrame(tick);
     }).catch(() => {});
     return () => { stop = true; cancelAnimationFrame(raf); };
-  }, []);
+  }, [logoSrc]);
 
   return <canvas ref={ref} width={W} height={H} role="img" aria-label="Arlix" className={className} />;
 }
