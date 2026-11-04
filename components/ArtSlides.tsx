@@ -16,11 +16,12 @@ type Section = {
   video?: Video;
   videos?: Video[];
   note?: string;
+  text?: string;
   hybrid?: boolean;
   portrait?: boolean;
 };
 
-// Order: Brand → Animation → Hybrid → Social → Commercials → Avatars (Artworks hidden)
+// Order: Brand → Animation → Hybrid → Social → Commercials → AI Models & UGC (Artworks hidden)
 const sections: Section[] = [
   {
     id: "brand-fashion-films",
@@ -55,7 +56,13 @@ const sections: Section[] = [
       { src: "/art/commercials/lingerie-mannequin.mp4", poster: "/art/commercials/lingerie-mannequin.jpg", title: "Lingerie · mannequin · Polish brand spec" },
     ],
   },
-  { id: "avatars-ugc", title: "Avatars & UGC", work: "Avatar / UGC piece", portrait: true },
+  {
+    id: "ai-models-ugc",
+    title: "AI Models & UGC",
+    work: "AI model / UGC piece",
+    portrait: true,
+    text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
+  },
 ];
 
 const ep1: Video = { src: "/art/amber-city/ep1-oskar.mp4", poster: "/art/amber-city/ep1-oskar.jpg", title: "Amber City · Ep 1 — Oskar" };
@@ -298,7 +305,11 @@ export default function ArtSlides() {
                   <div className="flex flex-col justify-center min-w-0">
                     <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-5">{s.title}</h2>
                     <div className="gold-rule mb-3" />
-                    <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: Amber City animated series, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
+                    {s.text ? (
+                      <p className="mt-2 text-[13px] md:text-base leading-relaxed text-[#CFC8BE] max-w-xl">{s.text}</p>
+                    ) : (
+                      <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: Amber City animated series, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
+                    )}
                     {s.note ? <p className="label mt-3 opacity-70">{s.note}</p> : null}
                   </div>
                   {animation ? (
