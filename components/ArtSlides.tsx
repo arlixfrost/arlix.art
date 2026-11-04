@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { PlayButton } from "@/components/PlayButton";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
@@ -80,13 +81,13 @@ const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artwo
 // the property imperatively before calling play().
 // - auto=true: plays muted while its section is active, pauses when the section is left.
 // - auto=false: stays paused until the user taps the play button (or opens the lightbox).
+// A round play button appears on any video that stays paused, so autoplay blocked by the phone never leaves a frozen frame.
 function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true, near = true }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean; near?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   // Load the file only once its section is on screen or next to it; until then the first frame (poster) shows.
   const [load, setLoad] = useState(near);
   useEffect(() => { if (near) setLoad(true); }, [near]);
   const [muted, setMuted] = useState(true);
-  const [paused, setPaused] = useState(true);
   const activeRef = useRef(active);
   activeRef.current = active;
 
@@ -121,7 +122,6 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
     if (!el.muted) soloAudio(el);
     if (el.paused) safePlay(el);
   };
-  const playManual = () => { const el = ref.current; if (el) safePlay(el); };
   const [open, setOpen] = useState(false);
   const lb = useRef<HTMLVideoElement>(null);
   useEffect(() => {
@@ -142,11 +142,8 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
   const lbW = aspect === "portrait" ? "min(90vw, calc(90vh * 9 / 16))" : "min(90vw, calc(90vh * 16 / 9))";
   return (
     <div className={`relative bg-black overflow-hidden ${box} w-full ${className}`}>
-      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={load ? "metadata" : "none"} onPlay={() => setPaused(false)} onPause={() => setPaused(true)} onClick={() => setOpen(true)} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
-      {!auto && paused && (
-        <button type="button" onClick={(e) => { e.stopPropagation(); playManual(); }} aria-label={`Play ${v.title}`}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-black/55 border border-white/30 text-white text-xl flex items-center justify-center backdrop-blur-sm">▶</button>
-      )}
+      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={load ? "auto" : "none"} onClick={() => setOpen(true)} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
+      <PlayButton video={ref} label={`Play ${v.title}`} />
       <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-2 bottom-2" />
       <ExpandButton onClick={(e) => { e.stopPropagation(); setOpen(true); }} className="right-11 bottom-2" />
       <VideoScrubber video={ref} />
@@ -331,6 +328,7 @@ export default function ArtSlides() {
                 <SoundToggle muted={introMuted} onClick={toggleIntroSound} className="right-2 bottom-2" />
                 <ExpandButton onClick={() => setIntroOpen(true)} className="right-11 bottom-2" />
                 <VideoScrubber video={introVid} />
+                <PlayButton video={introVid} label={`Play ${taormina.title}`} />
               </div>
             </div>
             <div className="md:hidden pl-16 pr-6 pt-4 pb-10">

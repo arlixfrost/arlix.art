@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { VideoScrubber } from "@/components/VideoScrubber";
 import { SoundToggle } from "@/components/SoundToggle";
 import { soloAudio } from "@/components/audio";
+import { PlayButton } from "@/components/PlayButton";
 
 export default function Showreel({ className = "", children }: { className?: string; children?: React.ReactNode }) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -64,6 +65,7 @@ export default function Showreel({ className = "", children }: { className?: str
       />
       <div onClick={() => setOpen(true)} role="button" aria-label="Open showreel" className="absolute inset-0 bg-black/35 cursor-zoom-in" />
       <div className="relative h-full pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">{children}</div>
+      <PlayButton video={ref} label="Play showreel" />
       <SoundToggle muted={muted} onClick={toggle} className="bottom-2 right-2 md:bottom-6 md:right-6" />
       {/* Small round "full screen" icon next to the sound icon, so it is clear the film opens bigger. */}
       <button type="button" onClick={() => setOpen(true)} aria-label="Watch full screen"

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { PlayButton } from "@/components/PlayButton";
 
 type Slide =
   | { n: number; kind: "photo" | "product" | "hook" | "cta"; src: string; label: string }
@@ -52,7 +53,7 @@ export function HybridCarousel({ className = "", active = true }: { className?: 
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           className="absolute inset-0 h-full w-full object-contain"
           aria-label={`Slide ${s.n} · ${s.label}`}
         />
@@ -60,6 +61,7 @@ export function HybridCarousel({ className = "", active = true }: { className?: 
         // eslint-disable-next-line @next/next/no-img-element
         <img src={s.src} alt={`Slide ${s.n} · ${s.label}`} className="absolute inset-0 h-full w-full object-contain" />
       )}
+      {s.kind === "film" && <PlayButton key={s.src} video={videoRef} label={`Play slide ${s.n}`} />}
       <button type="button" onClick={prev} aria-label="Previous" className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/50 border border-white/20 text-white">‹</button>
       <button type="button" onClick={next} aria-label="Next" className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/50 border border-white/20 text-white">›</button>
       <div className="absolute bottom-3 inset-x-0 flex justify-center gap-1.5">
