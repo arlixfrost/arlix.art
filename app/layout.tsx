@@ -9,7 +9,6 @@ const body = Jost({ subsets: ["latin", "latin-ext"], weight: ["300", "400", "500
 export const metadata: Metadata = {
   title: "Arlix",
   description: "Full-cycle AI & hybrid production",
-  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
