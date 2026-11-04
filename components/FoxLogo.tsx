@@ -41,6 +41,7 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
       const s = src.data, o = out.data;
       const t0 = performance.now();
       const tick = (now: number) => {
+        if (!canvas.offsetParent) { raf = requestAnimationFrame(tick); return; }
         const a = AMP * Math.sin(((now - t0) / PERIOD) * 2 * Math.PI);
         for (let y = 0; y < H; y++) {
           for (let x = 0; x < sw; x++) {

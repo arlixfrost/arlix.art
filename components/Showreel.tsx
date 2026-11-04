@@ -56,7 +56,7 @@ export default function Showreel({ className = "", children }: { className?: str
       <div className="relative h-full pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">{children}</div>
       <button
         onClick={toggle}
-        className="frame-btn absolute bottom-6 right-6 z-20 !min-w-0 !h-11 !px-5 !text-[11px] !tracking-[0.24em]"
+        className="frame-btn absolute bottom-3 right-3 md:bottom-6 md:right-6 z-20 !min-w-0 !h-8 md:!h-11 !px-3 md:!px-5 !text-[10px] md:!text-[11px] !tracking-[0.22em]"
         aria-label={muted ? "Turn sound on" : "Turn sound off"}
       >
         {muted ? "Sound on" : "Sound off"}
