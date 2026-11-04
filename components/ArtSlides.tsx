@@ -300,8 +300,8 @@ export default function ArtSlides() {
           return (
             <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
-                {/* Everywhere: 1/3 text | 2/3 media */}
-                <div className="h-full w-full grid grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-5 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
+                {/* Desktop: 1/3 text | 2/3 media. Phone: media first, description under it. */}
+                <div className="h-full w-full grid grid-rows-[1fr_auto] md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:first-child]:order-2 md:[&>*:first-child]:order-none gap-5 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
                   <div className="flex flex-col justify-center min-w-0">
                     <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-5">{s.title}</h2>
                     <div className="gold-rule mb-3" />
