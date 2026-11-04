@@ -12,10 +12,9 @@ const items: Item[] = [
   { id: "cv-linkedin", title: "CV / LinkedIn + Career" },
   { id: "web-design", title: "Web Design" },
   { id: "assistants-agents", title: "Assistants / Agents" },
-  { id: "content-factory", title: "Content factory" },
   {
-    id: "monthly-content",
-    title: "Monthly Content",
+    id: "content-factory",
+    title: "Content Factory",
     text: "Your brand's visuals, handled every month: 30 to 60 pieces of content, carousels, short reels and UGC-style videos, all in one consistent look.",
     price: "From €1,500 / month",
   },
