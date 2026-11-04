@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Showreel from "@/components/Showreel";
+import SnakeCarousel from "@/components/SnakeCarousel";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
           </div>
         </div>
       </Showreel>
+      <SnakeCarousel />
     </main>
   );
 }
