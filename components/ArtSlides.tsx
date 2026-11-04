@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Ph } from "@/components/Ph";
 import { HybridCarousel } from "@/components/HybridCarousel";
 import { VideoScrubber } from "@/components/VideoScrubber";
+import { SoundToggle } from "@/components/SoundToggle";
 
 type Video = { src: string; poster: string; title: string };
 type Section = {
@@ -131,13 +132,13 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
         <button type="button" onClick={(e) => { e.stopPropagation(); playManual(); }} aria-label={`Play ${v.title}`}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-black/55 border border-white/30 text-white text-xl flex items-center justify-center backdrop-blur-sm">▶</button>
       )}
-      <button onClick={(e) => { e.stopPropagation(); toggle(); }} className="frame-btn absolute right-3 bottom-3 !min-w-0 !h-9 !px-3 !text-[10px] !tracking-[0.2em]">{muted ? "Sound on" : "Mute"}</button>
+      <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-3 bottom-3" />
       <VideoScrubber video={ref} />
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${box} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl`} style={{ width: lbW }}>
             <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
-            <button onClick={toggleLb} className="frame-btn absolute right-3 bottom-3 !min-w-0 !h-9 !px-3 !text-[10px] !tracking-[0.2em]">{muted ? "Sound on" : "Mute"}</button>
+            <SoundToggle muted={muted} onClick={toggleLb} className="right-3 bottom-3" />
             <VideoScrubber video={lb} />
             <button onClick={() => setOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
           </div>
@@ -277,7 +278,7 @@ export default function ArtSlides() {
       </nav>
 
       <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
-        {/* Slide 0: Art headline — Taormina stand-in for showreel; Safari needs muted start + Sound on */}
+        {/* Slide 0: Art headline — Taormina stand-in for showreel; Safari needs muted start + sound icon */}
         <section data-snap-item data-index={0} id="intro" className={slide}>
           <div data-snap-inner className={`${inner} relative`}>
             <video
@@ -292,14 +293,8 @@ export default function ArtSlides() {
               aria-label={taormina.title}
             />
             <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/30 cursor-zoom-in" />
-            <button
-              type="button"
-              onClick={toggleIntroSound}
-              className="frame-btn absolute right-4 bottom-6 z-10 !min-w-0 !h-9 !px-3 !text-[10px] !tracking-[0.2em]"
-            >
-              {introMuted ? "Sound on" : "Mute"}
-            </button>
-            <VideoScrubber video={introVid} pillClassName="!top-auto !left-auto !right-[9.5rem] !bottom-7" className="!bottom-16 !left-auto !right-4 w-[min(90%,28rem)]" />
+            <SoundToggle muted={introMuted} onClick={toggleIntroSound} className="right-4 bottom-6" />
+            <VideoScrubber video={introVid} pillClassName="!top-auto !left-auto !right-16 !bottom-6" className="!bottom-16 !left-auto !right-4 w-[min(90%,28rem)]" />
             <div className="relative flex h-full flex-col justify-end pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6 pb-24 max-w-4xl pointer-events-none">
               <div className="label mb-3">Art</div>
               <h1 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-4">[Art headline]</h1>
@@ -313,7 +308,7 @@ export default function ArtSlides() {
           <div role="dialog" aria-modal="true" aria-label={taormina.title} onClick={() => setIntroOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
             <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
               <video ref={introLb} src={taormina.src} poster={taormina.poster} loop playsInline autoPlay muted={introMuted} className="absolute inset-0 h-full w-full object-contain" />
-              <button onClick={toggleIntroLb} className="frame-btn absolute right-3 bottom-3 !min-w-0 !h-9 !px-3 !text-[10px] !tracking-[0.2em]">{introMuted ? "Sound on" : "Mute"}</button>
+              <SoundToggle muted={introMuted} onClick={toggleIntroLb} className="right-3 bottom-3" />
               <VideoScrubber video={introLb} />
               <button onClick={() => setIntroOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
             </div>
