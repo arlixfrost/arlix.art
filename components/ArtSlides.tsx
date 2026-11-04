@@ -226,7 +226,7 @@ export default function ArtSlides() {
     if (el.paused) el.play().catch(() => {});
   };
 
-  const slide = "relative h-[100svh] w-full snap-start snap-always overflow-hidden bg-[#121110]";
+  const slide = "relative h-[100svh] w-full snap-start snap-always overflow-hidden bg-[#0B0B0C]";
   const inner = "h-full w-full will-change-transform origin-center";
 
   return (
