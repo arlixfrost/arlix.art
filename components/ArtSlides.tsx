@@ -132,15 +132,15 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
         <button type="button" onClick={(e) => { e.stopPropagation(); playManual(); }} aria-label={`Play ${v.title}`}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-black/55 border border-white/30 text-white text-xl flex items-center justify-center backdrop-blur-sm">▶</button>
       )}
-      <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-3 bottom-3" />
-      <ExpandButton onClick={(e) => { e.stopPropagation(); setOpen(true); }} className="right-14 bottom-3" />
+      <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-2 bottom-2" />
+      <ExpandButton onClick={(e) => { e.stopPropagation(); setOpen(true); }} className="right-11 bottom-2" />
       <VideoScrubber video={ref} />
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${box} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl`} style={{ width: lbW }}>
             <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
-            <SoundToggle muted={muted} onClick={toggleLb} className="right-3 bottom-3" />
-            <VideoScrubber video={lb} />
+            <SoundToggle muted={muted} onClick={toggleLb} className="right-2 bottom-2" />
+            <VideoScrubber video={lb} pillClassName="!right-11" />
             <button onClick={() => setOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
           </div>
         </div>, document.body)}
@@ -283,11 +283,6 @@ export default function ArtSlides() {
         <section data-snap-item data-index={0} id="intro" className={slide}>
           {/* Phone: heading above the film, description under it. Desktop: film fills the screen, text over it. */}
           <div data-snap-inner className={`${inner} relative flex flex-col pt-14 md:block md:pt-0`}>
-            <div className="md:hidden pl-16 pr-6 pt-4 pb-3">
-              <div className="label mb-2">Art</div>
-              <h1 className="font-display font-normal text-3xl leading-[1.05] mb-3">[Art headline]</h1>
-              <div className="gold-rule" />
-            </div>
             <div className="relative bg-black md:absolute md:inset-0 md:flex md:items-center md:justify-center">
               <div className="relative w-full aspect-video md:max-w-[calc(100svh*16/9)]">
                 <video
@@ -301,11 +296,17 @@ export default function ArtSlides() {
                   className="absolute inset-0 h-full w-full object-cover"
                   aria-label={taormina.title}
                 />
-                <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="md:hidden absolute inset-0 bg-black/35 cursor-zoom-in" />
+                <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="md:hidden absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/25 cursor-zoom-in" />
+                {/* Phone: the headline stays on the film itself, bottom left. */}
+                <div className="md:hidden absolute left-16 right-28 bottom-3 pointer-events-none">
+                  <div className="label mb-1">Art</div>
+                  <h1 className="font-display font-normal text-2xl leading-[1.05] mb-2">[Art headline]</h1>
+                  <div className="gold-rule" />
+                </div>
                 {/* Sound, full-screen and pause icons always sit on the film itself. */}
-                <SoundToggle muted={introMuted} onClick={toggleIntroSound} className="right-3 bottom-3" />
-                <ExpandButton onClick={() => setIntroOpen(true)} className="right-14 bottom-3" />
-                <VideoScrubber video={introVid} pillClassName="!left-auto !top-auto !right-[6.25rem] !bottom-3.5" />
+                <SoundToggle muted={introMuted} onClick={toggleIntroSound} className="right-2 bottom-2" />
+                <ExpandButton onClick={() => setIntroOpen(true)} className="right-11 bottom-2" />
+                <VideoScrubber video={introVid} />
               </div>
             </div>
             <div className="md:hidden pl-16 pr-6 pt-4">
@@ -326,8 +327,8 @@ export default function ArtSlides() {
           <div role="dialog" aria-modal="true" aria-label={taormina.title} onClick={() => setIntroOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
             <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
               <video ref={introLb} src={taormina.src} poster={taormina.poster} loop playsInline autoPlay muted={introMuted} className="absolute inset-0 h-full w-full object-contain" />
-              <SoundToggle muted={introMuted} onClick={toggleIntroLb} className="right-3 bottom-3" />
-              <VideoScrubber video={introLb} />
+              <SoundToggle muted={introMuted} onClick={toggleIntroLb} className="right-2 bottom-2" />
+              <VideoScrubber video={introLb} pillClassName="!right-11" />
               <button onClick={() => setIntroOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
             </div>
           </div>, document.body)}

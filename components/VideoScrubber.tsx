@@ -38,7 +38,7 @@ export function VideoScrubber({ video, className = "", pillClassName = "" }: { v
   return (
     <>
       <button type="button" onClick={togglePlay} aria-label={paused ? "Play" : "Pause"}
-        className={`absolute left-3 top-3 z-10 h-8 w-8 rounded-full bg-black/55 border border-white/30 text-white text-[11px] leading-none flex items-center justify-center backdrop-blur-sm ${pillClassName}`}>{paused ? "▶" : "❚❚"}</button>
+        className={`absolute right-20 bottom-2 z-20 h-8 w-8 rounded-full bg-black/55 border border-white/30 text-white text-[11px] leading-none flex items-center justify-center backdrop-blur-sm ${pillClassName}`}>{paused ? "▶" : "❚❚"}</button>
       {paused && hasPlayed && d > 0 && (
         <div onClick={stop} onPointerDown={stop} onKeyDown={stop}
           className={`absolute inset-x-3 bottom-14 z-10 flex items-center gap-2 rounded-full bg-black/55 border border-white/20 px-2.5 py-1.5 backdrop-blur-sm text-white text-[10px] tabular-nums ${className}`}>
