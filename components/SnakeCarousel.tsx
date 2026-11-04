@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // Snake carousel (reference: Jesper Landberg). Landscape cards bend like one wavy ribbon in perspective.
-// Page scroll moves the ribbon; small arrows at the screen edges and a tap on a card also move it.
+// Page scroll moves the ribbon while it is on screen (the page is not pinned); small arrows at the screen edges and a tap on a card also move it.
 const cards = Array.from({ length: 7 }, (_, i) => ({ id: i, title: `[Work ${String(i + 1).padStart(2, "0")}]` }));
 const STRIPS = 16;
 
@@ -46,55 +46,43 @@ export default function SnakeCarousel() {
     }
   }, [size, n]);
 
-  // Scroll range while the stage is stuck in the middle of the screen.
-  const bounds = (s: HTMLElement) => {
-    const top = s.getBoundingClientRect().top + window.scrollY;
-    const pad = 64;
-    const sh = stage.current?.offsetHeight ?? 0;
-    const off = (window.innerHeight - sh) / 2;
-    const start = top + pad - off;
-    // The page may end before the stage unsticks (only the footer is below), so cap at the real bottom.
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    return { start, run: Math.max(1, Math.min(s.offsetHeight - pad - sh, maxScroll - start)) };
-  };
-
-  // Scroll position inside the section -> ribbon position (0 .. n-1).
-  const progress = useCallback(() => {
+  // The page is never pinned: while the section passes through the screen, page scroll shifts the ribbon.
+  // Arrows and a tap add an offset on top, so cards can be moved without scrolling the page.
+  const offset = useRef(0);
+  const scrollPos = useCallback(() => {
     const s = section.current;
     if (!s) return 0;
-    const { start, run } = bounds(s);
-    const t = Math.min(1, Math.max(0, (window.scrollY - start) / run));
+    const r = s.getBoundingClientRect();
+    const t = Math.min(1, Math.max(0, (window.innerHeight - r.top) / (window.innerHeight + r.height)));
     return t * (n - 1);
   }, [n]);
+  const target = useCallback(() => Math.min(n - 1, Math.max(0, scrollPos() + offset.current)), [n, scrollPos]);
 
   useEffect(() => {
     let raf = 0;
-    let cur = progress();
+    let cur = target();
     const tick = () => {
-      const target = progress();
-      cur += (target - cur) * 0.14;
-      if (Math.abs(target - cur) < 0.0005) cur = target;
+      const t = target();
+      cur += (t - cur) * 0.12;
+      if (Math.abs(t - cur) < 0.0005) cur = t;
       layout(cur);
       setActive((a) => (Math.round(cur) !== a ? Math.round(cur) : a));
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [layout, progress]);
+  }, [layout, target]);
 
   const go = (i: number) => {
-    const s = section.current;
-    if (!s) return;
     const k = Math.max(0, Math.min(n - 1, i));
-    const { start, run } = bounds(s);
-    window.scrollTo({ top: start + (k / (n - 1)) * run, behavior: "smooth" });
+    offset.current = k - scrollPos();
   };
 
   const stageH = Math.round(size.h * 1.6);
 
   return (
-    <section ref={section} aria-label="Selected work" className="relative bg-[#0B0B0C] pt-16 pb-16" style={{ height: `calc(${n} * 55svh + 100svh)` }}>
-      <div ref={stage} className="sticky overflow-hidden" style={{ top: `calc((100svh - ${stageH}px) / 2)`, height: stageH }}>
+    <section ref={section} aria-label="Selected work" className="relative bg-[#0B0B0C] pt-16 pb-16">
+      <div ref={stage} className="relative overflow-hidden" style={{ height: stageH }}>
         {/* Strips are direct children of the perspective box: real 3D depth in Safari too, no preserve-3d needed. */}
         <div className="absolute inset-0" style={{ perspective: `${size.w * 1.4}px` }}>
             {cards.map((c, i) =>
