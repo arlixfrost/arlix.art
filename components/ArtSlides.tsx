@@ -367,7 +367,7 @@ export default function ArtSlides() {
                     </div>
                   ) : s.hybrid && s.video ? (
                     // Film sets the height; carousel matches it (4:5 box, wider). See .hybrid-media in globals.css.
-                    <div className="hybrid-media min-h-0 min-w-0">
+                    <div className="hybrid-media min-h-0 min-w-0 h-[var(--ph)] md:h-auto">
                       <WorkVideo v={s.video} aspect="portrait" active={on} className="hybrid-film" />
                       <HybridCarousel active={on} className="hybrid-carousel" />
                     </div>
