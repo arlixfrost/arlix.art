@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+:root { color-scheme: dark; }
+html, body { background: #0b0b0c; color: #e8e6e3; }
+body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+.ph { border: 1px dashed rgba(232,230,227,0.28); color: rgba(232,230,227,0.55); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; letter-spacing: 0.02em; }
+.label { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(232,230,227,0.5); }
+
+.glass-pill{display:inline-flex;align-items:center;justify-content:center;min-width:120px;padding:.875rem 1rem;text-align:center;font-family:Inter,system-ui,-apple-system,sans-serif;font-size:.8125rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:#fff;border-radius:9999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 4px 24px rgba(0,0,0,.12);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);transition:background .2s,border-color .2s;}
+.glass-pill:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);}
+.glass-bar{background:rgba(11,11,12,.25);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);}
+.no-scrollbar{scrollbar-width:none;}
+.no-scrollbar::-webkit-scrollbar{display:none;}
+
+/* Hybrid: portrait film (9:16) + 4:5 carousel at the SAME height.
+   --h is the shared height; widths derive from each aspect ratio.
+   Mobile: stacked, each gets half the media area height (capped by width).
+   md+: side by side, film fills media height unless the row would overflow width. */
+.hybrid-media{container-type:size;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+.hybrid-media>*{--h:min(calc((100cqh - 12px) / 2), calc(100cqw * 5 / 4));flex:none;}
+@media (min-width:768px){
+  .hybrid-media{flex-direction:row;}
+  .hybrid-media>*{--h:min(100cqh, calc((100cqw - 12px) / 1.3625));}
+}
+.hybrid-film{height:var(--h);width:calc(var(--h) * 9 / 16);max-width:none;}
+.hybrid-carousel{height:var(--h);width:calc(var(--h) * 4 / 5);max-width:none;}
