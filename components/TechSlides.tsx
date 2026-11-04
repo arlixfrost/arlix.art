@@ -93,15 +93,16 @@ export default function TechSlides() {
         <div className="relative self-stretch my-6 w-px bg-[#3A3632] shrink-0">
           <div ref={bar} className="absolute inset-0 bg-[#C9A962] origin-top" style={{ transform: "scaleY(0)" }} />
         </div>
-        <ol className="flex flex-col items-center gap-7 max-h-full overflow-y-hidden shrink-0 pointer-events-auto px-1">
+        <ol className="flex flex-col items-center gap-7 max-h-full overflow-visible shrink-0 pointer-events-auto px-1">
           {slides.map((s, i) => {
             const on = i === active;
             if (Math.abs(i - active) > 1) return null;
             return (
               <li key={s.id} className="flex">
                 <button onClick={() => go(i)} aria-label={s.label.replace("\n", " ")} aria-current={on ? "true" : undefined}
-                  className={`relative font-body uppercase whitespace-pre leading-[1.25] [writing-mode:vertical-rl] tracking-[0.18em] transition-colors duration-300 ${on ? "text-[#F2EDE6] text-[16px] border-l border-[#C9A962] pl-1.5" : "text-[#8A837A] text-[13px] hover:text-[#C9A962]"}`}>
-                  {s.label}
+                  className={`relative font-body uppercase whitespace-nowrap flex flex-row-reverse leading-[1.25] tracking-[0.18em] transition-colors duration-300 ${on ? "text-[#F2EDE6] text-[16px] border-l border-[#C9A962] pl-1.5" : "text-[#8A837A] text-[13px] hover:text-[#C9A962]"}`}>
+                  {/* Each line is its own vertical column, so Safari never clips the second line. */}
+                  {s.label.split("\n").map((line, k) => <span key={k} className="block [writing-mode:vertical-rl]">{line}</span>)}
                 </button>
               </li>
             );
