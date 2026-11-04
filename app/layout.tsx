@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         {children}
         <footer className="bg-[#0B0B0C] mt-16 border-t border-[rgba(242,237,230,0.12)] px-6 pt-10 pb-[calc(2.5rem+env(safe-area-inset-bottom))] text-center font-body text-[12px] tracking-[0.24em] uppercase text-[#9B948B]">
-          © 2026 Arlix
+          © Arlix 2026
         </footer>
       </body>
     </html>
