@@ -24,10 +24,10 @@ export default function Showreel({ className = "", children }: { className?: str
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     const src = ref.current; const el = lb.current;
-    if (src && el) { el.currentTime = src.currentTime; el.muted = muted; el.play().catch(() => {}); src.pause(); }
+    if (src && el) { el.currentTime = 0; el.muted = muted; el.play().catch(() => {}); src.pause(); }
     return () => {
       window.removeEventListener("keydown", onKey); document.body.style.overflow = prev;
-      const s2 = ref.current; if (s2) { if (el) s2.currentTime = el.currentTime; s2.play().catch(() => {}); }
+      const s2 = ref.current; if (s2) { s2.play().catch(() => {}); }
     };
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
   const toggleLb = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (ref.current) ref.current.muted = el.muted; };
