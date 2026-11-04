@@ -10,7 +10,7 @@ export default function Home() {
         <div className="flex h-full flex-col items-center justify-center text-center px-6">
           <h1 className="sr-only">Arlix</h1>
           {/* Fox logo: the fox replaces the letter L, cut from the original; the tail sways. */}
-          <FoxLogo className="w-[min(56vw,470px)] h-auto" />
+          <FoxLogo src="/arlix-logo-white.png" className="w-[min(56vw,470px)] h-auto" />
           <p className="mt-6 font-display italic text-xl md:text-2xl text-[#F2EDE6]">Full-cycle AI &amp; hybrid production</p>
           <div className="mt-12 flex gap-5 font-body">
             <Link href="/art" className="frame-btn">Art</Link>
