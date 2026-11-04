@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Ph } from "@/components/Ph";
 import { HybridCarousel } from "@/components/HybridCarousel";
 import { VideoScrubber } from "@/components/VideoScrubber";
-import { SoundToggle } from "@/components/SoundToggle";
+import { SoundToggle, ExpandButton } from "@/components/SoundToggle";
 
 type Video = { src: string; poster: string; title: string };
 type Section = {
@@ -133,6 +133,7 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-black/55 border border-white/30 text-white text-xl flex items-center justify-center backdrop-blur-sm">▶</button>
       )}
       <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-3 bottom-3" />
+      <ExpandButton onClick={(e) => { e.stopPropagation(); setOpen(true); }} className="right-14 bottom-3" />
       <VideoScrubber video={ref} />
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
@@ -280,24 +281,41 @@ export default function ArtSlides() {
       <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
         {/* Slide 0: Art headline — Taormina stand-in for showreel; Safari needs muted start + sound icon */}
         <section data-snap-item data-index={0} id="intro" className={slide}>
-          <div data-snap-inner className={`${inner} relative`}>
-            <video
-              ref={introVid}
-              src={taormina.src}
-              poster={taormina.poster}
-              muted
-              loop
-              playsInline
-              preload="auto"
-              className="absolute inset-0 h-full w-full object-contain bg-black"
-              aria-label={taormina.title}
-            />
-            <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/30 cursor-zoom-in" />
-            <SoundToggle muted={introMuted} onClick={toggleIntroSound} className="right-4 bottom-6" />
-            <VideoScrubber video={introVid} pillClassName="!top-auto !left-auto !right-16 !bottom-6" className="!bottom-16 !left-auto !right-4 w-[min(90%,28rem)]" />
-            <div className="relative flex h-full flex-col justify-end pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6 pb-24 max-w-4xl pointer-events-none">
+          {/* Phone: heading above the film, description under it. Desktop: film fills the screen, text over it. */}
+          <div data-snap-inner className={`${inner} relative flex flex-col pt-14 md:block md:pt-0`}>
+            <div className="md:hidden pl-16 pr-6 pt-4 pb-3">
+              <div className="label mb-2">Art</div>
+              <h1 className="font-display font-normal text-3xl leading-[1.05] mb-3">[Art headline]</h1>
+              <div className="gold-rule" />
+            </div>
+            <div className="relative bg-black md:absolute md:inset-0 md:flex md:items-center md:justify-center">
+              <div className="relative w-full aspect-video md:max-w-[calc(100svh*16/9)]">
+                <video
+                  ref={introVid}
+                  src={taormina.src}
+                  poster={taormina.poster}
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className="absolute inset-0 h-full w-full object-cover"
+                  aria-label={taormina.title}
+                />
+                <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="md:hidden absolute inset-0 bg-black/35 cursor-zoom-in" />
+                {/* Sound, full-screen and pause icons always sit on the film itself. */}
+                <SoundToggle muted={introMuted} onClick={toggleIntroSound} className="right-3 bottom-3" />
+                <ExpandButton onClick={() => setIntroOpen(true)} className="right-14 bottom-3" />
+                <VideoScrubber video={introVid} pillClassName="!left-auto !top-auto !right-[6.25rem] !bottom-3.5" />
+              </div>
+            </div>
+            <div className="md:hidden pl-16 pr-6 pt-4">
+              <Ph className="h-16 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
+              <div className="label mt-5">Scroll ↓</div>
+            </div>
+            <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="hidden md:block absolute inset-0 z-0 bg-gradient-to-t from-black/75 via-black/25 to-black/30 cursor-zoom-in" />
+            <div className="hidden md:flex relative h-full flex-col justify-end pb-24 pl-[4.5rem] lg:pl-24 pr-6 max-w-4xl pointer-events-none">
               <div className="label mb-3">Art</div>
-              <h1 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-4">[Art headline]</h1>
+              <div className="font-display font-normal text-6xl leading-[1.05] mb-4">[Art headline]</div>
               <div className="gold-rule mb-5" />
               <Ph className="h-20 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
               <div className="label mt-8">Scroll ↓</div>
@@ -321,17 +339,21 @@ export default function ArtSlides() {
           return (
             <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
-                {/* Desktop: 1/3 text | 2/3 media. Phone: media first, description under it. */}
-                <div className="h-full w-full grid grid-rows-[1fr_auto] md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:first-child]:order-2 md:[&>*:first-child]:order-none gap-5 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
-                  <div className="flex flex-col justify-center min-w-0">
-                    <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-5">{s.title}</h2>
-                    <div className="gold-rule mb-3" />
+                {/* Desktop: 1/3 text | 2/3 media. Phone: heading above the media, description under it. */}
+                <div className="h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
+                  <div className="contents md:flex md:flex-col md:justify-center min-w-0">
+                    <div className="order-1 md:order-none">
+                      <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
+                      <div className="gold-rule md:mb-3" />
+                    </div>
+                    <div className="order-3 md:order-none min-w-0">
                     {s.text ? (
                       <p className="mt-2 text-[13px] md:text-base leading-relaxed text-[#CFC8BE] max-w-xl">{s.text}</p>
                     ) : (
                       <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: Amber City animated series, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
                     )}
                     {s.note ? <p className="label mt-3 opacity-70">{s.note}</p> : null}
+                    </div>
                   </div>
                   {animation ? (
                     <div className="flex flex-col justify-center gap-3 min-h-0 min-w-0">

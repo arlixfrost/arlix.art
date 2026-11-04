@@ -27,3 +27,19 @@ export function SoundToggle({ muted, onClick, className = "" }: { muted: boolean
     </button>
   );
 }
+
+// Small round "full screen" icon (four corners), same style as the sound icon.
+export function ExpandButton({ onClick, className = "" }: { onClick: (e: React.MouseEvent) => void; className?: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label="Watch full screen"
+      className={`absolute z-20 h-9 w-9 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors ${className}`}
+    >
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 9V4h5" /><path d="M20 9V4h-5" /><path d="M4 15v5h5" /><path d="M20 15v5h-5" />
+      </svg>
+    </button>
+  );
+}
