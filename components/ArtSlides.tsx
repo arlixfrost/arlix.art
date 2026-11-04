@@ -202,13 +202,13 @@ export default function ArtSlides() {
         const tl = gsap.timeline({
           defaults: { ease: "none", force3D: true },
           scrollTrigger: {
-            trigger: section, scroller, start: "top bottom", end: "bottom top", scrub: true,
+            trigger: section, scroller, start: i === 0 ? "top top" : "top bottom", end: "bottom top", scrub: true,
             onLeave: () => gsap.set(inner, { clearProps: "transform,opacity" }),
             onLeaveBack: () => gsap.set(inner, { clearProps: "transform,opacity" }),
           },
         });
-        if (i === 0) tl.fromTo(inner, CENTER, { ...LEAVE, duration: 1 }, 1);
-        else tl.fromTo(inner, ENTER, { ...CENTER, duration: 1 }).to(inner, { ...LEAVE, duration: 1 });
+        if (i === 0) tl.fromTo(inner, CENTER, { ...LEAVE, duration: 1 });
+        else tl.fromTo(inner, window.innerWidth < 768 ? { ...ENTER, yPercent: 0 } : ENTER, { ...CENTER, duration: 1 }).to(inner, { ...LEAVE, duration: 1 });
       });
 
       ScrollTrigger.create({
@@ -280,7 +280,7 @@ export default function ArtSlides() {
 
       <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
         {/* Slide 0: Art headline — Taormina stand-in for showreel; Safari needs muted start + sound icon */}
-        <section data-snap-item data-index={0} id="intro" className={slide}>
+        <section data-snap-item data-index={0} id="intro" className={`${slide} max-md:!h-auto`}>
           {/* Phone: heading above the film, description under it. Desktop: film fills the screen, text over it. */}
           <div data-snap-inner className={`${inner} relative flex flex-col pt-14 md:block md:pt-0`}>
             <div className="relative bg-black md:absolute md:inset-0 md:flex md:items-center md:justify-center">
@@ -309,7 +309,7 @@ export default function ArtSlides() {
                 <VideoScrubber video={introVid} />
               </div>
             </div>
-            <div className="md:hidden pl-16 pr-6 pt-4">
+            <div className="md:hidden pl-16 pr-6 pt-4 pb-10">
               <Ph className="h-16 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
               <div className="label mt-5">Scroll ↓</div>
             </div>
