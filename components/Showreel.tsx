@@ -56,6 +56,13 @@ export default function Showreel({ className = "", children }: { className?: str
       <div onClick={() => setOpen(true)} role="button" aria-label="Open showreel" className="absolute inset-0 bg-black/35 cursor-zoom-in" />
       <div className="relative h-full pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">{children}</div>
       <SoundToggle muted={muted} onClick={toggle} className="bottom-3 right-3 md:bottom-6 md:right-6" />
+      {/* Small round "full screen" icon next to the sound icon, so it is clear the film opens bigger. */}
+      <button type="button" onClick={() => setOpen(true)} aria-label="Watch full screen"
+        className="absolute z-20 bottom-3 right-14 md:bottom-6 md:right-[4.25rem] h-9 w-9 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 9V4h5" /><path d="M20 9V4h-5" /><path d="M4 15v5h5" /><path d="M20 15v5h-5" />
+        </svg>
+      </button>
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label="Showreel" onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
           <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>

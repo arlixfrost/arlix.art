@@ -23,7 +23,7 @@ export default function HomePage({ variant = "now" }: { variant?: Variant }) {
     </div>
   );
   return (
-    <main>
+    <main className={small ? "flex flex-col min-h-[calc(100svh-58px)] md:block md:min-h-0" : undefined}>
       <h1 className="sr-only">Arlix</h1>
       {variant === "top" && (
         <div className="md:hidden flex flex-col items-center text-center px-6 pt-[66px] gap-2">
@@ -44,16 +44,19 @@ export default function HomePage({ variant = "now" }: { variant?: Variant }) {
           </div>
         </div>
       </Showreel>
+      {small && <div className="flex-[0.6] md:hidden" />}
       {variant === "top" ? (
         <div className="md:hidden flex justify-center pt-3.5">{buttons}</div>
       ) : (
-        <div className={`md:hidden relative z-10 flex flex-col items-center text-center px-6 ${variant === "soft" ? "-mt-[34px]" : "pt-[18px]"}`}>
+        <div className={`md:hidden relative z-10 flex flex-col items-center text-center px-6 ${variant === "soft" ? "pt-1" : "pt-[18px]"}`}>
           {logo}
           <div className="mt-2">{tagline}</div>
           <div className={small ? "mt-3.5" : "mt-4"}>{buttons}</div>
         </div>
       )}
+      {small && <div className="flex-1 md:hidden" />}
       <SnakeCarousel />
+      {small && <div className="flex-[0.6] md:hidden" />}
     </main>
   );
 }
