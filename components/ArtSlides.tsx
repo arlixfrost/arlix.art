@@ -21,7 +21,7 @@ type Section = {
   portrait?: boolean;
 };
 
-// Order: Brand → Animation → Hybrid → Social → Commercials → AI Models & UGC (Artworks hidden)
+// Order: Brand → Hybrid → Food & Restaurants → Animation → Commercials → AI Models & UGC → Social (Artworks hidden)
 const sections: Section[] = [
   {
     id: "brand-fashion-films",
@@ -29,7 +29,6 @@ const sections: Section[] = [
     work: "Film",
     video: { src: "/art/brand-fashion-films.mp4", poster: "/art/brand-fashion-films.jpg", title: "Hervé Léger · origin film" },
   },
-  { id: "animation", title: "Animation", work: "Animation" },
   {
     id: "hybrid",
     title: "Hybrid",
@@ -39,13 +38,8 @@ const sections: Section[] = [
     video: { src: "/art/hybrid/le-plongeoir.mp4", poster: "/art/hybrid/le-plongeoir.jpg", title: "Le Plongeoir · Nice · hybrid film" },
     note: "Film + process carousel (10 slides, Instagram order)",
   },
-  {
-    id: "social-content",
-    title: "Social Content",
-    work: "Social piece",
-    portrait: true,
-    video: { src: "/art/social/paris-red-suit.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
-  },
+  { id: "food-restaurants", title: "Food & Restaurants", work: "Food / restaurant piece" },
+  { id: "animation", title: "Animation", work: "Animation" },
   {
     id: "commercials",
     title: "Commercials",
@@ -62,6 +56,13 @@ const sections: Section[] = [
     work: "AI model / UGC piece",
     portrait: true,
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
+  },
+  {
+    id: "social-content",
+    title: "Social Content",
+    work: "Social piece",
+    portrait: true,
+    video: { src: "/art/social/paris-red-suit.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
   },
 ];
 
@@ -162,6 +163,22 @@ export default function ArtSlides() {
   const introVid = useRef<HTMLVideoElement>(null);
   const [active, setActive] = useState(0);
   const [introMuted, setIntroMuted] = useState(true);
+  // Tap on the intro film opens it in the same framed lightbox as the other works.
+  const [introOpen, setIntroOpen] = useState(false);
+  const introLb = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (!introOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setIntroOpen(false); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
+    const src = introVid.current; const el = introLb.current;
+    if (src && el) { el.currentTime = src.currentTime; el.muted = introMuted; el.play().catch(() => {}); src.pause(); }
+    return () => {
+      window.removeEventListener("keydown", onKey); document.body.style.overflow = prev;
+      const s2 = introVid.current; if (s2) { if (el) s2.currentTime = el.currentTime; s2.play().catch(() => {}); }
+    };
+  }, [introOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+  const toggleIntroLb = () => { const el = introLb.current; if (!el) return; el.muted = !el.muted; setIntroMuted(el.muted); if (introVid.current) introVid.current.muted = el.muted; };
 
   useEffect(() => {
     const scroller = root.current;
@@ -274,7 +291,7 @@ export default function ArtSlides() {
               className="absolute inset-0 h-full w-full object-contain bg-black"
               aria-label={taormina.title}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/30" />
+            <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/30 cursor-zoom-in" />
             <button
               type="button"
               onClick={toggleIntroSound}
@@ -283,7 +300,7 @@ export default function ArtSlides() {
               {introMuted ? "Sound on" : "Mute"}
             </button>
             <VideoScrubber video={introVid} pillClassName="!top-auto !left-auto !right-[9.5rem] !bottom-7" className="!bottom-16 !left-auto !right-4 w-[min(90%,28rem)]" />
-            <div className="relative flex h-full flex-col justify-end pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6 pb-24 max-w-4xl">
+            <div className="relative flex h-full flex-col justify-end pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6 pb-24 max-w-4xl pointer-events-none">
               <div className="label mb-3">Art</div>
               <h1 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-4">[Art headline]</h1>
               <div className="gold-rule mb-5" />
@@ -292,6 +309,15 @@ export default function ArtSlides() {
             </div>
           </div>
         </section>
+        {introOpen && typeof document !== "undefined" && createPortal(
+          <div role="dialog" aria-modal="true" aria-label={taormina.title} onClick={() => setIntroOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+            <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
+              <video ref={introLb} src={taormina.src} poster={taormina.poster} loop playsInline autoPlay muted={introMuted} className="absolute inset-0 h-full w-full object-contain" />
+              <button onClick={toggleIntroLb} className="frame-btn absolute right-3 bottom-3 !min-w-0 !h-9 !px-3 !text-[10px] !tracking-[0.2em]">{introMuted ? "Sound on" : "Mute"}</button>
+              <VideoScrubber video={introLb} />
+              <button onClick={() => setIntroOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
+            </div>
+          </div>, document.body)}
 
         {sections.map((s, i) => {
           const animation = s.id === "animation";
