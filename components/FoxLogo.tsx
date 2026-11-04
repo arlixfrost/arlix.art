@@ -39,25 +39,25 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
       for (let i = 0; i < w.length; i++) w[i] = md[i * 4] / 255;
       const out = ctx.createImageData(sw, H);
       const s = src.data, o = out.data;
+      o.set(s);
+      // Only tail pixels move: list them once, then each frame touches just those.
+      const idx: number[] = [];
+      for (let i = 0; i < w.length; i++) if (w[i] > 0) idx.push(i);
       const t0 = performance.now();
       const tick = (now: number) => {
         if (!canvas.offsetParent) { raf = requestAnimationFrame(tick); return; }
         const a = AMP * Math.sin(((now - t0) / PERIOD) * 2 * Math.PI);
-        for (let y = 0; y < H; y++) {
-          for (let x = 0; x < sw; x++) {
-            const i = y * sw + x, k = i * 4;
-            const wt = w[i];
-            if (wt === 0) { o[k] = s[k]; o[k + 1] = s[k + 1]; o[k + 2] = s[k + 2]; o[k + 3] = s[k + 3]; continue; }
-            const th = -a * wt, c = Math.cos(th), sn = Math.sin(th);
-            const dx = x + X0 - PX, dy = y - PY;
-            const fx = PX + dx * c - dy * sn - X0, fy = PY + dx * sn + dy * c;
-            const x0 = Math.floor(fx), y0 = Math.floor(fy);
-            if (x0 < 0 || y0 < 0 || x0 >= sw - 1 || y0 >= H - 1) { o[k] = o[k + 1] = o[k + 2] = o[k + 3] = 0; continue; }
-            const ax = fx - x0, ay = fy - y0;
-            const k00 = (y0 * sw + x0) * 4, k10 = k00 + 4, k01 = k00 + sw * 4, k11 = k01 + 4;
-            for (let ch = 0; ch < 4; ch++) {
-              o[k + ch] = (s[k00 + ch] * (1 - ax) + s[k10 + ch] * ax) * (1 - ay) + (s[k01 + ch] * (1 - ax) + s[k11 + ch] * ax) * ay;
-            }
+        for (let n = 0; n < idx.length; n++) {
+          const i = idx[n], k = i * 4, x = i % sw, y = (i - x) / sw;
+          const th = -a * w[i], c = Math.cos(th), sn = Math.sin(th);
+          const dx = x + X0 - PX, dy = y - PY;
+          const fx = PX + dx * c - dy * sn - X0, fy = PY + dx * sn + dy * c;
+          const x0 = Math.floor(fx), y0 = Math.floor(fy);
+          if (x0 < 0 || y0 < 0 || x0 >= sw - 1 || y0 >= H - 1) { o[k] = o[k + 1] = o[k + 2] = o[k + 3] = 0; continue; }
+          const ax = fx - x0, ay = fy - y0;
+          const k00 = (y0 * sw + x0) * 4, k10 = k00 + 4, k01 = k00 + sw * 4, k11 = k01 + 4;
+          for (let ch = 0; ch < 4; ch++) {
+            o[k + ch] = (s[k00 + ch] * (1 - ax) + s[k10 + ch] * ax) * (1 - ay) + (s[k01 + ch] * (1 - ax) + s[k11 + ch] * ax) * ay;
           }
         }
         ctx.putImageData(out, X0, 0);

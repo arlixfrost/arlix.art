@@ -76,8 +76,11 @@ const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artwo
 // the property imperatively before calling play().
 // - auto=true: plays muted while its section is active, pauses when the section is left.
 // - auto=false: stays paused until the user taps the play button (or opens the lightbox).
-function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean }) {
+function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true, near = true }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean; near?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
+  // Load the file only once its section is on screen or next to it; until then the first frame (poster) shows.
+  const [load, setLoad] = useState(near);
+  useEffect(() => { if (near) setLoad(true); }, [near]);
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(true);
   const activeRef = useRef(active);
@@ -135,7 +138,7 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
   const lbW = aspect === "portrait" ? "min(90vw, calc(90vh * 9 / 16))" : "min(90vw, calc(90vh * 16 / 9))";
   return (
     <div className={`relative bg-black overflow-hidden ${box} w-full ${className}`}>
-      <video ref={ref} src={v.src} poster={v.poster} muted loop playsInline preload="metadata" onPlay={() => setPaused(false)} onPause={() => setPaused(true)} onClick={() => setOpen(true)} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
+      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={load ? "metadata" : "none"} onPlay={() => setPaused(false)} onPause={() => setPaused(true)} onClick={() => setOpen(true)} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
       {!auto && paused && (
         <button type="button" onClick={(e) => { e.stopPropagation(); playManual(); }} aria-label={`Play ${v.title}`}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-black/55 border border-white/30 text-white text-xl flex items-center justify-center backdrop-blur-sm">▶</button>
@@ -305,6 +308,7 @@ export default function ArtSlides() {
                   ref={introVid}
                   src={taormina.src}
                   poster={taormina.poster}
+                  autoPlay
                   muted
                   loop
                   playsInline
@@ -353,6 +357,7 @@ export default function ArtSlides() {
           const animation = s.id === "animation";
           const aspect: "video" | "portrait" = s.portrait || s.hybrid ? "portrait" : "video";
           const on = active === i + 1;
+          const near = Math.abs(active - (i + 1)) <= 1;
           return (
             <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
@@ -374,7 +379,7 @@ export default function ArtSlides() {
                   </div>
                   {animation ? (
                     <div className="flex flex-col justify-center gap-3 min-h-0 min-w-0">
-                      <WorkVideo v={ep1} active={on} />
+                      <WorkVideo v={ep1} active={on} near={near} />
                       <div className="grid grid-cols-4 gap-2 md:gap-3 shrink-0">
                         {[0, 1, 2, 3].map((j) => (
                           <Ph key={j} className="aspect-video w-full">{""}</Ph>
@@ -384,19 +389,19 @@ export default function ArtSlides() {
                   ) : s.hybrid && s.video ? (
                     // Film sets the height; carousel matches it (4:5 box, wider). See .hybrid-media in globals.css.
                     <div className="hybrid-media min-h-0 min-w-0 h-[var(--ph)] md:h-auto">
-                      <WorkVideo v={s.video} aspect="portrait" active={on} className="hybrid-film" />
+                      <WorkVideo v={s.video} aspect="portrait" active={on} near={near} className="hybrid-film" />
                       <HybridCarousel active={on} className="hybrid-carousel" />
                     </div>
                   ) : s.videos ? (
                     <div className="min-h-0 min-w-0 flex items-center justify-center gap-3">
                       {/* Several videos: only the first autoplays, the rest wait for a tap */}
                       {s.videos.map((v, k) => (
-                        <WorkVideo key={v.src} v={v} aspect={aspect} active={on} auto={k === 0} className="h-[var(--ph)] !w-[calc(var(--ph)*9/16)]" />
+                        <WorkVideo key={v.src} v={v} aspect={aspect} active={on} near={near} auto={k === 0} className="h-[var(--ph)] !w-[calc(var(--ph)*9/16)]" />
                       ))}
                     </div>
                   ) : s.video ? (
                     <div className="min-h-0 min-w-0 flex items-center justify-center">
-                      <WorkVideo v={s.video} aspect={aspect} active={on} className={aspect === "portrait" ? "h-[var(--ph)] !w-[calc(var(--ph)*9/16)]" : undefined} />
+                      <WorkVideo v={s.video} aspect={aspect} active={on} near={near} className={aspect === "portrait" ? "h-[var(--ph)] !w-[calc(var(--ph)*9/16)]" : undefined} />
                     </div>
                   ) : (
                     <div className="min-h-0 min-w-0 flex items-center justify-center">

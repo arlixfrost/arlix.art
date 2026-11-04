@@ -61,11 +61,13 @@ export default function SnakeCarousel() {
   useEffect(() => {
     let raf = 0;
     let cur = target();
+    let drawn = NaN;
     const tick = () => {
       const t = target();
       cur += (t - cur) * 0.12;
       if (Math.abs(t - cur) < 0.0005) cur = t;
-      layout(cur);
+      // Redraw only when the ribbon actually moved, so a still page costs nothing.
+      if (cur !== drawn) { layout(cur); drawn = cur; }
       setActive((a) => (Math.round(cur) !== a ? Math.round(cur) : a));
       raf = requestAnimationFrame(tick);
     };
