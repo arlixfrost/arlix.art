@@ -123,13 +123,13 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
         <button type="button" onClick={(e) => { e.stopPropagation(); playManual(); }} aria-label={`Play ${v.title}`}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-black/55 border border-white/30 text-white text-xl flex items-center justify-center backdrop-blur-sm">▶</button>
       )}
-      <button onClick={(e) => { e.stopPropagation(); toggle(); }} className="glass-pill absolute right-3 bottom-3 !min-w-0 !px-4 !py-2 !text-[11px]">{muted ? "Sound on" : "Mute"}</button>
+      <button onClick={(e) => { e.stopPropagation(); toggle(); }} className="frame-btn absolute right-3 bottom-3 !min-w-0 !h-9 !px-3 !text-[10px] !tracking-[0.2em]">{muted ? "Sound on" : "Mute"}</button>
       <VideoScrubber video={ref} />
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${box} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl`} style={{ width: lbW }}>
             <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
-            <button onClick={toggleLb} className="glass-pill absolute right-3 bottom-3 !min-w-0 !px-4 !py-2 !text-[11px]">{muted ? "Sound on" : "Mute"}</button>
+            <button onClick={toggleLb} className="frame-btn absolute right-3 bottom-3 !min-w-0 !h-9 !px-3 !text-[10px] !tracking-[0.2em]">{muted ? "Sound on" : "Mute"}</button>
             <VideoScrubber video={lb} />
             <button onClick={() => setOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
           </div>
@@ -232,11 +232,11 @@ export default function ArtSlides() {
   return (
     <div className="fixed inset-0 art-theme">
       {/* Approved menu: large vertical labels, only the open section and its two neighbours are shown. */}
-      <nav aria-label="Sections" className="fixed left-3 sm:left-5 top-[72px] bottom-4 z-40 flex items-center gap-3 w-10 pointer-events-none">
+      <nav aria-label="Sections" className="fixed left-3 sm:left-5 top-14 sm:top-[72px] bottom-4 z-40 flex items-center gap-2 sm:gap-3 w-12 pointer-events-none">
         <div className="relative self-stretch my-6 w-px bg-[#3A3632] shrink-0">
           <div ref={bar} className="absolute inset-0 bg-[#C9A962] origin-top" style={{ transform: "scaleY(0)" }} />
         </div>
-        <ol className="flex flex-col items-center gap-7 max-h-full overflow-hidden pointer-events-auto">
+        <ol className="flex flex-col items-center gap-7 max-h-full overflow-y-hidden shrink-0 pointer-events-auto">
           {slides.map((s, i) => {
             const on = i === active;
             if (Math.abs(i - active) > 1) return null;
@@ -271,12 +271,12 @@ export default function ArtSlides() {
             <button
               type="button"
               onClick={toggleIntroSound}
-              className="glass-pill absolute right-4 bottom-6 z-10 !min-w-0 !px-4 !py-2 !text-[11px]"
+              className="frame-btn absolute right-4 bottom-6 z-10 !min-w-0 !h-9 !px-3 !text-[10px] !tracking-[0.2em]"
             >
               {introMuted ? "Sound on" : "Mute"}
             </button>
             <VideoScrubber video={introVid} pillClassName="!top-auto !left-auto !right-[9.5rem] !bottom-7" className="!bottom-16 !left-auto !right-4 w-[min(90%,28rem)]" />
-            <div className="relative flex h-full flex-col justify-end pl-14 sm:pl-16 lg:pl-24 pr-6 pb-24 max-w-4xl">
+            <div className="relative flex h-full flex-col justify-end pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6 pb-24 max-w-4xl">
               <div className="label mb-3">Art</div>
               <h1 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-4">[Art headline]</h1>
               <div className="gold-rule mb-5" />
@@ -294,7 +294,7 @@ export default function ArtSlides() {
             <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
                 {/* Everywhere: 1/3 text | 2/3 media */}
-                <div className="h-full w-full grid grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-5 md:gap-8 pl-14 sm:pl-16 pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
+                <div className="h-full w-full grid grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-5 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
                   <div className="flex flex-col justify-center min-w-0">
                     <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-5">{s.title}</h2>
                     <div className="gold-rule mb-3" />
@@ -320,16 +320,16 @@ export default function ArtSlides() {
                     <div className="min-h-0 min-w-0 flex items-center justify-center gap-3">
                       {/* Several videos: only the first autoplays, the rest wait for a tap */}
                       {s.videos.map((v, k) => (
-                        <WorkVideo key={v.src} v={v} aspect={aspect} active={on} auto={k === 0} className="h-[52svh] md:h-[72svh] w-auto max-w-[48%]" />
+                        <WorkVideo key={v.src} v={v} aspect={aspect} active={on} auto={k === 0} className="h-[var(--ph)] !w-[calc(var(--ph)*9/16)]" />
                       ))}
                     </div>
                   ) : s.video ? (
                     <div className="min-h-0 min-w-0 flex items-center justify-center">
-                      <WorkVideo v={s.video} aspect={aspect} active={on} className={aspect === "portrait" ? "h-[52svh] md:h-[72svh] w-auto" : undefined} />
+                      <WorkVideo v={s.video} aspect={aspect} active={on} className={aspect === "portrait" ? "h-[var(--ph)] !w-[calc(var(--ph)*9/16)]" : undefined} />
                     </div>
                   ) : (
                     <div className="min-h-0 min-w-0 flex items-center justify-center">
-                      <Ph className={aspect === "portrait" ? "aspect-[9/16] h-[52svh] md:h-[72svh] w-auto" : "aspect-video w-full"}>
+                      <Ph className={aspect === "portrait" ? "aspect-[9/16] h-[var(--ph)] w-auto" : "aspect-video w-full"}>
                         <span>[{s.work}: final cut ~40s]</span>
                       </Ph>
                     </div>
@@ -342,7 +342,7 @@ export default function ArtSlides() {
 
         <section data-snap-item data-index={sections.length + 1} id="pricing" className={slide}>
           <div data-snap-inner className={inner}>
-            <div className="h-full flex flex-col justify-center pl-14 sm:pl-16 lg:pl-24 pr-6 pt-16">
+            <div className="h-full flex flex-col justify-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6 pt-16">
               <div className="label mb-3">Pricing</div>
               <h2 className="font-display font-normal text-3xl md:text-5xl mb-8">Pricing</h2>
               <div className="grid gap-4 md:grid-cols-3 max-w-5xl">
@@ -357,11 +357,11 @@ export default function ArtSlides() {
 
         <section data-snap-item data-index={sections.length + 2} id="contact" className={slide}>
           <div data-snap-inner className={inner}>
-            <div className="h-full flex flex-col items-center justify-center text-center pl-14 sm:pl-16 lg:pl-24 pr-6">
+            <div className="h-full flex flex-col items-center justify-center text-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6">
               <div className="label mb-3">Contact</div>
               <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">Start a project</h2>
               <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
-              <Link href="/contact" className="glass-pill">Contact</Link>
+              <Link href="/contact" className="frame-btn">Contact</Link>
             </div>
           </div>
         </section>

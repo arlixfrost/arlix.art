@@ -83,16 +83,16 @@ export default function TechSlides() {
 
   const slide = "relative h-[100svh] w-full snap-start snap-always overflow-hidden bg-[#121110]";
   const inner = "h-full w-full will-change-transform origin-right";
-  const pad = "pl-8 sm:pl-16 lg:pl-24 pr-16 sm:pr-24";
+  const pad = "pl-6 sm:pl-16 lg:pl-24 pr-16 sm:pr-24";
 
   return (
     <div className="fixed inset-0 art-theme">
       {/* Mirror of the Art menu: large vertical labels on the RIGHT, open section and its two neighbours only. */}
-      <nav aria-label="Sections" className="fixed right-3 sm:right-5 top-[72px] bottom-4 z-40 flex flex-row-reverse items-center gap-3 w-10 pointer-events-none">
+      <nav aria-label="Sections" className="fixed right-3 sm:right-5 top-14 sm:top-[72px] bottom-4 z-40 flex flex-row-reverse items-center gap-2 sm:gap-3 w-12 pointer-events-none">
         <div className="relative self-stretch my-6 w-px bg-[#3A3632] shrink-0">
           <div ref={bar} className="absolute inset-0 bg-[#C9A962] origin-top" style={{ transform: "scaleY(0)" }} />
         </div>
-        <ol className="flex flex-col items-center gap-7 max-h-full overflow-hidden pointer-events-auto">
+        <ol className="flex flex-col items-center gap-7 max-h-full overflow-y-hidden shrink-0 pointer-events-auto">
           {slides.map((s, i) => {
             const on = i === active;
             if (Math.abs(i - active) > 1) return null;

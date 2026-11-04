@@ -16,7 +16,7 @@ html { scroll-behavior: smooth; }
 .art-theme{background:#121110;color:#F2EDE6;font-family:var(--font-body),system-ui,sans-serif;font-weight:300;}
 .art-theme .label{font-family:var(--font-body),system-ui,sans-serif;font-size:12px;letter-spacing:.24em;color:#9B948B;}
 .art-theme .ph{font-family:var(--font-body),system-ui,sans-serif;font-size:15px;border-color:rgba(242,237,230,.22);color:#9B948B;}
-.frame-btn{display:inline-flex;align-items:center;justify-content:center;min-width:168px;height:54px;padding:0 1.25rem;border:1px solid rgba(242,237,230,.85);background:rgba(18,17,16,.18);color:#F2EDE6;font-family:var(--font-body),system-ui,sans-serif;font-size:13px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;transition:color .2s,border-color .2s;}
+.frame-btn{display:inline-flex;align-items:center;justify-content:center;min-width:168px;height:54px;padding:0 1.25rem;border:1px solid rgba(242,237,230,.85);background:rgba(18,17,16,.18);color:#F2EDE6;font-family:var(--font-body),system-ui,sans-serif;font-size:13px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;white-space:nowrap;transition:color .2s,border-color .2s;}
 .frame-btn:hover{color:#C9A962;border-color:#C9A962;}
 .gold-rule{width:56px;height:1px;background:#C9A962;}
 .no-scrollbar{scrollbar-width:none;}
@@ -26,10 +26,13 @@ html { scroll-behavior: smooth; }
    --h is the shared height; widths derive from each aspect ratio.
    Mobile: stacked, each gets half the media area height (capped by width).
    md+: side by side, film fills media height unless the row would overflow width. */
-.hybrid-media{container-type:size;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
-.hybrid-media>*{--h:min(calc((100cqh - 12px) / 2), calc(100cqw * 5 / 4));flex:none;}
+/* One shared height for every portrait (9:16) video, so they all match.
+   Phone: limited by width so the Hybrid film + 4:5 carousel fit side by side (0.5625h + 0.8h = 1.3625h). */
+:root{--ph:min(52svh, calc((100vw - 92px) / 1.3625));}
+@media (min-width:768px){:root{--ph:72svh;}}
+.hybrid-media{container-type:size;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:12px;}
+.hybrid-media>*{--h:var(--ph);flex:none;}
 @media (min-width:768px){
-  .hybrid-media{flex-direction:row;}
   .hybrid-media>*{--h:min(100cqh, calc((100cqw - 12px) / 1.3625));}
 }
 .hybrid-film{height:var(--h);width:calc(var(--h) * 9 / 16);max-width:none;}
