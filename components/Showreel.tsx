@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { VideoScrubber } from "@/components/VideoScrubber";
 import { SoundToggle } from "@/components/SoundToggle";
+import { soloAudio } from "@/components/audio";
 
 export default function Showreel({ className = "", children }: { className?: string; children?: React.ReactNode }) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -24,21 +25,29 @@ export default function Showreel({ className = "", children }: { className?: str
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     const src = ref.current; const el = lb.current;
-    if (src && el) { el.currentTime = 0; el.muted = muted; el.play().catch(() => {}); src.pause(); }
+    if (src && el) { el.currentTime = 0; el.muted = muted; soloAudio(el); el.play().catch(() => {}); src.pause(); }
     return () => {
       window.removeEventListener("keydown", onKey); document.body.style.overflow = prev;
-      const s2 = ref.current; if (s2) { s2.play().catch(() => {}); }
+      const s2 = ref.current; if (s2) { s2.muted = true; setMuted(true); s2.play().catch(() => {}); }
     };
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
-  const toggleLb = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (ref.current) ref.current.muted = el.muted; };
+  const toggleLb = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (!el.muted) soloAudio(el); };
 
   const toggle = () => {
     const v = ref.current;
     if (!v) return;
     v.muted = !v.muted;
     setMuted(v.muted);
+    if (!v.muted) soloAudio(v);
     if (v.paused) v.play().catch(() => {});
   };
+  // When another video takes the sound, this icon shows muted again.
+  useEffect(() => {
+    const v = ref.current; if (!v) return;
+    const sync = () => setMuted(v.muted);
+    v.addEventListener("volumechange", sync);
+    return () => v.removeEventListener("volumechange", sync);
+  }, []);
 
   return (
     <div className={`relative overflow-hidden bg-black ${className}`}>

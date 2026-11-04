@@ -8,6 +8,7 @@ import { Ph } from "@/components/Ph";
 import { HybridCarousel } from "@/components/HybridCarousel";
 import { VideoScrubber } from "@/components/VideoScrubber";
 import { SoundToggle, ExpandButton } from "@/components/SoundToggle";
+import { soloAudio } from "@/components/audio";
 
 type Video = { src: string; poster: string; title: string };
 type Section = {
@@ -101,9 +102,16 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
     else if (!active) el.pause();
   }, [active, auto]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const sync = () => setMuted(el.muted);
+    el.addEventListener("volumechange", sync);
+    return () => el.removeEventListener("volumechange", sync);
+  }, []);
   const toggle = () => {
     const el = ref.current; if (!el) return;
     el.muted = !el.muted; setMuted(el.muted);
+    if (!el.muted) soloAudio(el);
     if (el.paused) safePlay(el);
   };
   const playManual = () => { const el = ref.current; if (el) safePlay(el); };
@@ -115,14 +123,14 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     const src = ref.current; const el = lb.current;
-    if (src && el) { el.currentTime = 0; el.muted = muted; el.play().catch(() => {}); src.pause(); }
+    if (src && el) { el.currentTime = 0; el.muted = muted; soloAudio(el); el.play().catch(() => {}); src.pause(); }
     return () => {
       window.removeEventListener("keydown", onKey); document.body.style.overflow = prev;
       // Resume inline playback only if the section is still on screen.
-      const s2 = ref.current; if (s2) { if (activeRef.current) s2.play().catch(() => {}); }
+      const s2 = ref.current; if (s2) { s2.muted = true; setMuted(true); if (activeRef.current) s2.play().catch(() => {}); }
     };
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
-  const toggleLb = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (ref.current) ref.current.muted = el.muted; };
+  const toggleLb = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (!el.muted) soloAudio(el); };
   const box = aspect === "portrait" ? "aspect-[9/16]" : "aspect-video";
   const lbW = aspect === "portrait" ? "min(90vw, calc(90vh * 9 / 16))" : "min(90vw, calc(90vh * 16 / 9))";
   return (
@@ -174,13 +182,13 @@ export default function ArtSlides() {
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     const src = introVid.current; const el = introLb.current;
-    if (src && el) { el.currentTime = 0; el.muted = introMuted; el.play().catch(() => {}); src.pause(); }
+    if (src && el) { el.currentTime = 0; el.muted = introMuted; soloAudio(el); el.play().catch(() => {}); src.pause(); }
     return () => {
       window.removeEventListener("keydown", onKey); document.body.style.overflow = prev;
-      const s2 = introVid.current; if (s2) { s2.play().catch(() => {}); }
+      const s2 = introVid.current; if (s2) { s2.muted = true; setIntroMuted(true); s2.play().catch(() => {}); }
     };
   }, [introOpen]); // eslint-disable-line react-hooks/exhaustive-deps
-  const toggleIntroLb = () => { const el = introLb.current; if (!el) return; el.muted = !el.muted; setIntroMuted(el.muted); if (introVid.current) introVid.current.muted = el.muted; };
+  const toggleIntroLb = () => { const el = introLb.current; if (!el) return; el.muted = !el.muted; setIntroMuted(el.muted); if (!el.muted) soloAudio(el); };
 
   useEffect(() => {
     const scroller = root.current;
@@ -249,8 +257,16 @@ export default function ArtSlides() {
     if (!el) return;
     el.muted = !el.muted;
     setIntroMuted(el.muted);
+    if (!el.muted) soloAudio(el);
     if (el.paused) el.play().catch(() => {});
   };
+  // When another video takes the sound, this icon shows muted again.
+  useEffect(() => {
+    const el = introVid.current; if (!el) return;
+    const sync = () => setIntroMuted(el.muted);
+    el.addEventListener("volumechange", sync);
+    return () => el.removeEventListener("volumechange", sync);
+  }, []);
 
   const slide = "relative h-[100svh] w-full snap-start snap-always overflow-hidden bg-[#0B0B0C]";
   const inner = "h-full w-full will-change-transform origin-center";
