@@ -6,11 +6,12 @@ export default function Home() {
     <main>
       <Showreel className="h-[100svh] w-full">
         <div className="flex h-full flex-col items-center justify-center text-center px-6">
-          <h1 className="text-6xl md:text-8xl font-semibold tracking-[0.25em] pl-[0.25em]">ARLIX</h1>
-          <p className="mt-4 text-sm md:text-base text-white/80 tracking-wide">Full-cycle AI &amp; hybrid production</p>
-          <div className="mt-10 flex gap-4">
-            <Link href="/art" className="glass-pill">Art</Link>
-            <Link href="/tech" className="glass-pill">Tech</Link>
+          <h1 className="font-display font-medium text-7xl md:text-9xl tracking-[0.08em] pl-[0.08em] leading-none">ARLIX</h1>
+          <div className="gold-rule mt-8" />
+          <p className="mt-6 font-display italic text-xl md:text-2xl text-[#F2EDE6]">Full-cycle AI &amp; hybrid production</p>
+          <div className="mt-12 flex gap-5 font-body">
+            <Link href="/art" className="frame-btn">Art</Link>
+            <Link href="/tech" className="frame-btn">Tech</Link>
           </div>
         </div>
       </Showreel>
