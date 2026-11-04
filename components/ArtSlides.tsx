@@ -296,7 +296,7 @@ export default function ArtSlides() {
                   className="absolute inset-0 h-full w-full object-cover"
                   aria-label={taormina.title}
                 />
-                <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="md:hidden absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/25 cursor-zoom-in" />
+                <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="md:hidden absolute inset-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.45),transparent_55%)] cursor-zoom-in" />
                 {/* Phone: the headline stays on the film itself, bottom left. */}
                 <div className="md:hidden absolute left-16 right-28 bottom-3 pointer-events-none">
                   <div className="label mb-1">Art</div>
@@ -313,7 +313,7 @@ export default function ArtSlides() {
               <Ph className="h-16 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
               <div className="label mt-5">Scroll ↓</div>
             </div>
-            <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="hidden md:block absolute inset-0 z-0 bg-gradient-to-t from-black/75 via-black/25 to-black/30 cursor-zoom-in" />
+            <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="hidden md:block absolute inset-0 z-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.5),transparent_55%)] cursor-zoom-in" />
             <div className="hidden md:flex relative h-full flex-col justify-end pb-24 pl-[4.5rem] lg:pl-24 pr-6 max-w-4xl pointer-events-none">
               <div className="label mb-3">Art</div>
               <div className="font-display font-normal text-6xl leading-[1.05] mb-4">[Art headline]</div>
