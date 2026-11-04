@@ -226,22 +226,24 @@ export default function ArtSlides() {
     if (el.paused) el.play().catch(() => {});
   };
 
-  const slide = "relative h-[100svh] w-full snap-start snap-always overflow-hidden bg-[#0b0b0c]";
+  const slide = "relative h-[100svh] w-full snap-start snap-always overflow-hidden bg-[#121110]";
   const inner = "h-full w-full will-change-transform origin-center";
 
   return (
-    <div className="fixed inset-0">
-      <nav aria-label="Sections" className="fixed left-2 sm:left-4 top-14 bottom-4 z-40 flex items-center gap-2 w-7 pointer-events-none">
-        <div className="relative self-stretch my-6 w-px bg-white/15 shrink-0">
-          <div ref={bar} className="absolute inset-0 bg-white origin-top" style={{ transform: "scaleY(0)" }} />
+    <div className="fixed inset-0 art-theme">
+      {/* Approved menu: large vertical labels, only the open section and its two neighbours are shown. */}
+      <nav aria-label="Sections" className="fixed left-3 sm:left-5 top-[72px] bottom-4 z-40 flex items-center gap-3 w-10 pointer-events-none">
+        <div className="relative self-stretch my-6 w-px bg-[#3A3632] shrink-0">
+          <div ref={bar} className="absolute inset-0 bg-[#C9A962] origin-top" style={{ transform: "scaleY(0)" }} />
         </div>
-        <ol className="flex flex-col items-center gap-[min(14px,1.1svh)] max-h-full overflow-hidden pointer-events-auto">
+        <ol className="flex flex-col items-center gap-7 max-h-full overflow-hidden pointer-events-auto">
           {slides.map((s, i) => {
             const on = i === active;
+            if (Math.abs(i - active) > 1) return null;
             return (
               <li key={s.id} className="flex">
                 <button onClick={() => go(i)} aria-label={s.label} aria-current={on ? "true" : undefined}
-                  className={`relative font-mono uppercase whitespace-nowrap leading-none py-0.5 rotate-180 [writing-mode:vertical-rl] text-[min(10px,1.05svh)] tracking-[0.12em] transition-colors duration-300 ${on ? "text-white" : "text-white/30 hover:text-white/80"}`}>
+                  className={`relative font-body uppercase whitespace-nowrap leading-none rotate-180 [writing-mode:vertical-rl] tracking-[0.18em] transition-colors duration-300 ${on ? "text-[#F2EDE6] text-[16px] border-r border-[#C9A962] pr-1.5" : "text-[#8A837A] text-[13px] hover:text-[#C9A962]"}`}>
                   {s.label}
                 </button>
               </li>
@@ -276,7 +278,8 @@ export default function ArtSlides() {
             <VideoScrubber video={introVid} pillClassName="!top-auto !left-auto !right-[9.5rem] !bottom-7" className="!bottom-16 !left-auto !right-4 w-[min(90%,28rem)]" />
             <div className="relative flex h-full flex-col justify-end pl-14 sm:pl-16 lg:pl-24 pr-6 pb-24 max-w-4xl">
               <div className="label mb-3">Art</div>
-              <h1 className="text-4xl md:text-6xl font-semibold mb-4">[Art headline]</h1>
+              <h1 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-4">[Art headline]</h1>
+              <div className="gold-rule mb-5" />
               <Ph className="h-20 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
               <div className="label mt-8">Scroll ↓</div>
             </div>
@@ -293,7 +296,8 @@ export default function ArtSlides() {
                 {/* Everywhere: 1/3 text | 2/3 media */}
                 <div className="h-full w-full grid grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-5 md:gap-8 pl-14 sm:pl-16 pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
                   <div className="flex flex-col justify-center min-w-0">
-                    <h2 className="text-3xl md:text-5xl font-semibold mb-2">{s.title}</h2>
+                    <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-5">{s.title}</h2>
+                    <div className="gold-rule mb-3" />
                     <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: Amber City animated series, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
                     {s.note ? <p className="label mt-3 opacity-70">{s.note}</p> : null}
                   </div>
@@ -340,7 +344,7 @@ export default function ArtSlides() {
           <div data-snap-inner className={inner}>
             <div className="h-full flex flex-col justify-center pl-14 sm:pl-16 lg:pl-24 pr-6 pt-16">
               <div className="label mb-3">Pricing</div>
-              <h2 className="text-3xl md:text-5xl font-semibold mb-8">Pricing</h2>
+              <h2 className="font-display font-normal text-3xl md:text-5xl mb-8">Pricing</h2>
               <div className="grid gap-4 md:grid-cols-3 max-w-5xl">
                 {["Package 1", "Package 2", "Package 3"].map((p) => (
                   <Ph key={p} className="h-44 flex-col gap-2"><span>[{p}: name]</span><span>[Price]</span><span>[What is included]</span></Ph>
@@ -355,7 +359,7 @@ export default function ArtSlides() {
           <div data-snap-inner className={inner}>
             <div className="h-full flex flex-col items-center justify-center text-center pl-14 sm:pl-16 lg:pl-24 pr-6">
               <div className="label mb-3">Contact</div>
-              <h2 className="text-3xl md:text-5xl font-semibold mb-6">Start a project</h2>
+              <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">Start a project</h2>
               <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
               <Link href="/contact" className="glass-pill">Contact</Link>
             </div>
