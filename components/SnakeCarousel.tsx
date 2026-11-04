@@ -93,7 +93,7 @@ export default function SnakeCarousel() {
   const stageH = Math.round(size.h * 1.6);
 
   return (
-    <section ref={section} aria-label="Selected work" className="relative bg-[#0B0B0C] pt-16" style={{ height: `calc(${n} * 55svh + 100svh)` }}>
+    <section ref={section} aria-label="Selected work" className="relative bg-[#0B0B0C] pt-16 pb-16" style={{ height: `calc(${n} * 55svh + 100svh)` }}>
       <div ref={stage} className="sticky overflow-hidden" style={{ top: `calc((100svh - ${stageH}px) / 2)`, height: stageH }}>
         {/* Strips are direct children of the perspective box: real 3D depth in Safari too, no preserve-3d needed. */}
         <div className="absolute inset-0" style={{ perspective: `${size.w * 1.4}px` }}>
