@@ -17,7 +17,7 @@ export default function Nav() {
   return (
     <header className={`${home ? "fixed bg-gradient-to-b from-black/45 to-transparent" : overlay ? "fixed bg-[#0B0B0C]/85 backdrop-blur" : "sticky bg-[#0B0B0C]/90 backdrop-blur border-b border-white/10"} top-0 inset-x-0 z-50 font-body text-[#F2EDE6]`}>
       <div className="flex items-center justify-between gap-3 px-4 sm:px-8 h-14 sm:h-[72px]">
-        <Link href="/" className="font-display text-lg sm:text-2xl tracking-[0.24em] sm:tracking-[0.32em] font-medium shrink-0">ARLIX</Link>
+        <Link href="/" aria-label="Arlix" className="shrink-0 flex items-center"><img src="/arlix-logo.png" alt="Arlix" width={1400} height={585} className="h-9 sm:h-[46px] w-auto select-none" draggable={false} /></Link>
         <nav className="flex items-center gap-4 sm:gap-8 text-[15px] sm:text-lg font-normal">
           {links.map((l) => (
             <Link key={l.href} href={l.href} className={path.startsWith(l.href) ? "border-b border-[#C9A962] pb-0.5" : "text-[#F2EDE6]/75 hover:text-[#C9A962]"}>
