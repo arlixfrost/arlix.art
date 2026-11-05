@@ -4,7 +4,9 @@ import { useEffect, useRef } from "react";
 // Hero logo with a gently swaying tail. The fox is the original pixels, never redrawn:
 // each frame rotates only the tail pixels around the base of the tail, weighted by a mask
 // (0 = body and letters stay still, 1 = tail moves fully), so there is no break at the joint.
-const W = 1400, H = 585;
+const W = 1400, H = 585; // logo image size
+const PAD = 24; // empty rows under the logo, so the tail tip never hits the bottom edge when it swings down
+const CH = H + PAD; // canvas height
 const X0 = 600, X1 = 1000; // only this strip of the logo contains the fox
 const PX = 751.76, PY = 403.45; // pivot: base of the tail
 const AMP = (6 * Math.PI) / 180; // 6 degrees each way
@@ -29,15 +31,17 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
       ctx.drawImage(logo, 0, 0);
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const sw = X1 - X0;
-      const src = ctx.getImageData(X0, 0, sw, H);
+      const src = ctx.getImageData(X0, 0, sw, CH);
       const m = document.createElement("canvas");
       m.width = sw; m.height = H;
       const mctx = m.getContext("2d")!;
       mctx.drawImage(mask, 0, 0);
       const md = mctx.getImageData(0, 0, sw, H).data;
-      const w = new Float32Array(sw * H);
-      for (let i = 0; i < w.length; i++) w[i] = md[i * 4] / 255;
-      const out = ctx.createImageData(sw, H);
+      const w = new Float32Array(sw * CH);
+      for (let i = 0; i < sw * H; i++) w[i] = md[i * 4] / 255;
+      // The empty rows below take the weight of the last logo row, so the tail can swing into them.
+      for (let y = H; y < CH; y++) for (let x = 0; x < sw; x++) w[y * sw + x] = w[(H - 1) * sw + x];
+      const out = ctx.createImageData(sw, CH);
       const s = src.data, o = out.data;
       o.set(s);
       // Only tail pixels move: list them once, then each frame touches just those.
@@ -53,7 +57,7 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
           const dx = x + X0 - PX, dy = y - PY;
           const fx = PX + dx * c - dy * sn - X0, fy = PY + dx * sn + dy * c;
           const x0 = Math.floor(fx), y0 = Math.floor(fy);
-          if (x0 < 0 || y0 < 0 || x0 >= sw - 1 || y0 >= H - 1) { o[k] = o[k + 1] = o[k + 2] = o[k + 3] = 0; continue; }
+          if (x0 < 0 || y0 < 0 || x0 >= sw - 1 || y0 >= CH - 1) { o[k] = o[k + 1] = o[k + 2] = o[k + 3] = 0; continue; }
           const ax = fx - x0, ay = fy - y0;
           const k00 = (y0 * sw + x0) * 4, k10 = k00 + 4, k01 = k00 + sw * 4, k11 = k01 + 4;
           for (let ch = 0; ch < 4; ch++) {
@@ -68,5 +72,11 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
     return () => { stop = true; cancelAnimationFrame(raf); };
   }, [logoSrc]);
 
-  return <canvas ref={ref} width={W} height={H} role="img" aria-label="Arlix" className={className} />;
+  // The box keeps the logo's own proportions, so the layout around it is unchanged;
+  // the extra empty rows hang below the box without pushing anything down.
+  return (
+    <div className={`relative aspect-[1400/585] ${className}`}>
+      <canvas ref={ref} width={W} height={CH} role="img" aria-label="Arlix" className="absolute left-0 top-0 w-full h-auto pointer-events-none" />
+    </div>
+  );
 }
