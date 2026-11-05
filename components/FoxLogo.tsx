@@ -9,7 +9,9 @@ const PAD = 24; // empty rows under the logo, so the tail tip never hits the bot
 const CH = H + PAD; // canvas height
 const X0 = 600, X1 = 1000; // only this strip of the logo contains the fox
 const PX = 751.76, PY = 403.45; // pivot: base of the tail
-const AMP = (6 * Math.PI) / 180; // 6 degrees each way
+// Swing is asymmetric: the tip goes down 5 degrees, and up only 4.5 so it stays clear of the letter I.
+const AMP_DOWN = (5 * Math.PI) / 180;
+const AMP_UP = (4.5 * Math.PI) / 180;
 const PERIOD = 2600; // ms
 
 export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.png" }: { className?: string; src?: string }) {
@@ -50,7 +52,8 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
       const t0 = performance.now();
       const tick = (now: number) => {
         if (!canvas.offsetParent) { raf = requestAnimationFrame(tick); return; }
-        const a = AMP * Math.sin(((now - t0) / PERIOD) * 2 * Math.PI);
+        const sw0 = Math.sin(((now - t0) / PERIOD) * 2 * Math.PI);
+        const a = sw0 * (sw0 > 0 ? AMP_DOWN : AMP_UP);
         for (let n = 0; n < idx.length; n++) {
           const i = idx[n], k = i * 4, x = i % sw, y = (i - x) / sw;
           const th = -a * w[i], c = Math.cos(th), sn = Math.sin(th);
