@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 const W = 1400, H = 585;
 const X0 = 600, X1 = 1000; // only this strip of the logo contains the fox
 const PX = 751.76, PY = 403.45; // pivot: base of the tail
-const AMP = (3 * Math.PI) / 180; // 3 degrees each way
+const AMP = (6 * Math.PI) / 180; // 6 degrees each way
 const PERIOD = 2600; // ms
 
 export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.png" }: { className?: string; src?: string }) {
