@@ -43,8 +43,11 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
       // The empty rows below take the weight of the last logo row, so the tail can swing into them.
       for (let y = H; y < CH; y++) for (let x = 0; x < sw; x++) w[y * sw + x] = w[(H - 1) * sw + x];
       const out = ctx.createImageData(sw, CH);
-      const s = src.data, o = out.data;
-      o.set(s);
+      const s0 = src.data, o = out.data;
+      o.set(s0);
+      // Sampling copy without the letter I (still pixels right of x=900), so the swinging tail never picks up a dot from it.
+      const s = new Uint8ClampedArray(s0);
+      for (let y = 0; y < CH; y++) for (let x = 900 - X0; x < sw; x++) { const i = y * sw + x; if (w[i] === 0) s[i * 4 + 3] = 0; }
       // Only tail pixels move: list them once, then each frame touches just those.
       const idx: number[] = [];
       for (let i = 0; i < w.length; i++) if (w[i] > 0) idx.push(i);
