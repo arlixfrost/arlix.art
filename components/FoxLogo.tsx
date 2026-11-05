@@ -9,9 +9,10 @@ const PAD = 24; // empty rows under the logo, so the tail tip never hits the bot
 const CH = H + PAD; // canvas height
 const X0 = 600, X1 = 1000; // only this strip of the logo contains the fox
 const PX = 751.76, PY = 403.45; // pivot: base of the tail
-// Swing is asymmetric: the tip goes down 5 degrees, and up only 4.5 so it stays clear of the letter I.
-const AMP_DOWN = (5 * Math.PI) / 180;
+// Swing is asymmetric: the tip goes down 6 degrees and up 4.5 (checked: it never reaches the letter I).
+const AMP_DOWN = (6 * Math.PI) / 180;
 const AMP_UP = (4.5 * Math.PI) / 180;
+const LETTER_I_X = 900; // everything still (mask 0) right of this x is the letter I
 const PERIOD = 2600; // ms
 
 export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.png" }: { className?: string; src?: string }) {
@@ -44,8 +45,11 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
       // The empty rows below take the weight of the last logo row, so the tail can swing into them.
       for (let y = H; y < CH; y++) for (let x = 0; x < sw; x++) w[y * sw + x] = w[(H - 1) * sw + x];
       const out = ctx.createImageData(sw, CH);
-      const s = src.data, o = out.data;
-      o.set(s);
+      const s0 = src.data, o = out.data;
+      o.set(s0);
+      // Sampling copy without the letter I: the moving tail must never pick up and duplicate a piece of the I.
+      const s = new Uint8ClampedArray(s0);
+      for (let y = 0; y < CH; y++) for (let x = LETTER_I_X - X0; x < sw; x++) { const i = y * sw + x; if (w[i] === 0) s[i * 4 + 3] = 0; }
       // Only tail pixels move: list them once, then each frame touches just those.
       const idx: number[] = [];
       for (let i = 0; i < w.length; i++) if (w[i] > 0) idx.push(i);
