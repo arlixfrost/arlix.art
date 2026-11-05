@@ -12,7 +12,7 @@ const links = [
 export default function Nav() {
   const path = usePathname();
   const [lang, setLang] = useState<"EN" | "DE">("EN");
-  const home = ["/", "/gold", "/test-soft", "/test-top"].includes(path.replace(/\/$/, "") || "/");
+  const home = ["/", "/gold"].includes(path.replace(/\/$/, "") || "/");
   const overlay = home || path.startsWith("/art") || path.startsWith("/tech");
   // On the home page the big logo is already on screen, so the header logo appears only after the showreel.
   const [pastHero, setPastHero] = useState(false);
