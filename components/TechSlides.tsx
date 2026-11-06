@@ -4,14 +4,15 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Ph } from "@/components/Ph";
+import { WorkVideo } from "@/components/ArtSlides";
 
-type Item = { id: string; title: string; menu?: string; text?: string; price?: string };
+type Item = { id: string; title: string; menu?: string; text?: string; price?: string; video?: { src: string; poster: string; title: string } };
 
 // Individual consultations and Training for small business are merged into one block.
 const items: Item[] = [
   { id: "cv-linkedin", title: "CV / LinkedIn + Career", menu: "CV adaptation" },
   { id: "web-design", title: "Web Design" },
-  { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents" },
+  { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents", video: { src: "/tech/buildpilot.mp4", poster: "/tech/buildpilot.jpg", title: "Build Pilot · AI construction assistant" } },
   {
     id: "content-factory",
     title: "Content Factory",
@@ -126,7 +127,8 @@ export default function TechSlides() {
         {items.map((s, i) => (
           <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
             <div data-snap-inner className={inner}>
-              <div className={`h-full flex flex-col justify-center ${pad} pt-[72px] max-w-4xl`}>
+              <div className={s.video ? `h-full grid gap-4 md:gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] content-center ${pad} pt-[72px]` : `h-full flex flex-col justify-center ${pad} pt-[72px] max-w-4xl`}>
+                <div className="flex flex-col justify-center min-w-0">
                 <div className="label mb-4">{String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</div>
                 <h2 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-5">{s.title}</h2>
                 <div className="gold-rule mb-6" />
@@ -141,6 +143,12 @@ export default function TechSlides() {
                   <Ph className="h-12 max-w-xs mt-6">[Price from]</Ph>
                 )}
                 <Link href="/contact" className="frame-btn mt-10 self-start">Contact</Link>
+                </div>
+                {s.video ? (
+                  <div className="min-w-0 flex items-center">
+                    <WorkVideo v={s.video} active={active === i + 1} near={Math.abs(active - (i + 1)) <= 1} />
+                  </div>
+                ) : null}
               </div>
             </div>
           </section>

@@ -12,13 +12,13 @@ const RADIUS = 10;
 
 const VS = `
 attribute vec2 a_uv;
-uniform float u_x0, u_w, u_h, u_A, u_L, u_P, u_base;
+uniform float u_x0, u_w, u_h, u_A, u_L, u_P, u_base, u_fall;
 uniform vec2 u_view;
 varying vec2 v_uv;
 varying float v_scale;
 void main(){
   float x = u_x0 + a_uv.x * u_w;
-  float z = u_A * sin(x / u_L) - (x * x) / (u_base * 5.0);
+  float z = u_A * sin(x / u_L) - (x * x) / u_fall;
   float y = (a_uv.y - 0.5) * u_h;
   float wdiv = (u_P - z) / u_P;
   v_uv = a_uv;
@@ -52,7 +52,7 @@ void main(){
 // Curve shape scaled from the card height, same proportions as the home ribbon.
 function geom(h: number) {
   const base = h * 0.95;
-  return { base, gap: base * 0.06, L: (base * 1.6) / (2 * Math.PI), A: base * 0.12, P: base * 1.4 };
+  return { base, gap: base * 0.1, L: (base * 1.6) / (2 * Math.PI), A: base * 0.12, P: base * 1.4 };
 }
 
 export default function CurvedReel({ items, onOpen, className = "", heightCss = "calc(var(--ph) * 0.42)" }: {
@@ -62,10 +62,11 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
   const canvas = useRef<HTMLCanvasElement>(null);
   const n = items.length;
   const [webgl, setWebgl] = useState(true);
-  const [active, setActive] = useState(0);
+  const mid = Math.floor((items.length - 1) / 2);
+  const [active, setActive] = useState(mid);
   const [fb, setFb] = useState(0);
-  const target = useRef(0);
-  const cur = useRef(0);
+  const target = useRef(Math.floor((items.length - 1) / 2));
+  const cur = useRef(Math.floor((items.length - 1) / 2));
   const dirty = useRef(true);
   const visible = useRef(true);
   const dims = useRef({ W: 0, H: 0, h: 0, widths: [] as number[], centres: [] as number[] });
@@ -73,7 +74,7 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
   const layout = useCallback(() => {
     const s = stage.current; if (!s) return;
     const W = s.clientWidth, H = s.clientHeight;
-    const h = H * 0.8;
+    const h = H * 0.86;
     const g = geom(h);
     const widths = items.map((it) => (it.horizontal ? h * 16 / 9 : h * 9 / 16));
     const centres: number[] = [];
@@ -112,7 +113,7 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
     const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
     const aUv = gl.getAttribLocation(prog, "a_uv"); gl.enableVertexAttribArray(aUv); gl.vertexAttribPointer(aUv, 2, gl.FLOAT, false, 0, 0);
     const U = (k: string) => gl.getUniformLocation(prog, k);
-    const u = { x0: U("u_x0"), w: U("u_w"), h: U("u_h"), A: U("u_A"), L: U("u_L"), P: U("u_P"), base: U("u_base"), view: U("u_view"), size: U("u_size"), texSize: U("u_texSize"), r: U("u_r") };
+    const u = { x0: U("u_x0"), w: U("u_w"), h: U("u_h"), A: U("u_A"), L: U("u_L"), P: U("u_P"), base: U("u_base"), fall: U("u_fall"), view: U("u_view"), size: U("u_size"), texSize: U("u_texSize"), r: U("u_r") };
     gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     const texs = items.map((it) => {
       const t = gl.createTexture()!; const e = { tex: t, w: 9, h: 16 };
@@ -145,7 +146,7 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
       gl.viewport(0, 0, cv.width, cv.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
       const { h, widths, centres } = dims.current; if (!widths.length) return;
       const g = geom(h); const p = pos(cur.current);
-      gl.uniform1f(u.h, h); gl.uniform1f(u.A, g.A); gl.uniform1f(u.L, g.L); gl.uniform1f(u.P, g.P); gl.uniform1f(u.base, g.base);
+      gl.uniform1f(u.h, h); gl.uniform1f(u.A, g.A); gl.uniform1f(u.L, g.L); gl.uniform1f(u.P, g.P); gl.uniform1f(u.base, g.base); gl.uniform1f(u.fall, Math.max(W, g.base * 5) * 2.2);
       gl.uniform2f(u.view, W, H); gl.uniform1f(u.r, RADIUS);
       const order = items.map((_, i) => i).sort((i, j) => Math.abs(j - cur.current) - Math.abs(i - cur.current));
       for (const i of order) {
@@ -176,7 +177,7 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
       const x0 = centres[i] - p - widths[i] / 2;
       for (let k = 0; k < 32; k++) {
         const xa = x0 + (k / 32) * widths[i], xb = x0 + ((k + 1) / 32) * widths[i];
-        const z = (x: number) => g.A * Math.sin(x / g.L) - (x * x) / (g.base * 5);
+        const fall = Math.max(dims.current.W, g.base * 5) * 2.2; const z = (x: number) => g.A * Math.sin(x / g.L) - (x * x) / fall;
         const sa = g.P / (g.P - z(xa)), sb = g.P / (g.P - z(xb));
         if (px < Math.min(xa * sa, xb * sb) || px > Math.max(xa * sa, xb * sb)) continue;
         const s = (sa + sb) / 2;

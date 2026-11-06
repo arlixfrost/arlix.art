@@ -51,15 +51,15 @@ const sections: Section[] = [
     title: "Food & Restaurants",
     menu: "Food & Resto",
     work: "Food / restaurant piece",
-    main: { src: "/art/food/dinner-dish.mp4", poster: "/art/food/dinner-dish.jpg", title: "Dinner · dish" },
+    main: { src: "/art/food/food-is-a-religion.mp4", poster: "/art/food/food-is-a-religion.jpg", title: "Food is a religion" },
     reel: [
-      { src: "/art/food/food-is-a-religion.mp4", poster: "/art/food/food-is-a-religion.jpg", title: "Food is a religion", horizontal: true },
+      { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
+      { src: "/art/food/dinner-dish.mp4", poster: "/art/food/dinner-dish.jpg", title: "Dinner · dish", horizontal: true },
+      { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus" },
       { src: "/art/food/croissants-01.mp4", poster: "/art/food/croissants-01.jpg", title: "Croissants" },
       { src: "/art/food/brunette-bakery-talking.mp4", poster: "/art/food/brunette-bakery-talking.jpg", title: "Bakery · brunette" },
-      { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
       { src: "/art/food/hostess-01-best.mp4", poster: "/art/food/hostess-01-best.jpg", title: "Hostess" },
-      { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus" },
-      { src: "/art/food/cupid-barman-01-best.mp4", poster: "/art/food/cupid-barman-01-best.jpg", title: "Cupid · barman" },
+      { src: "/art/food/cupid-barman-01-best.mp4", poster: "/art/food/cupid-barman-01-best.jpg", title: "Angel · waiter" },
     ],
   },
   { id: "animation", title: "Animation", menu: "Cartoons", work: "Animation" },
@@ -136,7 +136,7 @@ const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artwo
 // - auto=true: plays muted while its section is active, pauses when the section is left.
 // - auto=false: stays paused until the user taps the play button (or opens the lightbox).
 // A round play button appears on any video that stays paused, so autoplay blocked by the phone never leaves a frozen frame.
-function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true, near = true, thumb = false }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean; near?: boolean; thumb?: boolean }) {
+export function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true, near = true, thumb = false }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean; near?: boolean; thumb?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   // Load the file only once its section is on screen or next to it; until then the first frame (poster) shows.
   const [load, setLoad] = useState(near);
@@ -465,11 +465,12 @@ export default function ArtSlides() {
                       </div>
                     </div>
                   ) : s.main && s.reel ? (
-                    <div className="min-h-0 min-w-0 flex flex-col justify-center gap-3">
-                      <div className="min-h-0 flex justify-center">
-                        <WorkVideo v={s.main} active={on} near={near} className="!w-auto max-w-full h-[calc(var(--ph)*0.62)]" />
+                    // Big film at the same size as Brand & Fashion Films (full column width, 16:9); the ribbon takes the rest of the height.
+                    <div className="min-h-0 min-w-0 flex flex-col gap-3 md:h-full">
+                      <WorkVideo v={s.main} active={on} near={near} className="shrink-0" />
+                      <div className="h-[230px] md:h-auto md:flex-1 md:min-h-[200px]">
+                        <Reel items={s.reel} heightCss="100%" />
                       </div>
-                      <Reel items={s.reel} heightCss="max(calc(var(--ph) * 0.42), 230px)" />
                     </div>
                   ) : s.reel ? (
                     <div className="min-h-0 min-w-0 flex items-center">
