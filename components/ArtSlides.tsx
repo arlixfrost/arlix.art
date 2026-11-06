@@ -11,7 +11,7 @@ import { VideoScrubber } from "@/components/VideoScrubber";
 import { SoundToggle, ExpandButton } from "@/components/SoundToggle";
 import { soloAudio } from "@/components/audio";
 
-type Video = { src: string; poster: string; title: string };
+type Video = { src: string; poster: string; title: string; horizontal?: boolean };
 type Section = {
   menu?: string;
   id: string;
@@ -23,6 +23,8 @@ type Section = {
   text?: string;
   hybrid?: boolean;
   portrait?: boolean;
+  main?: Video; // big horizontal film on top
+  reel?: Video[]; // strip of works under it
 };
 
 // Order: Brand → Hybrid → Food & Restaurants → Animation → Commercials → AI Models & UGC → Social (Artworks hidden)
@@ -43,7 +45,23 @@ const sections: Section[] = [
     video: { src: "/art/hybrid/le-plongeoir.mp4", poster: "/art/hybrid/le-plongeoir.jpg", title: "Le Plongeoir · Nice · hybrid film" },
     note: "Film + process carousel (10 slides, Instagram order)",
   },
-  { id: "food-restaurants", title: "Food & Restaurants", menu: "Food & Resto", work: "Food / restaurant piece" },
+  {
+    id: "food-restaurants",
+    title: "Food & Restaurants",
+    menu: "Food & Resto",
+    work: "Food / restaurant piece",
+    main: { src: "/art/food/dinner-dish.mp4", poster: "/art/food/dinner-dish.jpg", title: "Dinner · dish" },
+    reel: [
+      { src: "/art/food/food-is-a-religion.mp4", poster: "/art/food/food-is-a-religion.jpg", title: "Food is a religion" },
+      { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
+      { src: "/art/food/hostess-01-best.mp4", poster: "/art/food/hostess-01-best.jpg", title: "Hostess" },
+      { src: "/art/food/hostess-02.mp4", poster: "/art/food/hostess-02.jpg", title: "Hostess · 2" },
+      { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus" },
+      { src: "/art/food/rupert-02-microphone.mp4", poster: "/art/food/rupert-02-microphone.jpg", title: "Rupert · microphone" },
+      { src: "/art/food/cupid-barman-01-best.mp4", poster: "/art/food/cupid-barman-01-best.jpg", title: "Cupid · barman" },
+      { src: "/art/food/cupid-barman-02.mp4", poster: "/art/food/cupid-barman-02.jpg", title: "Cupid · barman · 2" },
+    ],
+  },
   { id: "animation", title: "Animation", menu: "Cartoons", work: "Animation" },
   {
     id: "commercials",
@@ -53,6 +71,7 @@ const sections: Section[] = [
     videos: [
       { src: "/art/commercials/lingerie-model.mp4", poster: "/art/commercials/lingerie-model.jpg", title: "Lingerie · model + cat · Polish brand spec" },
       { src: "/art/commercials/lingerie-mannequin.mp4", poster: "/art/commercials/lingerie-mannequin.jpg", title: "Lingerie · mannequin · Polish brand spec" },
+      { src: "/art/commercials/wellendorff-spec.mp4", poster: "/art/commercials/wellendorff-spec.jpg", title: "Wellendorff · spec" },
     ],
   },
   {
@@ -73,6 +92,29 @@ const sections: Section[] = [
   },
 ];
 
+// Strip of works under a big film: posters only, a tap opens the framed player. Arrows step one card; a finger or trackpad drags it.
+function Reel({ items, near }: { items: Video[]; near: boolean }) {
+  const box = useRef<HTMLDivElement>(null);
+  const [edge, setEdge] = useState({ l: true, r: false });
+  const update = () => { const b = box.current; if (!b) return; setEdge({ l: b.scrollLeft < 4, r: b.scrollLeft + b.clientWidth > b.scrollWidth - 4 }); };
+  useEffect(() => { update(); }, []);
+  const step = (d: number) => { const b = box.current; if (!b) return; const card = b.querySelector<HTMLElement>("[data-reel-card]"); b.scrollBy({ left: d * ((card?.offsetWidth ?? 120) + 12), behavior: "smooth" }); };
+  const arrow = "absolute top-1/2 -translate-y-1/2 z-30 h-8 w-8 flex items-center justify-center bg-black/60 border border-[rgba(242,237,230,0.6)] text-[#F2EDE6] text-sm hover:text-[#C9A962] hover:border-[#C9A962] disabled:opacity-0 disabled:pointer-events-none transition";
+  return (
+    <div className="relative shrink-0">
+      <div ref={box} onScroll={update} className="reel flex gap-3 overflow-x-auto snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
+        {items.map((v) => (
+          <div key={v.src} data-reel-card className="snap-start shrink-0 h-[calc(var(--ph)*0.34)]" style={{ width: v.horizontal ? "calc(var(--ph)*0.34*16/9)" : "calc(var(--ph)*0.34*9/16)" }}>
+            <WorkVideo v={v} aspect={v.horizontal ? "video" : "portrait"} auto={false} near={near} thumb className="h-full" />
+          </div>
+        ))}
+      </div>
+      <button onClick={() => step(-1)} disabled={edge.l} aria-label="Previous" className={`${arrow} left-1`}>←</button>
+      <button onClick={() => step(1)} disabled={edge.r} aria-label="Next" className={`${arrow} right-1`}>→</button>
+    </div>
+  );
+}
+
 const ep1: Video = { src: "/art/amber-city/ep1-oskar.mp4", poster: "/art/amber-city/ep1-oskar.jpg", title: "Amber City · Ep 1 — Oskar" };
 const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily · WIP" };
 
@@ -82,7 +124,7 @@ const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artwo
 // - auto=true: plays muted while its section is active, pauses when the section is left.
 // - auto=false: stays paused until the user taps the play button (or opens the lightbox).
 // A round play button appears on any video that stays paused, so autoplay blocked by the phone never leaves a frozen frame.
-function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true, near = true }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean; near?: boolean }) {
+function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true, near = true, thumb = false }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean; near?: boolean; thumb?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   // Load the file only once its section is on screen or next to it; until then the first frame (poster) shows.
   const [load, setLoad] = useState(near);
@@ -142,11 +184,19 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
   const lbW = aspect === "portrait" ? "min(90vw, calc(90vh * 9 / 16))" : "min(90vw, calc(90vh * 16 / 9))";
   return (
     <div className={`relative bg-black overflow-hidden ${box} w-full ${className}`}>
+      {thumb ? (
+        // Strip card: only the still frame and a small play mark; the video loads only in the framed player.
+        <button type="button" onClick={() => setOpen(true)} aria-label={`Play ${v.title}`} className="absolute inset-0 h-full w-full cursor-zoom-in group">
+          {load ? <img src={v.poster} alt="" draggable={false} className="h-full w-full object-cover" /> : null}
+          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm group-hover:border-[#C9A962] group-hover:text-[#C9A962] transition-colors">▶</span>
+        </button>
+      ) : (<>
       <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={load ? "auto" : "none"} onClick={() => setOpen(true)} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
       <PlayButton video={ref} label={`Play ${v.title}`} />
       <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-2 bottom-2" />
       <ExpandButton onClick={(e) => { e.stopPropagation(); setOpen(true); }} className="right-11 bottom-2" />
       <VideoScrubber video={ref} />
+      </>)}
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${box} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl`} style={{ width: lbW }}>
@@ -402,6 +452,13 @@ export default function ArtSlides() {
                         ))}
                       </div>
                     </div>
+                  ) : s.main && s.reel ? (
+                    <div className="min-h-0 min-w-0 flex flex-col justify-center gap-3">
+                      <div className="min-h-0 flex justify-center">
+                        <WorkVideo v={s.main} active={on} near={near} className="!w-auto max-w-full h-[calc(var(--ph)*0.62)]" />
+                      </div>
+                      <Reel items={s.reel} near={near} />
+                    </div>
                   ) : s.hybrid && s.video ? (
                     // Film sets the height; carousel matches it (4:5 box, wider). See .hybrid-media in globals.css.
                     <div className="hybrid-media min-h-0 min-w-0 h-[var(--ph)] md:h-auto">
@@ -412,7 +469,7 @@ export default function ArtSlides() {
                     <div className="min-h-0 min-w-0 flex items-center justify-center gap-3">
                       {/* Several videos: only the first autoplays, the rest wait for a tap */}
                       {s.videos.map((v, k) => (
-                        <WorkVideo key={v.src} v={v} aspect={aspect} active={on} near={near} auto={k === 0} className="h-[var(--ph)] !w-[calc(var(--ph)*9/16)]" />
+                        <WorkVideo key={v.src} v={v} aspect={aspect} active={on} near={near} auto={k === 0} className="min-w-0 flex-1 max-w-[calc(var(--ph)*9/16)]" />
                       ))}
                     </div>
                   ) : s.video ? (

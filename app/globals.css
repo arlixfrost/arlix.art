@@ -37,3 +37,4 @@ html { scroll-behavior: smooth; }
 }
 .hybrid-film{height:var(--h);width:calc(var(--h) * 9 / 16);max-width:none;}
 .hybrid-carousel{height:var(--h);width:calc(var(--h) * 4 / 5);max-width:none;}
+.reel::-webkit-scrollbar{display:none}
