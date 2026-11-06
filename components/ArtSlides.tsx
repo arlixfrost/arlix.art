@@ -237,6 +237,19 @@ export default function ArtSlides() {
     if (el && root.current) root.current.scrollTo({ top: el.offsetTop, behavior: "smooth" });
   };
 
+  // A link like /art/#food-restaurants (the home carousel) opens straight on that section.
+  useEffect(() => {
+    const jump = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const i = slides.findIndex((s) => s.id === id);
+      const el = root.current?.querySelector<HTMLElement>(`[data-index="${i}"]`);
+      if (i > 0 && el && root.current) { root.current.scrollTo({ top: el.offsetTop, behavior: "auto" }); setActive(i); }
+    };
+    const t = setTimeout(jump, 0);
+    window.addEventListener("hashchange", jump);
+    return () => { clearTimeout(t); window.removeEventListener("hashchange", jump); };
+  }, []);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement | null)?.tagName === "INPUT") return;
