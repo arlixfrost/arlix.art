@@ -1,20 +1,13 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-// Hero logo with a swaying tail. The fox is the original pixels, never redrawn.
-// The logo is split once into two layers by whole lines (never cutting a line in half):
-//   - tail layer: the lines of the fox the tail belongs to (green channel of arlix-logo-tail.png)
-//   - still layer: everything else, letters and the letter I included
-// Each frame the tail layer is rotated around the base of the tail, more towards the tip
-// (red channel of arlix-logo-tail.png, 0 at the joint so the body stays put), and painted
-// OVER the still layer. Nothing is copied from the letters, so the line never breaks on the I.
-const W = 1400, H = 585; // logo image size
-const PAD = 24; // empty rows under the logo, so the tail tip never hits the bottom edge when it swings down
-const CH = H + PAD; // canvas height
+// Hero logo with a gently swaying tail. The fox is the original pixels, never redrawn:
+// each frame rotates only the tail pixels around the base of the tail, weighted by a mask
+// (0 = body and letters stay still, 1 = tail moves fully), so there is no break at the joint.
+const W = 1400, H = 585;
 const X0 = 600, X1 = 1000; // only this strip of the logo contains the fox
 const PX = 751.76, PY = 403.45; // pivot: base of the tail
-const AMP_DOWN = (5 * Math.PI) / 180; // tip goes down 5 degrees
-const AMP_UP = (3 * Math.PI) / 180; // and up 3 degrees
+const AMP = (3 * Math.PI) / 180; // 3 degrees each way
 const PERIOD = 2600; // ms
 
 export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.png" }: { className?: string; src?: string }) {
@@ -35,56 +28,37 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
       if (stop) return;
       ctx.drawImage(logo, 0, 0);
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const sw = X1 - X0, n = sw * CH;
-      const src = ctx.getImageData(X0, 0, sw, CH).data;
+      const sw = X1 - X0;
+      const src = ctx.getImageData(X0, 0, sw, H);
       const m = document.createElement("canvas");
-      m.width = sw; m.height = CH;
+      m.width = sw; m.height = H;
       const mctx = m.getContext("2d")!;
       mctx.drawImage(mask, 0, 0);
-      const md = mctx.getImageData(0, 0, sw, CH).data;
-
-      // Premultiplied layers (0..1), so the tail painted over the still layer keeps clean edges.
-      const tail = new Float32Array(n * 4), still = new Float32Array(n * 4);
-      const w = new Float32Array(n);
-      const dst: number[] = [];
-      for (let i = 0; i < n; i++) {
-        const k = i * 4, al = src[k + 3] / 255;
-        const L = md[k + 1] > 127 ? tail : still;
-        L[k] = (src[k] / 255) * al; L[k + 1] = (src[k + 1] / 255) * al; L[k + 2] = (src[k + 2] / 255) * al; L[k + 3] = al;
-        w[i] = md[k] / 255;
-        if (w[i] > 0) dst.push(i); // pixels the swinging tail can reach; all others never change
-      }
-      const out = ctx.createImageData(sw, CH);
-      const o = out.data;
-      o.set(src);
-
+      const md = mctx.getImageData(0, 0, sw, H).data;
+      const w = new Float32Array(sw * H);
+      for (let i = 0; i < w.length; i++) w[i] = md[i * 4] / 255;
+      const out = ctx.createImageData(sw, H);
+      const s = src.data, o = out.data;
+      o.set(s);
+      // Only tail pixels move: list them once, then each frame touches just those.
+      const idx: number[] = [];
+      for (let i = 0; i < w.length; i++) if (w[i] > 0) idx.push(i);
       const t0 = performance.now();
       const tick = (now: number) => {
         if (!canvas.offsetParent) { raf = requestAnimationFrame(tick); return; }
-        const s0 = Math.sin(((now - t0) / PERIOD) * 2 * Math.PI);
-        const a = s0 * (s0 > 0 ? AMP_DOWN : AMP_UP);
-        for (let q = 0; q < dst.length; q++) {
-          const i = dst[q], k = i * 4, x = i % sw, y = (i - x) / sw;
-          // Where in the tail layer this pixel comes from (rotate back by its weight).
+        const a = AMP * Math.sin(((now - t0) / PERIOD) * 2 * Math.PI);
+        for (let n = 0; n < idx.length; n++) {
+          const i = idx[n], k = i * 4, x = i % sw, y = (i - x) / sw;
           const th = -a * w[i], c = Math.cos(th), sn = Math.sin(th);
           const dx = x + X0 - PX, dy = y - PY;
           const fx = PX + dx * c - dy * sn - X0, fy = PY + dx * sn + dy * c;
           const x0 = Math.floor(fx), y0 = Math.floor(fy);
-          let tr = 0, tg = 0, tb = 0, ta = 0;
-          if (x0 >= 0 && y0 >= 0 && x0 < sw - 1 && y0 < CH - 1) {
-            const ax = fx - x0, ay = fy - y0;
-            const w00 = (1 - ax) * (1 - ay), w10 = ax * (1 - ay), w01 = (1 - ax) * ay, w11 = ax * ay;
-            const k00 = (y0 * sw + x0) * 4, k10 = k00 + 4, k01 = k00 + sw * 4, k11 = k01 + 4;
-            tr = tail[k00] * w00 + tail[k10] * w10 + tail[k01] * w01 + tail[k11] * w11;
-            tg = tail[k00 + 1] * w00 + tail[k10 + 1] * w10 + tail[k01 + 1] * w01 + tail[k11 + 1] * w11;
-            tb = tail[k00 + 2] * w00 + tail[k10 + 2] * w10 + tail[k01 + 2] * w01 + tail[k11 + 2] * w11;
-            ta = tail[k00 + 3] * w00 + tail[k10 + 3] * w10 + tail[k01 + 3] * w01 + tail[k11 + 3] * w11;
+          if (x0 < 0 || y0 < 0 || x0 >= sw - 1 || y0 >= H - 1) { o[k] = o[k + 1] = o[k + 2] = o[k + 3] = 0; continue; }
+          const ax = fx - x0, ay = fy - y0;
+          const k00 = (y0 * sw + x0) * 4, k10 = k00 + 4, k01 = k00 + sw * 4, k11 = k01 + 4;
+          for (let ch = 0; ch < 4; ch++) {
+            o[k + ch] = (s[k00 + ch] * (1 - ax) + s[k10 + ch] * ax) * (1 - ay) + (s[k01 + ch] * (1 - ax) + s[k11 + ch] * ax) * ay;
           }
-          // Tail over the still layer.
-          const r = tr + still[k] * (1 - ta), g = tg + still[k + 1] * (1 - ta), b = tb + still[k + 2] * (1 - ta);
-          const al = ta + still[k + 3] * (1 - ta);
-          if (al > 0) { o[k] = (r / al) * 255; o[k + 1] = (g / al) * 255; o[k + 2] = (b / al) * 255; o[k + 3] = al * 255; }
-          else { o[k] = o[k + 1] = o[k + 2] = o[k + 3] = 0; }
         }
         ctx.putImageData(out, X0, 0);
         raf = requestAnimationFrame(tick);
@@ -94,11 +68,5 @@ export default function FoxLogo({ className = "", src: logoSrc = "/arlix-logo.pn
     return () => { stop = true; cancelAnimationFrame(raf); };
   }, [logoSrc]);
 
-  // The box keeps the logo's own proportions, so the layout around it is unchanged;
-  // the extra empty rows hang below the box without pushing anything down.
-  return (
-    <div className={`relative aspect-[1400/585] ${className}`}>
-      <canvas ref={ref} width={W} height={CH} role="img" aria-label="Arlix" className="absolute left-0 top-0 w-full h-auto pointer-events-none" />
-    </div>
-  );
+  return <canvas ref={ref} width={W} height={H} role="img" aria-label="Arlix" className={className} />;
 }

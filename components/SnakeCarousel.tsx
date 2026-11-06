@@ -3,13 +3,18 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 // Snake carousel (reference: Jesper Landberg). Landscape cards bend like one wavy ribbon in perspective.
 // Page scroll moves the ribbon while it is on screen (the page is not pinned); small arrows at the screen edges and a tap on a card also move it.
-const cards = Array.from({ length: 7 }, (_, i) => ({ id: i, title: `[Work ${String(i + 1).padStart(2, "0")}]` }));
+const VIDEOS: (string | undefined)[] = ["/home/work-01.mp4", "/home/work-02.mp4"];
+const cards = Array.from({ length: 7 }, (_, i) => ({ id: i, title: `[Work ${String(i + 1).padStart(2, "0")}]`, video: VIDEOS[i] }));
 const STRIPS = 16;
 
 export default function SnakeCarousel() {
   const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const strips = useRef<(HTMLDivElement | null)[]>([]);
+  // A card with a video is cut into strips too: one hidden video per card is drawn slice by slice
+  // into a canvas inside each strip, every frame, so the strips always show the same moment.
+  const vids = useRef<(HTMLVideoElement | null)[]>([]);
+  const cans = useRef<(HTMLCanvasElement | null)[]>([]);
   const [size, setSize] = useState({ w: 900, h: 560 });
   const [active, setActive] = useState(0);
   const n = cards.length;
@@ -82,9 +87,41 @@ export default function SnakeCarousel() {
 
   const stageH = Math.round(size.h * (size.w < 300 ? 1.3 : 1.6)); // tighter on phones
 
+  useEffect(() => {
+    let raf = 0;
+    const draw = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cards.forEach((c, i) => {
+        const v = vids.current[i];
+        if (!c.video || !v || v.readyState < 2 || !v.videoWidth) return;
+        const vw = v.videoWidth, vh = v.videoHeight;
+        const sc = Math.max(size.w / vw, size.h / vh); // cover the card
+        const offX = (vw * sc - size.w) / 2, offY = (vh * sc - size.h) / 2;
+        const stripW = size.w / STRIPS + 6;
+        for (let j = 0; j < STRIPS; j++) {
+          const cv = cans.current[i * STRIPS + j];
+          if (!cv) continue;
+          // The canvas starts 2px left of the strip, so its soft first column never shows the dark card behind it.
+          const cw = stripW + 2;
+          const W = Math.round(cw * dpr), H = Math.round(size.h * dpr);
+          if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
+          const x = j * (size.w / STRIPS) - 2;
+          cv.getContext("2d")?.drawImage(v, (offX + x) / sc, offY / sc, cw / sc, size.h / sc, 0, 0, W, H);
+        }
+      });
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(raf);
+  }, [size]);
+
   return (
     <section ref={section} aria-label="Selected work" className="relative bg-[#0B0B0C] pt-2 pb-1 md:pt-16 md:pb-16">
       <div ref={stage} className="relative overflow-hidden" style={{ height: stageH }}>
+        {cards.map((c, i) => c.video && (
+          <video key={`v${i}`} ref={(el) => { vids.current[i] = el; }} src={c.video} muted loop playsInline autoPlay preload="auto"
+            aria-hidden="true" className="absolute left-0 top-0 w-px h-px opacity-0 pointer-events-none" />
+        ))}
         {/* Strips are direct children of the perspective box: real 3D depth in Safari too, no preserve-3d needed. */}
         <div className="absolute inset-0" style={{ perspective: `${size.w * 1.4}px` }}>
             {cards.map((c, i) =>
@@ -92,12 +129,18 @@ export default function SnakeCarousel() {
                 <div key={`${i}-${j}`} ref={(el) => { strips.current[i * STRIPS + j] = el; }}
                   onClick={() => go(i)}
                   className="absolute left-1/2 top-1/2 overflow-hidden cursor-pointer will-change-transform"
-                  style={{ width: size.w / STRIPS + 2, height: size.h, marginTop: -size.h / 2, backfaceVisibility: "hidden", outline: "1px solid transparent" }}>
+                  style={{ width: size.w / STRIPS + 6, height: size.h, marginTop: -size.h / 2, backfaceVisibility: "hidden", outline: "1px solid transparent" }}>
                   <div className="absolute top-0 h-full" style={{ width: size.w, left: -j * (size.w / STRIPS) }}>
-                    <div className="h-full w-full border border-[rgba(242,237,230,0.22)]"
+                    <div className="relative h-full w-full overflow-hidden border border-[rgba(242,237,230,0.22)]"
                       style={{ background: `linear-gradient(135deg, #1c1b1a ${i * 6}%, #2a2724 60%, #141312)`, borderRadius: j === 0 ? "10px 0 0 10px" : j === STRIPS - 1 ? "0 10px 10px 0" : 0 }}>
-                      <div className="absolute inset-0 flex items-center justify-center font-display text-[#9B948B]" style={{ fontSize: size.w * 0.05 }}>{c.title}</div>
-                      <div className="absolute left-[4%] bottom-[6%] font-body uppercase tracking-[0.24em] text-[#F2EDE6]" style={{ fontSize: Math.max(11, size.w * 0.016) }}>Project {String(i + 1).padStart(2, "0")}</div>
+                      {c.video ? (
+                        <canvas ref={(el) => { cans.current[i * STRIPS + j] = el; }} className="absolute top-0 h-full" style={{ left: j * (size.w / STRIPS) - 2, width: size.w / STRIPS + 8 }} />
+                      ) : (
+                        <>
+                          <div className="absolute inset-0 flex items-center justify-center font-display text-[#9B948B]" style={{ fontSize: size.w * 0.05 }}>{c.title}</div>
+                          <div className="absolute left-[4%] bottom-[6%] font-body uppercase tracking-[0.24em] text-[#F2EDE6]" style={{ fontSize: Math.max(11, size.w * 0.016) }}>Project {String(i + 1).padStart(2, "0")}</div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
