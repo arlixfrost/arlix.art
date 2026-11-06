@@ -12,7 +12,7 @@ type Item = { id: string; title: string; menu?: string; text?: string; price?: s
 const items: Item[] = [
   { id: "cv-linkedin", title: "CV / LinkedIn + Career", menu: "CV adaptation" },
   { id: "web-design", title: "Web Design" },
-  { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents", video: { src: "/tech/buildpilot.mp4", poster: "/tech/buildpilot.jpg", title: "Build Pilot · AI construction assistant" } },
+  { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents" },
   {
     id: "content-factory",
     title: "Content Factory",

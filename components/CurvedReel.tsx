@@ -69,7 +69,8 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
   const cur = useRef(Math.floor((items.length - 1) / 2));
   const dirty = useRef(true);
   const visible = useRef(true);
-  const dims = useRef({ W: 0, H: 0, h: 0, widths: [] as number[], centres: [] as number[] });
+  const dims = useRef({ W: 0, H: 0, h: 0, widths: [] as number[], centres: [] as number[], T: 0 });
+  const mod = (k: number) => ((k % n) + n) % n;
 
   const layout = useCallback(() => {
     const s = stage.current; if (!s) return;
@@ -80,7 +81,9 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
     const centres: number[] = [];
     let x = 0;
     widths.forEach((w, i) => { if (i > 0) x += widths[i - 1] / 2 + g.gap + w / 2; centres.push(x); });
-    dims.current = { W, H, h, widths, centres };
+    // One full turn of the ring: the last card is followed again by the first.
+    const T = widths.reduce((a, w) => a + w, 0) + g.gap * widths.length;
+    dims.current = { W, H, h, widths, centres, T };
     dirty.current = true;
   }, [items]);
 
@@ -93,12 +96,13 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
     return () => { ro.disconnect(); io.disconnect(); };
   }, [layout]);
 
-  const pos = (c: number) => {
-    const { centres } = dims.current; if (!centres.length) return 0;
-    const i = Math.max(0, Math.min(n - 1, Math.floor(c))); const j = Math.min(n - 1, i + 1); const f = Math.max(0, Math.min(1, c - i));
-    return centres[i] + (centres[j] - centres[i]) * f;
-  };
-  const go = (i: number) => { target.current = Math.max(0, Math.min(n - 1, i)); };
+  // Ring: positions repeat every full turn, so the ribbon never runs out on either side.
+  const at = (k: number) => { const { centres, T } = dims.current; return centres[mod(k)] + Math.floor(k / n) * T; };
+  const pos = (c: number) => { if (!dims.current.centres.length) return 0; const k = Math.floor(c); return at(k) + (at(k + 1) - at(k)) * (c - k); };
+  const offset = (i: number, p: number) => { const { centres, T } = dims.current; let d = (centres[i] - p) % T; if (d < -T / 2) d += T; if (d >= T / 2) d -= T; return d; };
+  const go = (k: number) => { target.current = k; };
+  // Bring item i to the centre by the shortest way round.
+  const goItem = (i: number) => { const a = Math.round(target.current); let d = mod(i - mod(a)); if (d > n / 2) d -= n; go(a + d); };
 
   useEffect(() => {
     const cv = canvas.current; if (!cv) return;
@@ -144,13 +148,13 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
       last = key; dirty.current = false;
       if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
       gl.viewport(0, 0, cv.width, cv.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-      const { h, widths, centres } = dims.current; if (!widths.length) return;
+      const { h, widths } = dims.current; if (!widths.length) return;
       const g = geom(h); const p = pos(cur.current);
       gl.uniform1f(u.h, h); gl.uniform1f(u.A, g.A); gl.uniform1f(u.L, g.L); gl.uniform1f(u.P, g.P); gl.uniform1f(u.base, g.base); gl.uniform1f(u.fall, Math.max(W, g.base * 5) * 2.2);
       gl.uniform2f(u.view, W, H); gl.uniform1f(u.r, RADIUS);
-      const order = items.map((_, i) => i).sort((i, j) => Math.abs(j - cur.current) - Math.abs(i - cur.current));
+      const order = items.map((_, i) => i).sort((i, j) => Math.abs(offset(j, p)) - Math.abs(offset(i, p)));
       for (const i of order) {
-        const x0 = centres[i] - p - widths[i] / 2;
+        const x0 = offset(i, p) - widths[i] / 2;
         if (x0 > W || x0 + widths[i] < -W) continue;
         gl.uniform1f(u.x0, x0); gl.uniform1f(u.w, widths[i]); gl.uniform2f(u.size, widths[i], h);
         gl.bindTexture(gl.TEXTURE_2D, texs[i].tex); gl.uniform2f(u.texSize, texs[i].w, texs[i].h);
@@ -174,7 +178,7 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
     const { h, widths, centres } = dims.current; const g = geom(h); const p = pos(cur.current);
     let best = -1, bs = -Infinity;
     for (let i = 0; i < n; i++) {
-      const x0 = centres[i] - p - widths[i] / 2;
+      const x0 = offset(i, p) - widths[i] / 2;
       for (let k = 0; k < 32; k++) {
         const xa = x0 + (k / 32) * widths[i], xb = x0 + ((k + 1) / 32) * widths[i];
         const fall = Math.max(dims.current.W, g.base * 5) * 2.2; const z = (x: number) => g.A * Math.sin(x / g.L) - (x * x) / fall;
@@ -194,14 +198,14 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
     const d = drag.current; if (!d || d.id !== e.pointerId) return;
     const dx = e.clientX - d.x;
     if (!d.moved && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(e.clientY - d.y)) { d.moved = true; try { (e.target as Element).setPointerCapture(e.pointerId); } catch {} }
-    if (d.moved) { const step = dims.current.h * 0.62; target.current = Math.max(-0.3, Math.min(n - 1 + 0.3, d.start - dx / step)); }
+    if (d.moved) { const step = dims.current.h * 0.62; target.current = d.start - dx / step; }
   };
   const onUp = (e: React.PointerEvent) => {
     const d = drag.current; drag.current = null; if (!d || d.id !== e.pointerId) return;
     if (d.moved) { go(Math.round(target.current)); return; }
-    const p = local(e); const i = webgl ? cardAt(p.x, p.y) : Math.round(cur.current);
+    const p = local(e); const i = webgl ? cardAt(p.x, p.y) : mod(Math.round(cur.current));
     if (i < 0) return;
-    if (i === Math.round(cur.current)) onOpen(i); else go(i);
+    if (i === mod(Math.round(cur.current))) onOpen(i); else goItem(i);
   };
 
   const arrow = "absolute top-1/2 -translate-y-1/2 z-30 h-9 w-9 flex items-center justify-center bg-black/50 border border-[rgba(242,237,230,0.6)] text-[#F2EDE6] text-sm hover:text-[#C9A962] hover:border-[#C9A962] disabled:opacity-0 disabled:pointer-events-none transition";
@@ -214,16 +218,16 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
         <div className="absolute inset-0" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} style={{ touchAction: "pan-y" }}>
           {items.map((it, i) => {
             const { h, widths, centres } = dims.current; if (!widths.length) return null;
-            const x = centres[i] - pos(fb);
+            const x = offset(i, pos(fb));
             return <img key={i} src={it.poster} alt="" draggable={false} className="absolute left-1/2 top-1/2 rounded-[10px] border border-[rgba(242,237,230,0.22)] object-cover"
               style={{ width: widths[i], height: h, transform: `translate(${x - widths[i] / 2}px, ${-h / 2}px)` }} />;
           })}
         </div>
       )}
-      <button onClick={() => onOpen(active)} aria-label={`Play ${items[active]?.title ?? ""}`} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 h-11 w-11 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors">▶</button>
+      <button onClick={() => onOpen(mod(active))} aria-label={`Play ${items[mod(active)]?.title ?? ""}`} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 h-11 w-11 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors">▶</button>
       {n > 1 && <>
-        <button onClick={() => go(active - 1)} disabled={active === 0} aria-label="Previous" className={`${arrow} left-1`}>←</button>
-        <button onClick={() => go(active + 1)} disabled={active === n - 1} aria-label="Next" className={`${arrow} right-1`}>→</button>
+        <button onClick={() => go(active - 1)} aria-label="Previous" className={`${arrow} left-1`}>←</button>
+        <button onClick={() => go(active + 1)} aria-label="Next" className={`${arrow} right-1`}>→</button>
       </>}
     </div>
   );
