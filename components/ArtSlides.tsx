@@ -10,6 +10,7 @@ import { HybridCarousel } from "@/components/HybridCarousel";
 import { VideoScrubber } from "@/components/VideoScrubber";
 import { SoundToggle, ExpandButton } from "@/components/SoundToggle";
 import { soloAudio } from "@/components/audio";
+import CurvedReel from "@/components/CurvedReel";
 
 type Video = { src: string; poster: string; title: string; horizontal?: boolean };
 type Section = {
@@ -52,10 +53,12 @@ const sections: Section[] = [
     work: "Food / restaurant piece",
     main: { src: "/art/food/dinner-dish.mp4", poster: "/art/food/dinner-dish.jpg", title: "Dinner · dish" },
     reel: [
+      { src: "/art/food/croissants-01.mp4", poster: "/art/food/croissants-01.jpg", title: "Croissants" },
+      { src: "/art/food/croissants-flying.mp4", poster: "/art/food/croissants-flying.jpg", title: "Croissants · flying" },
+      { src: "/art/food/brunette-bakery-talking.mp4", poster: "/art/food/brunette-bakery-talking.jpg", title: "Bakery · brunette" },
       { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
       { src: "/art/food/hostess-01-best.mp4", poster: "/art/food/hostess-01-best.jpg", title: "Hostess" },
       { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus" },
-      { src: "/art/food/rupert-02-microphone.mp4", poster: "/art/food/rupert-02-microphone.jpg", title: "Rupert · microphone" },
       { src: "/art/food/cupid-barman-01-best.mp4", poster: "/art/food/cupid-barman-01-best.jpg", title: "Cupid · barman" },
     ],
   },
@@ -77,6 +80,9 @@ const sections: Section[] = [
     menu: "AI Models",
     work: "AI model / UGC piece",
     portrait: true,
+    reel: [
+      { src: "/art/ai-models/rupert-singing.mp4", poster: "/art/ai-models/rupert-singing.jpg", title: "Rupert · singing" },
+    ],
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
   },
   {
@@ -89,26 +95,35 @@ const sections: Section[] = [
   },
 ];
 
-// Strip of works under a big film: posters only, a tap opens the framed player. Arrows step one card; a finger or trackpad drags it.
-function Reel({ items, near }: { items: Video[]; near: boolean }) {
-  const box = useRef<HTMLDivElement>(null);
-  const [edge, setEdge] = useState({ l: true, r: false });
-  const update = () => { const b = box.current; if (!b) return; setEdge({ l: b.scrollLeft < 4, r: b.scrollLeft + b.clientWidth > b.scrollWidth - 4 }); };
-  useEffect(() => { update(); }, []);
-  const step = (d: number) => { const b = box.current; if (!b) return; const card = b.querySelector<HTMLElement>("[data-reel-card]"); b.scrollBy({ left: d * ((card?.offsetWidth ?? 120) + 12), behavior: "smooth" }); };
-  const arrow = "absolute top-1/2 -translate-y-1/2 z-30 h-8 w-8 flex items-center justify-center bg-black/60 border border-[rgba(242,237,230,0.6)] text-[#F2EDE6] text-sm hover:text-[#C9A962] hover:border-[#C9A962] disabled:opacity-0 disabled:pointer-events-none transition";
+// Curved ribbon of works (same as the home carousel, cards keep their own shape). A tap opens the work in the framed player.
+function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
+  const [open, setOpen] = useState<number | null>(null);
+  const [muted, setMuted] = useState(true);
+  const lb = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (open === null) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(null); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
+    const el = lb.current; if (el) { el.currentTime = 0; el.muted = muted; soloAudio(el); el.play().catch(() => {}); }
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+  const v = open !== null ? items[open] : null;
+  const lbW = v?.horizontal ? "min(90vw, calc(90vh * 16 / 9))" : "min(90vw, calc(90vh * 9 / 16))";
+  const toggle = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (!el.muted) soloAudio(el); };
   return (
-    <div className="relative shrink-0">
-      <div ref={box} onScroll={update} className="reel flex gap-3 overflow-x-auto snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
-        {items.map((v) => (
-          <div key={v.src} data-reel-card className="snap-start shrink-0 h-[calc(var(--ph)*0.34)]" style={{ width: v.horizontal ? "calc(var(--ph)*0.34*16/9)" : "calc(var(--ph)*0.34*9/16)" }}>
-            <WorkVideo v={v} aspect={v.horizontal ? "video" : "portrait"} auto={false} near={near} thumb className="h-full" />
+    <>
+      <CurvedReel items={items} onOpen={setOpen} heightCss={heightCss} />
+      {v && typeof document !== "undefined" && createPortal(
+        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+          <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl`} style={{ width: lbW }}>
+            <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
+            <SoundToggle muted={muted} onClick={toggle} className="right-2 bottom-2" />
+            <VideoScrubber video={lb} pillClassName="!right-11" />
+            <button onClick={() => setOpen(null)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
           </div>
-        ))}
-      </div>
-      <button onClick={() => step(-1)} disabled={edge.l} aria-label="Previous" className={`${arrow} left-1`}>←</button>
-      <button onClick={() => step(1)} disabled={edge.r} aria-label="Next" className={`${arrow} right-1`}>→</button>
-    </div>
+        </div>, document.body)}
+    </>
   );
 }
 
@@ -454,7 +469,11 @@ export default function ArtSlides() {
                       <div className="min-h-0 flex justify-center">
                         <WorkVideo v={s.main} active={on} near={near} className="!w-auto max-w-full h-[calc(var(--ph)*0.62)]" />
                       </div>
-                      <Reel items={s.reel} near={near} />
+                      <Reel items={s.reel} heightCss="max(calc(var(--ph) * 0.42), 230px)" />
+                    </div>
+                  ) : s.reel ? (
+                    <div className="min-h-0 min-w-0 flex items-center">
+                      <Reel items={s.reel} heightCss="var(--ph)" />
                     </div>
                   ) : s.hybrid && s.video ? (
                     // Film sets the height; carousel matches it (4:5 box, wider). See .hybrid-media in globals.css.
