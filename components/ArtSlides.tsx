@@ -54,7 +54,6 @@ const sections: Section[] = [
     main: { src: "/art/food/dinner-dish.mp4", poster: "/art/food/dinner-dish.jpg", title: "Dinner · dish" },
     reel: [
       { src: "/art/food/croissants-01.mp4", poster: "/art/food/croissants-01.jpg", title: "Croissants" },
-      { src: "/art/food/croissants-flying.mp4", poster: "/art/food/croissants-flying.jpg", title: "Croissants · flying" },
       { src: "/art/food/brunette-bakery-talking.mp4", poster: "/art/food/brunette-bakery-talking.jpg", title: "Bakery · brunette" },
       { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
       { src: "/art/food/hostess-01-best.mp4", poster: "/art/food/hostess-01-best.jpg", title: "Hostess" },
