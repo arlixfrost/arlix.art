@@ -54,11 +54,9 @@ const sections: Section[] = [
     reel: [
       { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
       { src: "/art/food/hostess-01-best.mp4", poster: "/art/food/hostess-01-best.jpg", title: "Hostess" },
-      { src: "/art/food/hostess-02.mp4", poster: "/art/food/hostess-02.jpg", title: "Hostess · 2" },
       { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus" },
       { src: "/art/food/rupert-02-microphone.mp4", poster: "/art/food/rupert-02-microphone.jpg", title: "Rupert · microphone" },
       { src: "/art/food/cupid-barman-01-best.mp4", poster: "/art/food/cupid-barman-01-best.jpg", title: "Cupid · barman" },
-      { src: "/art/food/cupid-barman-02.mp4", poster: "/art/food/cupid-barman-02.jpg", title: "Cupid · barman · 2" },
     ],
   },
   { id: "animation", title: "Animation", menu: "Cartoons", work: "Animation" },
@@ -190,7 +188,7 @@ function WorkVideo({ v, className = "", aspect = "video", active = false, auto =
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm group-hover:border-[#C9A962] group-hover:text-[#C9A962] transition-colors">▶</span>
         </button>
       ) : (<>
-      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={load ? "auto" : "none"} onClick={() => setOpen(true)} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
+      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={!load ? "none" : active ? "auto" : "metadata"} onClick={() => setOpen(true)} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
       <PlayButton video={ref} label={`Play ${v.title}`} />
       <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-2 bottom-2" />
       <ExpandButton onClick={(e) => { e.stopPropagation(); setOpen(true); }} className="right-11 bottom-2" />
