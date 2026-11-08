@@ -83,7 +83,7 @@ const sections: Section[] = [
     main: { src: "/art/ai-models/arlix-macarons.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
     reel: [
       { src: "/art/ai-models/rupert-singing.mp4", poster: "/art/ai-models/rupert-singing.jpg", title: "Rupert · singing" },
-      { src: "/art/ai-models/keira-fashion.mp4", poster: "/art/ai-models/keira-fashion.jpg", title: "Keira · fashion film", horizontal: true },
+      { src: "/art/ai-models/keira-fashion.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film", horizontal: true },
     ],
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
   },
