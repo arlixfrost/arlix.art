@@ -94,7 +94,10 @@ const sections: Section[] = [
     menu: "Social",
     work: "Social piece",
     portrait: true,
-    video: { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
+    videos: [
+      { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
+      { src: "/art/social/redhead-salmon.mp4", poster: "/art/social/redhead-salmon.jpg", title: "Redhead · salmon · trend" },
+    ],
   },
 ];
 
