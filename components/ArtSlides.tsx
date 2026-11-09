@@ -51,7 +51,7 @@ const sections: Section[] = [
     title: "Food & Restaurants",
     menu: "Food & Resto",
     work: "Food / restaurant piece",
-    main: { src: "/art/food/food-is-a-religion.mp4", poster: "/art/food/food-is-a-religion.jpg", title: "Food is a religion" },
+    main: { src: "/art/food/food-film-draft.mp4", poster: "/art/food/food-film-draft.jpg", title: "Food & Restaurants film" },
     reel: [
       { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
       { src: "/art/food/dinner-dish.mp4", poster: "/art/food/dinner-dish.jpg", title: "Dinner · dish", horizontal: true },
@@ -89,7 +89,7 @@ const sections: Section[] = [
   },
   {
     id: "social-content",
-    title: "Social Content",
+    title: "Social & Trends",
     menu: "Social",
     work: "Social piece",
     portrait: true,
