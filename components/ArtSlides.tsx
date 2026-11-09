@@ -1,4 +1,5 @@
 "use client";
+import { phoneFullscreen, isPhone } from "./fullscreen";
 import { useEffect, useRef, useState } from "react";
 import { PlayButton } from "@/components/PlayButton";
 import Link from "next/link";
@@ -43,7 +44,7 @@ const sections: Section[] = [
     work: "Hybrid work",
     hybrid: true,
     portrait: true,
-    video: { src: "/art/hybrid/le-plongeoir.mp4", poster: "/art/hybrid/le-plongeoir.jpg", title: "Le Plongeoir · Nice · hybrid film" },
+    video: { src: "/art/hybrid/le-plongeoir-web.mp4", poster: "/art/hybrid/le-plongeoir.jpg", title: "Le Plongeoir · Nice · hybrid film" },
     note: "Film + process carousel (10 slides, Instagram order)",
   },
   {
@@ -51,11 +52,11 @@ const sections: Section[] = [
     title: "Food & Restaurants",
     menu: "Food & Resto",
     work: "Food / restaurant piece",
-    main: { src: "/art/food/food-film-draft.mp4", poster: "/art/food/food-film-draft.jpg", title: "Food & Restaurants film" },
+    main: { src: "/art/food/food-film-draft-web.mp4", poster: "/art/food/food-film-draft.jpg", title: "Food & Restaurants film" },
     reel: [
       { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
       { src: "/art/food/dinner-dish.mp4", poster: "/art/food/dinner-dish.jpg", title: "Dinner · dish", horizontal: true },
-      { src: "/art/food/marquis-homard-lobster-vertical.mp4", poster: "/art/food/marquis-homard-lobster-vertical.jpg", title: "Marquis Homard · lobster" },
+      { src: "/art/food/marquis-homard-lobster-vertical-web.mp4", poster: "/art/food/marquis-homard-lobster-vertical.jpg", title: "Marquis Homard · lobster" },
       { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus" },
       { src: "/art/food/croissants-01.mp4", poster: "/art/food/croissants-01.jpg", title: "Croissants" },
       { src: "/art/food/brunette-bakery-talking.mp4", poster: "/art/food/brunette-bakery-talking.jpg", title: "Bakery · brunette" },
@@ -70,9 +71,9 @@ const sections: Section[] = [
     work: "Commercial",
     portrait: true,
     videos: [
-      { src: "/art/commercials/lingerie-model.mp4", poster: "/art/commercials/lingerie-model.jpg", title: "Lingerie · model + cat · Polish brand spec" },
-      { src: "/art/commercials/lingerie-mannequin.mp4", poster: "/art/commercials/lingerie-mannequin.jpg", title: "Lingerie · mannequin · Polish brand spec" },
-      { src: "/art/commercials/wellendorff-spec.mp4", poster: "/art/commercials/wellendorff-spec.jpg", title: "Wellendorff · spec" },
+      { src: "/art/commercials/lingerie-model-web.mp4", poster: "/art/commercials/lingerie-model.jpg", title: "Lingerie · model + cat · Polish brand spec" },
+      { src: "/art/commercials/lingerie-mannequin-web.mp4", poster: "/art/commercials/lingerie-mannequin.jpg", title: "Lingerie · mannequin · Polish brand spec" },
+      { src: "/art/commercials/wellendorff-spec-web.mp4", poster: "/art/commercials/wellendorff-spec.jpg", title: "Wellendorff · spec" },
     ],
   },
   {
@@ -80,10 +81,10 @@ const sections: Section[] = [
     title: "AI Models & UGC",
     menu: "AI Models",
     work: "AI model / UGC piece",
-    main: { src: "/art/ai-models/arlix-macarons.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
+    main: { src: "/art/ai-models/arlix-macarons-web.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
     reel: [
-      { src: "/art/ai-models/rupert-singing.mp4", poster: "/art/ai-models/rupert-singing.jpg", title: "Rupert · singing" },
-      { src: "/art/ai-models/keira-fashion.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film", horizontal: true },
+      { src: "/art/ai-models/rupert-singing-web.mp4", poster: "/art/ai-models/rupert-singing.jpg", title: "Rupert · singing" },
+      { src: "/art/ai-models/keira-fashion-web.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film", horizontal: true },
     ],
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
   },
@@ -93,9 +94,22 @@ const sections: Section[] = [
     menu: "Social",
     work: "Social piece",
     portrait: true,
-    video: { src: "/art/social/paris-red-suit.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
+    video: { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
   },
 ];
+
+// Phones: play a ribbon work in the phone's own full screen player straight from the tap.
+function openOnPhone(v: Video): boolean {
+  const el = document.createElement("video");
+  el.src = v.src; el.poster = v.poster; el.playsInline = true; el.controls = true;
+  el.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none";
+  document.body.appendChild(el);
+  const done = () => { el.pause(); el.removeAttribute("src"); el.load(); el.remove(); };
+  el.addEventListener("webkitendfullscreen", done);
+  document.addEventListener("fullscreenchange", function h() { if (!document.fullscreenElement) { document.removeEventListener("fullscreenchange", h); done(); } });
+  if (phoneFullscreen(el)) return true;
+  el.remove(); return false;
+}
 
 // Curved ribbon of works (same as the home carousel, cards keep their own shape). A tap opens the work in the framed player.
 function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
@@ -115,10 +129,10 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   const toggle = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (!el.muted) soloAudio(el); };
   return (
     <>
-      <CurvedReel items={items} onOpen={setOpen} heightCss={heightCss} />
+      <CurvedReel items={items} onOpen={(i) => { if (!(isPhone() && openOnPhone(items[i]))) setOpen(i); }} heightCss={heightCss} />
       {v && typeof document !== "undefined" && createPortal(
-        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
-          <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl`} style={{ width: lbW }}>
+        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
+          <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
             <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
             <SoundToggle muted={muted} onClick={toggle} className="right-2 bottom-2" />
             <VideoScrubber video={lb} pillClassName="!right-11" />
@@ -205,15 +219,15 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm group-hover:border-[#C9A962] group-hover:text-[#C9A962] transition-colors">▶</span>
         </button>
       ) : (<>
-      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={!load ? "none" : active ? "auto" : "metadata"} onClick={() => setOpen(true)} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
+      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={!load ? "none" : active ? "auto" : "metadata"} onClick={() => { if (!phoneFullscreen(ref.current)) setOpen(true); }} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
       <PlayButton video={ref} label={`Play ${v.title}`} />
       <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-2 bottom-2" />
-      <ExpandButton onClick={(e) => { e.stopPropagation(); setOpen(true); }} className="right-11 bottom-2" />
+      <ExpandButton onClick={(e) => { e.stopPropagation(); if (!phoneFullscreen(ref.current)) setOpen(true); }} className="right-11 bottom-2" />
       <VideoScrubber video={ref} />
       </>)}
       {open && typeof document !== "undefined" && createPortal(
-        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
-          <div onClick={(e) => e.stopPropagation()} className={`relative ${box} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl`} style={{ width: lbW }}>
+        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
+          <div onClick={(e) => e.stopPropagation()} className={`relative ${box} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
             <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
             <SoundToggle muted={muted} onClick={toggleLb} className="right-2 bottom-2" />
             <VideoScrubber video={lb} pillClassName="!right-11" />
@@ -395,7 +409,7 @@ export default function ArtSlides() {
                   className="absolute inset-0 h-full w-full object-cover"
                   aria-label={taormina.title}
                 />
-                <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="md:hidden absolute inset-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.45),transparent_55%)] cursor-zoom-in" />
+                <div onClick={() => { if (!phoneFullscreen(introVid.current)) setIntroOpen(true); }} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="md:hidden absolute inset-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.45),transparent_55%)] cursor-zoom-in" />
                 {/* Phone: the headline stays on the film itself, bottom left. */}
                 <div className="md:hidden absolute left-16 right-28 bottom-3 pointer-events-none">
                   <div className="label mb-1">Art</div>
@@ -404,7 +418,7 @@ export default function ArtSlides() {
                 </div>
                 {/* Sound, full-screen and pause icons always sit on the film itself. */}
                 <SoundToggle muted={introMuted} onClick={toggleIntroSound} className="right-2 bottom-2" />
-                <ExpandButton onClick={() => setIntroOpen(true)} className="right-11 bottom-2" />
+                <ExpandButton onClick={() => { if (!phoneFullscreen(introVid.current)) setIntroOpen(true); }} className="right-11 bottom-2" />
                 <VideoScrubber video={introVid} />
                 <PlayButton video={introVid} label={`Play ${taormina.title}`} />
               </div>
@@ -413,7 +427,7 @@ export default function ArtSlides() {
               <Ph className="h-16 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
               <div className="label mt-5">Scroll ↓</div>
             </div>
-            <div onClick={() => setIntroOpen(true)} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="hidden md:block absolute inset-0 z-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.5),transparent_55%)] cursor-zoom-in" />
+            <div onClick={() => { if (!phoneFullscreen(introVid.current)) setIntroOpen(true); }} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="hidden md:block absolute inset-0 z-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.5),transparent_55%)] cursor-zoom-in" />
             <div className="hidden md:flex relative h-full flex-col justify-end pb-24 pl-[4.5rem] lg:pl-24 pr-6 max-w-4xl pointer-events-none">
               <div className="label mb-3">Art</div>
               <div className="font-display font-normal text-6xl leading-[1.05] mb-4">[Art headline]</div>
@@ -424,8 +438,8 @@ export default function ArtSlides() {
           </div>
         </section>
         {introOpen && typeof document !== "undefined" && createPortal(
-          <div role="dialog" aria-modal="true" aria-label={taormina.title} onClick={() => setIntroOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
-            <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
+          <div role="dialog" aria-modal="true" aria-label={taormina.title} onClick={() => setIntroOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
+            <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
               <video ref={introLb} src={taormina.src} poster={taormina.poster} loop playsInline autoPlay muted={introMuted} className="absolute inset-0 h-full w-full object-contain" />
               <SoundToggle muted={introMuted} onClick={toggleIntroLb} className="right-2 bottom-2" />
               <VideoScrubber video={introLb} pillClassName="!right-11" />
