@@ -83,7 +83,6 @@ const sections: Section[] = [
     work: "AI model / UGC piece",
     main: { src: "/art/ai-models/arlix-macarons-web.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
     reel: [
-      { src: "/art/ai-models/rupert-singing-web.mp4", poster: "/art/ai-models/rupert-singing.jpg", title: "Rupert · singing" },
       { src: "/art/ai-models/keira-fashion-web.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film", horizontal: true },
     ],
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
@@ -96,7 +95,6 @@ const sections: Section[] = [
     portrait: true,
     videos: [
       { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
-      { src: "/art/social/redhead-salmon.mp4", poster: "/art/social/redhead-salmon.jpg", title: "Redhead · salmon · trend" },
     ],
   },
 ];
