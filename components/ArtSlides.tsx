@@ -62,6 +62,7 @@ const sections: Section[] = [
       { src: "/art/food/brunette-bakery-talking.mp4", poster: "/art/food/brunette-bakery-talking.jpg", title: "Bakery · brunette" },
       { src: "/art/food/hostess-01-best.mp4", poster: "/art/food/hostess-01-best.jpg", title: "Hostess" },
       { src: "/art/food/cupid-barman-01-best.mp4", poster: "/art/food/cupid-barman-01-best.jpg", title: "Angel · waiter" },
+      { src: "/art/food/restaurant-01.mp4", poster: "/art/food/restaurant-01.jpg", title: "Restaurant", horizontal: true },
     ],
   },
   { id: "animation", title: "Animation", menu: "Cartoons", work: "Animation" },
