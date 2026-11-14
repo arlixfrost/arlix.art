@@ -106,6 +106,30 @@ const sections: Section[] = [
     menu: "Food & Resto",
     work: "Food / restaurant piece",
     main: { src: "/art/food/food-film-draft-web.mp4", poster: "/art/food/food-film-draft.jpg", title: "Food & Restaurants film" },
+    short: [
+      ["Food video is one", "of the hardest shoots:", "it has to be filmed very fast,", "with no second chance."],
+      ["There is time to film", "one splash of sauce and one cut.", "After that, the whole dish", "has to be made again."],
+      ["Professional lights", "heat the room,", "so ice cream melts", "and foam goes flat."],
+      ["AI keeps every dish", "at its most seductive moment", "for as long as the film needs."],
+    ],
+    more: { columns: [[0, 2], [1, 3]], chapters: [
+      { h: "Why is food so hard to film?", ps: [
+        "A dish has a [short life] on set. Under hot lights it starts to lose its shape, and every retake needs a fresh plate, so expensive ingredients are wasted before the right shot is ready, especially on video.",
+        "If you film in your own restaurant, it has to [close] for at least one day and be fitted with lights and equipment.",
+      ] },
+      { h: "What should a food film do?", ps: [
+        "A good food film makes the customer [crave] the dish and book a table immediately. Or it lets the customer feel the atmosphere of the place and [imagine being there], among beautiful people.",
+      ] },
+      { h: "Why do the people in the frame matter?", ps: [
+        "Many restaurants show only the food, or save on models and film friends or random guests. Yet people who are not camera-ready give a premium place a [provincial look], need careful direction on set and must sign a [model release]. Professional models, on the other hand, [inflate the budget], because the whole team comes with them: stylists, make-up artists and clothing hire.",
+      ] },
+      { h: "What does AI change?", ps: [
+        "AI allows you to show every dish at its most [seductive]: crispy, juicy and irresistible, for as long as the film needs.",
+        "AI models are created for the style of your brand, the mood, the format and the [atmosphere] of your restaurant. The same models stay throughout the film, so it feels whole and consistent.",
+        "Your kitchen keeps working, the restaurant stays open, and no ingredients are wasted.",
+        "An AI or hybrid film can be created from just [quality photos or videos] of your restaurant and dishes, even in [hard-to-reach locations].",
+      ] },
+    ] },
     reel: [
       { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
       { src: "/art/food/marquis-homard-lobster-vertical-web.mp4", poster: "/art/food/marquis-homard-lobster-vertical.jpg", title: "Marquis Homard · lobster" },
@@ -380,8 +404,8 @@ export default function ArtSlides() {
     const scroller = root.current;
     if (!scroller) return;
     gsap.registerPlugin(ScrollTrigger);
-    // No zoom-and-tilt on a phone turned sideways: sections there can be taller than the screen, and the tilt would leave headings scaled and turned.
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerHeight < 500;
+    // No zoom-and-tilt on phones (upright or sideways): sections there can be taller than the screen, and the tilt would leave headings scaled and turned.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerHeight < 500 || window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
       scroller.querySelectorAll<HTMLElement>("[data-snap-item]").forEach((section, i) => {

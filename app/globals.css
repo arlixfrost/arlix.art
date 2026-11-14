@@ -117,3 +117,15 @@ html { scroll-behavior: smooth; }
   .rm-cols{display:grid;}
   .readmore-arrow{left:auto;right:40px;bottom:32px;animation-name:readmore-nudge-wide;}
 }
+
+/* Art on an upright phone: a section with a lot in it (film, ribbon, text) grows taller than the screen instead of squeezing
+   the ribbon; free finger scrolling, as on a phone turned sideways. */
+@media (max-width: 767px) and (orientation: portrait) {
+  .art-theme [data-snap-item], .art-theme [data-snap-inner], .art-theme .sec-grid { height: auto !important; min-height: 100svh; }
+  .art-theme .sec-grid { padding-bottom: 40px !important; }
+  .art-theme .snap-mandatory { scroll-snap-type: none !important; }
+}
+/* Computer with a short window: the short description stays inside the screen, heading included. */
+@media (min-width: 768px) and (min-height: 501px) and (max-height: 820px) {
+  .art-theme .short-list { font-size: 16px !important; gap: 12px !important; line-height: 1.5 !important; }
+}
