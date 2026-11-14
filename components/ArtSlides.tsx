@@ -632,12 +632,12 @@ export default function ArtSlides() {
                     </div>
                     <div className="order-3 md:order-none min-w-0">
                     {s.short ? (
-                      <div className="mt-3 md:mt-6 max-w-[400px] pl-4 md:pl-0">
-                        <ul className="short-list m-0 p-0 list-none flex flex-col gap-4 md:gap-6 text-[15px] md:text-[19px] leading-[1.55] font-normal text-[#E4DED5]">
+                      <div className={`mt-3 md:mt-6 pl-4 md:pl-0 ${s.id === "brand-fashion-films" ? "max-w-[400px]" : "max-w-xl"}`}>
+                        <ul className={`short-list ${s.id === "brand-fashion-films" ? "short-lines" : "short-flow"} m-0 p-0 list-none flex flex-col gap-4 md:gap-6 text-[15px] leading-[1.55] font-normal text-[#E4DED5] ${s.id === "brand-fashion-films" ? "md:text-[19px]" : "md:text-[18px]"}`}>
                           {s.short.map((lines) => (
-                            <li key={lines[0]} className="relative pl-5">
+                            <li key={lines[0]} className="relative pl-5 [text-wrap:pretty]">
                               <span aria-hidden="true" className="absolute left-0 top-[0.65em] h-[5px] w-[5px] rounded-full bg-[#C9A962]" />
-                              {lines.map((l, k) => <span key={k} className="block">{l}</span>)}
+                              {s.id === "brand-fashion-films" ? lines.map((l, k) => <span key={k} className="block">{l}</span>) : lines.join(" ")}
                             </li>
                           ))}
                         </ul>
