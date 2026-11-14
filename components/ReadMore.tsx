@@ -59,7 +59,7 @@ export function ReadMore({ title, more }: { title: string; more: More }) {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="mt-6 inline-flex items-center gap-3 py-2 border-b border-[#C9A962]/70 font-body text-[12px] md:text-[13px] font-medium uppercase tracking-[0.22em] text-[#C9A962] hover:text-[#F2EDE6] transition-colors">
+      <button onClick={() => setOpen(true)} className="rm-btn mt-6 inline-flex items-center gap-3 py-2 border-b border-[#C9A962]/70 font-body text-[12px] md:text-[13px] font-medium uppercase tracking-[0.22em] text-[#C9A962] hover:text-[#F2EDE6] transition-colors">
         Read more
         <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.2" /></svg>
       </button>

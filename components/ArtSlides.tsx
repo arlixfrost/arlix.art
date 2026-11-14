@@ -161,7 +161,26 @@ const sections: Section[] = [
     reel: [
       { src: "/art/ai-models/keira-fashion-web.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film", horizontal: true },
     ],
-    text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
+    short: [
+      ["A face that belongs", "only to your brand", "and appears nowhere else."],
+      ["One model for every format:", "an influencer chatting", "from her kitchen,", "a runway show", "or an ad campaign."],
+      ["Speaks any language", "and matches", "the beauty standards", "of each market."],
+      ["Collections can be tested", "before production", "and ads tried", "on different models", "and body types."],
+    ],
+    more: { columns: [[0, 2], [1, 3]], chapters: [
+      { h: "Why give a brand its own AI face?", ps: [
+        "A human model works with several brands at the same time. Today she wears your exclusive jewellery, tomorrow the same face is on a billboard for a budget supermarket. People notice, and the [premium value] of your product drops. An AI model belongs [only to you]: she never quits, never works for anyone else and keeps the same face in every campaign, with no casting, booking calendars or usage rights to renew.",
+      ] },
+      { h: "What can one model do?", ps: [
+        "The same model can appear as an influencer chatting from her kitchen, walk a [runway show] or star in an ad campaign. Each look is created in AI, which saves the budget usually spent on stylists, hair and make-up. Your audience sees [one familiar face] in every format, so the brand is easier to remember.",
+      ] },
+      { h: "How does it work on international markets?", ps: [
+        "If you work on international markets or in several countries, beauty standards differ from one to another: a look that works in Scandinavia often does not work in Eastern Europe or Latin America. For each market, a character can be created that feels close to your customers and [speaks their language]. One piece can also be shown in different looks, and the same ad can be tested on [different models and body types].",
+      ] },
+      { h: "Why is it faster and the result more controlled?", ps: [
+        "Like a sample collection shown to buyers, pieces can be shown on models [before production], so only the ones in demand go into full production. Mistakes are fixed and new pieces are added without a reshoot. A trend or a news story can be caught [while it is still fresh]. You [approve every stage], with changes within reason made along the way. The result stays under control and arrives much sooner than from a videographer.",
+      ] },
+    ] },
   },
   {
     id: "artworks",

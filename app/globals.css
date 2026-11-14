@@ -127,5 +127,8 @@ html { scroll-behavior: smooth; }
 }
 /* Computer with a short window: the short description stays inside the screen, heading included. */
 @media (min-width: 768px) and (min-height: 501px) and (max-height: 820px) {
-  .art-theme .short-list { font-size: 16px !important; gap: 12px !important; line-height: 1.5 !important; }
+  .art-theme .short-list { font-size: 16px !important; gap: 10px !important; line-height: 1.4 !important; }
+  .art-theme .sec-text .rm-btn { margin-top: 14px !important; }
+  /* if the text is still taller than the screen, it never slides up under the header */
+  .art-theme .sec-text { justify-content: safe center !important; }
 }
