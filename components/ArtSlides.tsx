@@ -29,7 +29,7 @@ type Section = {
   reel?: Video[]; // strip of works under it
 };
 
-// Order: Brand → Hybrid → Food & Restaurants → Animation → Commercials → AI Models & UGC → Social (Artworks hidden)
+// Order: Brand → Hybrid → Food & Restaurants → Animation → AI Models & UGC → Artworks (Commercials removed for now)
 const sections: Section[] = [
   {
     id: "brand-fashion-films",
@@ -67,17 +67,6 @@ const sections: Section[] = [
   },
   { id: "animation", title: "Animation", menu: "Cartoons", work: "Animation" },
   {
-    id: "commercials",
-    title: "Commercials",
-    work: "Commercial",
-    portrait: true,
-    videos: [
-      { src: "/art/commercials/lingerie-model-web.mp4", poster: "/art/commercials/lingerie-model.jpg", title: "Lingerie · model + cat · Polish brand spec" },
-      { src: "/art/commercials/lingerie-mannequin-web.mp4", poster: "/art/commercials/lingerie-mannequin.jpg", title: "Lingerie · mannequin · Polish brand spec" },
-      { src: "/art/commercials/wellendorff-spec-web.mp4", poster: "/art/commercials/wellendorff-spec.jpg", title: "Wellendorff · spec" },
-    ],
-  },
-  {
     id: "ai-models-ugc",
     title: "AI Models & UGC",
     menu: "AI Models",
@@ -89,10 +78,10 @@ const sections: Section[] = [
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
   },
   {
-    id: "social-content",
-    title: "Social & Trends",
-    menu: "Social",
-    work: "Social piece",
+    id: "artworks",
+    title: "Artworks",
+    menu: "Artworks",
+    work: "Artwork",
     portrait: true,
     videos: [
       { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
@@ -397,7 +386,7 @@ export default function ArtSlides() {
         <section data-snap-item data-index={0} id="intro" className={`${slide} max-md:!h-auto`}>
           {/* Phone: heading above the film, description under it. Desktop: film fills the screen, text over it. */}
           <div data-snap-inner className={`${inner} relative flex flex-col pt-14 md:block md:pt-0`}>
-            <div className="relative bg-black md:absolute md:inset-0 md:flex md:items-center md:justify-center">
+            <div className="intro-box relative bg-black md:absolute md:inset-0 md:flex md:items-center md:justify-center">
               <div className="intro-film relative w-full aspect-video md:max-w-[calc(100svh*16/9)]">
                 <video
                   ref={introVid}
