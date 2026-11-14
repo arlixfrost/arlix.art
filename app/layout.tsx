@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Jost } from "next/font/google";
+import "./fonts.css";
 import "./globals.css";
 import Nav from "@/components/Nav";
 
-const display = Bodoni_Moda({ subsets: ["latin", "latin-ext"], weight: ["400", "500"], style: ["normal", "italic"], variable: "--font-display", display: "swap" });
-const body = Jost({ subsets: ["latin", "latin-ext"], weight: ["300", "400", "500"], variable: "--font-body", display: "swap" });
+// Fonts are stored in the site (public/fonts, app/fonts.css): the build never downloads them from Google.
 
 export const metadata: Metadata = {
   title: "Arlix",
@@ -13,7 +12,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en">
+      <head>
+        <link rel="preload" href="/fonts/bodoni-moda-8.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/jost-3.woff2" as="font" type="font/woff2" crossOrigin="" />
+      </head>
       <body className="min-h-screen">
         <Nav />
         {children}
