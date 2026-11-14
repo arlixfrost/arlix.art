@@ -82,8 +82,10 @@ const sections: Section[] = [
     title: "Artworks",
     menu: "Artworks",
     work: "Artwork",
-    portrait: true,
-    videos: [
+    // Taormina (final art) big on top; the ribbon below: lingerie with the cat (moved from Commercials), then Paris
+    main: { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily" },
+    reel: [
+      { src: "/art/commercials/lingerie-model-web.mp4", poster: "/art/commercials/lingerie-model.jpg", title: "Lingerie · model + cat" },
       { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
     ],
   },
@@ -123,7 +125,7 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
 }
 
 const ep1: Video = { src: "/art/amber-city/ep1-oskar.mp4", poster: "/art/amber-city/ep1-oskar.jpg", title: "Amber City · Ep 1 — Oskar" };
-const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily · WIP" };
+const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily" };
 
 // Muted autoplay driven by section visibility. iOS Safari only autoplays when the element is
 // muted + playsInline, and React does not emit the `muted` attribute in static HTML, so we set
