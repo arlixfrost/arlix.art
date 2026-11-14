@@ -57,7 +57,7 @@ export default function Showreel({ className = "", children, fade }: { className
       <div className="reel-stage absolute inset-0">
       <video
         ref={ref}
-        className="reel-video absolute inset-0 h-full w-full object-contain"
+        className="reel-video absolute inset-0 h-full w-full object-cover"
         src="/showreel-1-web.mp4"
         poster="/showreel-poster.jpg"
         autoPlay

@@ -151,6 +151,26 @@ const sections: Section[] = [
     reel: [
       { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · Pomeranian" },
     ],
+    short: [
+      ["A cartoon or a mascot", "created especially", "for your brand."],
+      ["A story written", "with local humour", "and mentality,", "so it reaches", "the viewer's heart."],
+      ["A recognisable character", "that grows into a series."],
+      ["Animals sell any product", "in any market.", "An AI pet does exactly", "what the scene needs,", "and no real animal", "goes through the stress", "of a shoot."],
+    ],
+    more: { columns: [[0, 2], [1, 3]], chapters: [
+      { h: "Why does a brand need its own character?", ps: [
+        "AI cartoons are more than the bananas and strawberries everyone is tired of. A character created for a brand is one of its [strongest assets]. A {study by Ipsos|https://www.ipsos.com/en-ph/power-you-why-distinctive-brand-assets-are-driving-force-creative-effectiveness}, one of the world's largest market research companies, covered more than 2,000 video ads and found that characters appear [six times more often] in high-performing ads. {Research by System1|https://www.smartbrief.com/original/report-brand-characters-beat-celebrities-in-super-bowl-ads}, which measures how audiences feel about ads, looked at Super Bowl commercials and found that brand characters [beat celebrities] on appeal, brand recognition and sales impact.",
+      ] },
+      { h: "How is the character made for your market?", ps: [
+        "The cartoon character is created for your brand and your audience, with the mentality, culture, traditions and folk tales of your market in mind. [Storytelling is extremely important.] When the character is clearly written, with local humour and sometimes slang, it goes straight to the [viewer's heart].",
+      ] },
+      { h: "How does a character become a series?", ps: [
+        "A recognisable character keeps people coming back for the [next episode]. It could be a bartender with an unusual look who tells stories about the guests, or a witty chef who fillets fish like a virtuoso and takes playful jabs at the competitors. Over time, the character becomes the [brand's own voice] on social media.",
+      ] },
+      { h: "Why AI animals?", ps: [
+        "Animals work for any brand: everyone loves fluffy pets. On a real set, though, putting animals through take after take is far from humane, and the shoot needs a trainer. Depending on the country, an [animal welfare representative] is also required on set: in the US, this adds [$1,200 a day] to your ad budget. In AI, the animal's movements, look and behaviour are [fully controlled], with no stress for any living creature.",
+      ] },
+    ] },
   },
   {
     id: "ai-models-ugc",
@@ -388,7 +408,6 @@ function MainReel({ main, reel, on, near }: { main: Video; reel: Video[]; on: bo
 const slides = [
   { id: "intro", label: "Intro" },
   ...sections.map((s) => ({ id: s.id, label: s.menu ?? s.title })),
-  { id: "pricing", label: "Pricing" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -669,22 +688,8 @@ export default function ArtSlides() {
           );
         })}
 
-        <section data-snap-item data-index={sections.length + 1} id="pricing" className={slide}>
-          <div data-snap-inner className={inner}>
-            <div className="h-full flex flex-col justify-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6 pt-16">
-              <div className="label mb-3">Pricing</div>
-              <h2 className="font-display font-normal text-3xl md:text-5xl mb-8">Pricing</h2>
-              <div className="grid gap-4 md:grid-cols-3 max-w-5xl">
-                {["Package 1", "Package 2", "Package 3"].map((p) => (
-                  <Ph key={p} className="h-44 flex-col gap-2"><span>[{p}: name]</span><span>[Price]</span><span>[What is included]</span></Ph>
-                ))}
-              </div>
-              <Ph className="mt-4 h-12 max-w-5xl">[Pricing note: custom quotes, terms]</Ph>
-            </div>
-          </div>
-        </section>
 
-        <section data-snap-item data-index={sections.length + 2} id="contact" className={slide}>
+        <section data-snap-item data-index={sections.length + 1} id="contact" className={slide}>
           <div data-snap-inner className={inner}>
             <div className="h-full flex flex-col items-center justify-center text-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6">
               <div className="label mb-3">Contact</div>

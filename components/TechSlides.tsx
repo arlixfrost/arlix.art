@@ -27,7 +27,6 @@ const items: Item[] = [
 const slides = [
   { id: "intro", label: "Intro" },
   ...items.map((s) => ({ id: s.id, label: s.menu ?? s.title })),
-  { id: "pricing", label: "Pricing" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -155,22 +154,8 @@ export default function TechSlides() {
           </section>
         ))}
 
-        <section data-snap-item data-index={items.length + 1} id="pricing" className={slide}>
-          <div data-snap-inner className={inner}>
-            <div className={`h-full flex flex-col justify-center ${pad} pt-[72px]`}>
-              <div className="label mb-4">Pricing</div>
-              <h2 className="font-display font-normal text-3xl md:text-5xl mb-8">Pricing</h2>
-              <div className="grid gap-4 md:grid-cols-3 max-w-5xl">
-                {["Package 1", "Package 2", "Package 3"].map((p) => (
-                  <Ph key={p} className="h-44 flex-col gap-2"><span>[{p}: name]</span><span>[Price]</span><span>[What is included]</span></Ph>
-                ))}
-              </div>
-              <Ph className="mt-4 h-12 max-w-5xl">[Pricing note: custom quotes, terms]</Ph>
-            </div>
-          </div>
-        </section>
 
-        <section data-snap-item data-index={items.length + 2} id="contact" className={slide}>
+        <section data-snap-item data-index={items.length + 1} id="contact" className={slide}>
           <div data-snap-inner className={inner}>
             <div className={`h-full flex flex-col items-center justify-center text-center ${pad}`}>
               <div className="label mb-4">Contact</div>
