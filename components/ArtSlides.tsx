@@ -55,7 +55,6 @@ const sections: Section[] = [
     main: { src: "/art/food/food-film-draft-web.mp4", poster: "/art/food/food-film-draft.jpg", title: "Food & Restaurants film" },
     reel: [
       { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
-      { src: "/art/food/dinner-dish.mp4", poster: "/art/food/dinner-dish.jpg", title: "Dinner · dish", horizontal: true },
       { src: "/art/food/marquis-homard-lobster-vertical-web.mp4", poster: "/art/food/marquis-homard-lobster-vertical.jpg", title: "Marquis Homard · lobster" },
       { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus" },
       { src: "/art/food/croissants-01.mp4", poster: "/art/food/croissants-01.jpg", title: "Croissants" },
@@ -71,8 +70,10 @@ const sections: Section[] = [
     title: "AI Models & UGC",
     menu: "AI Models",
     work: "AI model / UGC piece",
-    // Girl in the pink dress (Keira fashion film) removed from the ribbon; the macarons film stays alone
-    video: { src: "/art/ai-models/arlix-macarons-web.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
+    main: { src: "/art/ai-models/arlix-macarons-web.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
+    reel: [
+      { src: "/art/ai-models/keira-fashion-web.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film", horizontal: true },
+    ],
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
   },
   {
