@@ -114,7 +114,7 @@ export default function TechSlides() {
       <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
         <section data-snap-item data-index={0} id="intro" className={slide}>
           <div data-snap-inner className={inner}>
-            <div className={`h-full flex flex-col justify-center ${pad} pt-[72px] max-w-5xl`}>
+            <div className={`sec-grid h-full flex flex-col justify-center ${pad} pt-[72px] max-w-5xl`}>
               <div className="label mb-4">Tech</div>
               <h1 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-5">[Tech headline]</h1>
               <div className="gold-rule mb-6" />
@@ -127,7 +127,7 @@ export default function TechSlides() {
         {items.map((s, i) => (
           <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
             <div data-snap-inner className={inner}>
-              <div className={s.video ? `h-full grid gap-4 md:gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] content-center ${pad} pt-[72px]` : `h-full flex flex-col justify-center ${pad} pt-[72px] max-w-4xl`}>
+              <div className={s.video ? `sec-grid h-full grid gap-4 md:gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] content-center ${pad} pt-[72px]` : `sec-grid h-full flex flex-col justify-center ${pad} pt-[72px] max-w-4xl`}>
                 <div className="flex flex-col justify-center min-w-0">
                 <div className="label mb-4">{String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</div>
                 <h2 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-5">{s.title}</h2>

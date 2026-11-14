@@ -71,3 +71,37 @@ html { scroll-behavior: smooth; }
   /* footer sits right under the home carousel, as on an upright phone */
   footer { margin-top: 4px !important; padding-top: 16px !important; padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)) !important; }
 }
+
+/* Art and Tech pages on a phone turned sideways (short screen, browser bars included): content starts under the
+   header, headings and text are phone sized so nothing is cut, the Art intro film fills the width. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .art-theme h1, .art-theme h2, .art-theme .intro-title { font-size: 26px !important; line-height: 1.1 !important; margin-bottom: 8px !important; }
+  .art-theme section p { font-size: 12px !important; line-height: 1.5 !important; }
+  .art-theme .label { margin-bottom: 4px !important; }
+  .art-theme .gold-rule { margin-bottom: 8px !important; }
+  .art-theme .sec-grid { padding-top: 64px !important; padding-bottom: 10px !important; row-gap: 8px !important; }
+  .art-theme .sec-text { justify-content: center; max-height: 100%; overflow-y: auto; scrollbar-width: none; }
+  .art-theme .sec-text::-webkit-scrollbar { display: none; }
+  .art-theme .sec-text .ph, .art-theme .sec-grid > .ph, .art-theme .sec-grid .ph { height: auto !important; min-height: 40px; padding: 8px; font-size: 12px; }
+  .art-theme { --ph: calc(100svh - 84px); }
+  /* Food: the big film and the ribbon share the height */
+  .art-theme .main-reel { height: 100%; }
+  .art-theme .main-reel .main-film { width: auto !important; height: calc((100svh - 84px) * 0.56); align-self: center; }
+  .art-theme .main-reel .main-reel-ribbon { flex: 1 1 0; min-height: 0 !important; height: auto !important; }
+  /* Art intro: film fills the screen, no black side fields; text small at the bottom */
+  .art-theme .intro-film { max-width: none !important; height: 100%; aspect-ratio: auto !important; }
+  .art-theme .intro-text { padding-bottom: 14px !important; }
+  .art-theme .intro-text .ph { height: auto !important; padding: 6px 10px; }
+  .art-theme .scroll-hint { display: none !important; }
+  .art-theme #pricing .ph, .art-theme #contact .ph { height: auto !important; min-height: 36px; padding: 6px; }
+  .art-theme #pricing .grid { gap: 8px; }
+  .art-theme #pricing h2, .art-theme #contact h2 { margin-bottom: 10px !important; }
+  .art-theme #contact .frame-btn, .art-theme .sec-grid .frame-btn { height: 40px; min-width: 120px; font-size: 11px; }
+  .art-theme .sec-grid .mt-6, .art-theme .sec-grid .mt-8, .art-theme .sec-grid .mt-10 { margin-top: 8px !important; }
+  .art-theme .sec-grid p.text-xl { font-size: 15px !important; }
+  .art-theme #contact > div > div { padding-top: 56px; }
+  /* Art: text clear of the vertical section menu on the left */
+  .art-theme .art-grid { padding-left: 92px !important; }
+  /* films never taller than the space under the header */
+  .art-theme .sec-grid .aspect-video:not(.main-film) { max-width: calc((100svh - 80px) * 16 / 9); margin-inline: auto; }
+}

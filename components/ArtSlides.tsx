@@ -398,7 +398,7 @@ export default function ArtSlides() {
           {/* Phone: heading above the film, description under it. Desktop: film fills the screen, text over it. */}
           <div data-snap-inner className={`${inner} relative flex flex-col pt-14 md:block md:pt-0`}>
             <div className="relative bg-black md:absolute md:inset-0 md:flex md:items-center md:justify-center">
-              <div className="relative w-full aspect-video md:max-w-[calc(100svh*16/9)]">
+              <div className="intro-film relative w-full aspect-video md:max-w-[calc(100svh*16/9)]">
                 <video
                   ref={introVid}
                   src={taormina.src}
@@ -430,12 +430,12 @@ export default function ArtSlides() {
               <div className="label mt-5">Scroll ↓</div>
             </div>
             <div onClick={() => { if (!phoneFullscreen(introVid.current)) setIntroOpen(true); }} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="hidden md:block absolute inset-0 z-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.5),transparent_55%)] cursor-zoom-in" />
-            <div className="hidden md:flex relative h-full flex-col justify-end pb-24 pl-[4.5rem] lg:pl-24 pr-6 max-w-4xl pointer-events-none">
+            <div className="intro-text hidden md:flex relative h-full flex-col justify-end pb-24 pl-[4.5rem] lg:pl-24 pr-6 max-w-4xl pointer-events-none">
               <div className="label mb-3">Art</div>
-              <div className="font-display font-normal text-6xl leading-[1.05] mb-4">[Art headline]</div>
+              <div className="intro-title font-display font-normal text-6xl leading-[1.05] mb-4">[Art headline]</div>
               <div className="gold-rule mb-5" />
               <Ph className="h-20 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
-              <div className="label mt-8">Scroll ↓</div>
+              <div className="scroll-hint label mt-8">Scroll ↓</div>
             </div>
           </div>
         </section>
@@ -458,8 +458,8 @@ export default function ArtSlides() {
             <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
                 {/* Desktop: 1/3 text | 2/3 media. Phone: heading above the media, description under it. */}
-                <div className="h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
-                  <div className="contents md:flex md:flex-col md:justify-center min-w-0">
+                <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
+                  <div className="sec-text contents md:flex md:flex-col md:justify-center min-w-0">
                     <div className="order-1 md:order-none">
                       <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
                       <div className="gold-rule md:mb-3" />
@@ -484,9 +484,9 @@ export default function ArtSlides() {
                     </div>
                   ) : s.main && s.reel ? (
                     // Big film at the same size as Brand & Fashion Films (full column width, 16:9); the ribbon takes the rest of the height.
-                    <div className="min-h-0 min-w-0 flex flex-col gap-3 md:h-full">
-                      <WorkVideo v={s.main} active={on} near={near} className="shrink-0" />
-                      <div className="h-[230px] md:h-auto md:flex-1 md:min-h-[200px]">
+                    <div className="main-reel min-h-0 min-w-0 flex flex-col gap-3 md:h-full">
+                      <WorkVideo v={s.main} active={on} near={near} className="main-film shrink-0" />
+                      <div className="main-reel-ribbon h-[230px] md:h-auto md:flex-1 md:min-h-[200px]">
                         <Reel items={s.reel} heightCss="100%" />
                       </div>
                     </div>
