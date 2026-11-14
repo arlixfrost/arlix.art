@@ -99,11 +99,21 @@ html { scroll-behavior: smooth; }
   .art-theme .intro-text { position: absolute !important; left: 0; right: 0; top: 72px; bottom: 0; height: auto !important; }
   .art-theme .intro-text { padding-bottom: 20px !important; }
   .art-theme .scroll-hint { display: none !important; }
+  /* short description next to the films: lines are broken by meaning, so the size keeps each line whole */
+  .art-theme .short-list { font-size: 15px !important; gap: 12px !important; }
+  .art-theme .short-list li { padding-left: 14px !important; }
   .art-theme #pricing > div > div, .art-theme #contact > div > div { padding-top: 76px; padding-bottom: 20px; }
 }
 
-/* Read more panel: the gold arrow at the bottom nudges down until the reader reaches the end */
-@keyframes readmore-nudge { 0%,100% { transform: translate(-50%,0); } 50% { transform: translate(-50%,6px); } }
-.readmore-arrow { animation: readmore-nudge 1.6s ease-in-out infinite; }
-@keyframes readmore-nudge-md { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-@media (min-width:768px){ .readmore-arrow { animation-name: readmore-nudge-md; } }
+/* Read more panel. Phones, upright AND turned sideways: frames one under another, gold arrow centred at the bottom.
+   Computer (wide and tall screen): frames in columns, arrow bottom right. */
+.rm-stack{display:flex;max-width:680px;margin:0 auto;}
+.rm-cols{display:none;}
+.readmore-arrow{left:50%;bottom:20px;animation:readmore-nudge 1.6s ease-in-out infinite;}
+@keyframes readmore-nudge{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,6px);}}
+@keyframes readmore-nudge-wide{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+@media (min-width:768px) and (min-height:501px){
+  .rm-stack{display:none;}
+  .rm-cols{display:grid;}
+  .readmore-arrow{left:auto;right:40px;bottom:32px;animation-name:readmore-nudge-wide;}
+}

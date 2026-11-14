@@ -72,10 +72,10 @@ export function ReadMore({ title, more }: { title: string; more: More }) {
                 <svg width="22" height="22" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3l14 14M17 3L3 17" fill="none" stroke="currentColor" strokeWidth="1.4" /></svg>
               </button>
               <div className="font-display font-normal text-[34px] md:text-[48px] leading-[1.06] pr-12 mb-8 md:mb-14">{title}</div>
-              <div className="flex flex-col gap-5 md:hidden">
+              <div className="rm-stack flex-col gap-5">
                 {more.chapters.map((c) => <Frame key={c.h} c={c} />)}
               </div>
-              <div className={`hidden md:grid gap-10 ${cols === 3 ? "md:grid-cols-3 md:items-stretch" : "md:grid-cols-2 md:items-start"}`}>
+              <div className={`rm-cols gap-10 ${cols === 3 ? "grid-cols-3 items-stretch" : "grid-cols-2 items-start"}`}>
                 {more.columns.map((col, i) => (
                   <div key={i} className="flex flex-col gap-10">
                     {col.map((k) => <div key={k} className={col.length === 1 ? "flex-1" : ""}><Frame c={more.chapters[k]} /></div>)}
@@ -85,7 +85,7 @@ export function ReadMore({ title, more }: { title: string; more: More }) {
             </div>
           </div>
           {!atEnd && (
-            <button onClick={down} aria-label="Scroll down" className="readmore-arrow absolute left-1/2 -translate-x-1/2 bottom-5 md:left-auto md:right-10 md:bottom-8 md:translate-x-0 h-12 w-12 rounded-full border border-[#C9A962] bg-[#121110]/85 text-[#C9A962] flex items-center justify-center">
+            <button onClick={down} aria-label="Scroll down" className="readmore-arrow absolute h-12 w-12 rounded-full border border-[#C9A962] bg-[#121110]/85 text-[#C9A962] flex items-center justify-center">
               <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v13M3 10l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="1.4" /></svg>
             </button>
           )}

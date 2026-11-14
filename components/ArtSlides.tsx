@@ -28,7 +28,7 @@ type Section = {
   portrait?: boolean;
   main?: Video; // big horizontal film on top
   reel?: Video[]; // strip of works under it
-  short?: string[]; // short description lines next to the film
+  short?: string[][]; // short description next to the film: each point is a list of lines, broken by meaning
   more?: More; // long text behind "Read more"
 };
 
@@ -41,10 +41,10 @@ const sections: Section[] = [
     work: "Film",
     video: { src: "/art/brand-fashion-films.mp4", poster: "/art/brand-fashion-films.jpg", title: "Hervé Léger · origin film" },
     short: [
-      "The story of a brand, its founder or the moment it took off, told in the language of cinema.",
-      "Trust that a sales commercial does not build.",
-      "People watch it with interest and do not feel that something is being sold to them.",
-      "A film that works for years and is remembered as a story.",
+      ["The story of a brand, its founder", "or the moment it took off,", "told in the language of cinema."],
+      ["Trust that a sales commercial", "does not build."],
+      ["People watch it with interest", "and do not feel that something", "is being sold to them."],
+      ["A film that works for years", "and is remembered as a story."],
     ],
     more: { columns: [[0], [1], [2]], chapters: [
       { h: "What can a brand film be about?", ps: [
@@ -73,10 +73,10 @@ const sections: Section[] = [
     video: { src: "/art/hybrid/le-plongeoir-web.mp4", poster: "/art/hybrid/le-plongeoir.jpg", title: "Le Plongeoir · Nice · hybrid film" },
     note: "Film + process carousel (10 slides, Instagram order)",
     short: [
-      "A real location or real people, carried into a dreamlike world or joined by AI characters.",
-      "The most requested format in AI production today.",
-      "No shoot, no drones, no crew, no models, and the venue stays open.",
-      "A film on the level of global brands, made from a few good photos, even iPhone ones, and a strong script.",
+      ["A real location or real people,", "carried into a dreamlike world", "or joined by AI characters."],
+      ["The most requested format", "in AI production today."],
+      ["No shoot, no drones,", "no crew, no models,", "and the venue stays open."],
+      ["A film on the level", "of global brands,", "made from a few good photos,", "even iPhone ones,", "and a strong script."],
     ],
     more: { columns: [[0, 2], [1, 3]], chapters: [
         { h: "What is a hybrid film?", ps: [
@@ -537,16 +537,21 @@ export default function ArtSlides() {
               <div data-snap-inner className={inner}>
                 {/* Desktop: 1/3 text | 2/3 media. Phone: heading above the media, description under it. */}
                 <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
-                  <div className="sec-text contents md:flex md:flex-col md:justify-center min-w-0">
+                  <div className="sec-text contents md:flex md:flex-col md:justify-center md:pl-8 min-w-0">
                     <div className="order-1 md:order-none">
                       <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
                       <div className="gold-rule md:mb-3" />
                     </div>
                     <div className="order-3 md:order-none min-w-0">
                     {s.short ? (
-                      <div className="mt-2 max-w-xl pl-4">
-                        <ul className="m-0 p-0 list-none flex flex-col gap-2 md:gap-3 text-[14px] md:text-[16px] leading-relaxed text-[#CFC8BE]">
-                          {s.short.map((t) => <li key={t}>{t}</li>)}
+                      <div className="mt-3 md:mt-6 max-w-[400px] pl-4 md:pl-0">
+                        <ul className="short-list m-0 p-0 list-none flex flex-col gap-4 md:gap-6 text-[15px] md:text-[19px] leading-[1.55] font-normal text-[#E4DED5]">
+                          {s.short.map((lines) => (
+                            <li key={lines[0]} className="relative pl-5">
+                              <span aria-hidden="true" className="absolute left-0 top-[0.65em] h-[5px] w-[5px] rounded-full bg-[#C9A962]" />
+                              {lines.map((l, k) => <span key={k} className="block">{l}</span>)}
+                            </li>
+                          ))}
                         </ul>
                         {s.more ? <ReadMore title={s.title} more={s.more} /> : null}
                       </div>
