@@ -7,7 +7,7 @@ import { soloAudio } from "@/components/audio";
 import { PlayButton } from "@/components/PlayButton";
 import { phoneFullscreen } from "@/components/fullscreen";
 
-export default function Showreel({ className = "", children }: { className?: string; children?: React.ReactNode }) {
+export default function Showreel({ className = "", children, fade }: { className?: string; children?: React.ReactNode; fade?: React.ReactNode }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
 
@@ -53,6 +53,8 @@ export default function Showreel({ className = "", children }: { className?: str
 
   return (
     <div className={`relative overflow-hidden bg-black ${className}`}>
+      {/* Stage: the film with its logo, buttons and icons. On an upright phone the whole stage is turned on its side. */}
+      <div className="reel-stage absolute inset-0">
       <video
         ref={ref}
         className="reel-video absolute inset-0 h-full w-full object-contain"
@@ -64,6 +66,7 @@ export default function Showreel({ className = "", children }: { className?: str
         playsInline
         preload="auto"
       />
+      {fade}
       <div onClick={() => { if (!phoneFullscreen(ref.current)) setOpen(true); }} role="button" aria-label="Open showreel" className="absolute inset-0 bg-black/35 cursor-zoom-in" />
       <div className="relative h-full pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">{children}</div>
       <PlayButton video={ref} label="Play showreel" />
@@ -75,6 +78,7 @@ export default function Showreel({ className = "", children }: { className?: str
           <path d="M4 9V4h5" /><path d="M20 9V4h-5" /><path d="M4 15v5h5" /><path d="M20 15v5h-5" />
         </svg>
       </button>
+      </div>
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label="Showreel" onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>

@@ -39,13 +39,20 @@ html { scroll-behavior: smooth; }
 .hybrid-carousel{height:var(--h);width:calc(var(--h) * 4 / 5);max-width:none;}
 .reel::-webkit-scrollbar{display:none}
 
-/* Phone held upright: the showreel fills the whole screen under the header, turned on its side,
-   so the visitor turns the phone to watch it. Turned to landscape, the page shows it normally. */
+/* Phone held upright: the showreel fills the whole screen under the header. The whole stage (film, logo,
+   tagline, Art/Tech buttons, icons) is turned on its side so it reads right when the phone is turned to the left. */
 @media (max-width: 767px) and (orientation: portrait) {
   .reel-rot { aspect-ratio: auto !important; height: calc(100svh - 56px); }
-  .reel-rot .reel-video {
+  .reel-rot .reel-stage {
     inset: auto; left: 50%; top: 50%;
-    width: calc(100svh - 56px); height: 100vw; max-width: none; max-height: none;
-    transform: translate(-50%, -50%) rotate(-90deg);
+    width: calc(100svh - 56px); height: 100vw;
+    transform: translate(-50%, -50%) rotate(90deg);
   }
+  .reel-rot .reel-hero { display: flex !important; }
+  .reel-rot .reel-hero > :first-child { width: min(62vw, 300px) !important; }
+  .reel-rot .reel-hero > p { margin-top: 12px; font-size: 18px; }
+  .reel-rot .reel-hero > div { margin-top: 22px; }
+  .reel-below { display: none !important; }
+  /* the fade keeps darkening the top and bottom of the screen, under the logo, buttons and icons */
+  .reel-rot .reel-fade { background-image: linear-gradient(to right,#0B0B0C 0%,rgba(11,11,12,0) 22%,rgba(11,11,12,0) 55%,#0B0B0C 100%) !important; }
 }

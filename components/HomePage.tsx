@@ -24,11 +24,9 @@ export default function HomePage({ variant = "now" }: { variant?: Variant }) {
   return (
     <main className={small ? "flex flex-col min-h-[calc(100svh-58px)] md:block md:min-h-0" : undefined}>
       <h1 className="sr-only">Arlix</h1>
-      <Showreel className={`reel-rot mt-14 aspect-video w-full md:mt-0 md:aspect-auto md:h-[100svh]`}>
-        {variant === "soft" && (
-          <div className="md:hidden absolute inset-0 bg-[linear-gradient(to_bottom,#0B0B0C_0%,rgba(11,11,12,0)_22%,rgba(11,11,12,0)_55%,#0B0B0C_100%)]" />
-        )}
-        <div className="hidden md:flex h-full flex-col items-center justify-center text-center px-6">
+      <Showreel className={`reel-rot mt-14 aspect-video w-full md:mt-0 md:aspect-auto md:h-[100svh]`}
+        fade={variant === "soft" ? <div className="reel-fade md:hidden pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,#0B0B0C_0%,rgba(11,11,12,0)_22%,rgba(11,11,12,0)_55%,#0B0B0C_100%)]" /> : null}>
+        <div className="reel-hero hidden md:flex h-full flex-col items-center justify-center text-center px-6">
           <FoxLogo src="/arlix-logo-white.png" className="w-[min(56vw,470px)] h-auto" />
           <p className="mt-6 font-display italic text-2xl text-[#F2EDE6]">Full-cycle AI &amp; hybrid production</p>
           <div className="mt-12 flex gap-5 font-body">
@@ -38,7 +36,7 @@ export default function HomePage({ variant = "now" }: { variant?: Variant }) {
         </div>
       </Showreel>
       {small && <div className="flex-[0.6] md:hidden" />}
-      <div className={`md:hidden relative z-10 flex flex-col items-center text-center px-6 ${variant === "soft" ? "pt-1" : "pt-[18px]"}`}>
+      <div className={`reel-below md:hidden relative z-10 flex flex-col items-center text-center px-6 ${variant === "soft" ? "pt-1" : "pt-[18px]"}`}>
           {logo}
           <div className="mt-2">{tagline}</div>
           <div className={small ? "mt-3.5" : "mt-4"}>{buttons}</div>
