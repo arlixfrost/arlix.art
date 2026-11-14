@@ -96,7 +96,7 @@ export default function SnakeCarousel() {
   const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const [size, setSize] = useState({ w: 900, h: 560, vw: 1200 });
+  const [size, setSize] = useState({ w: 900, h: 560, vw: 1200, tight: false });
   const [active, setActive] = useState(0);
   const [hover, setHover] = useState(false);
   const [canHover, setCanHover] = useState(true);
@@ -120,8 +120,8 @@ export default function SnakeCarousel() {
       if (vw === lastW) return;
       lastW = vw;
       vh.current = window.innerHeight;
-      const w = Math.round(Math.min(vw < 768 ? vw * 0.364 : vw * 0.39, 680)); // phones: 30% smaller than before
-      setSize({ w, h: Math.round(w * 0.6), vw });
+      const w = Math.round(Math.min(vw < 768 ? vw * 0.52 : vw * 0.39, 680));
+      setSize({ w, h: Math.round(w * 0.6), vw, tight: vw < 768 || window.innerHeight < 500 }); // phones, upright or sideways
       dirty.current = true;
     };
     onResize();
@@ -145,7 +145,7 @@ export default function SnakeCarousel() {
     offset.current = k - scrollPos();
   }, [n, scrollPos]);
 
-  const stageH = Math.round(size.h * (size.w < 300 ? 1.15 : 1.6)); // tighter on phones
+  const stageH = Math.round(size.h * (size.tight ? 1.13 : 1.6)); // tighter on phones
 
   // Pause all work while the carousel is off screen.
   useEffect(() => {
@@ -337,7 +337,7 @@ export default function SnakeCarousel() {
   const showLabel = !!centre?.href && (!canHover || hover);
 
   return (
-    <section ref={section} aria-label="Selected work" className="relative bg-[#0B0B0C] pt-2 pb-1 md:pt-16 md:pb-16">
+    <section ref={section} aria-label="Selected work" className="home-carousel relative bg-[#0B0B0C] pt-2 pb-1 md:pt-16 md:pb-16" style={size.tight ? { paddingTop: Math.round(46 - (stageH - size.h) / 2), paddingBottom: Math.round(42 - (stageH - size.h) / 2) } : undefined}>
       <div ref={stage} className="relative overflow-hidden select-none" style={{ height: stageH }}>
         {webgl ? (
           <canvas ref={canvas} aria-hidden="true"
@@ -370,12 +370,11 @@ export default function SnakeCarousel() {
               // Placed on the curved card itself: the point is projected the same way the card is drawn.
               ...(() => {
                 const g = geom(size.w);
-                const ph = size.w < 300;
-                const pad = ph ? 8 : Math.max(14, size.w * 0.045);
+                const pad = Math.max(14, size.w * 0.045);
                 const xs = -size.w / 2 + pad;
                 const sc = g.P / (g.P - g.z(xs));
-                const yb = size.h / 2 - (ph ? 20 : Math.max(30, size.h * 0.12));
-                return { left: `calc(50% + ${xs * sc}px)`, top: `calc(50% + ${yb * sc}px)`, fontSize: (ph ? 8 : Math.max(11, size.w * 0.018)) * sc, ...(ph ? { padding: "3px 6px", letterSpacing: "0.12em" } : {}) };
+                const yb = size.h / 2 - Math.max(30, size.h * 0.12);
+                return { left: `calc(50% + ${xs * sc}px)`, top: `calc(50% + ${yb * sc}px)`, fontSize: Math.max(11, size.w * 0.018) * sc };
               })(),
               opacity: showLabel ? 1 : 0,
               pointerEvents: showLabel ? "auto" : "none",

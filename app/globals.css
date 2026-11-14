@@ -68,4 +68,6 @@ html { scroll-behavior: smooth; }
   .reel-rot .reel-hero > p { margin-top: 8px; font-size: 16px; }
   .reel-rot .reel-hero > div { margin-top: 18px; gap: 12px; }
   .reel-rot .reel-hero .frame-btn { min-width: 120px; height: 40px; font-size: 11px; }
+  /* footer sits right under the home carousel, as on an upright phone */
+  footer { margin-top: 4px !important; padding-top: 16px !important; padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)) !important; }
 }
