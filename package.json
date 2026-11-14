@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
+    "postbuild": "node -e \"const s=process.env.GITHUB_SHA||require('child_process').execSync('git rev-parse HEAD').toString().trim();require('fs').writeFileSync('out/version.txt',s)\"",
     "start": "next start -p 3000 -H 0.0.0.0"
   },
   "dependencies": {

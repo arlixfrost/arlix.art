@@ -623,14 +623,14 @@ export default function ArtSlides() {
           return (
             <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
-                {/* Desktop: 1/3 text | 2/3 media. Phone: heading above the media, description under it. */}
+                {/* Computer: heading across the full width on top; under it 1/3 text | 2/3 media. Phone: heading above the media, description under it. */}
                 <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
                   <div className="sec-text contents md:flex md:flex-col md:justify-center md:pl-8 min-w-0">
-                    <div className="order-1 md:order-none">
+                    <div className="sec-head order-1 md:order-none">
                       <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
                       <div className="gold-rule md:mb-3" />
                     </div>
-                    <div className="order-3 md:order-none min-w-0">
+                    <div className="sec-body order-3 md:order-none min-w-0">
                     {s.short ? (
                       <div className={`mt-3 md:mt-6 pl-4 md:pl-0 ${s.id === "brand-fashion-films" ? "max-w-[400px]" : "max-w-xl"}`}>
                         <ul className={`short-list ${s.id === "brand-fashion-films" ? "short-lines" : "short-flow"} m-0 p-0 list-none flex flex-col gap-4 md:gap-6 text-[15px] leading-[1.55] font-normal text-[#E4DED5] ${s.id === "brand-fashion-films" ? "md:text-[19px]" : "md:text-[18px]"}`}>
@@ -645,7 +645,7 @@ export default function ArtSlides() {
                       </div>
                     ) : s.text ? (
                       <p className="mt-2 text-[13px] md:text-base leading-relaxed text-[#CFC8BE] max-w-xl">{s.text}</p>
-                    ) : (
+                    ) : s.id === "artworks" ? null : (
                       <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: cartoons and AI pets, why animals are hard to make, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
                     )}
                     {s.note && !s.short ? <p className="label mt-3 opacity-70">{s.note}</p> : null}

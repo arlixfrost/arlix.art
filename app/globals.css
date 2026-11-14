@@ -130,5 +130,22 @@ html { scroll-behavior: smooth; }
   .art-theme .short-list { font-size: 16px !important; gap: 10px !important; line-height: 1.4 !important; }
   .art-theme .sec-text .rm-btn { margin-top: 14px !important; }
   /* if the text is still taller than the screen, it never slides up under the header */
-  .art-theme .sec-text { justify-content: safe center !important; }
+  .art-theme .sec-text { justify-content: flex-start !important; }
+}
+
+/* Art on a computer, tablet and phone turned sideways: the top of the section heading lines up with the top of the video.
+   Text column starts at the top; the media column starts at the top too (never centred lower). */
+@media (min-width: 768px) {
+  .art-theme .art-grid .sec-text { justify-content: flex-start !important; }
+  .art-theme .art-grid > div.flex.items-center { align-items: flex-start !important; }
+  .art-theme .art-grid .sec-text h2 { margin-top: -0.12em; }
+  .art-theme .art-grid .hybrid-media { align-items: flex-start !important; }
+}
+
+/* Art Intro on an upright phone: the block is as tall as its content (film strip, title, scroll hint),
+   so Brand & Fashion Films follows right after it with no empty screen in between. */
+@media (max-width: 767px) and (orientation: portrait) {
+  .art-theme #intro, .art-theme #intro [data-snap-inner] { height: auto !important; min-height: 0 !important; }
+  /* every section is as tall as its content: no empty screen under a short section (Artworks, Contact) */
+  .art-theme [data-snap-item], .art-theme [data-snap-inner], .art-theme .sec-grid { min-height: 0 !important; }
 }
