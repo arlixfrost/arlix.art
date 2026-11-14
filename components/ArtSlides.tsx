@@ -117,7 +117,17 @@ const sections: Section[] = [
       { src: "/art/food/restaurant-01.mp4", poster: "/art/food/restaurant-01.jpg", title: "Restaurant", horizontal: true },
     ],
   },
-  { id: "animation", title: "Animation", menu: "Cartoons", work: "Animation" },
+  {
+    id: "animation",
+    title: "Cartoons & AI Pets",
+    menu: "Cartoons",
+    work: "Animation",
+    // Amber City big on top; the ribbon below: the Pomeranian with the girl in the red suit (moved from Artworks)
+    main: { src: "/art/amber-city/ep1-oskar.mp4", poster: "/art/amber-city/ep1-oskar.jpg", title: "Amber City · Ep 1 · Oskar" },
+    reel: [
+      { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · Pomeranian" },
+    ],
+  },
   {
     id: "ai-models-ugc",
     title: "AI Models & UGC",
@@ -134,11 +144,10 @@ const sections: Section[] = [
     title: "Artworks",
     menu: "Artworks",
     work: "Artwork",
-    // Taormina (final art) big on top; the ribbon below: lingerie with the cat (moved from Commercials), then Paris
+    // Taormina (final art) big on top; the ribbon below: lingerie with the cat (Paris moved to Cartoons & AI Pets)
     main: { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily" },
     reel: [
       { src: "/art/commercials/lingerie-model-web.mp4", poster: "/art/commercials/lingerie-model.jpg", title: "Lingerie · model + cat" },
-      { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · social" },
     ],
   },
 ];
@@ -149,7 +158,10 @@ const sections: Section[] = [
 // every next work opens with sound; with sound off they all open silent.
 let reelSoundOn = false;
 
-function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
+// lead: the big film above the ribbon. Opening it starts the same player, and the arrows go on through the ribbon works.
+function Reel({ items: ribbon, heightCss, lead, opener }: { items: Video[]; heightCss?: string; lead?: Video; opener?: React.MutableRefObject<(() => void) | null> }) {
+  const items = lead ? [{ ...lead, horizontal: true }, ...ribbon] : ribbon;
+  const shift = lead ? 1 : 0;
   const [open, setOpen] = useState<number | null>(null);
   const [muted, setMuted] = useState(true);
   const lb = useRef<HTMLVideoElement>(null);
@@ -171,6 +183,7 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
     }, 2000);
   };
   const step = (d: number) => { if (open !== null) go((open + d + items.length) % items.length); };
+  if (opener) opener.current = () => go(0);
   useEffect(() => {
     if (open === null) return;
     const onKey = (e: KeyboardEvent) => {
@@ -198,7 +211,7 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   };
   return (
     <>
-      <CurvedReel items={items} onOpen={go} heightCss={heightCss} />
+      <CurvedReel items={ribbon} onOpen={(i: number) => go(i + shift)} heightCss={heightCss} />
       {v && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onTouchCancel={onTouchEnd} style={{ touchAction: "none" }} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
@@ -221,7 +234,6 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   );
 }
 
-const ep1: Video = { src: "/art/amber-city/ep1-oskar.mp4", poster: "/art/amber-city/ep1-oskar.jpg", title: "Amber City · Ep 1 — Oskar" };
 const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily" };
 
 // Muted autoplay driven by section visibility. iOS Safari only autoplays when the element is
@@ -230,7 +242,7 @@ const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artwo
 // - auto=true: plays muted while its section is active, pauses when the section is left.
 // - auto=false: stays paused until the user taps the play button (or opens the lightbox).
 // A round play button appears on any video that stays paused, so autoplay blocked by the phone never leaves a frozen frame.
-export function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true, near = true, thumb = false }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean; near?: boolean; thumb?: boolean }) {
+export function WorkVideo({ v, className = "", aspect = "video", active = false, auto = true, near = true, thumb = false, onOpen }: { v: Video; className?: string; aspect?: "video" | "portrait"; active?: boolean; auto?: boolean; near?: boolean; thumb?: boolean; onOpen?: () => void }) {
   const ref = useRef<HTMLVideoElement>(null);
   // Load the file only once its section is on screen or next to it; until then the first frame (poster) shows.
   const [load, setLoad] = useState(near);
@@ -297,10 +309,10 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm group-hover:border-[#C9A962] group-hover:text-[#C9A962] transition-colors">▶</span>
         </button>
       ) : (<>
-      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={!load ? "none" : active ? "auto" : "metadata"} onClick={() => { if (!phoneFullscreen(ref.current)) setOpen(true); }} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
+      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={!load ? "none" : active ? "auto" : "metadata"} onClick={() => { if (onOpen) onOpen(); else if (!phoneFullscreen(ref.current)) setOpen(true); }} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
       <PlayButton video={ref} label={`Play ${v.title}`} />
       <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-2 bottom-2" />
-      <ExpandButton onClick={(e) => { e.stopPropagation(); if (!phoneFullscreen(ref.current)) setOpen(true); }} className="right-11 bottom-2" />
+      <ExpandButton onClick={(e) => { e.stopPropagation(); if (onOpen) onOpen(); else if (!phoneFullscreen(ref.current)) setOpen(true); }} className="right-11 bottom-2" />
       <VideoScrubber video={ref} />
       </>)}
       {open && typeof document !== "undefined" && createPortal(
@@ -312,6 +324,20 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
             <button onClick={() => setOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
           </div>
         </div>, document.body)}
+    </div>
+  );
+}
+
+// Big film with the ribbon of works under it. Opening the big film starts the ribbon player on it,
+// so the arrows (and a swipe on the phone) go straight on to the other works of the section.
+function MainReel({ main, reel, on, near }: { main: Video; reel: Video[]; on: boolean; near: boolean }) {
+  const opener = useRef<(() => void) | null>(null);
+  return (
+    <div className="main-reel min-h-0 min-w-0 flex flex-col gap-3 md:h-full">
+      <WorkVideo v={main} active={on} near={near} className="main-film shrink-0" onOpen={() => opener.current?.()} />
+      <div className="main-reel-ribbon h-[230px] md:h-auto md:flex-1 md:min-h-[200px]">
+        <Reel items={reel} lead={main} opener={opener} heightCss="100%" />
+      </div>
     </div>
   );
 }
@@ -558,28 +584,14 @@ export default function ArtSlides() {
                     ) : s.text ? (
                       <p className="mt-2 text-[13px] md:text-base leading-relaxed text-[#CFC8BE] max-w-xl">{s.text}</p>
                     ) : (
-                      <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: Amber City animated series, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
+                      <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: cartoons and AI pets, why animals are hard to make, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
                     )}
                     {s.note && !s.short ? <p className="label mt-3 opacity-70">{s.note}</p> : null}
                     </div>
                   </div>
-                  {animation ? (
-                    <div className="flex flex-col justify-center gap-3 min-h-0 min-w-0">
-                      <WorkVideo v={ep1} active={on} near={near} />
-                      <div className="grid grid-cols-4 gap-2 md:gap-3 shrink-0">
-                        {[0, 1, 2, 3].map((j) => (
-                          <Ph key={j} className="aspect-video w-full">{""}</Ph>
-                        ))}
-                      </div>
-                    </div>
-                  ) : s.main && s.reel ? (
+                  {s.main && s.reel ? (
                     // Big film at the same size as Brand & Fashion Films (full column width, 16:9); the ribbon takes the rest of the height.
-                    <div className="main-reel min-h-0 min-w-0 flex flex-col gap-3 md:h-full">
-                      <WorkVideo v={s.main} active={on} near={near} className="main-film shrink-0" />
-                      <div className="main-reel-ribbon h-[230px] md:h-auto md:flex-1 md:min-h-[200px]">
-                        <Reel items={s.reel} heightCss="100%" />
-                      </div>
-                    </div>
+                    <MainReel main={s.main} reel={s.reel} on={on} near={near} />
                   ) : s.reel ? (
                     <div className="min-h-0 min-w-0 flex items-center">
                       <Reel items={s.reel} heightCss="var(--ph)" />
