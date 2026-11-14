@@ -120,7 +120,7 @@ export default function SnakeCarousel() {
       if (vw === lastW) return;
       lastW = vw;
       vh.current = window.innerHeight;
-      const w = Math.round(Math.min(vw < 768 ? vw * 0.52 : vw * 0.39, 680));
+      const w = Math.round(Math.min(vw < 768 ? vw * 0.364 : vw * 0.39, 680)); // phones: 30% smaller than before
       setSize({ w, h: Math.round(w * 0.6), vw });
       dirty.current = true;
     };
@@ -145,7 +145,7 @@ export default function SnakeCarousel() {
     offset.current = k - scrollPos();
   }, [n, scrollPos]);
 
-  const stageH = Math.round(size.h * (size.w < 300 ? 1.3 : 1.6)); // tighter on phones
+  const stageH = Math.round(size.h * (size.w < 300 ? 1.15 : 1.6)); // tighter on phones
 
   // Pause all work while the carousel is off screen.
   useEffect(() => {
@@ -370,11 +370,12 @@ export default function SnakeCarousel() {
               // Placed on the curved card itself: the point is projected the same way the card is drawn.
               ...(() => {
                 const g = geom(size.w);
-                const pad = Math.max(14, size.w * 0.045);
+                const ph = size.w < 300;
+                const pad = ph ? 8 : Math.max(14, size.w * 0.045);
                 const xs = -size.w / 2 + pad;
                 const sc = g.P / (g.P - g.z(xs));
-                const yb = size.h / 2 - Math.max(30, size.h * 0.12);
-                return { left: `calc(50% + ${xs * sc}px)`, top: `calc(50% + ${yb * sc}px)`, fontSize: Math.max(11, size.w * 0.018) * sc };
+                const yb = size.h / 2 - (ph ? 20 : Math.max(30, size.h * 0.12));
+                return { left: `calc(50% + ${xs * sc}px)`, top: `calc(50% + ${yb * sc}px)`, fontSize: (ph ? 8 : Math.max(11, size.w * 0.018)) * sc, ...(ph ? { padding: "3px 6px", letterSpacing: "0.12em" } : {}) };
               })(),
               opacity: showLabel ? 1 : 0,
               pointerEvents: showLabel ? "auto" : "none",

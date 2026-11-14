@@ -39,8 +39,8 @@ html { scroll-behavior: smooth; }
 .hybrid-carousel{height:var(--h);width:calc(var(--h) * 4 / 5);max-width:none;}
 .reel::-webkit-scrollbar{display:none}
 
-/* Phone held upright: the showreel fills the whole screen under the header. The whole stage (film, logo,
-   tagline, Art/Tech buttons, icons) is turned on its side so it reads right when the phone is turned to the left. */
+/* Phone held upright: the film (with its icons) is turned on its side to fill the screen under the header,
+   so it reads right when the phone is turned to the left. Logo, tagline and Art/Tech buttons stay upright on it. */
 @media (max-width: 767px) and (orientation: portrait) {
   .reel-rot { aspect-ratio: auto !important; height: calc(100svh - 56px); }
   .reel-rot .reel-stage {
@@ -48,11 +48,24 @@ html { scroll-behavior: smooth; }
     width: calc(100svh - 56px); height: 100vw;
     transform: translate(-50%, -50%) rotate(90deg);
   }
+  .reel-rot .reel-video { object-fit: cover; }
   .reel-rot .reel-hero { display: flex !important; }
-  .reel-rot .reel-hero > :first-child { width: min(62vw, 300px) !important; }
-  .reel-rot .reel-hero > p { margin-top: 12px; font-size: 18px; }
-  .reel-rot .reel-hero > div { margin-top: 22px; }
+  .reel-rot .reel-hero > :first-child { width: min(56vw, 230px) !important; }
+  .reel-rot .reel-hero > p { margin-top: 10px; font-size: 16px; }
+  .reel-rot .reel-hero > div { margin-top: 22px; gap: 12px; }
+  .reel-rot .reel-hero .frame-btn { min-width: 112px; height: 40px; font-size: 11px; }
   .reel-below { display: none !important; }
-  /* the fade keeps darkening the top and bottom of the screen, under the logo, buttons and icons */
+  /* the fade keeps darkening the top and bottom of the screen */
   .reel-rot .reel-fade { background-image: linear-gradient(to right,#0B0B0C 0%,rgba(11,11,12,0) 22%,rgba(11,11,12,0) 55%,#0B0B0C 100%) !important; }
+}
+/* Phone turned on its side: the film fills the width (no black side fields), logo and buttons smaller. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .reel-rot { aspect-ratio: auto !important; height: 100svh !important; margin-top: 0 !important; }
+  .reel-rot .reel-video { object-fit: cover; }
+  .reel-rot .reel-fade, .reel-below { display: none !important; }
+  .reel-rot .reel-hero { display: flex !important; padding-top: 44px; }
+  .reel-rot .reel-hero > :first-child { width: min(30vw, 250px) !important; }
+  .reel-rot .reel-hero > p { margin-top: 8px; font-size: 16px; }
+  .reel-rot .reel-hero > div { margin-top: 18px; gap: 12px; }
+  .reel-rot .reel-hero .frame-btn { min-width: 120px; height: 40px; font-size: 11px; }
 }

@@ -68,7 +68,6 @@ export default function Showreel({ className = "", children, fade }: { className
       />
       {fade}
       <div onClick={() => { if (!phoneFullscreen(ref.current)) setOpen(true); }} role="button" aria-label="Open showreel" className="absolute inset-0 bg-black/35 cursor-zoom-in" />
-      <div className="relative h-full pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">{children}</div>
       <PlayButton video={ref} label="Play showreel" />
       <SoundToggle muted={muted} onClick={toggle} className="bottom-2 right-2 md:bottom-6 md:right-6" />
       {/* Small round "full screen" icon next to the sound icon, so it is clear the film opens bigger. */}
@@ -79,6 +78,8 @@ export default function Showreel({ className = "", children, fade }: { className
         </svg>
       </button>
       </div>
+      {/* Logo, tagline and buttons stay upright even when the film is turned on its side. */}
+      <div className="relative h-full pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">{children}</div>
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label="Showreel" onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
