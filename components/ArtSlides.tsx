@@ -100,14 +100,22 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   const [open, setOpen] = useState<number | null>(null);
   const [muted, setMuted] = useState(true);
   const lb = useRef<HTMLVideoElement>(null);
+  const kick = useRef<number | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
   // Opens work i and starts it inside the same tap (iPhone only allows sound when play starts inside the tap).
   const go = (i: number) => {
-    flushSync(() => { setMuted(!reelSoundOn); setOpen(i); });
+    flushSync(() => { setMuted(!reelSoundOn); setOpen(i); setLoading(true); });
     const el = lb.current; if (!el) return;
     if (!el.src.endsWith(items[i].src)) el.src = items[i].src;
     el.currentTime = 0; el.muted = !reelSoundOn;
     if (reelSoundOn) soloAudio(el);
     el.play().catch(() => { el.muted = true; setMuted(true); el.play().catch(() => {}); });
+    // Safety net: if the phone has not started the video after 2 seconds, load it again and restart.
+    window.clearTimeout(kick.current);
+    kick.current = window.setTimeout(() => {
+      const e2 = lb.current; if (!e2 || e2.currentTime > 0.05) return;
+      e2.load(); e2.play().catch(() => { e2.muted = true; setMuted(true); e2.play().catch(() => {}); });
+    }, 2000);
   };
   const step = (d: number) => { if (open !== null) go((open + d + items.length) % items.length); };
   useEffect(() => {
@@ -141,7 +149,9 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
       {v && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onTouchCancel={onTouchEnd} style={{ touchAction: "none" }} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
-            <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" style={{ touchAction: "none" }} />
+            <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" style={{ touchAction: "none" }}
+              onPlaying={() => setLoading(false)} onWaiting={() => setLoading(true)} />
+            {loading && <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -ml-5 -mt-5 h-10 w-10 rounded-full border-2 border-white/25 border-t-[#C9A962] animate-spin" />}
             <SoundToggle muted={muted} onClick={toggle} className="right-2 bottom-2" />
             <VideoScrubber video={lb} pillClassName="!right-11" />
             <button onClick={() => setOpen(null)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
