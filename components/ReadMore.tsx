@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-// Long text of a section: "Read more" opens it over the whole screen under the header.
+// Long text of a section: "Read more" opens it over the whole screen, header included.
 // Each chapter sits in its own thin gold frame, the chapter heading is underlined with a short gold line.
 // Phone: frames stack one under another; a gold arrow at the bottom keeps showing until the reader reaches the end.
 
@@ -38,12 +38,22 @@ function Frame({ c }: { c: Chapter }) {
 
 export function ReadMore({ title, more }: { title: string; more: More }) {
   const [open, setOpen] = useState(false);
+  // Opening adds a history step, so the phone's Back gesture or the browser Back button closes the panel
+  // and leaves the visitor on the same section. Every other way of closing goes through that same step.
+  const show = () => { window.history.pushState({ readmore: true }, ""); setOpen(true); };
+  const close = () => { if (window.history.state?.readmore) window.history.back(); else setOpen(false); };
+  useEffect(() => {
+    if (!open) return;
+    const onPop = () => setOpen(false);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [open]);
   const box = useRef<HTMLDivElement>(null);
   const [atEnd, setAtEnd] = useState(false);
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
     window.addEventListener("keydown", onKey);
     const el = box.current;
     const check = () => { if (el) setAtEnd(el.scrollTop + el.clientHeight >= el.scrollHeight - 8); };
@@ -59,18 +69,15 @@ export function ReadMore({ title, more }: { title: string; more: More }) {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="rm-btn mt-6 inline-flex items-center gap-3 py-2 border-b border-[#C9A962]/70 font-body text-[12px] md:text-[13px] font-medium uppercase tracking-[0.22em] text-[#C9A962] hover:text-[#F2EDE6] transition-colors">
+      <button onClick={show} className="rm-btn mt-6 inline-flex items-center gap-3 py-2 border-b border-[#C9A962]/70 font-body text-[12px] md:text-[13px] font-medium uppercase tracking-[0.22em] text-[#C9A962] hover:text-[#F2EDE6] transition-colors">
         Read more
         <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.2" /></svg>
       </button>
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={title} data-readmore
-          className="fixed inset-x-0 bottom-0 top-14 sm:top-[72px] z-[60] bg-[#121110] text-[#F2EDE6] font-body">
+          className="fixed inset-0 z-[70] bg-[#121110] text-[#F2EDE6] font-body">
           <div ref={box} className="h-full overflow-y-auto overscroll-contain">
             <div className="relative px-5 pt-8 pb-28 md:px-24 md:pt-16 md:pb-24 max-w-[1440px] mx-auto">
-              <button onClick={() => setOpen(false)} aria-label="Close" className="absolute right-3 top-3 md:right-10 md:top-8 h-11 w-11 flex items-center justify-center text-[#F2EDE6] hover:text-[#C9A962]">
-                <svg width="22" height="22" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3l14 14M17 3L3 17" fill="none" stroke="currentColor" strokeWidth="1.4" /></svg>
-              </button>
               <div className="font-display font-normal text-[34px] md:text-[48px] leading-[1.06] pr-12 mb-8 md:mb-14">{title}</div>
               <div className="rm-stack flex-col gap-5">
                 {more.chapters.map((c) => <Frame key={c.h} c={c} />)}
@@ -82,8 +89,17 @@ export function ReadMore({ title, more }: { title: string; more: More }) {
                   </div>
                 ))}
               </div>
+              <div className="mt-12 md:mt-16 flex justify-center">
+                <button onClick={close} className="inline-flex items-center gap-3 py-2 border-b border-[#C9A962]/70 text-[12px] md:text-[13px] font-medium uppercase tracking-[0.22em] text-[#C9A962] hover:text-[#F2EDE6] transition-colors">
+                  <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M22 5H2M6 1L2 5l4 4" fill="none" stroke="currentColor" strokeWidth="1.2" /></svg>
+                  Close
+                </button>
+              </div>
             </div>
           </div>
+          <button onClick={close} aria-label="Close" className="absolute right-3 top-3 md:right-10 md:top-8 z-10 h-11 w-11 rounded-full bg-[#121110]/85 flex items-center justify-center text-[#F2EDE6] hover:text-[#C9A962]">
+            <svg width="22" height="22" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3l14 14M17 3L3 17" fill="none" stroke="currentColor" strokeWidth="1.4" /></svg>
+          </button>
           {!atEnd && (
             <button onClick={down} aria-label="Scroll down" className="readmore-arrow absolute h-12 w-12 rounded-full border border-[#C9A962] bg-[#121110]/85 text-[#C9A962] flex items-center justify-center">
               <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v13M3 10l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="1.4" /></svg>
