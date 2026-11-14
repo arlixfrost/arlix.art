@@ -99,7 +99,12 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   const lb = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (open === null) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(null); };
+    const n = items.length;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(null);
+      if (e.key === "ArrowRight") setOpen((o) => (o === null ? o : (o + 1) % n));
+      if (e.key === "ArrowLeft") setOpen((o) => (o === null ? o : (o - 1 + n) % n));
+    };
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     const el = lb.current; if (el) { el.currentTime = 0; el.muted = muted; soloAudio(el); el.play().catch(() => {}); }
@@ -108,17 +113,33 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   const v = open !== null ? items[open] : null;
   const lbW = v?.horizontal ? "min(90vw, calc(90vh * 16 / 9))" : "min(90vw, calc(90vh * 9 / 16))";
   const toggle = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (!el.muted) soloAudio(el); };
+  // Swipe left = next work, swipe right = previous (phones); arrows do the same everywhere.
+  const step = (d: number) => setOpen((o) => (o === null ? o : (o + d + items.length) % items.length));
+  const swipe = useRef<{ x: number; y: number } | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => { const t = e.touches[0]; swipe.current = { x: t.clientX, y: t.clientY }; };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const s0 = swipe.current; swipe.current = null; if (!s0 || items.length < 2) return;
+    const t = e.changedTouches[0]; const dx = t.clientX - s0.x; const dy = t.clientY - s0.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) step(dx < 0 ? 1 : -1);
+  };
   return (
     <>
       <CurvedReel items={items} onOpen={(i) => setOpen(i)} heightCss={heightCss} />
       {v && typeof document !== "undefined" && createPortal(
-        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
+        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
             <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
             <SoundToggle muted={muted} onClick={toggle} className="right-2 bottom-2" />
             <VideoScrubber video={lb} pillClassName="!right-11" />
             <button onClick={() => setOpen(null)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
           </div>
+          {/* Previous / next work without closing the player (ring: after the last comes the first) */}
+          {items.length > 1 && (<>
+            <button onClick={(e) => { e.stopPropagation(); step(-1); }} aria-label="Previous work"
+              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 h-11 w-11 flex items-center justify-center bg-black/60 border border-[rgba(242,237,230,0.6)] text-[#F2EDE6] text-lg hover:text-[#C9A962] hover:border-[#C9A962] transition">←</button>
+            <button onClick={(e) => { e.stopPropagation(); step(1); }} aria-label="Next work"
+              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 h-11 w-11 flex items-center justify-center bg-black/60 border border-[rgba(242,237,230,0.6)] text-[#F2EDE6] text-lg hover:text-[#C9A962] hover:border-[#C9A962] transition">→</button>
+          </>)}
         </div>, document.body)}
     </>
   );
