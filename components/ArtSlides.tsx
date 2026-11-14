@@ -12,6 +12,7 @@ import { VideoScrubber } from "@/components/VideoScrubber";
 import { SoundToggle, ExpandButton } from "@/components/SoundToggle";
 import { soloAudio } from "@/components/audio";
 import CurvedReel from "@/components/CurvedReel";
+import { ReadMore, type More } from "@/components/ReadMore";
 
 type Video = { src: string; poster: string; title: string; horizontal?: boolean };
 type Section = {
@@ -27,6 +28,8 @@ type Section = {
   portrait?: boolean;
   main?: Video; // big horizontal film on top
   reel?: Video[]; // strip of works under it
+  short?: string[]; // short description lines next to the film
+  more?: More; // long text behind "Read more"
 };
 
 // Order: Brand → Hybrid → Food & Restaurants → Animation → AI Models & UGC → Artworks (Commercials removed for now)
@@ -37,6 +40,29 @@ const sections: Section[] = [
     menu: "Brand &\nFashion Films",
     work: "Film",
     video: { src: "/art/brand-fashion-films.mp4", poster: "/art/brand-fashion-films.jpg", title: "Hervé Léger · origin film" },
+    short: [
+      "The story of a brand, its founder or the moment it took off, told in the language of cinema.",
+      "Trust that a sales commercial does not build.",
+      "People watch it with interest and do not feel that something is being sold to them.",
+      "A film that works for years and is remembered as a story.",
+    ],
+    more: { columns: [[0], [1], [2]], chapters: [
+      { h: "What can a brand film be about?", ps: [
+        "A brand film can tell [how the brand began], or introduce [the founder], the person behind the name and the path that led to it. It can capture [the turning point], the moment the business took off, or show [the values] the brand stands for.",
+        "[The craft] is another strong subject: how the product is made, the hands, the details. Big moments suit the format well too, such as [a new direction, a relaunch, an anniversary or the history of the house].",
+      ] },
+      { h: "Why would a brand need a film?", ps: [
+        "A brand with its own film reads as a company with a history behind it, and that gives it [weight]. The cinematic picture [raises the status of the brand] before a single word is said.",
+        "The film lets viewers look inside the company and meet the team, which builds [trust and loyalty]. People [watch it with interest], like a good series, and see it to the end more often than a sales commercial.",
+        "A campaign ends with the season, while a brand film [can be used for years]. The audience [remembers the story] and does not take it as a sales pitch.",
+        "[One film works in many places]: on social media, on screens in your restaurant, shop or office, at the start of a presentation or at an event.",
+      ] },
+      { h: "How is it made?", ps: [
+        "Everything starts with [a real script written by a professional scriptwriter], with a plot built to hold attention and stay with the viewer until the very end.",
+        "Characters can be [recreated from old photographs, even black and white ones], and [the same face stays consistent] from the first frame to the last.",
+        "The music is either [an original score written for the film] or [royalty-free music] chosen so it can be used freely anywhere, advertising included. [The sound design is original] too, every sound made for this film.",
+      ] },
+    ] },
   },
   {
     id: "hybrid",
@@ -46,6 +72,33 @@ const sections: Section[] = [
     portrait: true,
     video: { src: "/art/hybrid/le-plongeoir-web.mp4", poster: "/art/hybrid/le-plongeoir.jpg", title: "Le Plongeoir · Nice · hybrid film" },
     note: "Film + process carousel (10 slides, Instagram order)",
+    short: [
+      "A real location or real people, carried into a dreamlike world or joined by AI characters.",
+      "The most requested format in AI production today.",
+      "No shoot, no drones, no crew, no models, and the venue stays open.",
+      "A film on the level of global brands, made from a few good photos, even iPhone ones, and a strong script.",
+    ],
+    more: { columns: [[0, 2], [1, 3]], chapters: [
+        { h: "What is a hybrid film?", ps: [
+          "In a hybrid film, one part comes from [life] and the other from [imagination]. The place stays real while the characters change, or real people step into a dream world.",
+          "Real footage keeps the film [believable], and AI adds scale and atmosphere that the camera alone cannot give.",
+          "The film about {Le Plongeoir|https://www.instagram.com/leplongeoir/}, the famous restaurant in Nice, was made from photos taken on an [iPhone] during a visit. A lady and a dog were fully created in AI, and the result is a film people remember.",
+        ] },
+        { h: "Why choose a hybrid?", ps: [
+          "It lets you create scenes that are [hard or extremely expensive to film].",
+          "One shoot can become [several versions]: the same place in summer and in winter, by day and by night.",
+          "With a traditional shoot, nobody sees the result until the very end. The film is planned around a [seasonal campaign], the date when everything has to appear on social media and in advertising. The lion's share of your budget, besides the videographer, goes to the whole team: assistants, models, hair and make-up, plus flights, hotels and transfers for everyone. If the result is unsatisfactory after a long wait, the brand is left with [no material] for the campaign, a hole in the budget and no time to redo it.",
+          "A hybrid film works the other way: [you approve every stage], adjust details along the way, and the whole production is much faster.",
+        ] },
+        { h: "What does it save compared with a traditional shoot?", ps: [
+          "A traditional production means a camera team, people hired to appear on screen, and a venue closed for the day. A hybrid film is made just from [quality photos or videos] of your space.",
+          "Wherever your business is, even in [hard-to-reach locations], you can still have a film on the level of [global brands]. There is no need to convince a videographer from Milan or Paris to fly in and to cover travel expenses for the whole team and the models to get [the same result].",
+        ] },
+        { h: "What goes into it?", ps: [
+          "A hybrid film is [real craft]. A strong story and proper direction, together with professional sound design and editing, turn it into something people want to watch.",
+          "Every film includes the script, the brand's character, models and original music.",
+        ] },
+    ] },
   },
   {
     id: "food-restaurants",
@@ -357,6 +410,7 @@ export default function ArtSlides() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement | null)?.tagName === "INPUT") return;
+      if (document.querySelector("[data-readmore]")) return;
       if (e.key === "ArrowDown" || e.key === "PageDown") { e.preventDefault(); go(Math.min(active + 1, slides.length - 1)); }
       if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); go(Math.max(active - 1, 0)); }
     };
@@ -489,12 +543,19 @@ export default function ArtSlides() {
                       <div className="gold-rule md:mb-3" />
                     </div>
                     <div className="order-3 md:order-none min-w-0">
-                    {s.text ? (
+                    {s.short ? (
+                      <div className="mt-2 max-w-xl pl-4">
+                        <ul className="m-0 p-0 list-none flex flex-col gap-2 md:gap-3 text-[14px] md:text-[16px] leading-relaxed text-[#CFC8BE]">
+                          {s.short.map((t) => <li key={t}>{t}</li>)}
+                        </ul>
+                        {s.more ? <ReadMore title={s.title} more={s.more} /> : null}
+                      </div>
+                    ) : s.text ? (
                       <p className="mt-2 text-[13px] md:text-base leading-relaxed text-[#CFC8BE] max-w-xl">{s.text}</p>
                     ) : (
                       <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: Amber City animated series, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
                     )}
-                    {s.note ? <p className="label mt-3 opacity-70">{s.note}</p> : null}
+                    {s.note && !s.short ? <p className="label mt-3 opacity-70">{s.note}</p> : null}
                     </div>
                   </div>
                   {animation ? (

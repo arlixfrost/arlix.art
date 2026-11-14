@@ -101,3 +101,9 @@ html { scroll-behavior: smooth; }
   .art-theme .scroll-hint { display: none !important; }
   .art-theme #pricing > div > div, .art-theme #contact > div > div { padding-top: 76px; padding-bottom: 20px; }
 }
+
+/* Read more panel: the gold arrow at the bottom nudges down until the reader reaches the end */
+@keyframes readmore-nudge { 0%,100% { transform: translate(-50%,0); } 50% { transform: translate(-50%,6px); } }
+.readmore-arrow { animation: readmore-nudge 1.6s ease-in-out infinite; }
+@keyframes readmore-nudge-md { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+@media (min-width:768px){ .readmore-arrow { animation-name: readmore-nudge-md; } }
