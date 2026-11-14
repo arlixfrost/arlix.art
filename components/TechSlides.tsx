@@ -45,7 +45,8 @@ export default function TechSlides() {
     const scroller = root.current;
     if (!scroller) return;
     gsap.registerPlugin(ScrollTrigger);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // No zoom-and-tilt on a phone turned sideways: sections there can be taller than the screen, and the tilt would leave headings scaled and turned.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerHeight < 500;
     const ctx = gsap.context(() => {
       scroller.querySelectorAll<HTMLElement>("[data-snap-item]").forEach((section, i) => {
         const inner = section.querySelector<HTMLElement>("[data-snap-inner]");

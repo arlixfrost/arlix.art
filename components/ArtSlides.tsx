@@ -1,5 +1,5 @@
 "use client";
-import { phoneFullscreen, isPhone } from "./fullscreen";
+import { phoneFullscreen } from "./fullscreen";
 import { useEffect, useRef, useState } from "react";
 import { PlayButton } from "@/components/PlayButton";
 import Link from "next/link";
@@ -89,20 +89,8 @@ const sections: Section[] = [
   },
 ];
 
-// Phones: play a ribbon work in the phone's own full screen player straight from the tap.
-function openOnPhone(v: Video): boolean {
-  const el = document.createElement("video");
-  el.src = v.src; el.poster = v.poster; el.playsInline = true; el.controls = true;
-  el.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none";
-  document.body.appendChild(el);
-  const done = () => { el.pause(); el.removeAttribute("src"); el.load(); el.remove(); };
-  el.addEventListener("webkitendfullscreen", done);
-  document.addEventListener("fullscreenchange", function h() { if (!document.fullscreenElement) { document.removeEventListener("fullscreenchange", h); done(); } });
-  if (phoneFullscreen(el)) return true;
-  el.remove(); return false;
-}
-
-// Curved ribbon of works (same as the home carousel, cards keep their own shape). A tap opens the work in the framed player.
+// Curved ribbon of works (same as the home carousel, cards keep their own shape). A tap opens the work in the in-page player
+// (on phones: black, edge to edge); it plays straight away like the films that autoplay.
 function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   const [open, setOpen] = useState<number | null>(null);
   const [muted, setMuted] = useState(true);
@@ -120,7 +108,7 @@ function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   const toggle = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (!el.muted) soloAudio(el); };
   return (
     <>
-      <CurvedReel items={items} onOpen={(i) => { if (!(isPhone() && openOnPhone(items[i]))) setOpen(i); }} heightCss={heightCss} />
+      <CurvedReel items={items} onOpen={(i) => setOpen(i)} heightCss={heightCss} />
       {v && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
@@ -267,7 +255,8 @@ export default function ArtSlides() {
     const scroller = root.current;
     if (!scroller) return;
     gsap.registerPlugin(ScrollTrigger);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // No zoom-and-tilt on a phone turned sideways: sections there can be taller than the screen, and the tilt would leave headings scaled and turned.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerHeight < 500;
 
     const ctx = gsap.context(() => {
       scroller.querySelectorAll<HTMLElement>("[data-snap-item]").forEach((section, i) => {

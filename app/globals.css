@@ -78,6 +78,8 @@ html { scroll-behavior: smooth; }
 @media (orientation: landscape) and (max-height: 500px) {
   .art-theme h1, .art-theme h2, .art-theme .intro-title { font-size: 48px !important; line-height: 1.05 !important; }
   .art-theme .sec-grid { padding-top: 76px !important; }
+  /* every heading starts at the same height under the header */
+  .art-theme .sec-text { justify-content: flex-start !important; }
   /* Art: text clear of the vertical section menu on the left */
   .art-theme .art-grid { padding-left: 92px !important; }
   .art-theme .art-grid { grid-template-columns: minmax(0,1.12fr) minmax(0,1.88fr) !important; }
