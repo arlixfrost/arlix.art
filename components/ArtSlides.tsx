@@ -3,7 +3,7 @@ import { phoneFullscreen } from "./fullscreen";
 import { useEffect, useRef, useState } from "react";
 import { PlayButton } from "@/components/PlayButton";
 import Link from "next/link";
-import { createPortal } from "react-dom";
+import { createPortal, flushSync } from "react-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Ph } from "@/components/Ph";
@@ -71,10 +71,8 @@ const sections: Section[] = [
     title: "AI Models & UGC",
     menu: "AI Models",
     work: "AI model / UGC piece",
-    main: { src: "/art/ai-models/arlix-macarons-web.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
-    reel: [
-      { src: "/art/ai-models/keira-fashion-web.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film", horizontal: true },
-    ],
+    // Girl in the pink dress (Keira fashion film) removed from the ribbon; the macarons film stays alone
+    video: { src: "/art/ai-models/arlix-macarons-web.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
     text: "One face, made for your brand only. We create one or several AI models that become the face of your brand and appear nowhere else. A real model you book for a luxury watch campaign may turn up next month advertising a plumbing store. Yours never will. Same face in every campaign, no booking calendars, no usage rights to renew, ready for any market.",
   },
   {
@@ -93,42 +91,56 @@ const sections: Section[] = [
 
 // Curved ribbon of works (same as the home carousel, cards keep their own shape). A tap opens the work in the in-page player
 // (on phones: black, edge to edge); it plays straight away like the films that autoplay.
+// Sound choice is shared by every ribbon player on the page, like Instagram: once a visitor turns the sound on,
+// every next work opens with sound; with sound off they all open silent.
+let reelSoundOn = false;
+
 function Reel({ items, heightCss }: { items: Video[]; heightCss?: string }) {
   const [open, setOpen] = useState<number | null>(null);
   const [muted, setMuted] = useState(true);
   const lb = useRef<HTMLVideoElement>(null);
+  // Opens work i and starts it inside the same tap (iPhone only allows sound when play starts inside the tap).
+  const go = (i: number) => {
+    flushSync(() => { setMuted(!reelSoundOn); setOpen(i); });
+    const el = lb.current; if (!el) return;
+    if (!el.src.endsWith(items[i].src)) el.src = items[i].src;
+    el.currentTime = 0; el.muted = !reelSoundOn;
+    if (reelSoundOn) soloAudio(el);
+    el.play().catch(() => { el.muted = true; setMuted(true); el.play().catch(() => {}); });
+  };
+  const step = (d: number) => { if (open !== null) go((open + d + items.length) % items.length); };
   useEffect(() => {
     if (open === null) return;
-    const n = items.length;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(null);
-      if (e.key === "ArrowRight") setOpen((o) => (o === null ? o : (o + 1) % n));
-      if (e.key === "ArrowLeft") setOpen((o) => (o === null ? o : (o - 1 + n) % n));
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
     };
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
-    const el = lb.current; if (el) { el.currentTime = 0; el.muted = muted; soloAudio(el); el.play().catch(() => {}); }
     return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
   const v = open !== null ? items[open] : null;
   const lbW = v?.horizontal ? "min(90vw, calc(90vh * 16 / 9))" : "min(90vw, calc(90vh * 9 / 16))";
-  const toggle = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (!el.muted) soloAudio(el); };
-  // Swipe left = next work, swipe right = previous (phones); arrows do the same everywhere.
-  const step = (d: number) => setOpen((o) => (o === null ? o : (o + d + items.length) % items.length));
-  const swipe = useRef<{ x: number; y: number } | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => { const t = e.touches[0]; swipe.current = { x: t.clientX, y: t.clientY }; };
+  const toggle = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); reelSoundOn = !el.muted; if (!el.muted) soloAudio(el); };
+  // Swipe left = next work, swipe right = previous. The player takes the finger itself (touch-action: none),
+  // so the phone never turns the swipe into its own gesture; the last finger position counts even if the touch is cancelled.
+  const swipe = useRef<{ x: number; y: number; lx: number; ly: number } | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => { const t = e.touches[0]; swipe.current = { x: t.clientX, y: t.clientY, lx: t.clientX, ly: t.clientY }; };
+  const onTouchMove = (e: React.TouchEvent) => { const t = e.touches[0]; if (swipe.current && t) { swipe.current.lx = t.clientX; swipe.current.ly = t.clientY; } };
   const onTouchEnd = (e: React.TouchEvent) => {
     const s0 = swipe.current; swipe.current = null; if (!s0 || items.length < 2) return;
-    const t = e.changedTouches[0]; const dx = t.clientX - s0.x; const dy = t.clientY - s0.y;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) step(dx < 0 ? 1 : -1);
+    const t = e.changedTouches[0]; const x = t ? t.clientX : s0.lx; const y = t ? t.clientY : s0.ly;
+    const dx = x - s0.x; const dy = y - s0.y;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) { e.preventDefault(); step(dx < 0 ? 1 : -1); }
   };
   return (
     <>
-      <CurvedReel items={items} onOpen={(i) => setOpen(i)} heightCss={heightCss} />
+      <CurvedReel items={items} onOpen={go} heightCss={heightCss} />
       {v && typeof document !== "undefined" && createPortal(
-        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
+        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onTouchCancel={onTouchEnd} style={{ touchAction: "none" }} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
-            <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
+            <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" style={{ touchAction: "none" }} />
             <SoundToggle muted={muted} onClick={toggle} className="right-2 bottom-2" />
             <VideoScrubber video={lb} pillClassName="!right-11" />
             <button onClick={() => setOpen(null)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
