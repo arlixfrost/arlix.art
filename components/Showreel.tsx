@@ -55,7 +55,7 @@ export default function Showreel({ className = "", children }: { className?: str
     <div className={`relative overflow-hidden bg-black ${className}`}>
       <video
         ref={ref}
-        className="absolute inset-0 h-full w-full object-contain"
+        className="reel-video absolute inset-0 h-full w-full object-contain"
         src="/showreel-1-web.mp4"
         poster="/showreel-poster.jpg"
         autoPlay

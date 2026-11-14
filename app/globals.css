@@ -38,3 +38,14 @@ html { scroll-behavior: smooth; }
 .hybrid-film{height:var(--h);width:calc(var(--h) * 9 / 16);max-width:none;}
 .hybrid-carousel{height:var(--h);width:calc(var(--h) * 4 / 5);max-width:none;}
 .reel::-webkit-scrollbar{display:none}
+
+/* Phone held upright: the showreel fills the whole screen under the header, turned on its side,
+   so the visitor turns the phone to watch it. Turned to landscape, the page shows it normally. */
+@media (max-width: 767px) and (orientation: portrait) {
+  .reel-rot { aspect-ratio: auto !important; height: calc(100svh - 56px); }
+  .reel-rot .reel-video {
+    inset: auto; left: 50%; top: 50%;
+    width: calc(100svh - 56px); height: 100vw; max-width: none; max-height: none;
+    transform: translate(-50%, -50%) rotate(-90deg);
+  }
+}
