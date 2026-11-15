@@ -451,8 +451,8 @@ export default function ArtSlides() {
     const scroller = root.current;
     if (!scroller) return;
     gsap.registerPlugin(ScrollTrigger);
-    // No zoom-and-tilt on phones (upright or sideways): sections there can be taller than the screen, and the tilt would leave headings scaled and turned.
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerHeight < 500 || window.innerWidth < 768;
+    // The page-by-page zoom-and-tilt works the same on phones (upright and sideways) as on the computer; only the system "reduce motion" setting turns it off.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
       scroller.querySelectorAll<HTMLElement>("[data-snap-item]").forEach((section, i) => {
@@ -474,7 +474,7 @@ export default function ArtSlides() {
           },
         });
         if (i === 0) tl.fromTo(inner, CENTER, { ...LEAVE, duration: 1 });
-        else tl.fromTo(inner, window.innerWidth < 768 ? { ...ENTER, yPercent: 0 } : ENTER, { ...CENTER, duration: 1 }).to(inner, { ...LEAVE, duration: 1 });
+        else tl.fromTo(inner, ENTER, { ...CENTER, duration: 1 }).to(inner, { ...LEAVE, duration: 1 });
       });
 
       ScrollTrigger.create({
