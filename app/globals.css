@@ -175,3 +175,10 @@ html { scroll-behavior: smooth; }
 @media (orientation: landscape) and (max-height: 500px) {
   .art-theme .short-lines li span { display: inline !important; }
 }
+
+/* Art on a computer and tablet (15.11.2026): air between the header line and the section,
+   and the section block (film + text) centred in the space under the header, no wide empty band at the bottom. */
+@media (min-width: 768px) and (min-height: 501px) {
+  .art-theme .art-grid { padding-top: 96px !important; }
+  .art-theme .art-grid:not(:has(.main-reel)) { grid-template-rows: auto !important; align-content: center !important; padding-top: 72px !important; padding-bottom: 0 !important; }
+}
