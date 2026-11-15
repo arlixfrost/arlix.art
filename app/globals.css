@@ -151,9 +151,8 @@ html { scroll-behavior: smooth; }
 }
 
 /* Header on inner pages: solid dark bar that fades into transparency below it,
-   the gradient stays inside the header itself, with a light frosted blur; nothing hangs below it. */
-.hdr-fade { background: linear-gradient(to bottom, rgba(11,11,12,0.98) 0%, rgba(11,11,12,0.72) 100%);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+   solid dark header with a thin gold line along its bottom edge; nothing hangs below it. */
+.hdr-fade { background: #0B0B0C; border-bottom: 1px solid rgba(201,169,98,0.6); }
 
 /* Art on a phone turned sideways: heading in one line on top, the film across the full width,
    then the short description across the width under it (no 1/3 + 2/3 split). */
