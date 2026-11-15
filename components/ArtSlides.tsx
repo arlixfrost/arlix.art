@@ -544,7 +544,7 @@ export default function ArtSlides() {
   const inner = "h-full w-full will-change-transform origin-center";
 
   return (
-    <div className="fixed inset-0 art-theme">
+    <div className="fixed inset-0 art-theme art-page">
       {/* Approved menu: large vertical labels, only the open section and its two neighbours are shown. */}
       <nav aria-label="Sections" className="fixed left-3 sm:left-5 top-14 sm:top-[72px] bottom-4 z-40 flex items-center gap-2 sm:gap-3 w-12 pointer-events-none">
         <div className="relative self-stretch my-6 w-px bg-[#3A3632] shrink-0">

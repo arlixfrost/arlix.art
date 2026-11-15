@@ -119,8 +119,8 @@ html { scroll-behavior: smooth; }
 /* Art on an upright phone: a section with a lot in it (film, ribbon, text) grows taller than the screen instead of squeezing
    the ribbon; free finger scrolling, as on a phone turned sideways. */
 @media (max-width: 767px) and (orientation: portrait) {
-  .art-theme [data-snap-item], .art-theme [data-snap-inner], .art-theme .sec-grid { height: auto !important; min-height: 100svh; }
-  .art-theme .sec-grid { padding-bottom: 40px !important; }
+  .art-page [data-snap-item], .art-page [data-snap-inner], .art-page .sec-grid { height: auto !important; min-height: 100svh; }
+  .art-page .sec-grid { padding-bottom: 40px !important; }
 }
 /* Computer with a short window: the short description stays inside the screen, heading included. */
 @media (min-width: 768px) and (min-height: 501px) and (max-height: 820px) {
@@ -145,9 +145,9 @@ html { scroll-behavior: smooth; }
 @media (max-width: 767px) and (orientation: portrait) {
   .art-theme #intro, .art-theme #intro [data-snap-inner] { height: auto !important; min-height: 0 !important; }
   /* every section is as tall as its content: no empty screen under a short section (Artworks, Contact) */
-  .art-theme [data-snap-item], .art-theme [data-snap-inner], .art-theme .sec-grid { min-height: 0 !important; }
+  .art-page [data-snap-item], .art-page [data-snap-inner], .art-page .sec-grid { min-height: 0 !important; }
   /* phone: the heading sits one line lower, clear of the header and the logo */
-  .art-theme .sec-grid .sec-text h2, .art-theme .sec-grid h2 { margin-top: 24px; }
+  .art-page .sec-grid .sec-text h2, .art-page .sec-grid h2 { margin-top: 24px; }
 }
 
 /* Header on inner pages: solid dark bar that fades into transparency below it,
@@ -158,7 +158,7 @@ html { scroll-behavior: smooth; }
 /* Art on a phone turned sideways: heading in one line on top, the film across the full width,
    then the short description across the width under it (no 1/3 + 2/3 split). */
 @media (orientation: landscape) and (max-height: 500px) {
-  .art-theme [data-snap-item], .art-theme [data-snap-inner], .art-theme .sec-grid { height: auto !important; min-height: 0 !important; }
+  .art-page [data-snap-item], .art-page [data-snap-inner], .art-page .sec-grid { height: auto !important; min-height: 0 !important; }
   .art-theme .art-grid { display: flex !important; flex-direction: column !important; gap: 20px !important; padding-bottom: 40px !important; }
   .art-theme .art-grid > .sec-text { display: contents !important; }
   .art-theme .art-grid .sec-head { order: 1; padding-left: 0 !important; }
