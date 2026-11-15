@@ -174,3 +174,8 @@ html { scroll-behavior: smooth; }
 @media (orientation: landscape) and (max-height: 500px) {
   .art-theme .art-grid .hybrid-media { height: calc((100vw - 140px) / 1.3625) !important; }
 }
+
+/* Phone turned sideways: the Brand description flows across the width like every other section */
+@media (orientation: landscape) and (max-height: 500px) {
+  .art-theme .short-lines li span { display: inline !important; }
+}
