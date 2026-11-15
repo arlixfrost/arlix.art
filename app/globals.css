@@ -138,7 +138,8 @@ html { scroll-behavior: smooth; }
 @media (min-width: 768px) {
   .art-theme .art-grid .sec-text { justify-content: flex-start !important; }
   .art-theme .art-grid > div.flex.items-center { align-items: flex-start !important; }
-  .art-theme .art-grid .sec-text h2 { margin-top: -0.12em; }
+  /* the heading starts about one text line lower than the video top, clear of the header */
+  .art-theme .art-grid .sec-text h2 { margin-top: calc(40px - 0.12em); }
   .art-theme .art-grid .hybrid-media { align-items: flex-start !important; }
 }
 
@@ -148,4 +149,12 @@ html { scroll-behavior: smooth; }
   .art-theme #intro, .art-theme #intro [data-snap-inner] { height: auto !important; min-height: 0 !important; }
   /* every section is as tall as its content: no empty screen under a short section (Artworks, Contact) */
   .art-theme [data-snap-item], .art-theme [data-snap-inner], .art-theme .sec-grid { min-height: 0 !important; }
+  /* phone: the heading sits one line lower, clear of the header and the logo */
+  .art-theme .sec-grid .sec-text h2, .art-theme .sec-grid h2 { margin-top: 24px; }
 }
+
+/* Header on inner pages: solid dark bar that fades into transparency below it,
+   so headings and films slide softly into the dark instead of touching the logo. */
+.hdr-fade { background: #0B0B0C; }
+.hdr-fade::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 56px; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(11,11,12,1) 0%, rgba(11,11,12,.75) 40%, rgba(11,11,12,0) 100%); }

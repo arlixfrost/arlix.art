@@ -25,7 +25,7 @@ export default function Nav() {
   }, [home]);
   const showLogo = !home || pastHero;
   return (
-    <header className={`${home ? "fixed bg-gradient-to-b from-black/45 to-transparent" : overlay ? "fixed bg-[#0B0B0C]/85 backdrop-blur" : "sticky bg-[#0B0B0C]/90 backdrop-blur border-b border-white/10"} top-0 inset-x-0 z-50 font-body text-[#F2EDE6]`}>
+    <header className={`${home ? "fixed bg-gradient-to-b from-black/45 to-transparent" : overlay ? "fixed hdr-fade" : "sticky hdr-fade"} top-0 inset-x-0 z-50 font-body text-[#F2EDE6]`}>
       <div className="flex items-center justify-between gap-3 px-4 sm:px-8 h-14 sm:h-[72px]">
         <Link href="/" aria-label="Arlix" className={`shrink-0 flex items-center transition-opacity duration-500 ${showLogo ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
           <img src="/arlix-logo-white.png" alt="Arlix" width={1400} height={585} className="h-9 sm:h-[46px] w-auto select-none" draggable={false} />
