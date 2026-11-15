@@ -13,6 +13,7 @@ import { SoundToggle, ExpandButton } from "@/components/SoundToggle";
 import { soloAudio } from "@/components/audio";
 import CurvedReel from "@/components/CurvedReel";
 import { ReadMore, type More } from "@/components/ReadMore";
+import { SiteFooter } from "./SiteFooter";
 
 type Video = { src: string; poster: string; title: string; horizontal?: boolean; caption?: string };
 type Section = {
@@ -655,11 +656,14 @@ export default function ArtSlides() {
 
         <section data-snap-item data-index={sections.length} id="contact" className={slide}>
           <div data-snap-inner className={inner}>
-            <div className="h-full flex flex-col items-center justify-center text-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6">
+            <div className="h-full flex flex-col">
+            <div className="flex-1 flex flex-col items-center justify-center text-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6">
               <div className="label mb-3">Contact</div>
               <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">Start a project</h2>
               <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
               <Link href="/contact" className="frame-btn">Contact</Link>
+            </div>
+            <SiteFooter className="shrink-0 mt-8 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]" />
             </div>
           </div>
         </section>

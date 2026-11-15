@@ -190,3 +190,9 @@ html { scroll-behavior: smooth; }
   /* sections with a ribbon: the 16px of air added on top is taken from the bottom, so the ribbon keeps its height */
   .art-theme .art-grid:has(.main-reel) { padding-bottom: 16px !important; }
 }
+/* Phone turned sideways: the Contact section grows with its content, so the footer sits below the Contact button with air, never on it */
+@media (orientation: landscape) and (max-height: 500px) {
+  section#contact[data-snap-item], section#contact [data-snap-inner] { height: auto !important; min-height: 100svh; }
+  section#contact [data-snap-inner] > div > div:first-child { padding-top: 96px; padding-bottom: 8px; }
+  section#contact footer { margin-top: 32px !important; }
+}

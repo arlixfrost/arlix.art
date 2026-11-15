@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Ph } from "@/components/Ph";
 import { WorkVideo } from "@/components/ArtSlides";
+import { SiteFooter } from "./SiteFooter";
 
 type Item = { id: string; title: string; menu?: string; text?: string; price?: string; video?: { src: string; poster: string; title: string } };
 
@@ -139,11 +140,14 @@ export default function TechSlides() {
 
         <section data-snap-item data-index={items.length} id="contact" className={slide}>
           <div data-snap-inner className={inner}>
-            <div className={`h-full flex flex-col items-center justify-center text-center ${pad}`}>
+            <div className="h-full flex flex-col">
+            <div className={`flex-1 flex flex-col items-center justify-center text-center ${pad}`}>
               <div className="label mb-4">Contact</div>
               <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">Start a project</h2>
               <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
               <Link href="/contact" className="frame-btn">Contact</Link>
+            </div>
+            <SiteFooter className="shrink-0 mt-8 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]" />
             </div>
           </div>
         </section>
