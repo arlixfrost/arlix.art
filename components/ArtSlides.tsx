@@ -16,6 +16,7 @@ import { ReadMore, type More } from "@/components/ReadMore";
 
 type Video = { src: string; poster: string; title: string; horizontal?: boolean; caption?: string };
 type Section = {
+  reelStart?: number; // which ribbon card is shown first (default: the middle one)
   menu?: string;
   id: string;
   title: string;
@@ -105,7 +106,8 @@ const sections: Section[] = [
     title: "Food & Restaurants",
     menu: "Food & Resto",
     work: "Food / restaurant piece",
-    main: { src: "/art/food/food-film-draft-web.mp4", poster: "/art/food/food-film-draft.jpg", title: "Food & Restaurants film" },
+    main: { src: "/art/food/cherry-garden-web.mp4", poster: "/art/food/cherry-garden.jpg", title: "Food & Restaurants film" },
+    reelStart: 0,
     short: [
       ["Food video is one", "of the hardest shoots:", "it has to be filmed very fast,", "with no second chance."],
       ["There is time to film", "one splash of sauce and one cut.", "After that, the whole dish", "has to be made again."],
@@ -221,7 +223,7 @@ const sections: Section[] = [
 let reelSoundOn = false;
 
 // lead: the big film above the ribbon. Opening it starts the same player, and the arrows go on through the ribbon works.
-function Reel({ items: ribbon, heightCss, lead, opener }: { items: Video[]; heightCss?: string; lead?: Video; opener?: React.MutableRefObject<(() => void) | null> }) {
+function Reel({ items: ribbon, heightCss, lead, opener, start }: { items: Video[]; heightCss?: string; lead?: Video; opener?: React.MutableRefObject<(() => void) | null>; start?: number }) {
   const [cap, setCap] = useState(false);
   const items = lead ? [{ ...lead, horizontal: true }, ...ribbon] : ribbon;
   const shift = lead ? 1 : 0;
@@ -275,7 +277,7 @@ function Reel({ items: ribbon, heightCss, lead, opener }: { items: Video[]; heig
   };
   return (
     <>
-      <CurvedReel items={ribbon} onOpen={(i: number) => go(i + shift)} heightCss={heightCss} />
+      <CurvedReel items={ribbon} onOpen={(i: number) => go(i + shift)} heightCss={heightCss} start={start} />
       {v && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onTouchCancel={onTouchEnd} style={{ touchAction: "none" }} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
@@ -401,13 +403,13 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
 
 // Big film with the ribbon of works under it. Opening the big film starts the ribbon player on it,
 // so the arrows (and a swipe on the phone) go straight on to the other works of the section.
-function MainReel({ main, reel, on, near }: { main: Video; reel: Video[]; on: boolean; near: boolean }) {
+function MainReel({ main, reel, on, near, start }: { main: Video; reel: Video[]; on: boolean; near: boolean; start?: number }) {
   const opener = useRef<(() => void) | null>(null);
   return (
     <div className="main-reel min-h-0 min-w-0 flex flex-col gap-3 md:h-full">
       <WorkVideo v={main} active={on} near={near} className="main-film shrink-0" onOpen={() => opener.current?.()} />
       <div className="main-reel-ribbon h-[230px] md:h-auto md:flex-1 md:min-h-[200px]">
-        <Reel items={reel} lead={main} opener={opener} heightCss="100%" />
+        <Reel items={reel} lead={main} opener={opener} heightCss="100%" start={start} />
       </div>
     </div>
   );
@@ -615,7 +617,7 @@ export default function ArtSlides() {
                   </div>
                   {s.main && s.reel ? (
                     // Big film at the same size as Brand & Fashion Films (full column width, 16:9); the ribbon takes the rest of the height.
-                    <MainReel main={s.main} reel={s.reel} on={on} near={near} />
+                    <MainReel main={s.main} reel={s.reel} on={on} near={near} start={s.reelStart} />
                   ) : s.reel ? (
                     <div className="min-h-0 min-w-0 flex items-center">
                       <Reel items={s.reel} heightCss="var(--ph)" />

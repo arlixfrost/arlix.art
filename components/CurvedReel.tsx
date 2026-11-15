@@ -55,18 +55,20 @@ function geom(h: number) {
   return { base, gap: base * 0.1, L: (base * 1.6) / (2 * Math.PI), A: base * 0.12, P: base * 1.4 };
 }
 
-export default function CurvedReel({ items, onOpen, className = "", heightCss = "calc(var(--ph) * 0.42)" }: {
+export default function CurvedReel({ items, onOpen, className = "", heightCss = "calc(var(--ph) * 0.42)", start }: {
+  start?: number;
   items: ReelItem[]; onOpen: (i: number) => void; className?: string; heightCss?: string;
 }) {
   const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const n = items.length;
   const [webgl, setWebgl] = useState(true);
-  const mid = Math.floor((items.length - 1) / 2);
+  // the card the ribbon opens on: the middle one, unless the section names its own first card
+  const mid = start ?? Math.floor((items.length - 1) / 2);
   const [active, setActive] = useState(mid);
   const [fb, setFb] = useState(0);
-  const target = useRef(Math.floor((items.length - 1) / 2));
-  const cur = useRef(Math.floor((items.length - 1) / 2));
+  const target = useRef(mid);
+  const cur = useRef(mid);
   const dirty = useRef(true);
   const visible = useRef(true);
   const dims = useRef({ W: 0, H: 0, h: 0, widths: [] as number[], centres: [] as number[], T: 0 });
