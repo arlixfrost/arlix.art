@@ -182,3 +182,11 @@ html { scroll-behavior: smooth; }
   .art-theme .art-grid { padding-top: 96px !important; }
   .art-theme .art-grid:not(:has(.main-reel)) { grid-template-rows: auto !important; align-content: center !important; padding-top: 72px !important; padding-bottom: 0 !important; }
 }
+@media (min-width: 768px) and (min-height: 501px) {
+  /* Hybrid keeps its full size (film + carousel as wide as the media column), centred like the others */
+  .art-theme .art-grid .hybrid-media { aspect-ratio: 1.3625; height: auto !important; max-height: calc(100svh - 112px); width: 100%; }
+}
+@media (min-width: 768px) and (min-height: 501px) {
+  /* sections with a ribbon: the 16px of air added on top is taken from the bottom, so the ribbon keeps its height */
+  .art-theme .art-grid:has(.main-reel) { padding-bottom: 16px !important; }
+}
