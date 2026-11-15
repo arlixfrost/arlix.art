@@ -142,6 +142,36 @@ const sections: Section[] = [
     ],
   },
   {
+    id: "ai-models-ugc",
+    title: "AI Models & UGC",
+    menu: "AI Models",
+    work: "AI model / UGC piece",
+    main: { src: "/art/ai-models/keira-fashion-web.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film" },
+    reel: [
+      { src: "/art/ai-models/arlix-macarons-web.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons", horizontal: true },
+    ],
+    short: [
+      ["A face that belongs", "only to your brand", "and appears nowhere else."],
+      ["One model for every format:", "an influencer chatting", "from her kitchen,", "a runway show", "or an ad campaign."],
+      ["Speaks any language", "and matches", "the beauty standards", "of each market."],
+      ["Collections can be tested", "before production", "and ads tried", "on different models", "and body types."],
+    ],
+    more: { columns: [[0, 2], [1, 3]], chapters: [
+      { h: "Why give a brand its own AI face?", ps: [
+        "A human model works with several brands at the same time. Today she wears your exclusive jewellery, tomorrow the same face is on a billboard for a budget supermarket. People notice, and the [premium value] of your product drops. An AI model belongs [only to you]: she never quits, never works for anyone else and keeps the same face in every campaign, with no casting, booking calendars or usage rights to renew.",
+      ] },
+      { h: "What can one model do?", ps: [
+        "The same model can appear as an influencer chatting from her kitchen, walk a [runway show] or star in an ad campaign. Each look is created in AI, which saves the budget usually spent on stylists, hair and make-up. Your audience sees [one familiar face] in every format, so the brand is easier to remember.",
+      ] },
+      { h: "How does it work on international markets?", ps: [
+        "If you work on international markets or in several countries, beauty standards differ from one to another: a look that works in Scandinavia often does not work in Eastern Europe or Latin America. For each market, a character can be created that feels close to your customers and [speaks their language]. One piece can also be shown in different looks, and the same ad can be tested on [different models and body types].",
+      ] },
+      { h: "Why is it faster and the result more controlled?", ps: [
+        "Like a sample collection shown to buyers, pieces can be shown on models [before production], so only the ones in demand go into full production. Mistakes are fixed and new pieces are added without a reshoot. A trend or a news story can be caught [while it is still fresh]. You [approve every stage], with changes within reason made along the way. The result stays under control and arrives much sooner than from a videographer.",
+      ] },
+    ] },
+  },
+  {
     id: "animation",
     title: "Cartoons & AI Pets",
     menu: "Cartoons",
@@ -169,36 +199,6 @@ const sections: Section[] = [
       ] },
       { h: "Why AI animals?", ps: [
         "Animals work for any brand: everyone loves fluffy pets. On a real set, though, putting animals through take after take is far from humane, and the shoot needs a trainer. Depending on the country, an [animal welfare representative] is also required on set: in the US, this adds [$1,200 a day] to your ad budget. In AI, the animal's movements, look and behaviour are [fully controlled], with no stress for any living creature.",
-      ] },
-    ] },
-  },
-  {
-    id: "ai-models-ugc",
-    title: "AI Models & UGC",
-    menu: "AI Models",
-    work: "AI model / UGC piece",
-    main: { src: "/art/ai-models/arlix-macarons-web.mp4", poster: "/art/ai-models/arlix-macarons.jpg", title: "Arlix Pâtisserie · macarons" },
-    reel: [
-      { src: "/art/ai-models/keira-fashion-web.mp4", poster: "/art/ai-models/keira-fashion-mirror.jpg", title: "Keira · fashion film", horizontal: true },
-    ],
-    short: [
-      ["A face that belongs", "only to your brand", "and appears nowhere else."],
-      ["One model for every format:", "an influencer chatting", "from her kitchen,", "a runway show", "or an ad campaign."],
-      ["Speaks any language", "and matches", "the beauty standards", "of each market."],
-      ["Collections can be tested", "before production", "and ads tried", "on different models", "and body types."],
-    ],
-    more: { columns: [[0, 2], [1, 3]], chapters: [
-      { h: "Why give a brand its own AI face?", ps: [
-        "A human model works with several brands at the same time. Today she wears your exclusive jewellery, tomorrow the same face is on a billboard for a budget supermarket. People notice, and the [premium value] of your product drops. An AI model belongs [only to you]: she never quits, never works for anyone else and keeps the same face in every campaign, with no casting, booking calendars or usage rights to renew.",
-      ] },
-      { h: "What can one model do?", ps: [
-        "The same model can appear as an influencer chatting from her kitchen, walk a [runway show] or star in an ad campaign. Each look is created in AI, which saves the budget usually spent on stylists, hair and make-up. Your audience sees [one familiar face] in every format, so the brand is easier to remember.",
-      ] },
-      { h: "How does it work on international markets?", ps: [
-        "If you work on international markets or in several countries, beauty standards differ from one to another: a look that works in Scandinavia often does not work in Eastern Europe or Latin America. For each market, a character can be created that feels close to your customers and [speaks their language]. One piece can also be shown in different looks, and the same ad can be tested on [different models and body types].",
-      ] },
-      { h: "Why is it faster and the result more controlled?", ps: [
-        "Like a sample collection shown to buyers, pieces can be shown on models [before production], so only the ones in demand go into full production. Mistakes are fixed and new pieces are added without a reshoot. A trend or a news story can be caught [while it is still fresh]. You [approve every stage], with changes within reason made along the way. The result stays under control and arrives much sooner than from a videographer.",
       ] },
     ] },
   },
@@ -406,7 +406,6 @@ function MainReel({ main, reel, on, near }: { main: Video; reel: Video[]; on: bo
 }
 
 const slides = [
-  { id: "intro", label: "Intro" },
   ...sections.map((s) => ({ id: s.id, label: s.menu ?? s.title })),
   { id: "contact", label: "Contact" },
 ];
@@ -560,51 +559,6 @@ export default function ArtSlides() {
 
       <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
         {/* Slide 0: Art headline — Taormina stand-in for showreel; Safari needs muted start + sound icon */}
-        <section data-snap-item data-index={0} id="intro" className={`${slide} max-md:!h-auto`}>
-          {/* Phone: heading above the film, description under it. Desktop: film fills the screen, text over it. */}
-          <div data-snap-inner className={`${inner} relative flex flex-col pt-14 md:block md:pt-0`}>
-            <div className="intro-box relative bg-black md:absolute md:inset-0 md:flex md:items-center md:justify-center">
-              <div className="intro-film relative w-full aspect-video md:max-w-[calc(100svh*16/9)]">
-                <video
-                  ref={introVid}
-                  src={taormina.src}
-                  poster={taormina.poster}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  className="absolute inset-0 h-full w-full object-cover"
-                  aria-label={taormina.title}
-                />
-                <div onClick={() => { if (!phoneFullscreen(introVid.current)) setIntroOpen(true); }} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="md:hidden absolute inset-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.45),transparent_55%)] cursor-zoom-in" />
-                {/* Phone: the headline stays on the film itself, bottom left. */}
-                <div className="md:hidden absolute left-16 right-28 bottom-3 pointer-events-none">
-                  <div className="label mb-1">Art</div>
-                  <h1 className="font-display font-normal text-2xl leading-[1.05] mb-2">[Art headline]</h1>
-                  <div className="gold-rule" />
-                </div>
-                {/* Sound, full-screen and pause icons always sit on the film itself. */}
-                <SoundToggle muted={introMuted} onClick={toggleIntroSound} className="right-2 bottom-2" />
-                <ExpandButton onClick={() => { if (!phoneFullscreen(introVid.current)) setIntroOpen(true); }} className="right-11 bottom-2" />
-                <VideoScrubber video={introVid} />
-                <PlayButton video={introVid} label={`Play ${taormina.title}`} />
-              </div>
-            </div>
-            <div className="md:hidden pl-16 pr-6 pt-4 pb-10">
-              <Ph className="h-16 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
-              <div className="label mt-5">Scroll ↓</div>
-            </div>
-            <div onClick={() => { if (!phoneFullscreen(introVid.current)) setIntroOpen(true); }} role="button" aria-label={`${taormina.title} (click to enlarge)`} className="hidden md:block absolute inset-0 z-0 bg-black/35 bg-[linear-gradient(to_top,rgba(0,0,0,0.5),transparent_55%)] cursor-zoom-in" />
-            <div className="intro-text hidden md:flex relative h-full flex-col justify-end pb-24 pl-[4.5rem] lg:pl-24 pr-6 max-w-4xl pointer-events-none">
-              <div className="label mb-3">Art</div>
-              <div className="intro-title font-display font-normal text-6xl leading-[1.05] mb-4">[Art headline]</div>
-              <div className="gold-rule mb-5" />
-              <Ph className="h-20 max-w-xl">[Short intro / description: 1 to 2 lines]</Ph>
-              <div className="scroll-hint label mt-8">Scroll ↓</div>
-            </div>
-          </div>
-        </section>
         {introOpen && typeof document !== "undefined" && createPortal(
           <div role="dialog" aria-modal="true" aria-label={taormina.title} onClick={() => setIntroOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
             <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
@@ -618,10 +572,10 @@ export default function ArtSlides() {
         {sections.map((s, i) => {
           const animation = s.id === "animation";
           const aspect: "video" | "portrait" = s.portrait || s.hybrid ? "portrait" : "video";
-          const on = active === i + 1;
-          const near = Math.abs(active - (i + 1)) <= 1;
+          const on = active === i;
+          const near = Math.abs(active - i) <= 1;
           return (
-            <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
+            <section key={s.id} data-snap-item data-index={i} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
                 {/* Computer: heading across the full width on top; under it 1/3 text | 2/3 media. Phone: heading above the media, description under it. */}
                 <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
@@ -689,7 +643,7 @@ export default function ArtSlides() {
         })}
 
 
-        <section data-snap-item data-index={sections.length + 1} id="contact" className={slide}>
+        <section data-snap-item data-index={sections.length} id="contact" className={slide}>
           <div data-snap-inner className={inner}>
             <div className="h-full flex flex-col items-center justify-center text-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6">
               <div className="label mb-3">Contact</div>

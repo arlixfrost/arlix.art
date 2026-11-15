@@ -10,9 +10,8 @@ type Item = { id: string; title: string; menu?: string; text?: string; price?: s
 
 // Individual consultations and Training for small business are merged into one block.
 const items: Item[] = [
-  { id: "cv-linkedin", title: "CV / LinkedIn + Career", menu: "CV adaptation" },
+  { id: "consultations-training", title: "Individual Consultations & Small Business Training", menu: "Consultations\n& Training" },
   { id: "web-design", title: "Web Design" },
-  { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents" },
   {
     id: "content-factory",
     title: "Content Factory",
@@ -20,12 +19,12 @@ const items: Item[] = [
     text: "Your brand's visuals, handled every month: 30 to 60 pieces of content, carousels, short reels and UGC-style videos, all in one consistent look.",
     price: "From €1,500 / month",
   },
-  { id: "consultations-training", title: "Individual Consultations & Small Business Training", menu: "Consultations\n& Training" },
+  { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents" },
   { id: "royalty-free-music", title: "Royalty Free music", menu: "Royalty Free\nMusic" },
+  { id: "cv-linkedin", title: "CV / LinkedIn + Career", menu: "CV adaptation" },
 ];
 
 const slides = [
-  { id: "intro", label: "Intro" },
   ...items.map((s) => ({ id: s.id, label: s.menu ?? s.title })),
   { id: "contact", label: "Contact" },
 ];
@@ -112,20 +111,9 @@ export default function TechSlides() {
       </nav>
 
       <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
-        <section data-snap-item data-index={0} id="intro" className={slide}>
-          <div data-snap-inner className={inner}>
-            <div className={`sec-grid h-full flex flex-col justify-center ${pad} pt-[72px] max-w-5xl`}>
-              <div className="label mb-4">Tech</div>
-              <h1 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-5">[Tech headline]</h1>
-              <div className="gold-rule mb-6" />
-              <Ph className="h-24 max-w-xl">[Intro: what Arlix Tech offers, 2 to 4 lines]</Ph>
-              <div className="label mt-8">Scroll ↓</div>
-            </div>
-          </div>
-        </section>
 
         {items.map((s, i) => (
-          <section key={s.id} data-snap-item data-index={i + 1} id={s.id} className={slide}>
+          <section key={s.id} data-snap-item data-index={i} id={s.id} className={slide}>
             <div data-snap-inner className={inner}>
               <div className={s.video ? `sec-grid h-full grid gap-4 md:gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] content-center ${pad} pt-[72px]` : `sec-grid h-full flex flex-col justify-center ${pad} pt-[72px] max-w-4xl`}>
                 <div className="flex flex-col justify-center min-w-0">
@@ -146,7 +134,7 @@ export default function TechSlides() {
                 </div>
                 {s.video ? (
                   <div className="min-w-0 flex items-center">
-                    <WorkVideo v={s.video} active={active === i + 1} near={Math.abs(active - (i + 1)) <= 1} />
+                    <WorkVideo v={s.video} active={active === i} near={Math.abs(active - i) <= 1} />
                   </div>
                 ) : null}
               </div>
@@ -155,7 +143,7 @@ export default function TechSlides() {
         ))}
 
 
-        <section data-snap-item data-index={items.length + 1} id="contact" className={slide}>
+        <section data-snap-item data-index={items.length} id="contact" className={slide}>
           <div data-snap-inner className={inner}>
             <div className={`h-full flex flex-col items-center justify-center text-center ${pad}`}>
               <div className="label mb-4">Contact</div>
