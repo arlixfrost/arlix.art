@@ -154,10 +154,9 @@ html { scroll-behavior: smooth; }
 }
 
 /* Header on inner pages: solid dark bar that fades into transparency below it,
-   so headings and films slide softly into the dark instead of touching the logo. */
-.hdr-fade { background: #0B0B0C; }
-.hdr-fade::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 56px; pointer-events: none;
-  background: linear-gradient(to bottom, rgba(11,11,12,1) 0%, rgba(11,11,12,.75) 40%, rgba(11,11,12,0) 100%); }
+   the gradient stays inside the header itself, with a light frosted blur; nothing hangs below it. */
+.hdr-fade { background: linear-gradient(to bottom, rgba(11,11,12,0.98) 0%, rgba(11,11,12,0.72) 100%);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 
 /* Art on a phone turned sideways: heading in one line on top, the film across the full width,
    then the short description across the width under it (no 1/3 + 2/3 split). */
