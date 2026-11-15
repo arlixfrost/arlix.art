@@ -14,7 +14,7 @@ import { soloAudio } from "@/components/audio";
 import CurvedReel from "@/components/CurvedReel";
 import { ReadMore, type More } from "@/components/ReadMore";
 
-type Video = { src: string; poster: string; title: string; horizontal?: boolean };
+type Video = { src: string; poster: string; title: string; horizontal?: boolean; caption?: string };
 type Section = {
   menu?: string;
   id: string;
@@ -131,14 +131,13 @@ const sections: Section[] = [
       ] },
     ] },
     reel: [
+      { src: "/art/food/restaurant-01.mp4", poster: "/art/food/restaurant-01.jpg", title: "Arlix Catering", horizontal: true, caption: "Arlix Catering" },
       { src: "/art/food/redhead-cake.mp4", poster: "/art/food/redhead-cake.jpg", title: "Redhead · cake", horizontal: true },
       { src: "/art/food/marquis-homard-lobster-vertical-web.mp4", poster: "/art/food/marquis-homard-lobster-vertical.jpg", title: "Marquis Homard · lobster" },
-      { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus" },
+      { src: "/art/food/rupert-01-petrus.mp4", poster: "/art/food/rupert-01-petrus.jpg", title: "Rupert · Petrus", caption: "AI Sommelier" },
+      { src: "/art/food/hostess-01-best.mp4", poster: "/art/food/hostess-01-best.jpg", title: "Hostess", caption: "AI Hostess" },
+      { src: "/art/food/cupid-barman-01-best.mp4", poster: "/art/food/cupid-barman-01-best.jpg", title: "Angel · waiter", caption: "AI Waiter" },
       { src: "/art/food/croissants-01.mp4", poster: "/art/food/croissants-01.jpg", title: "Croissants" },
-      { src: "/art/food/brunette-bakery-talking.mp4", poster: "/art/food/brunette-bakery-talking.jpg", title: "Bakery · brunette" },
-      { src: "/art/food/hostess-01-best.mp4", poster: "/art/food/hostess-01-best.jpg", title: "Hostess" },
-      { src: "/art/food/cupid-barman-01-best.mp4", poster: "/art/food/cupid-barman-01-best.jpg", title: "Angel · waiter" },
-      { src: "/art/food/restaurant-01.mp4", poster: "/art/food/restaurant-01.jpg", title: "Restaurant", horizontal: true },
     ],
   },
   {
@@ -223,6 +222,7 @@ let reelSoundOn = false;
 
 // lead: the big film above the ribbon. Opening it starts the same player, and the arrows go on through the ribbon works.
 function Reel({ items: ribbon, heightCss, lead, opener }: { items: Video[]; heightCss?: string; lead?: Video; opener?: React.MutableRefObject<(() => void) | null> }) {
+  const [cap, setCap] = useState(false);
   const items = lead ? [{ ...lead, horizontal: true }, ...ribbon] : ribbon;
   const shift = lead ? 1 : 0;
   const [open, setOpen] = useState<number | null>(null);
@@ -259,6 +259,7 @@ function Reel({ items: ribbon, heightCss, lead, opener }: { items: Video[]; heig
     return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
   const v = open !== null ? items[open] : null;
+  useEffect(() => { setCap(false); }, [open]);
   const lbW = v?.horizontal ? "min(90vw, calc(90vh * 16 / 9))" : "min(90vw, calc(90vh * 9 / 16))";
   const toggle = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); reelSoundOn = !el.muted; if (!el.muted) soloAudio(el); };
   // Swipe left = next work, swipe right = previous. The player takes the finger itself (touch-action: none),
@@ -279,7 +280,14 @@ function Reel({ items: ribbon, heightCss, lead, opener }: { items: Video[]; heig
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onTouchCancel={onTouchEnd} style={{ touchAction: "none" }} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
             <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" style={{ touchAction: "none" }}
-              onPlaying={() => setLoading(false)} onWaiting={() => setLoading(true)} />
+              onPlaying={() => setLoading(false)} onWaiting={() => setLoading(true)}
+              onTimeUpdate={(e) => { const el = e.currentTarget; if (v.caption && el.duration) setCap(el.currentTime >= el.duration / 2); }} />
+            {/* Caption that floats in at the middle of the video (e.g. "AI Sommelier") */}
+            {v.caption && (
+              <div aria-hidden={!cap} className={`pointer-events-none absolute inset-x-0 bottom-16 md:bottom-20 flex justify-center transition-all duration-1000 ease-out ${cap ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                <span className="font-display italic text-[28px] md:text-[40px] leading-none text-[#F2EDE6] px-6 py-3 bg-black/35 backdrop-blur-[2px] [text-shadow:0_2px_18px_rgba(0,0,0,0.6)]">{v.caption}</span>
+              </div>
+            )}
             {loading && <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -ml-5 -mt-5 h-10 w-10 rounded-full border-2 border-white/25 border-t-[#C9A962] animate-spin" />}
             <SoundToggle muted={muted} onClick={toggle} className="right-2 bottom-2" />
             <VideoScrubber video={lb} pillClassName="!right-11" />

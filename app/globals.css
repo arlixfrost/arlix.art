@@ -158,3 +158,20 @@ html { scroll-behavior: smooth; }
 .hdr-fade { background: #0B0B0C; }
 .hdr-fade::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 56px; pointer-events: none;
   background: linear-gradient(to bottom, rgba(11,11,12,1) 0%, rgba(11,11,12,.75) 40%, rgba(11,11,12,0) 100%); }
+
+/* Art on a phone turned sideways: heading in one line on top, the film across the full width,
+   then the short description across the width under it (no 1/3 + 2/3 split). */
+@media (orientation: landscape) and (max-height: 500px) {
+  .art-theme [data-snap-item], .art-theme [data-snap-inner], .art-theme .sec-grid { height: auto !important; min-height: 0 !important; }
+  .art-theme .art-grid { display: flex !important; flex-direction: column !important; gap: 20px !important; padding-bottom: 40px !important; }
+  .art-theme .art-grid > .sec-text { display: contents !important; }
+  .art-theme .art-grid .sec-head { order: 1; padding-left: 0 !important; }
+  .art-theme .art-grid > :not(.sec-text) { order: 2; width: 100% !important; }
+  .art-theme .art-grid .sec-body { order: 3; padding-left: 0 !important; }
+  .art-theme .art-grid .sec-text h2 { margin-top: 0 !important; white-space: nowrap; }
+  .art-theme .art-grid .short-list { max-width: none !important; }
+  .art-theme .art-grid .sec-body > div { max-width: none !important; }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .art-theme .art-grid .hybrid-media { height: calc((100vw - 140px) / 1.3625) !important; }
+}

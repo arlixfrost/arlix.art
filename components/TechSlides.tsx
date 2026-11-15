@@ -10,7 +10,7 @@ type Item = { id: string; title: string; menu?: string; text?: string; price?: s
 
 // Individual consultations and Training for small business are merged into one block.
 const items: Item[] = [
-  { id: "consultations-training", title: "Individual Consultations & Small Business Training", menu: "Consultations\n& Training" },
+  { id: "consultations-training", title: "Individual Consultations\n& Small Business Training", menu: "Consultations\n& Training" },
   { id: "web-design", title: "Web Design" },
   {
     id: "content-factory",
@@ -115,22 +115,16 @@ export default function TechSlides() {
         {items.map((s, i) => (
           <section key={s.id} data-snap-item data-index={i} id={s.id} className={slide}>
             <div data-snap-inner className={inner}>
-              <div className={s.video ? `sec-grid h-full grid gap-4 md:gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] content-center ${pad} pt-[72px]` : `sec-grid h-full flex flex-col justify-center ${pad} pt-[72px] max-w-4xl`}>
+              <div className={s.video ? `sec-grid h-full grid gap-4 md:gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] content-center ${pad} pt-[72px]` : `sec-grid h-full flex flex-col justify-center ${pad} pt-[72px] max-w-6xl`}>
                 <div className="flex flex-col justify-center min-w-0">
                 <div className="label mb-4">{String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</div>
-                <h2 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-5">{s.title}</h2>
+                <h2 className="font-display font-normal text-4xl md:text-6xl leading-[1.05] mb-5 md:whitespace-pre-line">{s.title}</h2>
                 <div className="gold-rule mb-6" />
                 {s.text ? (
                   <p className="text-lg md:text-xl leading-relaxed text-[#CFC8BE] max-w-2xl">{s.text}</p>
                 ) : (
                   <Ph className="h-24 max-w-xl">[Description]</Ph>
                 )}
-                {s.price ? (
-                  <p className="mt-8 text-xl md:text-2xl text-[#C9A962] font-normal">{s.price}</p>
-                ) : (
-                  <Ph className="h-12 max-w-xs mt-6">[Price from]</Ph>
-                )}
-                <Link href="/contact" className="frame-btn mt-10 self-start">Contact</Link>
                 </div>
                 {s.video ? (
                   <div className="min-w-0 flex items-center">
