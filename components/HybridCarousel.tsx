@@ -14,7 +14,6 @@ const slides: Slide[] = [
   { n: 5, kind: "film", src: "/art/hybrid/carousel/05-ai-dive.mp4", poster: "/art/hybrid/carousel/05-ai-dive.jpg", label: "AI FILM" },
   { n: 6, kind: "photo", src: "/art/hybrid/carousel/08-photo-plate.jpg", label: "PHOTO" },
   { n: 7, kind: "film", src: "/art/hybrid/carousel/09-ai-plate.mp4", poster: "/art/hybrid/carousel/09-ai-plate.jpg", label: "AI FILM" },
-  { n: 8, kind: "cta", src: "/art/hybrid/carousel/10-cta-offer.jpg", label: "NO CREW. NO CASTING. NO SHOOTING DAY. DM TO ORDER" },
 ];
 
 export function HybridCarousel({ className = "", active = true }: { className?: string; active?: boolean }) {
