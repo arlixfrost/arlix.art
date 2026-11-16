@@ -10,6 +10,27 @@ import { phoneFullscreen } from "@/components/fullscreen";
 export default function Showreel({ className = "", children, fade }: { className?: string; children?: React.ReactNode; fade?: React.ReactNode }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+  // Upright phone: full screen plays a turned copy of the film in the phone's own player,
+  // so it fills the whole screen exactly as it runs on the page, over the browser bars.
+  const turned = useRef<HTMLVideoElement>(null);
+  const openFull = () => {
+    const upright = typeof window !== "undefined" && window.matchMedia("(max-width: 767px) and (orientation: portrait)").matches;
+    const t = turned.current; const v = ref.current;
+    if (upright && t && v) {
+      try { t.currentTime = v.currentTime; } catch { /* starts from the beginning */ }
+      if (phoneFullscreen(t)) { soloAudio(t); v.pause(); return; }
+    }
+    if (!phoneFullscreen(ref.current)) setOpen(true);
+  };
+  useEffect(() => {
+    const t = turned.current; if (!t) return;
+    if (window.matchMedia("(max-width: 767px) and (orientation: portrait)").matches) { try { t.load(); } catch { /* loads on tap instead */ } }
+    const done = () => { t.pause(); t.muted = true; const v = ref.current; if (v) { v.muted = true; setMuted(true); v.play().catch(() => {}); } };
+    t.addEventListener("webkitendfullscreen", done);
+    const onFs = () => { if (!document.fullscreenElement) done(); };
+    t.addEventListener("fullscreenchange", onFs);
+    return () => { t.removeEventListener("webkitendfullscreen", done); t.removeEventListener("fullscreenchange", onFs); };
+  }, []);
 
   useEffect(() => {
     const v = ref.current;
@@ -67,17 +88,20 @@ export default function Showreel({ className = "", children, fade }: { className
         preload="auto"
       />
       {fade}
-      <div onClick={() => { if (!phoneFullscreen(ref.current)) setOpen(true); }} role="button" aria-label="Open showreel" className="absolute inset-0 bg-black/35 cursor-zoom-in" />
+      <div onClick={openFull} role="button" aria-label="Open showreel" className="absolute inset-0 bg-black/35 cursor-zoom-in" />
       <PlayButton video={ref} label="Play showreel" />
       <SoundToggle muted={muted} onClick={toggle} className="bottom-2 right-2 md:bottom-6 md:right-6" />
       {/* Small round "full screen" icon next to the sound icon, so it is clear the film opens bigger. */}
-      <button type="button" onClick={() => { if (!phoneFullscreen(ref.current)) setOpen(true); }} aria-label="Watch full screen"
+      <button type="button" onClick={openFull} aria-label="Watch full screen"
         className="absolute z-20 bottom-2 right-11 md:bottom-6 md:right-[3.75rem] h-8 w-8 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors">
         <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4 9V4h5" /><path d="M20 9V4h-5" /><path d="M4 15v5h5" /><path d="M20 15v5h-5" />
         </svg>
       </button>
       </div>
+      {/* Turned copy of the film, only for full screen on an upright phone; never shown on the page. */}
+      <video ref={turned} src="/showreel-1-portrait.mp4" playsInline loop muted preload="none" aria-hidden="true" tabIndex={-1}
+        className="pointer-events-none absolute left-0 top-0 h-px w-px opacity-0" />
       {/* Logo, tagline and buttons stay upright even when the film is turned on its side. */}
       <div className="relative h-full pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">{children}</div>
       {open && typeof document !== "undefined" && createPortal(
