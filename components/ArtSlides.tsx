@@ -232,21 +232,34 @@ function Reel({ items: ribbon, heightCss, lead, opener, start }: { items: Video[
   const [muted, setMuted] = useState(true);
   const lb = useRef<HTMLVideoElement>(null);
   const kick = useRef<number | undefined>(undefined);
+  const pausedByPlayer = useRef<Set<HTMLVideoElement>>(new Set());
+  // When the player closes, the videos it paused play on again.
+  useEffect(() => {
+    if (open !== null) return;
+    pausedByPlayer.current.forEach((x) => { x.muted = true; x.play().catch(() => {}); });
+    pausedByPlayer.current.clear();
+  }, [open]);
   const [loading, setLoading] = useState(false);
   // Opens work i and starts it inside the same tap (iPhone only allows sound when play starts inside the tap).
   const go = (i: number) => {
     flushSync(() => { setMuted(!reelSoundOn); setOpen(i); setLoading(true); });
     const el = lb.current; if (!el) return;
+    // Give the player the whole connection: every other video on the page pauses while it is open.
+    document.querySelectorAll("video").forEach((x) => { if (x !== el && !x.paused) { x.pause(); pausedByPlayer.current.add(x); } });
     if (!el.src.endsWith(items[i].src)) el.src = items[i].src;
     el.currentTime = 0; el.muted = !reelSoundOn;
     if (reelSoundOn) soloAudio(el);
     el.play().catch(() => { el.muted = true; setMuted(true); el.play().catch(() => {}); });
     // Safety net: if the phone has not started the video after 2 seconds, load it again and restart.
     window.clearTimeout(kick.current);
+    // Safety net: if the phone has not started the video, ask it to play again. The download is never restarted
+    // (restarting threw away what was already loaded and made slow connections wait twice as long);
+    // only a video that failed to load at all is loaded again.
     kick.current = window.setTimeout(() => {
       const e2 = lb.current; if (!e2 || e2.currentTime > 0.05) return;
-      e2.load(); e2.play().catch(() => { e2.muted = true; setMuted(true); e2.play().catch(() => {}); });
-    }, 2000);
+      if (e2.error) e2.load();
+      e2.play().catch(() => { e2.muted = true; setMuted(true); e2.play().catch(() => {}); });
+    }, 2500);
   };
   const step = (d: number) => { if (open !== null) go((open + d + items.length) % items.length); };
   if (opener) opener.current = () => go(0);
@@ -263,7 +276,7 @@ function Reel({ items: ribbon, heightCss, lead, opener, start }: { items: Video[
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
   const v = open !== null ? items[open] : null;
   useEffect(() => { setCap(false); }, [open]);
-  const lbW = v?.horizontal ? "min(90vw, calc(90vh * 16 / 9))" : "min(90vw, calc(90vh * 9 / 16))";
+  const lbW = v?.horizontal ? "min(90vw, calc(90svh * 16 / 9))" : "min(90vw, calc(90svh * 9 / 16))";
   const toggle = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); reelSoundOn = !el.muted; if (!el.muted) soloAudio(el); };
   // Swipe left = next work, swipe right = previous. The player takes the finger itself (touch-action: none),
   // so the phone never turns the swipe into its own gesture; the last finger position counts even if the touch is cancelled.
@@ -373,7 +386,7 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
   const toggleLb = () => { const el = lb.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); if (!el.muted) soloAudio(el); };
   const box = aspect === "portrait" ? "aspect-[9/16]" : "aspect-video";
-  const lbW = aspect === "portrait" ? "min(90vw, calc(90vh * 9 / 16))" : "min(90vw, calc(90vh * 16 / 9))";
+  const lbW = aspect === "portrait" ? "min(90vw, calc(90svh * 9 / 16))" : "min(90vw, calc(90svh * 16 / 9))";
   return (
     <div className={`relative bg-black overflow-hidden ${box} w-full ${className}`}>
       {thumb ? (
@@ -455,6 +468,8 @@ export default function ArtSlides() {
     // The page-by-page zoom-and-tilt works the same on phones (upright and sideways) as on the computer; only the system "reduce motion" setting turns it off.
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    const phoneUpright = () => window.matchMedia("(max-width: 767px) and (orientation: portrait)").matches;
+    const cleanups: Array<() => void> = [];
     const ctx = gsap.context(() => {
       scroller.querySelectorAll<HTMLElement>("[data-snap-item]").forEach((section, i) => {
         const inner = section.querySelector<HTMLElement>("[data-snap-inner]");
@@ -466,17 +481,40 @@ export default function ArtSlides() {
         });
 
         if (reduce) return;
-        const tl = gsap.timeline({
-          defaults: { ease: "none", force3D: true },
-          scrollTrigger: {
-            trigger: section, scroller, start: i === 0 ? "top top" : "top bottom", end: "bottom top", scrub: true,
+        // The section comes in tilted and is completely flat once its top reaches the top of the screen; it stays flat
+        // while a section taller than the screen (phones) is read, and tilts away only when its bottom leaves the screen.
+        // A section exactly one screen tall moves exactly as before.
+        if (i > 0) {
+          gsap.fromTo(inner, ENTER, { ...CENTER, ease: "none", force3D: true, immediateRender: true,
+            scrollTrigger: { trigger: section, scroller, start: "top bottom", end: () => (phoneUpright() ? "top 30%" : "top top"), scrub: true, invalidateOnRefresh: true } });
+        }
+        gsap.fromTo(inner, CENTER, { ...LEAVE, ease: "none", force3D: true, immediateRender: false,
+          scrollTrigger: { trigger: section, scroller, start: () => (phoneUpright() ? "bottom 55%" : "bottom bottom"), end: "bottom top", scrub: true, invalidateOnRefresh: true,
             onLeave: () => gsap.set(inner, { clearProps: "transform,opacity" }),
-            onLeaveBack: () => gsap.set(inner, { clearProps: "transform,opacity" }),
-          },
-        });
-        if (i === 0) tl.fromTo(inner, CENTER, { ...LEAVE, duration: 1 });
-        else tl.fromTo(inner, ENTER, { ...CENTER, duration: 1 }).to(inner, { ...LEAVE, duration: 1 });
+            onLeaveBack: () => gsap.set(inner, { clearProps: "transform,opacity" }) } });
       });
+
+      // Upright phone: each section stops with its main film in the middle of the screen (heading above it,
+      // ribbon under it). The stop point is moved with scroll-margin, computed from the layout.
+      const centreFilms = () => {
+        scroller.querySelectorAll<HTMLElement>("[data-snap-item]").forEach((section) => {
+          if (!phoneUpright()) { section.style.scrollMarginTop = ""; return; }
+          const media = section.querySelector<HTMLElement>(".sec-grid .main-film") ?? section.querySelector<HTMLElement>(".sec-grid > :not(.sec-text)");
+          if (!media) { section.style.scrollMarginTop = ""; return; }
+          let top = 0; let el: HTMLElement | null = media;
+          while (el && el !== section) { top += el.offsetTop; el = el.offsetParent as HTMLElement | null; }
+          const m = Math.round(scroller.clientHeight / 2 - (top + media.offsetHeight / 2));
+          section.style.scrollMarginTop = `${m}px`;
+        });
+      };
+      centreFilms();
+      window.addEventListener("resize", centreFilms);
+      const t1 = window.setTimeout(centreFilms, 1200);
+      // fonts and films settle after the first paint: measure again whenever a section changes size
+      const ro = new ResizeObserver(() => centreFilms());
+      scroller.querySelectorAll<HTMLElement>("[data-snap-item] .sec-grid").forEach((g) => ro.observe(g));
+      document.fonts?.ready.then(centreFilms).catch(() => {});
+      cleanups.push(() => { window.removeEventListener("resize", centreFilms); window.clearTimeout(t1); ro.disconnect(); });
 
       ScrollTrigger.create({
         scroller, start: 0, end: "max",
@@ -484,7 +522,7 @@ export default function ArtSlides() {
       });
     }, scroller);
 
-    return () => ctx.revert();
+    return () => { cleanups.forEach((f) => f()); ctx.revert(); };
   }, []);
 
   const go = (i: number) => {
@@ -572,7 +610,7 @@ export default function ArtSlides() {
         {/* Slide 0: Art headline — Taormina stand-in for showreel; Safari needs muted start + sound icon */}
         {introOpen && typeof document !== "undefined" && createPortal(
           <div role="dialog" aria-modal="true" aria-label={taormina.title} onClick={() => setIntroOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
-            <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
+            <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90svh * 16 / 9))" }}>
               <video ref={introLb} src={taormina.src} poster={taormina.poster} loop playsInline autoPlay muted={introMuted} className="absolute inset-0 h-full w-full object-contain" />
               <SoundToggle muted={introMuted} onClick={toggleIntroLb} className="right-2 bottom-2" />
               <VideoScrubber video={introLb} pillClassName="!right-11" />

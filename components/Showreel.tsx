@@ -106,7 +106,7 @@ export default function Showreel({ className = "", children, fade }: { className
       <div className="relative h-full pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">{children}</div>
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label="Showreel" onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
-          <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90vh * 16 / 9))" }}>
+          <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90svh * 16 / 9))" }}>
             <video ref={lb} src="/showreel-1-web.mp4" poster="/showreel-poster.jpg" loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
             <SoundToggle muted={muted} onClick={toggleLb} className="right-2 bottom-2" />
             <VideoScrubber video={lb} pillClassName="!right-11" />
