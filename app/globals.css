@@ -196,3 +196,9 @@ html { scroll-behavior: smooth; }
   section#contact [data-snap-inner] > div > div:first-child { padding-top: 96px; padding-bottom: 8px; }
   section#contact footer { margin-top: 32px !important; }
 }
+/* Phone turned sideways: the header is the compact phone header (56px, small logo), not the computer one */
+@media (orientation: landscape) and (max-height: 500px) {
+  header > div:first-child { height: 56px !important; }
+  header > div:first-child img { height: 36px !important; }
+  header nav { font-size: 15px !important; gap: 16px !important; }
+}
