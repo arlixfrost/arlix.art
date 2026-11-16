@@ -202,3 +202,9 @@ html { scroll-behavior: smooth; }
   header > div:first-child img { height: 36px !important; }
   header nav { font-size: 15px !important; gap: 16px !important; }
 }
+/* Upright phone: the ribbon is clearly smaller than the section's main film, so the main film reads first */
+@media (max-width: 767px) and (orientation: portrait) {
+  .art-page .main-reel-ribbon { height: 130px !important; }
+  /* side menu: the current section label is the same small size as the others, so it never touches the film */
+  .art-page nav ol button { font-size: 12px !important; }
+}
