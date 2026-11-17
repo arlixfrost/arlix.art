@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { DEFAULTS, PRESETS, estimate, eur, type Inputs } from "./engine";
+import { PRESETS, choices, estimate, eur, type Inputs } from "./engine";
 
 // arlix.art/pricing: questions on the left, a live estimate on the right (on phones it follows under the questions,
 // with a small total bar pinned to the bottom). Studio rates stay hidden: the visitor sees what is included and a price range.
@@ -55,11 +55,9 @@ function Group({ n, title, children }: { n: number; title: string; children: Rea
   );
 }
 
+const NOTICE = "Please note that all prices shown here are estimates only. Every project is individual, and the final price is always agreed with you personally.";
 const TERMS = [
-  "All prices are estimated. Everything is agreed individually.",
   "Two rounds of revisions are included.",
-  "Prices exclude VAT.",
-  "Estimate valid for 14 days.",
   "50% prepayment, the balance on delivery.",
 ];
 
@@ -69,17 +67,15 @@ export default function PricingCalc() {
   const [copied, setCopied] = useState(false);
   const set = <K extends keyof Inputs>(k: K, v: Inputs[K]) => { setPreset(null); setI((p) => ({ ...p, [k]: v })); };
   const r = useMemo(() => estimate(i), [i]);
+  const picked = useMemo(() => choices(i), [i]);
   const video = i.kind === "video";
   const range = `${eur(r.min)} to ${eur(r.max)}`;
 
-  const summary = video
-    ? `AI film, ${i.duration} seconds, ${i.scenes} scenes`
-    : `${i.imgCount} AI image${i.imgCount > 1 ? "s" : ""}`;
 
   const copy = async () => {
     const text = [
-      "Arlix: project estimate", summary, "", `Estimated price: ${range}`, "", "Included:",
-      ...r.items.map((t) => `- ${t}`), "", ...TERMS, "", "arlix.art",
+      "Arlix: project estimate", "", `Estimated price: ${range}`, NOTICE, "", "Your choices:",
+      ...picked.map((t) => `- ${t}`), "", ...TERMS, "", "arlix.art",
     ].join("\n");
     try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch { /* clipboard not allowed */ }
   };
@@ -91,8 +87,11 @@ export default function PricingCalc() {
           <h1 className="font-display font-normal text-[40px] md:text-[56px] leading-[1.05]">Pricing</h1>
           <div className="gold-rule mt-5 mb-6" />
           <p className="text-[16px] md:text-[18px] leading-[1.55] text-[#E4DED5] max-w-2xl">
-            Answer a few short questions and see an estimated price for your project. The final price is agreed with you individually.
+            Here you can get an approximate idea of what your project may cost.
           </p>
+          <div className="mt-6 border border-[rgba(201,169,98,0.7)] px-5 py-4 md:px-6 md:py-5 max-w-2xl">
+            <p className="m-0 text-[16px] md:text-[17px] leading-[1.55] text-[#F2EDE6]">{NOTICE}</p>
+          </div>
         </header>
 
         <div className="no-print mt-10 md:mt-14">
@@ -203,11 +202,11 @@ export default function PricingCalc() {
             <div className="print-only font-display text-[22px] mb-4">Arlix · arlix.art</div>
             <div className="label">Estimated price</div>
             <div className="font-display text-[36px] md:text-[44px] leading-[1.05] mt-3">{eur(r.min)}<span className="text-[#9B948B]"> to </span>{eur(r.max)}</div>
-            <div className="text-[14px] text-[#9B948B] mt-2">{summary}</div>
+            <p className="text-[14px] leading-[1.5] text-[#ADA59B] mt-3 mb-0">{NOTICE}</p>
             <div className="gold-rule my-6" />
-            <div className="label mb-3">Included</div>
+            <div className="label mb-3">Your choices</div>
             <ul className="m-0 p-0 list-none flex flex-col gap-2 text-[15px] leading-[1.45] text-[#E4DED5]">
-              {r.items.map((t) => (
+              {picked.map((t) => (
                 <li key={t} className="relative pl-5">
                   <span aria-hidden="true" className="absolute left-0 top-[0.6em] h-[5px] w-[5px] rounded-full bg-[#C9A962]" />{t}
                 </li>

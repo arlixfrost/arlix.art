@@ -48,11 +48,11 @@ export const PRESETS: { id: string; label: string; note: string; inputs: Inputs 
     inputs: { ...DEFAULTS, kind: "video", duration: 15, scenes: 5, charCount: 1, scene: "simple", hasScript: "no", refs: "yes", creative: "light", music: "library" },
   },
   {
-    id: "film", label: "Brand film", note: "90 seconds",
-    inputs: { ...DEFAULTS, kind: "video", duration: 90, scenes: 25, charCount: 2, scene: "medium", hasScript: "no", refs: "no", creative: "full", moodboard: true, music: "library", sfx: true },
+    id: "film", label: "Brand film", note: "from 90 seconds",
+    inputs: { ...DEFAULTS, kind: "video", duration: 90, scenes: 15, charCount: 2, scene: "medium", hasScript: "no", refs: "no", creative: "light", moodboard: true, music: "library", sfx: true },
   },
   {
-    id: "photos", label: "Photo series", note: "10 images",
+    id: "photos", label: "Photo series", note: "10 realistic images",
     inputs: { ...DEFAULTS, kind: "image", imgCount: 10, charCount: 1, scene: "medium", refs: "yes", creative: "light", moodboard: false },
   },
 ];
@@ -139,3 +139,39 @@ export function estimate(i: Inputs) {
 }
 
 export const eur = (v: number) => "€" + v.toLocaleString("en-GB");
+
+// What the client picked, in plain words: the estimate shows only these, never the studio's work stages.
+export function choices(i: Inputs): string[] {
+  const out: string[] = [];
+  const creative = { none: "Based on your references", light: "Your references, refined", full: "Full creative concept", variants: "Two to three directions to choose from" }[i.creative];
+  const scene = { simple: "Simple scenes", medium: "Scenes with a setting", complex: "Detailed scenes" }[i.scene];
+  if (i.kind === "video") {
+    out.push(`AI film, ${i.duration} seconds`, `${i.scenes} scene${i.scenes > 1 ? "s" : ""}`);
+    if (i.hasScript === "no") out.push("Script written for you");
+  } else {
+    out.push(`${i.imgCount} realistic AI image${i.imgCount > 1 ? "s" : ""}`);
+    if (i.formats > 0) out.push(`${i.formats} extra format${i.formats > 1 ? "s" : ""}`);
+  }
+  out.push(i.refs === "no" ? "References found for you" : "Your references");
+  if (i.moodboard) out.push("Concept and mood board");
+  if (i.charCount > 0) out.push(`${i.charCount} character${i.charCount > 1 ? "s" : ""}`);
+  out.push(scene, creative);
+  if (i.kind === "video") {
+    if (i.music === "library") out.push("Licensed music track");
+    if (i.music === "synth") out.push("Original music track");
+    if (i.voice === "mix") out.push("Your voice-over recording mixed in");
+    if (i.voice === "create") out.push("Voice-over created for you");
+    if (i.lipsync) out.push("Lip sync");
+    if (i.sfx) out.push("Sound design");
+    if (i.subs === "simple") out.push("Simple subtitles");
+    if (i.subs === "styled") out.push("Styled subtitles");
+    if (i.subs === "translate") out.push("Subtitles with translation");
+  }
+  out.push(i.usage === "personal" ? "Personal or portfolio use" : "Brand social media and website");
+  if (i.brand === "flexible") out.push("Loosely following your brand book");
+  if (i.brand === "yes") out.push("Exactly following your brand book");
+  if (i.sources === "yes") out.push("Source files");
+  out.push({ normal: "Standard timing", h48: "Within 48 hours", express: "Within 24 hours" }[i.urgency]);
+  if (i.extraRevisions > 0) out.push(`${i.extraRevisions} extra round${i.extraRevisions > 1 ? "s" : ""} of revisions`);
+  return out;
+}
