@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/components/LocaleProvider";
 import { type Locale } from "@/lib/i18n";
 import { detectLocale, stripLocale, switchLocale } from "@/lib/paths";
@@ -14,7 +14,104 @@ const linkDefs: { href: string; labelKey: string; fallback: string; wide?: boole
   { href: "/contact", labelKey: "nav.contact", fallback: "Contact" },
 ];
 
+// Data-driven language list: add { id: "ru", label: "RU" } here (and in lib/i18n.ts) for later languages.
+const LANGS: { id: Locale; label: string }[] = [
+  { id: "en", label: "EN" },
+  { id: "de", label: "DE" },
+  { id: "it", label: "IT" },
+];
+
+function LangSwitch({ rawPath, current }: { rawPath: string; current: Locale }) {
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const btn = useRef<HTMLButtonElement>(null);
+  const label = LANGS.find((l) => l.id === current)?.label ?? "EN";
+
+  useEffect(() => { setOpen(false); }, [rawPath]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: PointerEvent) => {
+      if (!root.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        btn.current?.focus();
+      }
+    };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const focusItem = (index: number) => {
+    const items = root.current?.querySelectorAll<HTMLElement>("[role=menuitem]");
+    items?.[(index + (items.length || 1)) % items.length]?.focus();
+  };
+
+  return (
+    <div ref={root} className="relative shrink-0">
+      <button
+        ref={btn}
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label={label}
+        onClick={() => setOpen((v) => !v)}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            setOpen(true);
+            requestAnimationFrame(() => focusItem(0));
+          }
+        }}
+        className="flex items-center gap-1 border border-[#4A4540] rounded-full px-2.5 max-[419px]:px-2 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-[13px] tracking-[0.08em] bg-[#F2EDE6] text-[#0B0B0C]"
+      >
+        {label}
+        <svg aria-hidden="true" width="8" height="8" viewBox="0 0 8 8" className="shrink-0" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M1.5 2.75 4 5.25 6.5 2.75" />
+        </svg>
+      </button>
+      {open ? (
+        <ul
+          role="menu"
+          className="absolute top-full right-0 z-[60] mt-1 min-w-full border border-[#4A4540] bg-[#0B0B0C] text-[11px] sm:text-[13px] tracking-[0.08em]"
+          onKeyDown={(e) => {
+            const items = Array.from(root.current?.querySelectorAll<HTMLElement>("[role=menuitem]") ?? []);
+            const i = items.indexOf(document.activeElement as HTMLElement);
+            if (e.key === "ArrowDown") { e.preventDefault(); focusItem(i + 1); }
+            else if (e.key === "ArrowUp") { e.preventDefault(); focusItem(i <= 0 ? items.length - 1 : i - 1); }
+            else if (e.key === "Home") { e.preventDefault(); focusItem(0); }
+            else if (e.key === "End") { e.preventDefault(); focusItem(items.length - 1); }
+            else if (e.key === "Tab") { setOpen(false); }
+          }}
+        >
+          {LANGS.map((l) => (
+            <li key={l.id} role="none">
+              <Link
+                role="menuitem"
+                href={switchLocale(rawPath, l.id)}
+                hrefLang={l.id}
+                aria-current={l.id === current ? "true" : undefined}
+                className={`block px-2.5 max-[419px]:px-2 sm:px-4 py-1.5 sm:py-2 ${l.id === current ? "bg-[#F2EDE6] text-[#0B0B0C]" : "text-[#B5ADA3]"}`}
+                onClick={() => setOpen(false)}
+              >
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 export default function Nav() {
+
   const rawPath = usePathname();
   const path = stripLocale(rawPath.replace(/\/$/, "") || "/");
   const { locale, t, href } = useI18n();
@@ -50,11 +147,6 @@ export default function Nav() {
   }, [rawPath]);
 
   const current = (detectLocale(rawPath) || locale) as Locale;
-  const codes: { id: Locale; label: string }[] = [
-    { id: "en", label: "EN" },
-    { id: "de", label: "DE" },
-    { id: "it", label: "IT" },
-  ];
 
   return (
     <header className={`${home ? "fixed bg-gradient-to-b from-black/45 to-transparent" : overlay ? "fixed hdr-fade" : "sticky hdr-fade"} top-0 inset-x-0 z-50 font-body text-[#F2EDE6] transition-transform duration-300 ${hidden ? "-translate-y-full" : "translate-y-0"}`}>
@@ -68,18 +160,7 @@ export default function Nav() {
               {locale === "en" ? l.fallback : t(l.labelKey)}
             </Link>
           ))}
-          <div className="flex border border-[#4A4540] rounded-full overflow-hidden text-[11px] sm:text-[13px] tracking-[0.08em] shrink-0">
-            {codes.map((l) => (
-              <Link
-                key={l.id}
-                href={switchLocale(rawPath, l.id)}
-                hrefLang={l.id}
-                className={`px-2.5 max-[419px]:px-2 sm:px-4 py-1.5 sm:py-2 rounded-full ${current === l.id ? "bg-[#F2EDE6] text-[#0B0B0C]" : "text-[#B5ADA3]"}`}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
+          <LangSwitch rawPath={rawPath} current={current} />
         </nav>
       </div>
     </header>
