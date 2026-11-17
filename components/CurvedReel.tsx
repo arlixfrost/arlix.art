@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useI18n } from "@/components/LocaleProvider";
 
 // The home-page ribbon, sized for a section of the Art page: the same S-curve in perspective, drawn on the
 // graphics card with every card as ONE curved surface (no slices, no seams). Cards keep their own shape:
@@ -59,6 +60,7 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
   start?: number;
   items: ReelItem[]; onOpen: (i: number) => void; className?: string; heightCss?: string;
 }) {
+  const { locale, t } = useI18n();
   const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const n = items.length;
@@ -214,7 +216,7 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
   return (
     <div ref={stage} className={`relative w-full overflow-hidden select-none ${className}`} style={{ height: heightCss }}>
       {webgl ? (
-        <canvas ref={canvas} aria-label="Works" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => { drag.current = null; }}
+        <canvas ref={canvas} aria-label={locale === "en" ? "Works" : t("common.works")} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => { drag.current = null; }}
           className="absolute inset-0 h-full w-full" style={{ touchAction: "pan-y", cursor: "pointer" }} />
       ) : (
         <div className="absolute inset-0" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} style={{ touchAction: "pan-y" }}>
@@ -226,10 +228,10 @@ export default function CurvedReel({ items, onOpen, className = "", heightCss = 
           })}
         </div>
       )}
-      <button onClick={() => onOpen(mod(active))} aria-label={`Play ${items[mod(active)]?.title ?? ""}`} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 h-11 w-11 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors">▶</button>
+      <button onClick={() => onOpen(mod(active))} aria-label={locale === "en" ? `Play ${items[mod(active)]?.title ?? ""}` : t("common.playTitle", { title: items[mod(active)]?.title ?? "" })} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 h-11 w-11 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors">▶</button>
       {n > 1 && <>
-        <button onClick={() => go(active - 1)} aria-label="Previous" className={`${arrow} left-1`}>←</button>
-        <button onClick={() => go(active + 1)} aria-label="Next" className={`${arrow} right-1`}>→</button>
+        <button onClick={() => go(active - 1)} aria-label={locale === "en" ? "Previous" : t("common.previous")} className={`${arrow} left-1`}>←</button>
+        <button onClick={() => go(active + 1)} aria-label={locale === "en" ? "Next" : t("common.next")} className={`${arrow} right-1`}>→</button>
       </>}
     </div>
   );

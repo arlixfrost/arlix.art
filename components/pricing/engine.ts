@@ -138,10 +138,16 @@ export function estimate(i: Inputs) {
   return { min: round(sum("mn")), max: round(sum("mx")), avg: round(sum("avg")), items: lines.map((l) => l.label) };
 }
 
-export const eur = (v: number) => "€" + v.toLocaleString("en-GB");
+export const eur = (v: number, locale: "en" | "de" | "it" = "en") => {
+  if (locale === "en") return "€" + v.toLocaleString("en-GB");
+  // de-DE and it-IT both use a dot as the thousands separator. it-IT may skip grouping under 10.000, so format it by hand.
+  const grouped = Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return grouped + " €";
+};
 
 // What the client picked, in plain words: the estimate shows only these, never the studio's work stages.
-export function choices(i: Inputs): string[] {
+export function choices(i: Inputs, t?: (key: string, vars?: Record<string, string | number>) => string): string[] {
+  if (t) return localizedChoices(i, t);
   const out: string[] = [];
   const creative = { none: "Based on your references", light: "Your references, refined", full: "Full creative concept", variants: "Two to three directions to choose from" }[i.creative];
   const scene = { simple: "Simple scenes", medium: "Scenes with a setting", complex: "Detailed scenes" }[i.scene];
@@ -173,5 +179,41 @@ export function choices(i: Inputs): string[] {
   if (i.sources === "yes") out.push("Source files");
   out.push({ normal: "Standard timing", h48: "Within 48 hours", express: "Within 24 hours" }[i.urgency]);
   if (i.extraRevisions > 0) out.push(`${i.extraRevisions} extra round${i.extraRevisions > 1 ? "s" : ""} of revisions`);
+  return out;
+}
+
+function localizedChoices(i: Inputs, t: (key: string, vars?: Record<string, string | number>) => string): string[] {
+  const out: string[] = [];
+  const oneMany = (n: number, one: string, many: string) => t(n === 1 ? one : many, { n });
+  if (i.kind === "video") {
+    out.push(t("pricing.choice.film", { n: i.duration }));
+    out.push(oneMany(i.scenes, "pricing.choice.sceneOne", "pricing.choice.sceneMany"));
+    if (i.hasScript === "no") out.push(t("pricing.choice.scriptWritten"));
+  } else {
+    out.push(oneMany(i.imgCount, "pricing.choice.imageOne", "pricing.choice.imageMany"));
+    if (i.formats > 0) out.push(oneMany(i.formats, "pricing.choice.formatOne", "pricing.choice.formatMany"));
+  }
+  out.push(i.refs === "no" ? t("pricing.choice.refsFound") : t("pricing.choice.yourRefs"));
+  if (i.moodboard) out.push(t("pricing.choice.moodboard"));
+  if (i.charCount > 0) out.push(oneMany(i.charCount, "pricing.choice.charOne", "pricing.choice.charMany"));
+  out.push(t(`pricing.choice.scene.${i.scene}`));
+  out.push(t(`pricing.choice.creative.${i.creative}`));
+  if (i.kind === "video") {
+    if (i.music === "library") out.push(t("pricing.choice.licensedMusic"));
+    if (i.music === "synth") out.push(t("pricing.choice.originalMusic"));
+    if (i.voice === "mix") out.push(t("pricing.choice.voiceMix"));
+    if (i.voice === "create") out.push(t("pricing.choice.voiceCreate"));
+    if (i.lipsync) out.push(t("pricing.choice.lipsync"));
+    if (i.sfx) out.push(t("pricing.choice.sfx"));
+    if (i.subs === "simple") out.push(t("pricing.choice.subsSimple"));
+    if (i.subs === "styled") out.push(t("pricing.choice.subsStyled"));
+    if (i.subs === "translate") out.push(t("pricing.choice.subsTranslate"));
+  }
+  out.push(i.usage === "personal" ? t("pricing.choice.usePersonal") : t("pricing.choice.useBrand"));
+  if (i.brand === "flexible") out.push(t("pricing.choice.brandFlexible"));
+  if (i.brand === "yes") out.push(t("pricing.choice.brandExact"));
+  if (i.sources === "yes") out.push(t("pricing.choice.sources"));
+  out.push(t({ normal: "pricing.choice.timingNormal", h48: "pricing.choice.timing48", express: "pricing.choice.timing24" }[i.urgency]));
+  if (i.extraRevisions > 0) out.push(oneMany(i.extraRevisions, "pricing.choice.revOne", "pricing.choice.revMany"));
   return out;
 }

@@ -1,4 +1,5 @@
 "use client";
+import { useI18n } from "@/components/LocaleProvider";
 import { useEffect, useState, type RefObject } from "react";
 
 const fmt = (t: number) => {
@@ -10,6 +11,7 @@ const fmt = (t: number) => {
 // Pause/Play pill + a seek bar that is shown ONLY while the video is paused.
 // Does not touch muted state, so muted-autoplay rules stay with the parent.
 export function VideoScrubber({ video, className = "", pillClassName = "" }: { video: RefObject<HTMLVideoElement | null>; className?: string; pillClassName?: string }) {
+  const { locale, t: tt } = useI18n();
   const [paused, setPaused] = useState(true);
   const [t, setT] = useState(0);
   const [d, setD] = useState(0);
@@ -37,13 +39,13 @@ export function VideoScrubber({ video, className = "", pillClassName = "" }: { v
 
   return (
     <>
-      <button type="button" onClick={togglePlay} aria-label={paused ? "Play" : "Pause"}
+      <button type="button" onClick={togglePlay} aria-label={paused ? (locale === "en" ? "Play" : tt("common.play")) : (locale === "en" ? "Pause" : tt("common.pause"))}
         className={`absolute right-20 bottom-2 z-20 h-8 w-8 rounded-full bg-black/55 border border-white/30 text-white text-[11px] leading-none flex items-center justify-center backdrop-blur-sm ${pillClassName}`}>{paused ? "▶" : "❚❚"}</button>
       {paused && hasPlayed && d > 0 && (
         <div onClick={stop} onPointerDown={stop} onKeyDown={stop}
           className={`absolute inset-x-3 bottom-14 z-10 flex items-center gap-2 rounded-full bg-black/55 border border-white/20 px-2.5 py-1.5 backdrop-blur-sm text-white text-[10px] tabular-nums ${className}`}>
           <span className="hidden sm:inline">{fmt(t)}</span>
-          <input type="range" min={0} max={d} step={0.05} value={Math.min(t, d)} aria-label="Seek"
+          <input type="range" min={0} max={d} step={0.05} value={Math.min(t, d)} aria-label={locale === "en" ? "Seek" : tt("common.seek")}
             onChange={(e) => seek(parseFloat(e.target.value))}
             className="video-scrub min-w-0 flex-1 h-1 cursor-pointer accent-white" />
           <span className="hidden sm:inline">{fmt(d)}</span>

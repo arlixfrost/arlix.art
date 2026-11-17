@@ -1,13 +1,18 @@
 "use client";
+import { useI18n } from "@/components/LocaleProvider";
 
 // Small round speaker icon that replaces the "Sound on / Mute" text buttons.
 // Muted: speaker with a cross. Sound on: speaker with sound waves.
 export function SoundToggle({ muted, onClick, className = "" }: { muted: boolean; onClick: (e: React.MouseEvent) => void; className?: string }) {
+  const { locale, t } = useI18n();
+  const soundLabel = muted
+    ? (locale === "en" ? "Turn sound on" : t("common.turnSoundOn"))
+    : (locale === "en" ? "Turn sound off" : t("common.turnSoundOff"));
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={muted ? "Turn sound on" : "Turn sound off"}
+      aria-label={soundLabel}
       className={`absolute z-20 h-8 w-8 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors ${className}`}
     >
       <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -30,11 +35,12 @@ export function SoundToggle({ muted, onClick, className = "" }: { muted: boolean
 
 // Small round "full screen" icon (four corners), same style as the sound icon.
 export function ExpandButton({ onClick, className = "" }: { onClick: (e: React.MouseEvent) => void; className?: string }) {
+  const { locale, t } = useI18n();
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label="Watch full screen"
+      aria-label={locale === "en" ? "Watch full screen" : t("common.watchFullScreen")}
       className={`absolute z-20 h-8 w-8 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] flex items-center justify-center backdrop-blur-sm hover:border-[#C9A962] hover:text-[#C9A962] transition-colors ${className}`}
     >
       <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
