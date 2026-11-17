@@ -38,8 +38,8 @@ const items: Item[] = [
   { id: "web-design", title: "Web Design" },
   {
     id: "content-factory",
-    title: "Content Factory",
-    menu: "Content\nFactory",
+    title: "Monthly Content",
+    menu: "Monthly\nContent",
     text: "Your brand's visuals, handled every month: 30 to 60 pieces of content, carousels, short reels and UGC-style videos, all in one consistent look.",
     price: "From €1,500 / month",
   },
