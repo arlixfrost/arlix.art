@@ -9,7 +9,7 @@ import { SiteFooter } from "./SiteFooter";
 import { ReadMore, type More } from "@/components/ReadMore";
 
 type Box = { h: string; p: string; big?: boolean };
-type Item = { id: string; title: string; menu?: string; text?: string; price?: string; video?: { src: string; poster: string; title: string }; short?: string[]; boxes?: Box[] };
+type Item = { id: string; title: string; menu?: string; text?: string; price?: string; video?: { src: string; poster: string; title: string }; short?: string[]; boxes?: Box[]; three?: boolean };
 
 // [text] = phrase set slightly bolder and lighter, as in Art.
 function rich(t: string) {
@@ -85,7 +85,23 @@ const items: Item[] = [
       { h: "A 24/7 team that works for you.", p: "And any agent your business might need, so routine work no longer eats up your time. You describe the problem, and a ready solution is built for you." },
     ],
   },
-  { id: "royalty-free-music", title: "Royalty Free music", menu: "Royalty Free\nMusic" },
+  {
+    id: "royalty-free-music",
+    title: "Royalty Free Music",
+    menu: "Royalty Free\nMusic",
+    short: [
+      "Playlists for your business: restaurants, hotels, spas.",
+      "Professional sound design and music for videos and ads.",
+      "Jingles and a sound brand for your business.",
+      "Full commercial rights for everything you receive.",
+    ],
+    boxes: [
+      { h: "Playlists for your business: restaurants, hotels, spas.", p: "Some restaurants play music that sounds familiar, yet Shazam cannot find it. Most probably, it was made with AI, and this is how businesses save on [music licences]. Your playlist is created in your style: lounge, jazz, rap or anything else. Even a song with [your own lyrics] can play in your place. Nowadays, this kind of magic is easy." },
+      { h: "Professional sound design and music for videos and ads.", p: "Unlicensed tracks, or tracks from the Instagram library, are a risk for ads: Instagram will most probably block your ad or post it with no sound. High-quality [sound design] and editing to the beat make up the lion's share of a video's success. The music is written for your video or chosen from professional libraries, always [licensed for commercial use]." },
+      { h: "Full commercial rights for everything you receive.", p: "Every finished video, playlist or jingle is cleared for commercial use. Music written with AI for your business comes with [full commercial rights]. Music from a professional library comes with a [licence certificate], so if a platform or an ad network ever asks, you can show that the music is cleared for use." },
+      { h: "Jingles and a sound brand for your business.", p: "A jingle is a short, memorable melody for your business. A [sound brand] is your recognisable sound across videos, ads and your place, so people know it is you." },
+    ],
+  },
 ];
 
 const slides = [
@@ -203,9 +219,9 @@ export default function TechSlides() {
                     </div>
                   </div>
                 </div>
-                <div className="tech-boxes min-w-0 grid grid-cols-2 gap-5 content-center md:order-1 md:col-start-1 md:row-start-1">
-                  {s.boxes.map((b) => (
-                    <div key={b.h} className="border border-[#C9A962]/35 px-7 py-7">
+                <div className={`tech-boxes min-w-0 grid ${s.three ? "grid-cols-3 grid-rows-2" : "grid-cols-2"} gap-5 content-center md:order-1 md:col-start-1 md:row-start-1`}>
+                  {s.boxes.map((b, k) => (
+                    <div key={b.h} className={`${s.three && k < 2 ? "row-span-2 " : ""}border border-[#C9A962]/35 px-7 py-7`}>
                       <h3 className="font-display font-normal text-[26px] leading-[1.2] text-[#F2EDE6] m-0">{b.h}</h3>
                       <div className="w-12 h-px bg-[#C9A962] mt-4 mb-5" />
                       {b.big ? <p className="box-big m-0 font-display text-[26px] leading-[1.3] font-normal text-[#F2EDE6]">{rich(b.p)}</p> : <p className="m-0 text-[18px] leading-[1.55] font-normal text-[#E4DED5]">{rich(b.p)}</p>}
