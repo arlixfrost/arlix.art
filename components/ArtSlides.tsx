@@ -776,7 +776,7 @@ export default function ArtSlides() {
               <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <Link href="/contact" className="frame-btn">Contact</Link>
-                <Link href="/pricing" className="frame-btn">See pricing</Link>
+                <Link href="/pricing" className="frame-btn">Get Estimated Prices</Link>
               </div>
             </div>
             <SiteFooter className="shrink-0 mt-8 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]" />
