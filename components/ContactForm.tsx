@@ -2,9 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/components/LocaleProvider";
 
-// Contact form. Letters go to start@arlix.art through Web3Forms (the site itself is static and cannot send mail).
-const ENDPOINT = "https://api.web3forms.com/submit";
-const ACCESS_KEY = "244d685b-bd59-4de5-bc06-8748aeff3cb2";
+// Contact form. Letters go to start@arlix.art through FormSubmit (activated on start@arlix.art; the site itself is static and cannot send mail).
+const ENDPOINT = "https://formsubmit.co/ajax/start@arlix.art";
 
 
 const field =
@@ -92,10 +91,10 @@ export default function ContactForm() {
       Interested: picked.join(", "),
       Message: f.get("message"),
       "Mutual NDA before the brief": nda ? "Yes" : "No",
-      access_key: ACCESS_KEY,
-      subject: `New inquiry from ${f.get("name")}`,
-      from_name: "arlix.art",
-      replyto: f.get("email"),
+      _subject: `New inquiry from ${f.get("name")}`,
+      _replyto: f.get("email"),
+      _template: "table",
+      _captcha: "false",
     };
     try {
       const r = await fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) });
