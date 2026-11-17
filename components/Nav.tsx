@@ -3,10 +3,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const links = [
+const links: { href: string; label: string; wide?: boolean }[] = [
   { href: "/art", label: "Art" },
   { href: "/tech", label: "Tech" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/rights", label: "Rights", wide: true },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -54,7 +55,7 @@ export default function Nav() {
         </Link>
         <nav className="flex items-center gap-4 max-[419px]:gap-3 sm:gap-8 text-[15px] max-[419px]:text-[14px] sm:text-lg font-normal">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className={path.startsWith(l.href) ? "border-b border-[#C9A962] pb-0.5" : "text-[#F2EDE6]/75 hover:text-[#C9A962]"}>
+            <Link key={l.href} href={l.href} className={`${l.wide ? "max-sm:hidden " : ""}${path.startsWith(l.href) ? "border-b border-[#C9A962] pb-0.5" : "text-[#F2EDE6]/75 hover:text-[#C9A962]"}`}>
               {l.label}
             </Link>
           ))}
