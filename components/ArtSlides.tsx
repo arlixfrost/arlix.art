@@ -180,10 +180,11 @@ const sections: Section[] = [
     title: "Cartoons & AI Pets",
     menu: "Cartoons",
     work: "Animation",
-    // Amber City big on top; the ribbon below: the Pomeranian with the girl in the red suit (moved from Artworks)
+    // Amber City big on top; the ribbon below: the Pomeranian with the girl in the red suit and the girl with the cat (both moved from Artworks)
     main: { src: "/art/amber-city/ep1-oskar.mp4", poster: "/art/amber-city/ep1-oskar.jpg", title: "Amber City · Ep 1 · Oskar" },
     reel: [
       { src: "/art/social/paris-red-suit-web.mp4", poster: "/art/social/paris-red-suit.jpg", title: "Paris · red suit · Pomeranian" },
+      { src: "/art/commercials/lingerie-model-web.mp4", poster: "/art/commercials/lingerie-model.jpg", title: "Lingerie · model + cat" },
     ],
     short: [
       ["A cartoon or a mascot", "created especially", "for your brand."],
@@ -211,11 +212,8 @@ const sections: Section[] = [
     title: "Artworks",
     menu: "Artworks",
     work: "Artwork",
-    // Taormina (final art) big on top; the ribbon below: lingerie with the cat (Paris moved to Cartoons & AI Pets)
-    main: { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily" },
-    reel: [
-      { src: "/art/commercials/lingerie-model-web.mp4", poster: "/art/commercials/lingerie-model.jpg", title: "Lingerie · model + cat" },
-    ],
+    // Taormina (final art) as the one film; Paris and the girl with the cat moved to Cartoons & AI Pets
+    video: { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily" },
   },
 ];
 
