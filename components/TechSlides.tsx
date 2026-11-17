@@ -189,7 +189,7 @@ export default function TechSlides() {
                   </div>
                   <div className="sec-body min-w-0">
                     <div className="mt-3 md:mt-6 pl-4 md:pl-0 max-w-xl">
-                      <ul className="short-list short-flow m-0 p-0 list-none flex flex-col gap-4 md:gap-6 text-[15px] leading-[1.55] font-normal text-[#E4DED5] md:text-[18px]">
+                      <ul className="short-list short-flow m-0 p-0 list-none flex flex-col gap-4 md:gap-[52px] text-[15px] leading-[1.55] font-normal text-[#E4DED5] md:text-[18px]">
                         {s.short!.map((t) => (
                           <li key={t} className="relative pl-5 [text-wrap:pretty]">
                             <span aria-hidden="true" className="absolute left-0 top-[0.65em] h-[5px] w-[5px] rounded-full bg-[#C9A962]" />
