@@ -35,7 +35,23 @@ const items: Item[] = [
       { h: "Looking for a new job, but no replies?", p: "Perhaps your CV is simply invisible. Recruiters use [ATS filters] – programs that scan CVs for keywords. If your CV has not been adapted, it does not get through them, and a real HR person never sees it. Without adaptation to [modern standards], it has no chance of reaching a human." },
     ],
   },
-  { id: "web-design", title: "Web Design" },
+  {
+    id: "web-design",
+    title: "Web Design",
+    menu: "Web Design",
+    short: [
+      "Modern website, ready in 1 week.",
+      "You manage it yourself: no programmer needed.",
+      "Made without templates, with no monthly fees.",
+      "Not suitable for online payments.",
+    ],
+    boxes: [
+      { h: "What does the website include?", p: "You get a website designed from scratch and fully set up. It comes with [modern graphics] and motion design to 2026 standards. The site can also be interactive or even game-like, so it catches your customers' attention and keeps them interested. After the launch, a [short lesson] / manual shows how to edit it on your own." },
+      { h: "Full control without waiting?", p: "You are in [full control] of your website. Prices, special offers, new products, a seasonal menu, sales: you change them all [yourself], in just a few minutes. No more long waits for an IT specialist to make your edits. Your changes appear on the site quickly, even late at night or at weekends." },
+      { h: "Will it stand out from competitors?", p: "Your website is built entirely for you, with no [templates], so it looks nothing like your competitors' sites. It is based on an analysis of your [brand style]: not only colours, but also fonts, the logo, images and the tone of your texts. This way, it matches your brand's image on social media and in outdoor advertising." },
+      { h: "What happens after the handover?", p: "From then on, each page and file belongs to you. There are no extra [monthly fees] and no developer's salary to pay. All you need is a subscription to Claude / ChatGPT / Grok / Gemini, which helps you update the website whenever you want." },
+    ],
+  },
   {
     id: "content-factory",
     title: "Monthly Content",
