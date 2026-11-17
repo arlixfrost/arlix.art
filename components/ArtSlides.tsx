@@ -1,6 +1,8 @@
 "use client";
 import { phoneFullscreen } from "./fullscreen";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useI18n } from "@/components/LocaleProvider";
+import type { Locale, TFn } from "@/lib/i18n";
 import { PlayButton } from "@/components/PlayButton";
 import Link from "next/link";
 import { createPortal, flushSync } from "react-dom";
@@ -37,7 +39,7 @@ type Section = {
 };
 
 // Order: Brand → Hybrid → Food & Restaurants → Animation → AI Models & UGC → Artworks (Commercials removed for now)
-const sections: Section[] = [
+const EN_SECTIONS: Section[] = [
   {
     id: "brand-fashion-films",
     title: "Brand & Fashion Films",
@@ -366,7 +368,7 @@ function Reel({ items: ribbon, heightCss, lead, opener, start, leadBox }: { item
   );
 }
 
-const taormina: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily" };
+const EN_TAORMINA: Video = { src: "/art/artworks/taormina.mp4", poster: "/art/artworks/taormina.jpg", title: "Taormina · Sicily" };
 
 // Muted autoplay driven by section visibility. iOS Safari only autoplays when the element is
 // muted + playsInline, and React does not emit the `muted` attribute in static HTML, so we set
@@ -476,16 +478,62 @@ function MainReel({ main, reel, on, near, start }: { main: Video; reel: Video[];
   );
 }
 
-const slides = [
-  ...sections.map((s) => ({ id: s.id, label: s.menu ?? s.title })),
-  { id: "contact", label: "Contact" },
-];
+const ART_KEYS: Record<string, string> = {
+  "brand-fashion-films": "brandFashionFilms",
+  hybrid: "hybrid",
+  "food-restaurants": "foodRestaurants",
+  "ai-models-ugc": "aiModelsUgc",
+  animation: "cartoonsAiPets",
+  artworks: "artworks",
+};
+
+function localizeArt(source: Section[], locale: Locale, t: TFn): Section[] {
+  if (locale === "en") return source;
+  return source.map((sec) => {
+    const k = ART_KEYS[sec.id];
+    const pre = `art.${k}`;
+    const titleOf = (v: Video, key: string): Video => ({ ...v, title: t(key) });
+    const reelKey = (i: number) => (k === "foodRestaurants" ? `${pre}.works.reel${i}` : `${pre}.reel${i}`);
+    const mainKey = k === "foodRestaurants" ? `${pre}.works.main` : `${pre}.workTitle`;
+    return {
+      ...sec,
+      title: t(`${pre}.title`),
+      menu: sec.menu !== undefined ? t(`${pre}.menu`) : sec.menu,
+      video: sec.video ? titleOf(sec.video, `${pre}.workTitle`) : sec.video,
+      main: sec.main ? titleOf(sec.main, mainKey) : sec.main,
+      reel: sec.reel ? sec.reel.map((v, i) => titleOf(v, reelKey(i))) : sec.reel,
+      short: sec.short ? sec.short.map((_, i) => [t(`${pre}.short.${i}`)]) : sec.short,
+      more: sec.more
+        ? {
+            ...sec.more,
+            chapters: sec.more.chapters.map((ch, i) => ({
+              h: t(`${pre}.more.${i}.h`),
+              ps: ch.ps.map((_, j) => t(`${pre}.more.${i}.ps.${j}`)),
+            })),
+          }
+        : sec.more,
+    };
+  });
+}
 
 const ENTER = { yPercent: -20, scale: 1.3, rotate: 7, opacity: 0.5 };
 const CENTER = { yPercent: 0, scale: 1, rotate: 0, opacity: 1 };
 const LEAVE = { yPercent: 20, scale: 1.3, rotate: -7, opacity: 0.5 };
 
 export default function ArtSlides() {
+  const { locale, t, href } = useI18n();
+  const sections = useMemo(() => localizeArt(EN_SECTIONS, locale, t), [locale, t]);
+  const slides = useMemo(
+    () => [
+      ...sections.map((sec) => ({ id: sec.id, label: sec.menu ?? sec.title })),
+      { id: "contact", label: locale === "en" ? "Contact" : t("art.menu.contact") },
+    ],
+    [sections, locale, t],
+  );
+  const taormina = useMemo(
+    () => (locale === "en" ? EN_TAORMINA : { ...EN_TAORMINA, title: t("art.artworks.workTitle") }),
+    [locale, t],
+  );
   const root = useRef<HTMLDivElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const introVid = useRef<HTMLVideoElement>(null);
@@ -650,7 +698,7 @@ export default function ArtSlides() {
   return (
     <div className="relative art-theme art-page">
       {/* Approved menu: large vertical labels, only the open section and its two neighbours are shown. */}
-      <nav aria-label="Sections" className="fixed left-3 sm:left-5 top-14 sm:top-[72px] bottom-4 z-40 flex items-center gap-2 sm:gap-3 w-12 pointer-events-none">
+      <nav aria-label={locale === "en" ? "Sections" : t("common.sections")} className="fixed left-3 sm:left-5 top-14 sm:top-[72px] bottom-4 z-40 flex items-center gap-2 sm:gap-3 w-12 pointer-events-none">
         <div className="relative self-stretch my-6 w-px bg-[#3A3632] shrink-0">
           <div ref={bar} className="absolute inset-0 bg-[#C9A962] origin-top" style={{ transform: "scaleY(0)" }} />
         </div>
@@ -671,8 +719,8 @@ export default function ArtSlides() {
           {/* Pricing is its own page: the last menu label, shown next to Contact, opens it. */}
           {active >= slides.length - 2 ? (
             <li className="flex">
-              <Link href="/pricing" aria-label="Pricing" className="relative font-body uppercase whitespace-nowrap flex flex-row-reverse leading-[1.2] rotate-180 tracking-[0.18em] text-[#8A837A] text-[13px] hover:text-[#C9A962] transition-colors duration-300">
-                <span className="block [writing-mode:vertical-rl]">Pricing</span>
+              <Link href={href("/pricing")} aria-label={locale === "en" ? "Pricing" : t("art.menu.pricing")} className="relative font-body uppercase whitespace-nowrap flex flex-row-reverse leading-[1.2] rotate-180 tracking-[0.18em] text-[#8A837A] text-[13px] hover:text-[#C9A962] transition-colors duration-300">
+                <span className="block [writing-mode:vertical-rl]">{locale === "en" ? "Pricing" : t("art.menu.pricing")}</span>
               </Link>
             </li>
           ) : null}
@@ -700,7 +748,7 @@ export default function ArtSlides() {
             <section key={s.id} data-snap-item data-index={i} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
                 {/* Computer: heading across the full width on top; under it 1/3 text | 2/3 media. Phone: heading above the media, description under it. */}
-                <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8">
+                <div className={`sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pb-6 md:pb-8 ${locale === "en" ? "pt-20" : "pt-32 md:pt-24"}`}>
                   <div className="sec-text contents md:flex md:flex-col md:justify-center md:pl-8 min-w-0">
                     <div className="sec-head order-1 md:order-none">
                       <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
@@ -769,12 +817,12 @@ export default function ArtSlides() {
           <div data-snap-inner className={inner}>
             <div className="h-full flex flex-col">
             <div className="flex-1 flex flex-col items-center justify-center text-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6">
-              <div className="label mb-3">Contact</div>
-              <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">Start a project</h2>
+              <div className="label mb-3">{locale === "en" ? "Contact" : t("art.cta.kicker")}</div>
+              <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">{locale === "en" ? "Start a project" : t("art.cta.title")}</h2>
               <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <Link href="/contact" className="frame-btn">Contact</Link>
-                <Link href="/pricing" className="frame-btn">Get Estimated Prices</Link>
+                <Link href={href("/contact")} className="frame-btn">{locale === "en" ? "Contact" : t("art.cta.contact")}</Link>
+                <Link href={href("/pricing")} className="frame-btn">{locale === "en" ? "Get Estimated Prices" : t("art.cta.getPrices")}</Link>
               </div>
             </div>
             <SiteFooter className="shrink-0 mt-8 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]" />

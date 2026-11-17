@@ -1,0 +1,483 @@
+{
+  "meta": {
+    "title": "Arlix",
+    "description": "KI- und Hybridproduktion aus einer Hand",
+    "pricingTitle": "Preise | Arlix",
+    "pricingDescription": "Geschätzte Preise für KI-Filme und -Bilder von Arlix.",
+    "contactTitle": "Kontakt | Arlix",
+    "contactDescription": "Starten Sie ein Projekt mit Arlix.",
+    "rightsTitle": "Rechte und Compliance | Arlix",
+    "rightsDescription": "NDA, Rechte am fertigen Werk, lizenzierte KI-Tools, Musik und KI-Kennzeichnung."
+  },
+  "banner": {
+    "notice": "Diese Seite wurde automatisch übersetzt. Die gesamte Kommunikation erfolgt auf Englisch."
+  },
+  "nav": {
+    "art": "Art",
+    "tech": "Tech",
+    "pricing": "Preise",
+    "rights": "Rechte",
+    "contact": "Kontakt"
+  },
+  "footer": {
+    "copyright": "© Arlix 2026",
+    "aiNote": "Alle Filme auf dieser Seite sind mit KI entstanden."
+  },
+  "common": {
+    "readMore": "Mehr lesen",
+    "close": "Schließen",
+    "scrollDown": "Nach unten scrollen",
+    "turnSoundOn": "Ton einschalten",
+    "turnSoundOff": "Ton ausschalten",
+    "watchFullScreen": "Im Vollbild ansehen",
+    "play": "Wiedergabe",
+    "pause": "Pause",
+    "seek": "Spulen",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "previousWork": "Vorherige Arbeit",
+    "nextWork": "Nächste Arbeit",
+    "sections": "Abschnitte",
+    "works": "Arbeiten",
+    "playTitle": "{title} abspielen",
+    "clickToEnlarge": "{title} (zum Vergrößern tippen)",
+    "openShowreel": "Showreel öffnen",
+    "playShowreel": "Showreel abspielen",
+    "showreel": "Showreel",
+    "selectedWork": "Ausgewählte Arbeit"
+  },
+  "home": {
+    "tagline": "KI- und Hybridproduktion aus einer Hand",
+    "art": "Art",
+    "tech": "Tech",
+    "foodRestaurants": "Food & Gastronomie",
+    "work03": "[Work 03]",
+    "work04": "[Work 04]",
+    "work05": "[Work 05]",
+    "work06": "[Work 06]",
+    "work07": "[Work 07]"
+  },
+  "contact": {
+    "h1": "Kontakt",
+    "name": "Name *",
+    "email": "E-Mail *",
+    "company": "Unternehmen",
+    "site": "Website oder Instagram (optional)",
+    "interest": "Wofür interessieren Sie sich? (Mehrfachauswahl)",
+    "select": "Auswählen",
+    "somethingElse": "Etwas anderes",
+    "aiAgents": "KI-Agenten",
+    "message": "Nachricht *",
+    "nda": "Ich möchte vor der Übergabe des Briefings ein gegenseitiges NDA unterzeichnen",
+    "send": "Anfrage senden",
+    "sending": "Wird gesendet",
+    "replies": "Antwort innerhalb von 24 Stunden.",
+    "thanks": "Vielen Dank.",
+    "sent": "Ihre Anfrage ist unterwegs. Antwort innerhalb von 24 Stunden.",
+    "errorBefore": "Die Nachricht ist nicht durchgegangen. Bitte schreiben Sie an ",
+    "errorAfter": "."
+  },
+  "art": {
+    "brandFashionFilms": {
+      "title": "Marken- & Modefilme",
+      "menu": "Marken- &\nModefilme",
+      "workTitle": "Hervé Léger · Ursprungsfilm",
+      "short": [
+        "Die Geschichte einer Marke, ihres Gründers oder des Moments, in dem sie durchstartete, erzählt in der Sprache des Kinos.",
+        "Vertrauen, das ein Werbespot nicht aufbaut.",
+        "Die Menschen schauen mit Interesse zu und haben nicht das Gefühl, dass ihnen etwas verkauft wird.",
+        "Ein Film, der über Jahre wirkt und als Geschichte in Erinnerung bleibt."
+      ],
+      "more": [
+        {
+          "h": "Worum kann es in einem Markenfilm gehen?",
+          "ps": [
+            "Ein Markenfilm kann erzählen, [wie die Marke entstand], oder [den Gründer] vorstellen: den Menschen hinter dem Namen und den Weg dorthin. Er kann [den Wendepunkt] festhalten, den Moment, in dem das Geschäft durchstartete, oder [die Werte] zeigen, für die die Marke steht.",
+            "[Das Handwerk] ist ein ebenso starkes Thema: wie das Produkt entsteht, die Hände, die Details. Große Momente passen ebenfalls gut, etwa [eine neue Ausrichtung, ein Relaunch, ein Jubiläum oder die Geschichte des Hauses]."
+          ]
+        },
+        {
+          "h": "Warum braucht eine Marke einen Film?",
+          "ps": [
+            "Eine Marke mit eigenem Film wirkt wie ein Unternehmen mit Geschichte, und das verleiht ihr [Gewicht]. Das filmische Bild [hebt den Status der Marke], noch bevor ein Wort fällt.",
+            "Der Film lässt den Blick ins Unternehmen und zum Team zu und baut so [Vertrauen und Bindung] auf. Die Menschen [schauen mit Interesse zu], wie bei einer guten Serie, und sehen ihn häufiger zu Ende als einen Werbespot.",
+            "Eine Kampagne endet mit der Saison, ein Markenfilm [kann über Jahre eingesetzt werden]. Das Publikum [erinnert sich an die Geschichte] und nimmt sie nicht als Verkaufsgespräch wahr.",
+            "[Ein Film funktioniert an vielen Orten]: in den sozialen Medien, auf Screens in Ihrem Restaurant, Geschäft oder Büro, am Anfang einer Präsentation oder bei einem Event."
+          ]
+        },
+        {
+          "h": "Wie entsteht er?",
+          "ps": [
+            "Alles beginnt mit [einem echten Drehbuch von einem professionellen Autor], mit einer Handlung, die die Aufmerksamkeit hält und den Zuschauer bis zum Schluss dabei bleiben lässt.",
+            "Figuren können [nach alten Fotos nachgebildet werden, auch nach Schwarz-Weiß-Aufnahmen], und [dasselbe Gesicht bleibt konsistent] vom ersten bis zum letzten Bild.",
+            "Die Musik ist entweder [eine Originalmusik, die für den Film geschrieben wurde,] oder [lizenzierte Musik mit Freigabe für die kommerzielle Nutzung], inklusive Werbung. [Das Sounddesign ist ebenfalls original], jeder Klang entsteht für diesen Film."
+          ]
+        }
+      ]
+    },
+    "hybrid": {
+      "title": "Hybrid",
+      "menu": "Hybrid",
+      "workTitle": "Le Plongeoir · Nizza · Hybridfilm",
+      "short": [
+        "Ein echter Ort oder echte Menschen, versetzt in eine traumhafte Welt oder ergänzt durch KI-Figuren.",
+        "Das heute am häufigsten nachgefragte Format in der KI-Produktion.",
+        "Kein Dreh, keine Drohnen, keine Crew, keine Models, und das Lokal bleibt geöffnet.",
+        "Ein Film auf dem Niveau internationaler Marken, entstanden aus wenigen guten Fotos, auch iPhone-Fotos, und einem starken Drehbuch."
+      ],
+      "more": [
+        {
+          "h": "Was ist ein Hybridfilm?",
+          "ps": [
+            "In einem Hybridfilm kommt ein Teil aus dem [Leben] und der andere aus der [Vorstellung]. Der Ort bleibt echt, während die Figuren wechseln, oder echte Menschen treten in eine Traumwelt ein.",
+            "Echtes Bildmaterial hält den Film [glaubwürdig], und KI fügt Größe und Atmosphäre hinzu, die die Kamera allein nicht leisten kann.",
+            "Der Film über {Le Plongeoir|https://www.instagram.com/leplongeoir/}, das bekannte Restaurant in Nizza, entstand aus Fotos, die bei einem Besuch mit einem [iPhone] gemacht wurden. Eine Dame und ein Hund wurden vollständig in der KI geschaffen, und herausgekommen ist ein Film, an den man sich erinnert."
+          ]
+        },
+        {
+          "h": "Warum ein Hybridfilm?",
+          "ps": [
+            "So entstehen Szenen, die [schwer oder extrem teuer zu drehen] sind.",
+            "Aus einem Dreh können [mehrere Fassungen] werden: derselbe Ort im Sommer und im Winter, bei Tag und bei Nacht.",
+            "Bei einem klassischen Dreh sieht niemand das Ergebnis vor dem Schluss. Der Film ist auf eine [saisonale Kampagne] ausgerichtet, auf das Datum, an dem alles in den sozialen Medien und in der Werbung erscheinen muss. Der Löwenanteil des Budgets, neben dem Kameramann, geht an das ganze Team: Assistenten, Models, Haar und Make-up, dazu Flüge, Hotels und Transfers für alle. Ist das Ergebnis nach langem Warten unbefriedigend, bleibt die Marke [ohne Material] für die Kampagne, mit einem Loch im Budget und ohne Zeit für einen neuen Versuch.",
+            "Ein Hybridfilm läuft anders: [Sie geben jede Stufe frei], korrigieren Details unterwegs, und die ganze Produktion ist deutlich schneller."
+          ]
+        },
+        {
+          "h": "Was spart er gegenüber einem klassischen Dreh?",
+          "ps": [
+            "Eine klassische Produktion bedeutet ein Kamerateam, Menschen, die vor der Kamera stehen, und ein Lokal, das für den Tag schließt. Ein Hybridfilm entsteht allein aus [guten Fotos oder Videos] Ihrer Räume.",
+            "Wo auch immer Ihr Geschäft liegt, selbst an [schwer erreichbaren Orten], können Sie einen Film auf dem Niveau [internationaler Marken] haben. Es ist nicht nötig, einen Kameramann aus Mailand oder Paris einfliegen zu lassen und die Reisekosten für das ganze Team und die Models zu tragen, um [dasselbe Ergebnis] zu erhalten."
+          ]
+        },
+        {
+          "h": "Was steckt darin?",
+          "ps": [
+            "Ein Hybridfilm ist [echtes Handwerk]. Eine starke Geschichte und klare Regie, zusammen mit professionellem Sounddesign und Schnitt, machen daraus etwas, das man sehen will.",
+            "Jeder Film umfasst das Drehbuch, die Figur der Marke, Models und Originalmusik."
+          ]
+        }
+      ]
+    },
+    "foodRestaurants": {
+      "title": "Food & Gastronomie",
+      "menu": "Food &\nGastronomie",
+      "works": {
+        "main": "Food & Gastronomie Film",
+        "reel0": "Arlix Catering",
+        "reel1": "Redhead · Torte",
+        "reel2": "Marquis Homard · Hummer",
+        "reel3": "Rupert · Petrus",
+        "reel4": "Hostess",
+        "reel5": "Angel · Kellner",
+        "reel6": "Croissants"
+      },
+      "short": [
+        "Food-Video gehört zu den schwierigsten Drehs: es muss sehr schnell gefilmt werden, ohne zweite Chance.",
+        "Zeit bleibt für einen Spritzer Sauce und einen Schnitt. Danach muss das ganze Gericht neu angerichtet werden.",
+        "Professionelles Licht heizt den Raum, Eis schmilzt und Schaum fällt zusammen.",
+        "KI hält jedes Gericht in seinem verführerischsten Moment, so lange der Film es braucht."
+      ],
+      "more": [
+        {
+          "h": "Warum ist Food so schwer zu filmen?",
+          "ps": [
+            "Ein Gericht hat am Set nur ein [kurzes Leben]. Unter heißem Licht verliert es die Form, und jeder neue Take braucht einen frischen Teller, sodass teure Zutaten verbraucht sind, bevor die richtige Einstellung sitzt, vor allem bei Video.",
+            "Wenn Sie in Ihrem eigenen Restaurant filmen, muss es mindestens einen Tag [schließen] und mit Licht und Technik ausgestattet werden."
+          ]
+        },
+        {
+          "h": "Was soll ein Food-Film leisten?",
+          "ps": [
+            "Ein guter Food-Film weckt [Lust] auf das Gericht und bringt den Gast sofort dazu, einen Tisch zu reservieren. Oder er lässt die Atmosphäre des Orts spüren und [das Gefühl, schon dort zu sein], unter schönen Menschen."
+          ]
+        },
+        {
+          "h": "Warum kommt es auf die Menschen im Bild an?",
+          "ps": [
+            "Viele Restaurants zeigen nur das Essen, oder sie sparen bei Models und filmen Freunde oder zufällige Gäste. Menschen, die nicht kameratauglich sind, geben einem Premium-Ort aber einen [provinziellen Eindruck], brauchen am Set klare Regie und müssen eine [Model-Freigabe] unterschreiben. Professionelle Models [treiben das Budget nach oben], weil das ganze Team mitkommt: Stylisten, Make-up und Kleiderleihe."
+          ]
+        },
+        {
+          "h": "Was ändert die KI?",
+          "ps": [
+            "Mit KI lässt sich jedes Gericht in seinem [verführerischsten] Moment zeigen: knusprig, saftig und unwiderstehlich, so lange der Film es braucht.",
+            "KI-Models entstehen im Stil Ihrer Marke, passend zur Stimmung, zum Format und zur [Atmosphäre] Ihres Restaurants. Dieselben Models bleiben durch den ganzen Film, damit er aus einem Guss wirkt.",
+            "Die Küche arbeitet weiter, das Restaurant bleibt geöffnet, und keine Zutaten gehen verloren.",
+            "Ein KI- oder Hybridfilm kann allein aus [guten Fotos oder Videos] Ihres Restaurants und Ihrer Gerichte entstehen, auch an [schwer erreichbaren Orten]."
+          ]
+        }
+      ]
+    },
+    "aiModelsUgc": {
+      "title": "KI-Models & UGC",
+      "menu": "KI-Models",
+      "workTitle": "Keira · Modefilm",
+      "reel0": "Arlix Pâtisserie · Macarons",
+      "short": [
+        "Ein Gesicht, das nur Ihrer Marke gehört und sonst nirgendwo vorkommt.",
+        "Ein Model für jedes Format: eine Influencerin, die aus ihrer Küche plaudert, eine Laufsteg-Show oder eine Werbekampagne.",
+        "Spricht jede Sprache und entspricht den Schönheitsidealen des jeweiligen Markts.",
+        "Kollektionen können vor der Produktion getestet und Anzeigen an verschiedenen Models und Körpertypen erprobt werden."
+      ],
+      "more": [
+        {
+          "h": "Warum braucht eine Marke ein eigenes KI-Gesicht?",
+          "ps": [
+            "Ein menschliches Model arbeitet oft für mehrere Marken gleichzeitig. Heute trägt sie Ihren exklusiven Schmuck, morgen steht dasselbe Gesicht auf einem Plakat für einen Discounter. Die Menschen merken das, und der [Premium-Wert] Ihres Produkts sinkt. Ein KI-Model gehört [nur Ihnen]: sie kündigt nicht, arbeitet für niemanden sonst und behält in jeder Kampagne dasselbe Gesicht, ohne Casting, Terminkalender oder Nutzungsrechte, die erneuert werden müssen."
+          ]
+        },
+        {
+          "h": "Was kann ein Model leisten?",
+          "ps": [
+            "Dasselbe Model kann als Influencerin aus ihrer Küche plaudern, über den [Laufsteg] gehen oder in einer Kampagne im Mittelpunkt stehen. Jeder Look entsteht in der KI und spart das Budget, das sonst für Stylisten, Haar und Make-up anfällt. Ihr Publikum sieht [ein vertrautes Gesicht] in jedem Format, und die Marke bleibt leichter in Erinnerung."
+          ]
+        },
+        {
+          "h": "Wie funktioniert das auf internationalen Märkten?",
+          "ps": [
+            "Wer auf internationalen Märkten oder in mehreren Ländern arbeitet, trifft auf unterschiedliche Schönheitsideale: ein Look, der in Skandinavien funktioniert, wirkt in Osteuropa oder Lateinamerika oft nicht. Für jeden Markt kann eine Figur entstehen, die Ihren Kunden nah ist und [ihre Sprache spricht]. Ein Motiv kann auch in verschiedenen Looks gezeigt und dieselbe Anzeige an [verschiedenen Models und Körpertypen] getestet werden."
+          ]
+        },
+        {
+          "h": "Warum geht es schneller und bleibt das Ergebnis kontrollierbar?",
+          "ps": [
+            "Wie eine Musterkollektion für Einkäufer können Stücke [vor der Produktion] an Models gezeigt werden, sodass nur das in die Fertigung geht, was nachgefragt wird. Fehler werden behoben und neue Teile ergänzt, ohne einen neuen Dreh. Ein Trend oder eine Nachricht lässt sich aufgreifen, [solange sie noch frisch ist]. Sie [geben jede Stufe frei] und ändern unterwegs, was im Rahmen bleibt. Das Ergebnis bleibt unter Kontrolle und ist deutlich früher da als bei einem Kameramann."
+          ]
+        }
+      ]
+    },
+    "cartoonsAiPets": {
+      "title": "Cartoons & KI-Haustiere",
+      "menu": "Cartoons",
+      "workTitle": "Amber City · Ep 1 · Oskar",
+      "reel0": "Paris · roter Anzug · Pomeranian",
+      "reel1": "Lingerie · Model und Katze",
+      "short": [
+        "Ein Cartoon oder ein Maskottchen, eigens für Ihre Marke geschaffen.",
+        "Eine Geschichte mit lokalem Humor und der Mentalität des Orts, die das Herz der Zuschauer erreicht.",
+        "Eine wiedererkennbare Figur, die zu einer Serie wachsen kann.",
+        "Tiere verkaufen jedes Produkt in jedem Markt. Ein KI-Haustier macht genau das, was die Szene braucht, und kein echtes Tier geht durch den Stress eines Drehs."
+      ],
+      "more": [
+        {
+          "h": "Warum braucht eine Marke eine eigene Figur?",
+          "ps": [
+            "KI-Cartoons sind mehr als die Bananen und Erdbeeren, von denen alle genug haben. Eine Figur, die für eine Marke entsteht, gehört zu ihren [stärksten Assets]. Eine {Studie von Ipsos|https://www.ipsos.com/en-ph/power-you-why-distinctive-brand-assets-are-driving-force-creative-effectiveness}, einem der größten Marktforschungsunternehmen der Welt, umfasste mehr als 2.000 Videoanzeigen und zeigte, dass Figuren in erfolgreichen Spots [sechsmal häufiger] vorkommen. {Forschung von System1|https://www.smartbrief.com/original/report-brand-characters-beat-celebrities-in-super-bowl-ads}, die misst, wie Zuschauer auf Werbung reagieren, hat Super-Bowl-Spots untersucht und festgestellt, dass Markenfiguren [Prominente übertreffen], wenn es um Sympathie, Markenerkennung und Verkaufswirkung geht."
+          ]
+        },
+        {
+          "h": "Wie entsteht die Figur für Ihren Markt?",
+          "ps": [
+            "Die Cartoon-Figur wird für Ihre Marke und Ihr Publikum geschaffen, mit Blick auf Mentalität, Kultur, Traditionen und Märchen Ihres Markts. [Storytelling ist entscheidend.] Wenn die Figur klar geschrieben ist, mit lokalem Humor und manchmal Slang, trifft sie mitten ins [Herz der Zuschauer]."
+          ]
+        },
+        {
+          "h": "Wie wird aus einer Figur eine Serie?",
+          "ps": [
+            "Eine wiedererkennbare Figur lässt die Menschen auf die [nächste Folge] warten. Es kann ein Bartender mit ungewöhnlichem Look sein, der Geschichten über die Gäste erzählt, oder ein witziger Koch, der Fisch filetiert wie ein Virtuose und den Wettbewerb spielerisch aufzieht. Mit der Zeit wird die Figur zur [eigenen Stimme der Marke] in den sozialen Medien."
+          ]
+        },
+        {
+          "h": "Warum KI-Tiere?",
+          "ps": [
+            "Tiere funktionieren für jede Marke: flauschige Haustiere mag jeder. Am echten Set ist es jedoch alles andere als fair, Tiere Take um Take durchlaufen zu lassen, und es braucht einen Trainer. Je nach Land ist auch ein [Tierschutzbeauftragter] am Set vorgeschrieben: in den USA kommen so [1.200 $ pro Tag] auf das Werbebudget. In der KI sind Bewegung, Aussehen und Verhalten des Tiers [vollständig steuerbar], ohne Stress für ein lebendes Wesen."
+          ]
+        }
+      ]
+    },
+    "artworks": {
+      "title": "Kunstwerke",
+      "menu": "Kunstwerke",
+      "workTitle": "Taormina · Sizilien"
+    },
+    "cta": {
+      "kicker": "Kontakt",
+      "title": "Projekt starten",
+      "line": "[CTA line: invite to start a project]",
+      "contact": "Kontakt",
+      "getPrices": "Geschätzte Preise ansehen"
+    },
+    "menu": {
+      "contact": "Kontakt",
+      "pricing": "Preise"
+    }
+  },
+  "rights": {
+    "h1": "Rechte und Compliance",
+    "note": "Ein Produktionsstudio, keine Anwaltskanzlei: rechtliche Beratung kommt von Ihrer eigenen Beratung.",
+    "nda": {
+      "title": "NDA",
+      "l0": "Ein gegenseitiges NDA kann unterzeichnet werden, bevor das Briefing besprochen wird."
+    },
+    "rights": {
+      "title": "Ihre Rechte",
+      "l0": "Alle Rechte am fertigen Werk gehen nach der Schlusszahlung auf Sie über.",
+      "l1": "Die Aufnahme in ein Portfolio wird mit Ihnen gesondert vereinbart."
+    },
+    "tools": {
+      "title": "Lizenzierte Tools",
+      "l0": "Die gesamte Produktion läuft über bezahlte Tarife mit kommerziellen Lizenzen.",
+      "l1": "Seedance, Seedream, Google Veo, Nano Banana, GPT Image, Midjourney, Higgsfield, Magnific, Recraft, Topaz, HeyGen, Suno, ElevenLabs, Claude, Grok und viele, viele mehr, je nach Projekt.",
+      "l2": "Die Toolnamen zeigen die in der Produktion verwendete Software, keine Partnerschaft und keine Empfehlung."
+    },
+    "music": {
+      "title": "Musik",
+      "l0": "Originalmusik oder Tracks, die für die kommerzielle Nutzung lizenziert sind."
+    },
+    "labelling": {
+      "title": "KI-Kennzeichnung",
+      "l0": "KI-Inhalte werden im Einklang mit dem EU AI Act gekennzeichnet, abgestimmt auf jedes Projekt."
+    }
+  },
+  "tech": {
+    "consultingTraining": {
+      "title": "KI-Beratung & Training",
+      "menu": "KI-Beratung\n& Training",
+      "short": [
+        "Einzelgespräch oder in einer kleinen Gruppe, online oder vor Ort.",
+        "Alles beginnt bei Ihren echten Geschäftsproblemen: das Dringendste wird zuerst gelöst.",
+        "Wissen, das Sie sofort anwenden können.",
+        "Anpassung von CV und LinkedIn an ATS-Filter."
+      ],
+      "boxes": [
+        {
+          "h": "Wo fängt man mit KI an?",
+          "p": "Ausgangspunkt sind die dringenden Bedürfnisse Ihres Geschäfts, nicht die Theorie. Sie haben [jahrelange Erfahrung] in Ihrem Bereich, und KI ist einfach das [nächste Werkzeug], das Ihren Alltag erleichtert. Am besten geben Sie ihr das ab, was Ihnen nie Freude gemacht hat: Routine, Wiederholung und organisatorisches Chaos."
+        },
+        {
+          "h": "Was passiert im ersten Gespräch?",
+          "p": "Im ersten Gespräch gehen Sie durch, was Ihr Geschäft wirklich ausbremst und was es gerade braucht. Daraus entsteht eine kurze Liste von [KI-Tools], gewählt nach dem, was Sie tun: die, die Sie jetzt lernen und einsetzen sollten. Sie können das noch während der Session oder direkt danach in die Praxis bringen."
+        },
+        {
+          "h": "Wie laufen die Stunden ab?",
+          "p": "Jede Stunde ist [individuell] und beginnt bei Ihren [dringendsten Bedürfnissen]: viele Bilder für die sozialen Medien, einfache Automatisierungen oder ein Agent für eingehende Anfragen. Sie ist so angelegt, dass Sie sie sofort nutzen können, um Alltag und Arbeit zu erleichtern. Die Stunden finden online oder vor Ort statt, und KI-Agenten können direkt auf Ihrem Computer eingerichtet werden, sodass Ihre Daten bei Ihnen bleiben."
+        },
+        {
+          "h": "Sie suchen einen neuen Job, aber es kommt keine Antwort?",
+          "p": "Vielleicht ist Ihr CV einfach unsichtbar. Recruiter nutzen [ATS-Filter] – Programme, die CVs nach Stichworten durchsuchen. Ist Ihr CV nicht angepasst, kommt er nicht durch, und ein Mensch in der Personalabteilung sieht ihn nie. Ohne Anpassung an [heutige Standards] hat er keine Chance, bei einem Menschen anzukommen."
+        }
+      ]
+    },
+    "webDesign": {
+      "title": "Webdesign",
+      "menu": "Webdesign",
+      "short": [
+        "Moderne [mehrsprachige] Website, fertig in 1 Woche.",
+        "Sie verwalten sie selbst: kein Programmierer nötig.",
+        "Ohne Vorlagen gemacht, ohne monatliche Gebühren.",
+        "Nicht geeignet für Online-Zahlungen."
+      ],
+      "boxes": [
+        {
+          "h": "Was umfasst die Website?",
+          "p": "Sie erhalten eine Website, die von Grund auf gestaltet und vollständig eingerichtet ist. Dazu gehören [moderne Grafik] und Motion Design nach dem Stand von 2026. Die Seite kann auch interaktiv oder sogar spielerisch sein, damit sie die Aufmerksamkeit Ihrer Kunden fängt und hält. Nach dem Launch zeigt eine [kurze Einführung] / Anleitung, wie Sie sie selbst bearbeiten."
+        },
+        {
+          "h": "Volle Kontrolle ohne Warten?",
+          "p": "Sie haben die [volle Kontrolle] über Ihre Website. Preise, Angebote, neue Produkte, eine saisonale Karte, Sales: das ändern Sie alles [selbst], in wenigen Minuten. Kein langes Warten mehr auf eine IT-Fachkraft für Ihre Änderungen. Ihre Anpassungen sind schnell online, auch spät abends oder am Wochenende."
+        },
+        {
+          "h": "Hebt sie sich von der Konkurrenz ab?",
+          "p": "Ihre Website entsteht ganz für Sie, ohne [Vorlagen], und sieht deshalb nicht aus wie die Seiten Ihrer Wettbewerber. Grundlage ist eine Analyse Ihres [Markenstils]: nicht nur die Farben, sondern auch Schriften, Logo, Bilder und der Ton Ihrer Texte. So passt sie zum Bild Ihrer Marke in den sozialen Medien und in der Außenwerbung."
+        },
+        {
+          "h": "Was passiert nach der Übergabe?",
+          "p": "Von da an gehören jede Seite und jede Datei Ihnen. Es gibt keine zusätzlichen [monatlichen Gebühren] und kein Entwicklergehalt zu zahlen. Sie brauchen nur ein Abonnement für Claude / ChatGPT / Grok / Gemini, das Ihnen hilft, die Website zu aktualisieren, wann immer Sie wollen."
+        }
+      ]
+    },
+    "monthlyContent": {
+      "title": "Content im Abo",
+      "menu": "Content\nim Abo",
+      "short": [
+        "Auffälliger, klarer Content, einen Monat im Voraus geplant.",
+        "Karussells, Videos und Infografiken in einem Markenstil.",
+        "Hybrid: Ihre echten Fotos und Videos plus KI-Content."
+      ],
+      "boxes": [
+        {
+          "h": "Warum jeden Tag posten?",
+          "p": "Eine Marke wächst, wenn sie jeden Tag postet. So funktionieren [Algorithmen] heute, leider. Sie haben aber ein Geschäft zu führen, nicht Stunden zum Filmen und Schneiden. Kein [Kopfzerbrechen] mehr, das Lokal für ein Foto oder Video zu schließen, oder die Videos selbst zu drehen."
+        },
+        {
+          "h": "Wie funktioniert der Hybrid?",
+          "p": "Die stärkste Mischung für Instagram ist echter Content zusammen mit KI-Content: dann werden sowohl Ihre Live-Videos als auch der KI-Content ausgespielt. Ein Video zu drehen ist einfach. Es herausstechen zu lassen, ist der schwere Teil: professioneller [Schnitt] mit Infografiken und Karussells in einem Stil, damit man Ihre [Marke] auf den ersten Blick erkennt."
+        },
+        {
+          "h": "Was erhalten Sie jeden Monat?",
+          "p": "Sie erhalten Karussells, geschnittene Videos oder jedes andere Format, das Sie brauchen. Sie wählen: Content aus Ihren eigenen Fotos und Videos, oder komplett für Sie erstellt. Alles entsteht schnell und sauber nach heutigem Standard, in einem [Markenstil]. Eine [Zielgruppenanalyse] gehört zu jedem Monat."
+        },
+        {
+          "h": "Wie wird der Monat geplant?",
+          "p": "Der Plan entsteht zu Beginn jedes Monats, um Ihren Kalender herum und gemeinsam mit Ihrem [SMM-Manager], falls Sie einen haben. Die Menge an Content wird im Voraus vereinbart: 30 bis 60 Beiträge. Veröffentlichung, Posting und der Austausch mit Ihrem Publikum bleiben bei Ihnen oder Ihrem SMM-Manager. Sie erhalten die Zielgruppenanalyse, den KI-Content und den Schnitt Ihrer Videos."
+        }
+      ]
+    },
+    "assistantsAgents": {
+      "title": "KI-Assistenten / Agenten",
+      "menu": "KI-Assistenten /\nAgenten",
+      "short": [
+        "Ein persönlicher Assistent für E-Mail und Kalender.",
+        "Eine Content-Maschine für Ihre sozialen Medien und Ihren Blog.",
+        "Ein kreativer Agent für Fotos, Videos und Cartoons.",
+        "Ein Team, das rund um die Uhr für Sie arbeitet."
+      ],
+      "boxes": [
+        {
+          "h": "Ein persönlicher Assistent für E-Mail und Kalender.",
+          "p": "Ihr persönlicher Assistent sortiert Ihre [E-Mails], hält den Kalender in Ordnung und erinnert Sie an jede Frist. Er übernimmt die Routine, die den Tag füllt, damit Sie Ihre Zeit ruhig planen können. Er arbeitet [rund um die Uhr] und vergisst nichts."
+        },
+        {
+          "h": "Eine Content-Maschine für Ihre sozialen Medien und Ihren Blog.",
+          "p": "Die Content-Maschine hält Ihre [sozialen Medien] und Ihren Blog am Laufen. Sie baut den Content-Plan, bereitet Beiträge mit Fotos und Videos vor, alles in einem [Markenstil]. Ihre Beiträge sind auch in den Wochen fertig, in denen Sie keine Zeit haben, daran zu denken."
+        },
+        {
+          "h": "Ein kreativer Agent für Fotos, Videos und Cartoons.",
+          "p": "Der kreative Agent arbeitet als Autor und Regisseur. Er schreibt die [Drehbücher] und erstellt dann Fotos, Videos und sogar [Cartoons] für Ihre Marke. Jede Idee geht von Ihrem Geschäft aus, damit das Ergebnis nach Ihnen aussieht, nicht nach Stockbildern. Sie erhalten Material für die sozialen Medien, Ihre Website oder eine Werbekampagne."
+        },
+        {
+          "h": "Ein Team, das rund um die Uhr für Sie arbeitet.",
+          "p": "Und jeder Agent, den Ihr Geschäft brauchen könnte, damit Routinearbeit nicht mehr Ihre Zeit auffrisst. Sie beschreiben das Problem, und eine fertige Lösung wird für Sie gebaut."
+        }
+      ]
+    },
+    "royaltyFreeMusic": {
+      "title": "Lizenzfreie Musik",
+      "menu": "Lizenzfreie\nMusik",
+      "short": [
+        "Playlists für Ihr Geschäft: Restaurants, Hotels, Spas.",
+        "Professionelles Sounddesign und Musik für Videos und Werbung.",
+        "Jingles und ein Sound-Brand für Ihr Geschäft.",
+        "Volle kommerzielle Rechte an allem, was Sie erhalten."
+      ],
+      "boxes": [
+        {
+          "h": "Playlists für Ihr Geschäft: Restaurants, Hotels, Spas.",
+          "p": "Vielleicht ist Ihnen aufgefallen, dass in manchen Restaurants Musik läuft, die bekannt klingt, und Shazam sie trotzdem nicht findet. Höchstwahrscheinlich ist sie mit KI entstanden, und so sparen Unternehmen [Musiklizenzen]. Die Musik wird in Ihrem Stil geschrieben, vielleicht sogar mit [Ihrem eigenen Text]. Solche Magie ist heute einfach."
+        },
+        {
+          "h": "Professionelles Sounddesign und Musik für Videos und Werbung.",
+          "p": "Unlizenzierte Tracks oder Tracks aus der Instagram-Bibliothek sind ein Risiko für Anzeigen: Instagram wird Ihre Anzeige sehr wahrscheinlich sperren oder ohne Ton ausspielen. Hochwertiges [Sounddesign] und der Schnitt auf den Takt machen den Löwenanteil des Erfolgs eines Videos aus. Die Musik wird für Ihr Video geschrieben oder aus professionellen Bibliotheken gewählt, immer [für die kommerzielle Nutzung lizenziert]."
+        },
+        {
+          "h": "Volle kommerzielle Rechte an allem, was Sie erhalten.",
+          "p": "Jedes fertige Video, jede Playlist und jeder Jingle ist für die kommerzielle Nutzung freigegeben. Musik, die mit KI für Ihr Geschäft geschrieben wird, kommt mit [vollen kommerziellen Rechten]. Musik aus einer professionellen Bibliothek kommt mit einem [Lizenzzertifikat], sodass Sie, falls eine Plattform oder ein Anzeigennetz je nachfragt, zeigen können, dass die Musik zur Nutzung freigegeben ist."
+        },
+        {
+          "h": "Jingles und ein Sound-Brand für Ihr Geschäft.",
+          "p": "Ein Jingle ist eine kurze, einprägsame Melodie für Ihr Geschäft. Ein [Sound-Brand] ist Ihr wiedererkennbarer Klang in Videos, in der Werbung und an Ihrem Ort, damit die Menschen merken: das sind Sie."
+        }
+      ]
+    },
+    "cta": {
+      "kicker": "Kontakt",
+      "title": "Projekt starten",
+      "line": "[CTA line: invite to start a project]",
+      "contact": "Kontakt"
+    },
+    "menu": {
+      "contact": "Kontakt"
+    }
+  }
+}

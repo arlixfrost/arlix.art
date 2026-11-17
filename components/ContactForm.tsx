@@ -1,14 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "@/components/LocaleProvider";
 
 // Contact form. Letters go to start@arlix.art through FormSubmit (the site itself is static and cannot send mail).
 const ENDPOINT = "https://formsubmit.co/ajax/start@arlix.art";
 
-const GROUPS: { title: string; items: string[] }[] = [
-  { title: "Art", items: ["Brand & Fashion Films", "Hybrid", "Food & Restaurants", "AI Models & UGC", "Cartoons & AI Pets"] },
-  { title: "Tech", items: ["AI Consulting & Training", "Web Design", "Monthly Content", "AI Agents", "Royalty Free Music"] },
-  { title: "", items: ["Something else"] },
-];
 
 const field =
   "w-full bg-transparent border border-[rgba(242,237,230,0.22)] px-4 py-3 text-[16px] text-[#F2EDE6] placeholder:text-[#7D766E] focus:outline-none focus:border-[#C9A962] transition-colors";
@@ -23,6 +19,43 @@ function Check({ on }: { on: boolean }) {
 }
 
 export default function ContactForm() {
+  const { locale, t } = useI18n();
+  const groups: { title: string; items: { id: string; label: string }[] }[] =
+    locale === "en"
+      ? [
+          { title: "Art", items: [
+            { id: "Brand & Fashion Films", label: "Brand & Fashion Films" },
+            { id: "Hybrid", label: "Hybrid" },
+            { id: "Food & Restaurants", label: "Food & Restaurants" },
+            { id: "AI Models & UGC", label: "AI Models & UGC" },
+            { id: "Cartoons & AI Pets", label: "Cartoons & AI Pets" },
+          ]},
+          { title: "Tech", items: [
+            { id: "AI Consulting & Training", label: "AI Consulting & Training" },
+            { id: "Web Design", label: "Web Design" },
+            { id: "Monthly Content", label: "Monthly Content" },
+            { id: "AI Agents", label: "AI Agents" },
+            { id: "Royalty Free Music", label: "Royalty Free Music" },
+          ]},
+          { title: "", items: [{ id: "Something else", label: "Something else" }] },
+        ]
+      : [
+          { title: "Art", items: [
+            { id: "Brand & Fashion Films", label: t("art.brandFashionFilms.title") },
+            { id: "Hybrid", label: t("art.hybrid.title") },
+            { id: "Food & Restaurants", label: t("art.foodRestaurants.title") },
+            { id: "AI Models & UGC", label: t("art.aiModelsUgc.title") },
+            { id: "Cartoons & AI Pets", label: t("art.cartoonsAiPets.title") },
+          ]},
+          { title: "Tech", items: [
+            { id: "AI Consulting & Training", label: t("tech.consultingTraining.title") },
+            { id: "Web Design", label: t("tech.webDesign.title") },
+            { id: "Monthly Content", label: t("tech.monthlyContent.title") },
+            { id: "AI Agents", label: t("contact.aiAgents") },
+            { id: "Royalty Free Music", label: t("tech.royaltyFreeMusic.title") },
+          ]},
+          { title: "", items: [{ id: "Something else", label: t("contact.somethingElse") }] },
+        ];
   const [picked, setPicked] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const [nda, setNda] = useState(false);
@@ -72,8 +105,8 @@ export default function ContactForm() {
   if (state === "sent") {
     return (
       <div className="border border-[rgba(201,169,98,0.7)] px-6 py-8 max-w-2xl">
-        <p className="font-display text-[28px] md:text-[34px] leading-[1.15] m-0">Thank you.</p>
-        <p className="mt-3 mb-0 text-[16px] md:text-[18px] leading-[1.55] text-[#E4DED5]">Your inquiry is on its way. Replies within 24 hours.</p>
+        <p className="font-display text-[28px] md:text-[34px] leading-[1.15] m-0">{locale === "en" ? "Thank you." : t("contact.thanks")}</p>
+        <p className="mt-3 mb-0 text-[16px] md:text-[18px] leading-[1.55] text-[#E4DED5]">{locale === "en" ? "Your inquiry is on its way. Replies within 24 hours." : t("contact.sent")}</p>
       </div>
     );
   }
@@ -82,38 +115,40 @@ export default function ContactForm() {
     <form onSubmit={submit} className="flex flex-col gap-6 max-w-2xl">
       <input type="text" name="_honey" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <div>
-        <label className={lab} htmlFor="cf-name">Name *</label>
+        <label className={lab} htmlFor="cf-name">{locale === "en" ? "Name *" : t("contact.name")}</label>
         <input id="cf-name" name="name" required autoComplete="name" className={field} />
       </div>
       <div>
-        <label className={lab} htmlFor="cf-email">Email *</label>
+        <label className={lab} htmlFor="cf-email">{locale === "en" ? "Email *" : t("contact.email")}</label>
         <input id="cf-email" name="email" type="email" required autoComplete="email" className={field} />
       </div>
       <div>
-        <label className={lab} htmlFor="cf-company">Company</label>
+        <label className={lab} htmlFor="cf-company">{locale === "en" ? "Company" : t("contact.company")}</label>
         <input id="cf-company" name="company" autoComplete="organization" className={field} />
       </div>
       <div>
-        <label className={lab} htmlFor="cf-site">Website or Instagram (optional)</label>
+        <label className={lab} htmlFor="cf-site">{locale === "en" ? "Website or Instagram (optional)" : t("contact.site")}</label>
         <input id="cf-site" name="site" className={field} />
       </div>
 
       <div ref={boxRef} className="relative">
-        <span className={lab} id="cf-int">What are you interested in? (select multiple)</span>
+        <span className={lab} id="cf-int">{locale === "en" ? "What are you interested in? (select multiple)" : t("contact.interest")}</span>
         <button type="button" aria-labelledby="cf-int" aria-expanded={open} onClick={() => setOpen((o) => !o)}
           className={`${field} flex items-center justify-between gap-3 text-left`}>
-          <span className={picked.length ? "text-[#F2EDE6]" : "text-[#7D766E]"}>{picked.length ? picked.join(", ") : "Select"}</span>
+          <span className={picked.length ? "text-[#F2EDE6]" : "text-[#7D766E]"}>{picked.length
+            ? picked.map((id) => groups.flatMap((g) => g.items).find((x) => x.id === id)?.label ?? id).join(", ")
+            : (locale === "en" ? "Select" : t("contact.select"))}</span>
           <span aria-hidden="true" className={`text-[#C9A962] transition-transform ${open ? "rotate-180" : ""}`}>▾</span>
         </button>
         {open ? (
           <div className="absolute z-20 left-0 right-0 mt-1 bg-[#0B0B0C] border border-[rgba(201,169,98,0.55)] max-h-[60vh] overflow-y-auto py-2">
-            {GROUPS.map((g, i) => (
+            {groups.map((g, i) => (
               <div key={i} className={i ? "mt-2 pt-2 border-t border-[rgba(242,237,230,0.1)]" : ""}>
                 {g.title ? <div className="px-4 pt-1 pb-1 text-[12px] tracking-[0.24em] uppercase text-[#C9A962]">{g.title}</div> : null}
                 {g.items.map((it) => (
-                  <button type="button" key={it} onClick={() => toggle(it)} className="w-full flex items-center gap-3 px-4 py-2.5 text-left text-[16px] text-[#E4DED5] hover:text-[#F2EDE6]">
-                    <Check on={picked.includes(it)} />
-                    {it}
+                  <button type="button" key={it.id} onClick={() => toggle(it.id)} className="w-full flex items-center gap-3 px-4 py-2.5 text-left text-[16px] text-[#E4DED5] hover:text-[#F2EDE6]">
+                    <Check on={picked.includes(it.id)} />
+                    {it.label}
                   </button>
                 ))}
               </div>
@@ -123,23 +158,23 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className={lab} htmlFor="cf-msg">Message *</label>
+        <label className={lab} htmlFor="cf-msg">{locale === "en" ? "Message *" : t("contact.message")}</label>
         <textarea id="cf-msg" name="message" required rows={6} className={`${field} resize-y`} />
       </div>
 
       <button type="button" onClick={() => setNda((v) => !v)} className="flex items-center gap-3 text-left text-[15px] md:text-[16px] text-[#E4DED5]">
         <Check on={nda} />
-        I would like to sign a mutual NDA before sharing the brief
+        {locale === "en" ? "I would like to sign a mutual NDA before sharing the brief" : t("contact.nda")}
       </button>
 
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-2">
         <button type="submit" disabled={state === "sending"} className="frame-btn disabled:opacity-60">
-          {state === "sending" ? "Sending" : "Send inquiry"}
+          {state === "sending" ? (locale === "en" ? "Sending" : t("contact.sending")) : (locale === "en" ? "Send inquiry" : t("contact.send"))}
         </button>
-        <span className="text-[14px] text-[#9B948B]">Replies within 24 hours.</span>
+        <span className="text-[14px] text-[#9B948B]">{locale === "en" ? "Replies within 24 hours." : t("contact.replies")}</span>
       </div>
       {state === "error" ? (
-        <p className="m-0 text-[15px] text-[#E4DED5]">The message did not go through. Please write to <a className="underline decoration-[#C9A962] underline-offset-4" href="mailto:start@arlix.art">start@arlix.art</a>.</p>
+        <p className="m-0 text-[15px] text-[#E4DED5]">{locale === "en" ? "The message did not go through. Please write to " : t("contact.errorBefore")}<a className="underline decoration-[#C9A962] underline-offset-4" href="mailto:start@arlix.art">start@arlix.art</a>{locale === "en" ? "." : t("contact.errorAfter")}</p>
       ) : null}
     </form>
   );

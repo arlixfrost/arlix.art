@@ -2,21 +2,24 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useI18n } from "@/components/LocaleProvider";
+import { type Locale } from "@/lib/i18n";
+import { detectLocale, stripLocale, switchLocale } from "@/lib/paths";
 
-const links: { href: string; label: string; wide?: boolean }[] = [
-  { href: "/art", label: "Art" },
-  { href: "/tech", label: "Tech" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/rights", label: "Rights", wide: true },
-  { href: "/contact", label: "Contact" },
+const linkDefs: { href: string; labelKey: string; fallback: string; wide?: boolean }[] = [
+  { href: "/art", labelKey: "nav.art", fallback: "Art" },
+  { href: "/tech", labelKey: "nav.tech", fallback: "Tech" },
+  { href: "/pricing", labelKey: "nav.pricing", fallback: "Pricing" },
+  { href: "/rights", labelKey: "nav.rights", fallback: "Rights", wide: true },
+  { href: "/contact", labelKey: "nav.contact", fallback: "Contact" },
 ];
 
 export default function Nav() {
-  const path = usePathname();
-  const [lang, setLang] = useState<"EN" | "DE">("EN");
-  const home = ["/", "/gold"].includes(path.replace(/\/$/, "") || "/");
+  const rawPath = usePathname();
+  const path = stripLocale(rawPath.replace(/\/$/, "") || "/");
+  const { locale, t, href } = useI18n();
+  const home = ["/", "/gold"].includes(path || "/");
   const overlay = home || path.startsWith("/art") || path.startsWith("/tech");
-  // On the home page the big logo is already on screen, so the header logo appears only after the showreel.
   const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
     if (!home) return;
@@ -26,8 +29,6 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [home]);
   const showLogo = !home || pastHero;
-  // Phones: the header slides up while the visitor scrolls down and comes back when they scroll up,
-  // so the film and the section take the screen. Works for the page and for the Art/Tech section scroller.
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
     setHidden(false);
@@ -46,24 +47,37 @@ export default function Nav() {
     };
     document.addEventListener("scroll", onScroll, { capture: true, passive: true });
     return () => document.removeEventListener("scroll", onScroll, { capture: true } as EventListenerOptions);
-  }, [path]);
+  }, [rawPath]);
+
+  const current = (detectLocale(rawPath) || locale) as Locale;
+  const codes: { id: Locale; label: string }[] = [
+    { id: "en", label: "EN" },
+    { id: "de", label: "DE" },
+    { id: "it", label: "IT" },
+  ];
+
   return (
     <header className={`${home ? "fixed bg-gradient-to-b from-black/45 to-transparent" : overlay ? "fixed hdr-fade" : "sticky hdr-fade"} top-0 inset-x-0 z-50 font-body text-[#F2EDE6] transition-transform duration-300 ${hidden ? "-translate-y-full" : "translate-y-0"}`}>
       <div className="flex items-center justify-between gap-3 px-4 sm:px-8 h-14 sm:h-[72px]">
-        <Link href="/" aria-label="Arlix" className={`shrink-0 flex items-center transition-opacity duration-500 ${showLogo ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+        <Link href={href("/")} aria-label="Arlix" className={`shrink-0 flex items-center transition-opacity duration-500 ${showLogo ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
           <img src="/arlix-logo-white.png" alt="Arlix" width={1400} height={585} className="h-9 sm:h-[46px] w-auto select-none" draggable={false} />
         </Link>
         <nav className="flex items-center gap-4 max-[419px]:gap-3 sm:gap-8 text-[15px] max-[419px]:text-[14px] sm:text-lg font-normal">
-          {links.map((l) => (
-            <Link key={l.href} href={l.href} className={`${l.wide ? "max-sm:hidden " : ""}${path.startsWith(l.href) ? "border-b border-[#C9A962] pb-0.5" : "text-[#F2EDE6]/75 hover:text-[#C9A962]"}`}>
-              {l.label}
+          {linkDefs.map((l) => (
+            <Link key={l.href} href={href(l.href)} className={`${l.wide ? "max-sm:hidden " : ""}${path.startsWith(l.href) ? "border-b border-[#C9A962] pb-0.5" : "text-[#F2EDE6]/75 hover:text-[#C9A962]"}`}>
+              {locale === "en" ? l.fallback : t(l.labelKey)}
             </Link>
           ))}
-          <div className="flex border border-[#4A4540] rounded-full overflow-hidden text-[11px] sm:text-[13px] tracking-[0.08em] shrink-0" title="Language stub, no translation yet">
-            {(["EN", "DE"] as const).map((l) => (
-              <button key={l} onClick={() => setLang(l)} className={`px-2.5 max-[419px]:px-2 sm:px-4 py-1.5 sm:py-2 rounded-full ${lang === l ? "bg-[#F2EDE6] text-[#0B0B0C]" : "text-[#B5ADA3]"}`}>
-                {l}
-              </button>
+          <div className="flex border border-[#4A4540] rounded-full overflow-hidden text-[11px] sm:text-[13px] tracking-[0.08em] shrink-0">
+            {codes.map((l) => (
+              <Link
+                key={l.id}
+                href={switchLocale(rawPath, l.id)}
+                hrefLang={l.id}
+                className={`px-2.5 max-[419px]:px-2 sm:px-4 py-1.5 sm:py-2 rounded-full ${current === l.id ? "bg-[#F2EDE6] text-[#0B0B0C]" : "text-[#B5ADA3]"}`}
+              >
+                {l.label}
+              </Link>
             ))}
           </div>
         </nav>

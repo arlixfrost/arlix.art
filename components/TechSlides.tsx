@@ -1,5 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useI18n } from "@/components/LocaleProvider";
+import type { Locale, TFn } from "@/lib/i18n";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,7 +19,7 @@ function rich(t: string) {
 }
 
 // Individual consultations and Training for small business are merged into one block.
-const items: Item[] = [
+const EN_ITEMS: Item[] = [
   {
     id: "consultations-training",
     title: "AI Consulting & Training",
@@ -104,10 +106,30 @@ const items: Item[] = [
   },
 ];
 
-const slides = [
-  ...items.map((s) => ({ id: s.id, label: s.menu ?? s.title })),
-  { id: "contact", label: "Contact" },
-];
+const TECH_KEYS: Record<string, string> = {
+  "consultations-training": "consultingTraining",
+  "web-design": "webDesign",
+  "content-factory": "monthlyContent",
+  "assistants-agents": "assistantsAgents",
+  "royalty-free-music": "royaltyFreeMusic",
+};
+
+function localizeTech(source: Item[], locale: Locale, t: TFn): Item[] {
+  if (locale === "en") return source;
+  return source.map((sec) => {
+    const k = TECH_KEYS[sec.id];
+    const pre = `tech.${k}`;
+    return {
+      ...sec,
+      title: t(`${pre}.title`),
+      menu: sec.menu !== undefined ? t(`${pre}.menu`) : sec.menu,
+      short: sec.short ? sec.short.map((_, i) => t(`${pre}.short.${i}`)) : sec.short,
+      boxes: sec.boxes
+        ? sec.boxes.map((_, i) => ({ h: t(`${pre}.boxes.${i}.h`), p: t(`${pre}.boxes.${i}.p`) }))
+        : sec.boxes,
+    };
+  });
+}
 
 // Mirror of Art: the menu is on the right, so pages pivot around the right edge and turn the other way.
 const ENTER = { yPercent: -20, scale: 1.3, rotate: -7, opacity: 0.5 };
@@ -115,6 +137,15 @@ const CENTER = { yPercent: 0, scale: 1, rotate: 0, opacity: 1 };
 const LEAVE = { yPercent: 20, scale: 1.3, rotate: 7, opacity: 0.5 };
 
 export default function TechSlides() {
+  const { locale, t, href } = useI18n();
+  const items = useMemo(() => localizeTech(EN_ITEMS, locale, t), [locale, t]);
+  const slides = useMemo(
+    () => [
+      ...items.map((sec) => ({ id: sec.id, label: sec.menu ?? sec.title })),
+      { id: "contact", label: locale === "en" ? "Contact" : t("tech.menu.contact") },
+    ],
+    [items, locale, t],
+  );
   const root = useRef<HTMLDivElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -169,7 +200,7 @@ export default function TechSlides() {
   return (
     <div className="fixed inset-0 art-theme">
       {/* Mirror of the Art menu: large vertical labels on the RIGHT, open section and its two neighbours only. */}
-      <nav aria-label="Sections" className="fixed right-3 sm:right-5 top-14 sm:top-[72px] bottom-4 z-40 flex flex-row-reverse items-center gap-2 sm:gap-3 w-12 pointer-events-none">
+      <nav aria-label={locale === "en" ? "Sections" : t("common.sections")} className="fixed right-3 sm:right-5 top-14 sm:top-[72px] bottom-4 z-40 flex flex-row-reverse items-center gap-2 sm:gap-3 w-12 pointer-events-none">
         <div className="relative self-stretch my-6 w-px bg-[#3A3632] shrink-0">
           <div ref={bar} className="absolute inset-0 bg-[#C9A962] origin-top" style={{ transform: "scaleY(0)" }} />
         </div>
@@ -197,7 +228,7 @@ export default function TechSlides() {
             <div data-snap-inner className={inner}>
               {/* Same layout as Art: heading and points in the left third; in place of a film, four framed texts.
                   Phone: the frames move into Read more. */}
-              <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4 md:gap-8 pr-[5.5rem] md:pr-28 pl-4 md:pl-6 pt-20 pb-6 md:pb-8">
+              <div className={`sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4 md:gap-8 pr-[5.5rem] md:pr-28 pl-4 md:pl-6 pb-6 md:pb-8 ${locale === "en" ? "pt-20" : "pt-32 md:pt-24"}`}>
                 <div className="sec-text flex flex-col md:justify-center md:order-2 md:col-start-2 md:row-start-1 md:pl-2 min-w-0">
                   <div className="sec-head">
                     <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
@@ -260,10 +291,10 @@ export default function TechSlides() {
           <div data-snap-inner className={inner}>
             <div className="h-full flex flex-col">
             <div className={`flex-1 flex flex-col items-center justify-center text-center ${pad}`}>
-              <div className="label mb-4">Contact</div>
-              <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">Start a project</h2>
+              <div className="label mb-4">{locale === "en" ? "Contact" : t("tech.cta.kicker")}</div>
+              <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">{locale === "en" ? "Start a project" : t("tech.cta.title")}</h2>
               <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
-              <Link href="/contact" className="frame-btn">Contact</Link>
+              <Link href={href("/contact")} className="frame-btn">{locale === "en" ? "Contact" : t("tech.cta.contact")}</Link>
             </div>
             <SiteFooter className="shrink-0 mt-8 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]" />
             </div>

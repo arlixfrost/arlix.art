@@ -1,0 +1,456 @@
+{
+  "meta": {
+    "title": "Arlix",
+    "description": "Full-cycle AI & hybrid production",
+    "pricingTitle": "Pricing | Arlix",
+    "pricingDescription": "Estimated prices for AI films and images by Arlix.",
+    "contactTitle": "Contact | Arlix",
+    "contactDescription": "Start a project with Arlix.",
+    "rightsTitle": "Rights & Compliance | Arlix",
+    "rightsDescription": "NDA, rights to the finished work, licensed AI tools, music and AI labelling."
+  },
+  "banner": {
+    "notice": "This page was translated automatically. All communication is in English."
+  },
+  "nav": {
+    "art": "Art",
+    "tech": "Tech",
+    "pricing": "Pricing",
+    "rights": "Rights",
+    "contact": "Contact"
+  },
+  "footer": {
+    "copyright": "© Arlix 2026",
+    "aiNote": "All films on this site are created with AI."
+  },
+  "common": {
+    "readMore": "Read more",
+    "close": "Close",
+    "scrollDown": "Scroll down",
+    "turnSoundOn": "Turn sound on",
+    "turnSoundOff": "Turn sound off",
+    "watchFullScreen": "Watch full screen",
+    "play": "Play",
+    "pause": "Pause",
+    "seek": "Seek",
+    "previous": "Previous",
+    "next": "Next",
+    "previousWork": "Previous work",
+    "nextWork": "Next work",
+    "sections": "Sections",
+    "works": "Works",
+    "playTitle": "Play {title}",
+    "clickToEnlarge": "{title} (click to enlarge)",
+    "openShowreel": "Open showreel",
+    "playShowreel": "Play showreel",
+    "showreel": "Showreel",
+    "selectedWork": "Selected work"
+  },
+  "home": {
+    "tagline": "Full-cycle AI & hybrid production",
+    "art": "Art",
+    "tech": "Tech",
+    "foodRestaurants": "Food & Restaurants",
+    "work03": "[Work 03]",
+    "work04": "[Work 04]",
+    "work05": "[Work 05]",
+    "work06": "[Work 06]",
+    "work07": "[Work 07]"
+  },
+  "contact": {
+    "h1": "Contact",
+    "name": "Name *",
+    "email": "Email *",
+    "company": "Company",
+    "site": "Website or Instagram (optional)",
+    "interest": "What are you interested in? (select multiple)",
+    "select": "Select",
+    "somethingElse": "Something else",
+    "aiAgents": "AI Agents",
+    "message": "Message *",
+    "nda": "I would like to sign a mutual NDA before sharing the brief",
+    "send": "Send inquiry",
+    "sending": "Sending",
+    "replies": "Replies within 24 hours.",
+    "thanks": "Thank you.",
+    "sent": "Your inquiry is on its way. Replies within 24 hours.",
+    "errorBefore": "The message did not go through. Please write to ",
+    "errorAfter": "."
+  },
+  "art": {
+    "brandFashionFilms": {
+      "title": "Brand & Fashion Films",
+      "menu": "Brand &\nFashion Films",
+      "workTitle": "Hervé Léger · origin film",
+      "short": [
+        "The story of a brand, its founder or the moment it took off, told in the language of cinema.",
+        "Trust that a sales commercial does not build.",
+        "People watch it with interest and do not feel that something is being sold to them.",
+        "A film that works for years and is remembered as a story."
+      ],
+      "more": [
+        {
+          "h": "What can a brand film be about?",
+          "ps": [
+            "A brand film can tell [how the brand began], or introduce [the founder], the person behind the name and the path that led to it. It can capture [the turning point], the moment the business took off, or show [the values] the brand stands for.",
+            "[The craft] is another strong subject: how the product is made, the hands, the details. Big moments suit the format well too, such as [a new direction, a relaunch, an anniversary or the history of the house]."
+          ]
+        },
+        {
+          "h": "Why would a brand need a film?",
+          "ps": [
+            "A brand with its own film reads as a company with a history behind it, and that gives it [weight]. The cinematic picture [raises the status of the brand] before a single word is said.",
+            "The film lets viewers look inside the company and meet the team, which builds [trust and loyalty]. People [watch it with interest], like a good series, and see it to the end more often than a sales commercial.",
+            "A campaign ends with the season, while a brand film [can be used for years]. The audience [remembers the story] and does not take it as a sales pitch.",
+            "[One film works in many places]: on social media, on screens in your restaurant, shop or office, at the start of a presentation or at an event."
+          ]
+        },
+        {
+          "h": "How is it made?",
+          "ps": [
+            "Everything starts with [a real script written by a professional scriptwriter], with a plot built to hold attention and stay with the viewer until the very end.",
+            "Characters can be [recreated from old photographs, even black and white ones], and [the same face stays consistent] from the first frame to the last.",
+            "The music is either [an original score written for the film] or [licensed music cleared for commercial use], advertising included. [The sound design is original] too, every sound made for this film."
+          ]
+        }
+      ]
+    },
+    "hybrid": {
+      "title": "Hybrid",
+      "menu": "Hybrid",
+      "workTitle": "Le Plongeoir · Nice · hybrid film",
+      "short": [
+        "A real location or real people, carried into a dreamlike world or joined by AI characters.",
+        "The most requested format in AI production today.",
+        "No shoot, no drones, no crew, no models, and the venue stays open.",
+        "A film on the level of global brands, made from a few good photos, even iPhone ones, and a strong script."
+      ],
+      "more": [
+        {
+          "h": "What is a hybrid film?",
+          "ps": [
+            "In a hybrid film, one part comes from [life] and the other from [imagination]. The place stays real while the characters change, or real people step into a dream world.",
+            "Real footage keeps the film [believable], and AI adds scale and atmosphere that the camera alone cannot give.",
+            "The film about {Le Plongeoir|https://www.instagram.com/leplongeoir/}, the famous restaurant in Nice, was made from photos taken on an [iPhone] during a visit. A lady and a dog were fully created in AI, and the result is a film people remember."
+          ]
+        },
+        {
+          "h": "Why choose a hybrid?",
+          "ps": [
+            "It lets you create scenes that are [hard or extremely expensive to film].",
+            "One shoot can become [several versions]: the same place in summer and in winter, by day and by night.",
+            "With a traditional shoot, nobody sees the result until the very end. The film is planned around a [seasonal campaign], the date when everything has to appear on social media and in advertising. The lion's share of your budget, besides the videographer, goes to the whole team: assistants, models, hair and make-up, plus flights, hotels and transfers for everyone. If the result is unsatisfactory after a long wait, the brand is left with [no material] for the campaign, a hole in the budget and no time to redo it.",
+            "A hybrid film works the other way: [you approve every stage], adjust details along the way, and the whole production is much faster."
+          ]
+        },
+        {
+          "h": "What does it save compared with a traditional shoot?",
+          "ps": [
+            "A traditional production means a camera team, people hired to appear on screen, and a venue closed for the day. A hybrid film is made just from [quality photos or videos] of your space.",
+            "Wherever your business is, even in [hard-to-reach locations], you can still have a film on the level of [global brands]. There is no need to convince a videographer from Milan or Paris to fly in and to cover travel expenses for the whole team and the models to get [the same result]."
+          ]
+        },
+        {
+          "h": "What goes into it?",
+          "ps": [
+            "A hybrid film is [real craft]. A strong story and proper direction, together with professional sound design and editing, turn it into something people want to watch.",
+            "Every film includes the script, the brand's character, models and original music."
+          ]
+        }
+      ]
+    },
+    "foodRestaurants": {
+      "title": "Food & Restaurants",
+      "menu": "Food & Resto",
+      "works": {
+        "main": "Food & Restaurants film",
+        "reel0": "Arlix Catering",
+        "reel1": "Redhead · cake",
+        "reel2": "Marquis Homard · lobster",
+        "reel3": "Rupert · Petrus",
+        "reel4": "Hostess",
+        "reel5": "Angel · waiter",
+        "reel6": "Croissants"
+      },
+      "short": [
+        "Food video is one of the hardest shoots: it has to be filmed very fast, with no second chance.",
+        "There is time to film one splash of sauce and one cut. After that, the whole dish has to be made again.",
+        "Professional lights heat the room, so ice cream melts and foam goes flat.",
+        "AI keeps every dish at its most seductive moment for as long as the film needs."
+      ],
+      "more": [
+        {
+          "h": "Why is food so hard to film?",
+          "ps": [
+            "A dish has a [short life] on set. Under hot lights it starts to lose its shape, and every retake needs a fresh plate, so expensive ingredients are wasted before the right shot is ready, especially on video.",
+            "If you film in your own restaurant, it has to [close] for at least one day and be fitted with lights and equipment."
+          ]
+        },
+        {
+          "h": "What should a food film do?",
+          "ps": [
+            "A good food film makes the customer [crave] the dish and book a table immediately. Or it lets the customer feel the atmosphere of the place and [imagine being there], among beautiful people."
+          ]
+        },
+        {
+          "h": "Why do the people in the frame matter?",
+          "ps": [
+            "Many restaurants show only the food, or save on models and film friends or random guests. Yet people who are not camera-ready give a premium place a [provincial look], need careful direction on set and must sign a [model release]. Professional models, on the other hand, [inflate the budget], because the whole team comes with them: stylists, make-up artists and clothing hire."
+          ]
+        },
+        {
+          "h": "What does AI change?",
+          "ps": [
+            "AI allows you to show every dish at its most [seductive]: crispy, juicy and irresistible, for as long as the film needs.",
+            "AI models are created for the style of your brand, the mood, the format and the [atmosphere] of your restaurant. The same models stay throughout the film, so it feels whole and consistent.",
+            "Your kitchen keeps working, the restaurant stays open, and no ingredients are wasted.",
+            "An AI or hybrid film can be created from just [quality photos or videos] of your restaurant and dishes, even in [hard-to-reach locations]."
+          ]
+        }
+      ]
+    },
+    "aiModelsUgc": {
+      "title": "AI Models & UGC",
+      "menu": "AI Models",
+      "workTitle": "Keira · fashion film",
+      "reel0": "Arlix Pâtisserie · macarons",
+      "short": [
+        "A face that belongs only to your brand and appears nowhere else.",
+        "One model for every format: an influencer chatting from her kitchen, a runway show or an ad campaign.",
+        "Speaks any language and matches the beauty standards of each market.",
+        "Collections can be tested before production and ads tried on different models and body types."
+      ],
+      "more": [
+        {
+          "h": "Why give a brand its own AI face?",
+          "ps": [
+            "A human model works with several brands at the same time. Today she wears your exclusive jewellery, tomorrow the same face is on a billboard for a budget supermarket. People notice, and the [premium value] of your product drops. An AI model belongs [only to you]: she never quits, never works for anyone else and keeps the same face in every campaign, with no casting, booking calendars or usage rights to renew."
+          ]
+        },
+        {
+          "h": "What can one model do?",
+          "ps": [
+            "The same model can appear as an influencer chatting from her kitchen, walk a [runway show] or star in an ad campaign. Each look is created in AI, which saves the budget usually spent on stylists, hair and make-up. Your audience sees [one familiar face] in every format, so the brand is easier to remember."
+          ]
+        },
+        {
+          "h": "How does it work on international markets?",
+          "ps": [
+            "If you work on international markets or in several countries, beauty standards differ from one to another: a look that works in Scandinavia often does not work in Eastern Europe or Latin America. For each market, a character can be created that feels close to your customers and [speaks their language]. One piece can also be shown in different looks, and the same ad can be tested on [different models and body types]."
+          ]
+        },
+        {
+          "h": "Why is it faster and the result more controlled?",
+          "ps": [
+            "Like a sample collection shown to buyers, pieces can be shown on models [before production], so only the ones in demand go into full production. Mistakes are fixed and new pieces are added without a reshoot. A trend or a news story can be caught [while it is still fresh]. You [approve every stage], with changes within reason made along the way. The result stays under control and arrives much sooner than from a videographer."
+          ]
+        }
+      ]
+    },
+    "cartoonsAiPets": {
+      "title": "Cartoons & AI Pets",
+      "menu": "Cartoons",
+      "workTitle": "Amber City · Ep 1 · Oskar",
+      "reel0": "Paris · red suit · Pomeranian",
+      "reel1": "Lingerie · model + cat",
+      "short": [
+        "A cartoon or a mascot created especially for your brand.",
+        "A story written with local humour and mentality, so it reaches the viewer's heart.",
+        "A recognisable character that grows into a series.",
+        "Animals sell any product in any market. An AI pet does exactly what the scene needs, and no real animal goes through the stress of a shoot."
+      ],
+      "more": [
+        {
+          "h": "Why does a brand need its own character?",
+          "ps": [
+            "AI cartoons are more than the bananas and strawberries everyone is tired of. A character created for a brand is one of its [strongest assets]. A {study by Ipsos|https://www.ipsos.com/en-ph/power-you-why-distinctive-brand-assets-are-driving-force-creative-effectiveness}, one of the world's largest market research companies, covered more than 2,000 video ads and found that characters appear [six times more often] in high-performing ads. {Research by System1|https://www.smartbrief.com/original/report-brand-characters-beat-celebrities-in-super-bowl-ads}, which measures how audiences feel about ads, looked at Super Bowl commercials and found that brand characters [beat celebrities] on appeal, brand recognition and sales impact."
+          ]
+        },
+        {
+          "h": "How is the character made for your market?",
+          "ps": [
+            "The cartoon character is created for your brand and your audience, with the mentality, culture, traditions and folk tales of your market in mind. [Storytelling is extremely important.] When the character is clearly written, with local humour and sometimes slang, it goes straight to the [viewer's heart]."
+          ]
+        },
+        {
+          "h": "How does a character become a series?",
+          "ps": [
+            "A recognisable character keeps people coming back for the [next episode]. It could be a bartender with an unusual look who tells stories about the guests, or a witty chef who fillets fish like a virtuoso and takes playful jabs at the competitors. Over time, the character becomes the [brand's own voice] on social media."
+          ]
+        },
+        {
+          "h": "Why AI animals?",
+          "ps": [
+            "Animals work for any brand: everyone loves fluffy pets. On a real set, though, putting animals through take after take is far from humane, and the shoot needs a trainer. Depending on the country, an [animal welfare representative] is also required on set: in the US, this adds [$1,200 a day] to your ad budget. In AI, the animal's movements, look and behaviour are [fully controlled], with no stress for any living creature."
+          ]
+        }
+      ]
+    },
+    "artworks": {
+      "title": "Artworks",
+      "menu": "Artworks",
+      "workTitle": "Taormina · Sicily"
+    },
+    "cta": {
+      "kicker": "Contact",
+      "title": "Start a project",
+      "line": "[CTA line: invite to start a project]",
+      "contact": "Contact",
+      "getPrices": "Get Estimated Prices"
+    },
+    "menu": {
+      "contact": "Contact",
+      "pricing": "Pricing"
+    }
+  },
+  "tech": {
+    "consultingTraining": {
+      "title": "AI Consulting & Training",
+      "menu": "AI Consulting\n& Training",
+      "short": [
+        "One-to-one or in a small group, online or in person.",
+        "Everything starts with your real business problems: the most urgent are solved first.",
+        "Knowledge you can use right away.",
+        "CV and LinkedIn adaptation to ATS filters."
+      ],
+      "boxes": [
+        {
+          "h": "Where to start with AI?",
+          "p": "The starting point is the urgent needs of your business, not theory. You have [years of experience] in your field, and AI is simply the [next tool] to make your days easier. The best things to hand over to it are the ones you never enjoyed: routine, repetition and organisational chaos."
+        },
+        {
+          "h": "What happens on the first call?",
+          "p": "On the first call, you talk through what really slows your business down and what it needs at the moment. From this comes a short list of [AI tools] chosen for what you do: the ones to learn and start using now. You can put this into practice while the session is still going, or as soon as it ends."
+        },
+        {
+          "h": "How do the lessons work?",
+          "p": "Every lesson is [individual] and starts with your [most urgent needs]: lots of images for social media, simple automations or an agent for incoming requests. It is designed so that you can use it immediately to make your life and work easier. Lessons are online or in person, and AI agents can be set up right on your computer, so your data stays with you."
+        },
+        {
+          "h": "Looking for a new job, but no replies?",
+          "p": "Perhaps your CV is simply invisible. Recruiters use [ATS filters] – programs that scan CVs for keywords. If your CV has not been adapted, it does not get through them, and a real HR person never sees it. Without adaptation to [modern standards], it has no chance of reaching a human."
+        }
+      ]
+    },
+    "webDesign": {
+      "title": "Web Design",
+      "menu": "Web Design",
+      "short": [
+        "Modern [multilingual] website, ready in 1 week.",
+        "You manage it yourself: no programmer needed.",
+        "Made without templates, with no monthly fees.",
+        "Not suitable for online payments."
+      ],
+      "boxes": [
+        {
+          "h": "What does the website include?",
+          "p": "You get a website designed from scratch and fully set up. It comes with [modern graphics] and motion design to 2026 standards. The site can also be interactive or even game-like, so it catches your customers' attention and keeps them interested. After the launch, a [short lesson] / manual shows how to edit it on your own."
+        },
+        {
+          "h": "Full control without waiting?",
+          "p": "You are in [full control] of your website. Prices, special offers, new products, a seasonal menu, sales: you change them all [yourself], in just a few minutes. No more long waits for an IT specialist to make your edits. Your changes appear on the site quickly, even late at night or at weekends."
+        },
+        {
+          "h": "Will it stand out from competitors?",
+          "p": "Your website is built entirely for you, with no [templates], so it looks nothing like your competitors' sites. It is based on an analysis of your [brand style]: not only colours, but also fonts, the logo, images and the tone of your texts. This way, it matches your brand's image on social media and in outdoor advertising."
+        },
+        {
+          "h": "What happens after the handover?",
+          "p": "From then on, each page and file belongs to you. There are no extra [monthly fees] and no developer's salary to pay. All you need is a subscription to Claude / ChatGPT / Grok / Gemini, which helps you update the website whenever you want."
+        }
+      ]
+    },
+    "monthlyContent": {
+      "title": "Monthly Content",
+      "menu": "Monthly\nContent",
+      "short": [
+        "Bright, eye-catching content planned a month ahead.",
+        "Carousels, videos and infographics in one brand style.",
+        "Hybrid: your live photos and videos plus AI content."
+      ],
+      "boxes": [
+        {
+          "h": "Why post every day?",
+          "p": "Growing a brand means posting every day. That is how [algorithms] work today, unfortunately. But you have a business to run, not hours to spend filming and editing. No more [headache] of closing your venue for a photo or video shoot, or of filming videos yourself."
+        },
+        {
+          "h": "How does the hybrid work?",
+          "p": "The strongest mix for Instagram is real content together with AI content: then both your live videos and the AI content get promoted. Filming a video is easy. Making it stand out is the hard part: professional [editing] with infographics, and carousels in one style, so people recognise your [brand] at a glance."
+        },
+        {
+          "h": "What do you get each month?",
+          "p": "You get carousels, edited videos or any other format you need. You choose: content made from your own photos and videos, or made entirely for you. Everything is made quickly and cleanly to modern standards, in one [brand style]. An [audience analysis] comes with every month."
+        },
+        {
+          "h": "How is the month planned?",
+          "p": "The plan is made at the start of each month, around your calendar and together with your [SMM manager], if you have one. The amount of content is agreed in advance: 30 to 60 items. Publishing, posting and communication with your audience stay on your side or with your SMM manager. What you get is the audience analysis, AI content and the editing of your videos."
+        }
+      ]
+    },
+    "assistantsAgents": {
+      "title": "Assistants / Agents",
+      "menu": "Assistants /\nAgents",
+      "short": [
+        "A personal assistant for your email and calendar.",
+        "A content machine for your social media and blog.",
+        "A creative agent for photos, videos and cartoons.",
+        "A 24/7 team that works for you."
+      ],
+      "boxes": [
+        {
+          "h": "A personal assistant for your email and calendar.",
+          "p": "Your personal assistant sorts your [email], keeps your calendar in order and reminds you about every deadline. It takes care of the routine tasks that fill your day, so you can plan your time calmly. It works [24/7] and never misses a thing."
+        },
+        {
+          "h": "A content machine for your social media and blog.",
+          "p": "The content machine keeps your [social media] and blog running. It builds the content plan, prepares posts with both photos and videos, all in one [brand style]. Your posts are ready even in the weeks when you have no time to think about them."
+        },
+        {
+          "h": "A creative agent for photos, videos and cartoons.",
+          "p": "The creative agent works as a scriptwriter and director. It writes the [scripts], then creates photos, videos and even [cartoons] for your brand. Every idea starts from your business, so the result looks like yours, not like stock images. You get material for social media, your website or an advertising campaign."
+        },
+        {
+          "h": "A 24/7 team that works for you.",
+          "p": "And any agent your business might need, so routine work no longer eats up your time. You describe the problem, and a ready solution is built for you."
+        }
+      ]
+    },
+    "royaltyFreeMusic": {
+      "title": "Royalty Free Music",
+      "menu": "Royalty Free\nMusic",
+      "short": [
+        "Playlists for your business: restaurants, hotels, spas.",
+        "Professional sound design and music for videos and ads.",
+        "Jingles and a sound brand for your business.",
+        "Full commercial rights for everything you receive."
+      ],
+      "boxes": [
+        {
+          "h": "Playlists for your business: restaurants, hotels, spas.",
+          "p": "Perhaps you have noticed that some restaurants play music that sounds familiar, yet Shazam cannot find it. Most probably, it was made with AI, and this is how businesses save on [music licences]. The music is written in your style, maybe even with [your own lyrics]. Nowadays, this kind of magic is easy."
+        },
+        {
+          "h": "Professional sound design and music for videos and ads.",
+          "p": "Unlicensed tracks, or tracks from the Instagram library, are a risk for ads: Instagram will most probably block your ad or post it with no sound. High-quality [sound design] and editing to the beat make up the lion's share of a video's success. The music is written for your video or chosen from professional libraries, always [licensed for commercial use]."
+        },
+        {
+          "h": "Full commercial rights for everything you receive.",
+          "p": "Every finished video, playlist or jingle is cleared for commercial use. Music written with AI for your business comes with [full commercial rights]. Music from a professional library comes with a [licence certificate], so if a platform or an ad network ever asks, you can show that the music is cleared for use."
+        },
+        {
+          "h": "Jingles and a sound brand for your business.",
+          "p": "A jingle is a short, memorable melody for your business. A [sound brand] is your recognisable sound across videos, ads and your place, so people know it is you."
+        }
+      ]
+    },
+    "cta": {
+      "kicker": "Contact",
+      "title": "Start a project",
+      "line": "[CTA line: invite to start a project]",
+      "contact": "Contact"
+    },
+    "menu": {
+      "contact": "Contact"
+    }
+  }
+}

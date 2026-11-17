@@ -1,5 +1,6 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useMemo, useState } from "react";
+import { useI18n } from "@/components/LocaleProvider";
 import { useRouter } from "next/navigation";
 
 // Snake carousel (reference: Jesper Landberg). Landscape cards bend like one wavy ribbon in perspective.
@@ -93,6 +94,10 @@ function placeholder(i: number, title: string): HTMLCanvasElement {
 
 export default function SnakeCarousel() {
   const router = useRouter();
+  const { locale, t, href } = useI18n();
+  const labelOf = (title: string) =>
+    title.startsWith("[Work ") || locale === "en" ? title : title === "Food & Restaurants" ? t("home.foodRestaurants") : title;
+  const hrefOf = (path?: string) => (path ? href(path) : path);
   const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -329,7 +334,7 @@ export default function SnakeCarousel() {
     const p = local(e);
     const i = cardAt(p.x, p.y);
     if (i < 0) return;
-    if (i === Math.round(cur.current) && CARDS[i].href) router.push(CARDS[i].href!);
+    if (i === Math.round(cur.current) && CARDS[i].href) router.push(hrefOf(CARDS[i].href)!);
     else go(i);
   };
 
@@ -337,7 +342,7 @@ export default function SnakeCarousel() {
   const showLabel = !!centre?.href && (!canHover || hover);
 
   return (
-    <section ref={section} aria-label="Selected work" className="home-carousel relative bg-[#0B0B0C] pt-2 pb-1 md:pt-16 md:pb-16" style={size.tight ? { paddingTop: Math.round(46 - (stageH - size.h) / 2), paddingBottom: Math.round(42 - (stageH - size.h) / 2) } : undefined}>
+    <section ref={section} aria-label={locale === "en" ? "Selected work" : t("common.selectedWork")} className="home-carousel relative bg-[#0B0B0C] pt-2 pb-1 md:pt-16 md:pb-16" style={size.tight ? { paddingTop: Math.round(46 - (stageH - size.h) / 2), paddingBottom: Math.round(42 - (stageH - size.h) / 2) } : undefined}>
       <div ref={stage} className="relative overflow-hidden select-none" style={{ height: stageH }}>
         {webgl ? (
           <canvas ref={canvas} aria-hidden="true"
@@ -364,7 +369,7 @@ export default function SnakeCarousel() {
 
         {/* Label on the centre card: always visible on phones, on hover with a mouse. */}
         {centre?.href && (
-          <a href={centre.href} onPointerEnter={() => setHover(true)} onPointerLeave={() => setHover(false)} onClick={(e) => { e.preventDefault(); router.push(centre.href!); }}
+          <a href={hrefOf(centre.href)} onPointerEnter={() => setHover(true)} onPointerLeave={() => setHover(false)} onClick={(e) => { e.preventDefault(); router.push(hrefOf(centre.href)!); }}
             className="absolute z-10 font-body uppercase tracking-[0.2em] text-[#F2EDE6] transition-opacity duration-300 whitespace-nowrap bg-[rgba(11,11,12,0.55)] backdrop-blur-sm px-2.5 py-1.5 rounded-[4px]"
             style={{
               // Placed on the curved card itself: the point is projected the same way the card is drawn.
@@ -380,13 +385,13 @@ export default function SnakeCarousel() {
               pointerEvents: showLabel ? "auto" : "none",
               textShadow: "0 1px 8px rgba(0,0,0,0.6)",
             }}>
-            {centre.title} <span aria-hidden="true">→</span>
+            {labelOf(centre.title)} <span aria-hidden="true">→</span>
           </a>
         )}
 
-        <button onClick={() => go(active - 1)} aria-label="Previous" disabled={active === 0}
+        <button onClick={() => go(active - 1)} aria-label={locale === "en" ? "Previous" : t("common.previous")} disabled={active === 0}
           className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 h-9 w-9 flex items-center justify-center border border-[rgba(242,237,230,0.6)] text-[#F2EDE6] text-sm hover:text-[#C9A962] hover:border-[#C9A962] disabled:opacity-25 transition-colors">←</button>
-        <button onClick={() => go(active + 1)} aria-label="Next" disabled={active === n - 1}
+        <button onClick={() => go(active + 1)} aria-label={locale === "en" ? "Next" : t("common.next")} disabled={active === n - 1}
           className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 h-9 w-9 flex items-center justify-center border border-[rgba(242,237,230,0.6)] text-[#F2EDE6] text-sm hover:text-[#C9A962] hover:border-[#C9A962] disabled:opacity-25 transition-colors">→</button>
       </div>
     </section>
