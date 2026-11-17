@@ -55,6 +55,11 @@ function LangSwitch({ rawPath, current }: { rawPath: string; current: Locale }) 
 
   return (
     <div ref={root} className="relative shrink-0">
+      {/* Invisible sizer: same box as the live EN/DE pill at every breakpoint, so nav items do not move. */}
+      <div className="flex border border-[#4A4540] rounded-full overflow-hidden text-[11px] sm:text-[13px] tracking-[0.08em] invisible pointer-events-none" aria-hidden="true">
+        <span className="px-2.5 max-[419px]:px-2 sm:px-4 py-1.5 sm:py-2 rounded-full">EN</span>
+        <span className="px-2.5 max-[419px]:px-2 sm:px-4 py-1.5 sm:py-2 rounded-full">DE</span>
+      </div>
       <button
         ref={btn}
         type="button"
@@ -69,7 +74,7 @@ function LangSwitch({ rawPath, current }: { rawPath: string; current: Locale }) 
             requestAnimationFrame(() => focusItem(0));
           }
         }}
-        className="flex items-center gap-1 border border-[#4A4540] rounded-full px-2.5 max-[419px]:px-2 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-[13px] tracking-[0.08em] bg-[#F2EDE6] text-[#0B0B0C]"
+        className="absolute inset-0 flex items-center justify-center gap-1 border border-[#4A4540] rounded-full text-[11px] sm:text-[13px] tracking-[0.08em] bg-[#F2EDE6] text-[#0B0B0C]"
       >
         {label}
         <svg aria-hidden="true" width="8" height="8" viewBox="0 0 8 8" className="shrink-0" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
