@@ -40,7 +40,7 @@ const items: Item[] = [
     title: "Web Design",
     menu: "Web Design",
     short: [
-      "Modern website, ready in 1 week.",
+      "Modern [multilingual] website, ready in 1 week.",
       "You manage it yourself: no programmer needed.",
       "Made without templates, with no monthly fees.",
       "Not suitable for online payments.",
@@ -193,7 +193,7 @@ export default function TechSlides() {
                         {s.short!.map((t) => (
                           <li key={t} className="relative pl-5 [text-wrap:pretty]">
                             <span aria-hidden="true" className="absolute left-0 top-[0.65em] h-[5px] w-[5px] rounded-full bg-[#C9A962]" />
-                            {t}
+                            {rich(t)}
                           </li>
                         ))}
                       </ul>
