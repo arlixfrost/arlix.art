@@ -6,12 +6,35 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Ph } from "@/components/Ph";
 import { WorkVideo } from "@/components/ArtSlides";
 import { SiteFooter } from "./SiteFooter";
+import { ReadMore, type More } from "@/components/ReadMore";
 
-type Item = { id: string; title: string; menu?: string; text?: string; price?: string; video?: { src: string; poster: string; title: string } };
+type Box = { h: string; p: string };
+type Item = { id: string; title: string; menu?: string; text?: string; price?: string; video?: { src: string; poster: string; title: string }; short?: string[]; boxes?: Box[] };
+
+// [text] = phrase set slightly bolder and lighter, as in Art.
+function rich(t: string) {
+  return t.split(/(\[[^\]]+\])/g).map((part, i) => part.startsWith("[") ? <strong key={i} className="font-medium text-[#F2EDE6]">{part.slice(1, -1)}</strong> : part);
+}
 
 // Individual consultations and Training for small business are merged into one block.
 const items: Item[] = [
-  { id: "consultations-training", title: "Individual Consultations\n& Small Business Training", menu: "Consultations\n& Training" },
+  {
+    id: "consultations-training",
+    title: "AI Consulting & Training",
+    menu: "AI Consulting\n& Training",
+    short: [
+      "One-to-one or in a small group, online or in person.",
+      "Everything starts with your real business problems: the most urgent are solved first.",
+      "Knowledge you can use right away.",
+      "CV and LinkedIn adaptation to ATS filters.",
+    ],
+    boxes: [
+      { h: "Where to start with AI?", p: "The starting point is the urgent needs of your business, not theory. You have [years of experience] in your field, and AI is simply the [next tool] to make your days easier. The best things to hand over to it are the ones you never enjoyed: routine, repetition and organisational chaos." },
+      { h: "What happens on the first call?", p: "On the first call, you talk through what really slows your business down and what it needs at the moment. From this comes a short list of [AI tools] chosen for what you do: the ones to learn and start using now. You can put this into practice while the session is still going, or as soon as it ends." },
+      { h: "How do the lessons work?", p: "Every lesson is [individual] and starts with your [most urgent needs]: lots of images for social media, simple automations or an agent for incoming requests. It is designed so that you can use it immediately to make your life and work easier. Lessons are online or in person, and AI agents can be set up right on your computer, so your data stays with you." },
+      { h: "Looking for a new job, but no replies?", p: "Perhaps your CV is simply invisible. Recruiters use [ATS filters] – programs that scan CVs for keywords. If your CV has not been adapted, it does not get through them, and a real HR person never sees it. Without adaptation to [modern standards], it has no chance of reaching a human." },
+    ],
+  },
   { id: "web-design", title: "Web Design" },
   {
     id: "content-factory",
@@ -22,7 +45,6 @@ const items: Item[] = [
   },
   { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents" },
   { id: "royalty-free-music", title: "Royalty Free music", menu: "Royalty Free\nMusic" },
-  { id: "cv-linkedin", title: "CV / LinkedIn + Career", menu: "CV adaptation" },
 ];
 
 const slides = [
@@ -113,7 +135,46 @@ export default function TechSlides() {
 
       <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
 
-        {items.map((s, i) => (
+        {items.map((s, i) => s.boxes ? (
+          <section key={s.id} data-snap-item data-index={i} id={s.id} className={slide}>
+            <div data-snap-inner className={inner}>
+              {/* Same layout as Art: heading and points in the left third; in place of a film, four framed texts.
+                  Phone: the frames move into Read more. */}
+              <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-4 md:gap-8 pr-[5.5rem] md:pr-28 pl-4 md:pl-6 pt-20 pb-6 md:pb-8">
+                <div className="sec-text flex flex-col md:justify-center md:pl-8 min-w-0">
+                  <div className="sec-head">
+                    <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
+                    <div className="gold-rule md:mb-3" />
+                  </div>
+                  <div className="sec-body min-w-0">
+                    <div className="mt-3 md:mt-6 pl-4 md:pl-0 max-w-xl">
+                      <ul className="short-list short-flow m-0 p-0 list-none flex flex-col gap-4 md:gap-6 text-[15px] leading-[1.55] font-normal text-[#E4DED5] md:text-[18px]">
+                        {s.short!.map((t) => (
+                          <li key={t} className="relative pl-5 [text-wrap:pretty]">
+                            <span aria-hidden="true" className="absolute left-0 top-[0.65em] h-[5px] w-[5px] rounded-full bg-[#C9A962]" />
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="tech-more">
+                        <ReadMore title={s.title} more={{ columns: [[0, 2], [1, 3]], chapters: s.boxes.map((b) => ({ h: b.h, ps: [b.p] })) } as More} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="tech-boxes min-w-0 grid grid-cols-2 gap-5 content-center">
+                  {s.boxes.map((b) => (
+                    <div key={b.h} className="border border-[#C9A962]/35 px-7 py-7">
+                      <h3 className="font-display font-normal text-[26px] leading-[1.2] text-[#F2EDE6] m-0">{b.h}</h3>
+                      <div className="w-12 h-px bg-[#C9A962] mt-4 mb-5" />
+                      <p className="m-0 text-[18px] leading-[1.55] font-normal text-[#E4DED5]">{rich(b.p)}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : (
           <section key={s.id} data-snap-item data-index={i} id={s.id} className={slide}>
             <div data-snap-inner className={inner}>
               <div className={s.video ? `sec-grid h-full grid gap-4 md:gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] content-center ${pad} pt-[72px]` : `sec-grid h-full flex flex-col justify-center ${pad} pt-[72px] max-w-6xl`}>

@@ -217,3 +217,22 @@ html.art-doc .layout-footer { display: none; }
 .film-full { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100svh !important; max-width: none !important; aspect-ratio: auto !important; z-index: 999 !important; background: #000 !important; border-radius: 0 !important; margin: 0 !important; }
 .film-full video { object-fit: contain !important; }
 .film-full > :not(video) { display: none !important; }
+
+/* Tech, AI Consulting & Training: four framed texts in place of the film on a computer; on phones they move into Read more */
+.tech-more { display: none; }
+@media (max-width: 767px), (orientation: landscape) and (max-height: 500px) {
+  .tech-boxes { display: none !important; }
+  .tech-more { display: block; }
+}
+@media (min-width: 768px) and (min-height: 501px) and (max-height: 820px) {
+  .tech-boxes { gap: 12px !important; }
+  .tech-boxes p { font-size: 15px !important; line-height: 1.45 !important; }
+  .tech-boxes h3 { font-size: 20px !important; }
+  .tech-boxes > div { padding: 16px 20px !important; }
+  .tech-boxes > div > div { margin-top: 8px !important; margin-bottom: 10px !important; }
+}
+/* window too low for four frames: they move into Read more, as on a phone */
+@media (min-width: 768px) and (max-height: 700px) {
+  .tech-boxes { display: none !important; }
+  .tech-more { display: block; }
+}
