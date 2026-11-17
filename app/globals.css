@@ -208,3 +208,12 @@ html { scroll-behavior: smooth; }
   /* side menu stays clearly readable; the content starts a little further right so the label never touches the film */
   .art-page .art-grid { padding-left: 76px !important; }
 }
+
+/* Art page: the whole page scrolls, so Safari hides its bars while scrolling; snapping section by section stays */
+html.art-doc { scroll-snap-type: y mandatory; scrollbar-width: none; }
+html.art-doc::-webkit-scrollbar { display: none; }
+html.art-doc .layout-footer { display: none; }
+/* main film opened full screen: the same playing video fills the screen */
+.film-full { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100svh !important; max-width: none !important; aspect-ratio: auto !important; z-index: 999 !important; background: #000 !important; border-radius: 0 !important; margin: 0 !important; }
+.film-full video { object-fit: contain !important; }
+.film-full > :not(video) { display: none !important; }

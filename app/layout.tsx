@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen">
         <Nav />
         {children}
-        <SiteFooter className="mt-1 md:mt-16 pt-4 md:pt-10 pb-[calc(1.25rem+env(safe-area-inset-bottom))] md:pb-[calc(2.5rem+env(safe-area-inset-bottom))]" />
+        <SiteFooter className="layout-footer mt-1 md:mt-16 pt-4 md:pt-10 pb-[calc(1.25rem+env(safe-area-inset-bottom))] md:pb-[calc(2.5rem+env(safe-area-inset-bottom))]" />
       </body>
     </html>
   );

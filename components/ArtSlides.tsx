@@ -14,6 +14,8 @@ import { soloAudio } from "@/components/audio";
 import CurvedReel from "@/components/CurvedReel";
 import { ReadMore, type More } from "@/components/ReadMore";
 import { SiteFooter } from "./SiteFooter";
+import { pickSrc, fallbackToOriginal, usePhone } from "./phoneMedia";
+import { isPhone } from "./fullscreen";
 
 type Video = { src: string; poster: string; title: string; horizontal?: boolean; caption?: string };
 type Section = {
@@ -224,7 +226,7 @@ const sections: Section[] = [
 let reelSoundOn = false;
 
 // lead: the big film above the ribbon. Opening it starts the same player, and the arrows go on through the ribbon works.
-function Reel({ items: ribbon, heightCss, lead, opener, start }: { items: Video[]; heightCss?: string; lead?: Video; opener?: React.MutableRefObject<(() => void) | null>; start?: number }) {
+function Reel({ items: ribbon, heightCss, lead, opener, start, leadBox }: { items: Video[]; heightCss?: string; lead?: Video; opener?: React.MutableRefObject<(() => void) | null>; start?: number; leadBox?: React.RefObject<HTMLDivElement | null> }) {
   const [cap, setCap] = useState(false);
   const items = lead ? [{ ...lead, horizontal: true }, ...ribbon] : ribbon;
   const shift = lead ? 1 : 0;
@@ -233,20 +235,61 @@ function Reel({ items: ribbon, heightCss, lead, opener, start }: { items: Video[
   const lb = useRef<HTMLVideoElement>(null);
   const kick = useRef<number | undefined>(undefined);
   const pausedByPlayer = useRef<Set<HTMLVideoElement>>(new Set());
+  // The section's main film opens full screen as the SAME video that already plays on the page:
+  // nothing new is downloaded, it goes on from the same moment. Arrows then go on through the ribbon.
+  const [leadOn, setLeadOn] = useState(false);
+  const leadVid = useRef<HTMLVideoElement | null>(null);
+  const lifted = useRef<Array<[HTMLElement, string, string]>>([]);
+  const leadEnter = (): boolean => {
+    const film = leadBox?.current?.querySelector<HTMLElement>(".main-film");
+    const vid = film?.querySelector<HTMLVideoElement>("video");
+    if (!film || !vid || !vid.currentSrc) return false;
+    let a = film.parentElement;
+    while (a && a !== document.body) {
+      const cs = getComputedStyle(a);
+      if (cs.transform !== "none" || cs.willChange.includes("transform") || cs.filter !== "none") {
+        lifted.current.push([a, a.style.transform, a.style.willChange]);
+        a.style.transform = "none"; a.style.willChange = "auto";
+      }
+      a = a.parentElement;
+    }
+    film.classList.add("film-full");
+    vid.muted = !reelSoundOn; if (reelSoundOn) soloAudio(vid);
+    vid.play().catch(() => { vid.muted = true; setMuted(true); vid.play().catch(() => {}); });
+    leadVid.current = vid;
+    return true;
+  };
+  const leadExit = () => {
+    leadBox?.current?.querySelector<HTMLElement>(".main-film")?.classList.remove("film-full");
+    lifted.current.forEach(([el, t, w]) => { el.style.transform = t; el.style.willChange = w; });
+    lifted.current = [];
+    if (leadVid.current) leadVid.current.muted = true;
+    leadVid.current = null;
+    setLeadOn(false);
+  };
   // When the player closes, the videos it paused play on again.
   useEffect(() => {
     if (open !== null) return;
+    if (leadVid.current) leadExit();
     pausedByPlayer.current.forEach((x) => { x.muted = true; x.play().catch(() => {}); });
     pausedByPlayer.current.clear();
   }, [open]);
   const [loading, setLoading] = useState(false);
   // Opens work i and starts it inside the same tap (iPhone only allows sound when play starts inside the tap).
   const go = (i: number) => {
+    if (leadVid.current && !(lead && i === 0)) leadExit();
+    if (lead && i === 0 && (leadVid.current || leadEnter())) {
+      flushSync(() => { setMuted(!reelSoundOn); setOpen(0); setLeadOn(true); setLoading(false); });
+      lb.current?.pause();
+      document.querySelectorAll("video").forEach((x) => { if (x !== leadVid.current && x !== lb.current && !x.paused) { x.pause(); pausedByPlayer.current.add(x); } });
+      return;
+    }
     flushSync(() => { setMuted(!reelSoundOn); setOpen(i); setLoading(true); });
     const el = lb.current; if (!el) return;
     // Give the player the whole connection: every other video on the page pauses while it is open.
     document.querySelectorAll("video").forEach((x) => { if (x !== el && !x.paused) { x.pause(); pausedByPlayer.current.add(x); } });
-    if (!el.src.endsWith(items[i].src)) el.src = items[i].src;
+    const want = pickSrc(items[i].src, isPhone());
+    if (!el.src.endsWith(want)) el.src = want;
     el.currentTime = 0; el.muted = !reelSoundOn;
     if (reelSoundOn) soloAudio(el);
     el.play().catch(() => { el.muted = true; setMuted(true); el.play().catch(() => {}); });
@@ -293,9 +336,13 @@ function Reel({ items: ribbon, heightCss, lead, opener, start }: { items: Video[
     <>
       <CurvedReel items={ribbon} onOpen={(i: number) => go(i + shift)} heightCss={heightCss} start={start} />
       {v && typeof document !== "undefined" && createPortal(
-        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(null)} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onTouchCancel={onTouchEnd} style={{ touchAction: "none" }} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
-          <div onClick={(e) => e.stopPropagation()} className={`relative ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
-            <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" style={{ touchAction: "none" }}
+        <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => { if (!leadOn) setOpen(null); }} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onTouchCancel={onTouchEnd} style={{ touchAction: "none" }} className={`fixed inset-0 z-[1000] flex items-center justify-center p-4 max-md:p-0 ${leadOn ? "bg-transparent" : "bg-black/85 max-md:bg-black backdrop-blur-sm"}`}>
+          {leadOn && (<>
+            <SoundToggle muted={muted} onClick={() => { const el = leadVid.current; if (!el) return; el.muted = !el.muted; setMuted(el.muted); reelSoundOn = !el.muted; if (!el.muted) soloAudio(el); }} className="!fixed right-3 bottom-[calc(12px+env(safe-area-inset-bottom))]" />
+            <button onClick={(e) => { e.stopPropagation(); setOpen(null); }} aria-label="Close" className="fixed right-3 top-[calc(12px+env(safe-area-inset-top))] z-10 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
+          </>)}
+          <div onClick={(e) => e.stopPropagation()} className={`relative ${leadOn ? "hidden" : ""} ${v.horizontal ? "aspect-video" : "aspect-[9/16]"} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
+            <video ref={lb} src={leadOn ? undefined : pickSrc(v.src, isPhone())} onError={fallbackToOriginal} poster={v.poster} loop playsInline autoPlay={!leadOn} muted={muted} className="absolute inset-0 h-full w-full object-contain" style={{ touchAction: "none" }}
               onPlaying={() => setLoading(false)} onWaiting={() => setLoading(true)}
               onTimeUpdate={(e) => { const el = e.currentTarget; if (v.caption && el.duration) setCap(el.currentTime >= el.duration / 2); }} />
             {/* Caption that floats in at the middle of the video (e.g. "AI Sommelier") */}
@@ -333,6 +380,7 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
   const ref = useRef<HTMLVideoElement>(null);
   // Load the file only once its section is on screen or next to it; until then the first frame (poster) shows.
   const [load, setLoad] = useState(near);
+  const phone = usePhone();
   useEffect(() => { if (near) setLoad(true); }, [near]);
   const [muted, setMuted] = useState(true);
   const activeRef = useRef(active);
@@ -396,7 +444,7 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/55 border border-white/30 text-[#F2EDE6] text-xs flex items-center justify-center backdrop-blur-sm group-hover:border-[#C9A962] group-hover:text-[#C9A962] transition-colors">▶</span>
         </button>
       ) : (<>
-      <video ref={ref} src={load ? v.src : undefined} poster={load ? v.poster : undefined} muted loop playsInline preload={!load ? "none" : active ? "auto" : "metadata"} onClick={() => { if (onOpen) onOpen(); else if (!phoneFullscreen(ref.current)) setOpen(true); }} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
+      <video ref={ref} src={load && phone !== null ? pickSrc(v.src, phone) : undefined} onError={fallbackToOriginal} poster={load ? v.poster : undefined} muted loop playsInline preload={!load ? "none" : active ? "auto" : "metadata"} onClick={() => { if (onOpen) onOpen(); else if (!phoneFullscreen(ref.current)) setOpen(true); }} className="absolute inset-0 h-full w-full object-contain cursor-zoom-in" aria-label={`${v.title} (click to enlarge)`} />
       <PlayButton video={ref} label={`Play ${v.title}`} />
       <SoundToggle muted={muted} onClick={(e) => { e.stopPropagation(); toggle(); }} className="right-2 bottom-2" />
       <ExpandButton onClick={(e) => { e.stopPropagation(); if (onOpen) onOpen(); else if (!phoneFullscreen(ref.current)) setOpen(true); }} className="right-11 bottom-2" />
@@ -405,7 +453,7 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
       {open && typeof document !== "undefined" && createPortal(
         <div role="dialog" aria-modal="true" aria-label={v.title} onClick={() => setOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
           <div onClick={(e) => e.stopPropagation()} className={`relative ${box} bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none`} style={{ width: lbW }}>
-            <video ref={lb} src={v.src} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
+            <video ref={lb} src={pickSrc(v.src, !!phone)} onError={fallbackToOriginal} poster={v.poster} loop playsInline autoPlay muted={muted} className="absolute inset-0 h-full w-full object-contain" />
             <SoundToggle muted={muted} onClick={toggleLb} className="right-2 bottom-2" />
             <VideoScrubber video={lb} pillClassName="!right-11" />
             <button onClick={() => setOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
@@ -419,11 +467,12 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
 // so the arrows (and a swipe on the phone) go straight on to the other works of the section.
 function MainReel({ main, reel, on, near, start }: { main: Video; reel: Video[]; on: boolean; near: boolean; start?: number }) {
   const opener = useRef<(() => void) | null>(null);
+  const box = useRef<HTMLDivElement>(null);
   return (
-    <div className="main-reel min-h-0 min-w-0 flex flex-col gap-3 md:h-full">
+    <div ref={box} className="main-reel min-h-0 min-w-0 flex flex-col gap-3 md:h-full">
       <WorkVideo v={main} active={on} near={near} className="main-film shrink-0" onOpen={() => opener.current?.()} />
       <div className="main-reel-ribbon h-[230px] md:h-auto md:flex-1 md:min-h-[200px]">
-        <Reel items={reel} lead={main} opener={opener} heightCss="100%" start={start} />
+        <Reel items={reel} lead={main} opener={opener} heightCss="100%" start={start} leadBox={box} />
       </div>
     </div>
   );
@@ -468,6 +517,9 @@ export default function ArtSlides() {
     // The page-by-page zoom-and-tilt works the same on phones (upright and sideways) as on the computer; only the system "reduce motion" setting turns it off.
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // The whole page scrolls (not a block inside it), so Safari hides its own bars while scrolling.
+    const sc = window;
+    document.documentElement.classList.add("art-doc");
     const phoneUpright = () => window.matchMedia("(max-width: 767px) and (orientation: portrait)").matches;
     const cleanups: Array<() => void> = [];
     const ctx = gsap.context(() => {
@@ -476,7 +528,7 @@ export default function ArtSlides() {
         if (!inner) return;
 
         ScrollTrigger.create({
-          trigger: section, scroller, start: "top center", end: "bottom center",
+          trigger: section, scroller: sc, start: "top center", end: "bottom center",
           onToggle: (self) => self.isActive && setActive(i),
         });
 
@@ -486,10 +538,10 @@ export default function ArtSlides() {
         // A section exactly one screen tall moves exactly as before.
         if (i > 0) {
           gsap.fromTo(inner, ENTER, { ...CENTER, ease: "none", force3D: true, immediateRender: true,
-            scrollTrigger: { trigger: section, scroller, start: "top bottom", end: () => (phoneUpright() ? "top 30%" : "top top"), scrub: true, invalidateOnRefresh: true } });
+            scrollTrigger: { trigger: section, scroller: sc, start: "top bottom", end: () => (phoneUpright() ? "top 30%" : "top top"), scrub: true, invalidateOnRefresh: true } });
         }
         gsap.fromTo(inner, CENTER, { ...LEAVE, ease: "none", force3D: true, immediateRender: false,
-          scrollTrigger: { trigger: section, scroller, start: () => (phoneUpright() ? "bottom 55%" : "bottom bottom"), end: "bottom top", scrub: true, invalidateOnRefresh: true,
+          scrollTrigger: { trigger: section, scroller: sc, start: () => (phoneUpright() ? "bottom 55%" : "bottom bottom"), end: "bottom top", scrub: true, invalidateOnRefresh: true,
             onLeave: () => gsap.set(inner, { clearProps: "transform,opacity" }),
             onLeaveBack: () => gsap.set(inner, { clearProps: "transform,opacity" }) } });
       });
@@ -503,7 +555,7 @@ export default function ArtSlides() {
           if (!media) { section.style.scrollMarginTop = ""; return; }
           let top = 0; let el: HTMLElement | null = media;
           while (el && el !== section) { top += el.offsetTop; el = el.offsetParent as HTMLElement | null; }
-          const m = Math.round(scroller.clientHeight / 2 - (top + media.offsetHeight / 2));
+          const m = Math.round(window.innerHeight / 2 - (top + media.offsetHeight / 2));
           section.style.scrollMarginTop = `${m}px`;
         });
       };
@@ -517,17 +569,17 @@ export default function ArtSlides() {
       cleanups.push(() => { window.removeEventListener("resize", centreFilms); window.clearTimeout(t1); ro.disconnect(); });
 
       ScrollTrigger.create({
-        scroller, start: 0, end: "max",
+        scroller: sc, start: 0, end: "max",
         onUpdate: (self) => { if (bar.current) bar.current.style.transform = `scaleY(${self.progress})`; },
       });
     }, scroller);
 
-    return () => { cleanups.forEach((f) => f()); ctx.revert(); };
+    return () => { cleanups.forEach((f) => f()); ctx.revert(); document.documentElement.classList.remove("art-doc"); };
   }, []);
 
   const go = (i: number) => {
     const el = root.current?.querySelector<HTMLElement>(`[data-index="${i}"]`);
-    if (el && root.current) root.current.scrollTo({ top: el.offsetTop, behavior: "smooth" });
+    el?.scrollIntoView({ behavior: "smooth" });
   };
 
   // A link like /art/#food-restaurants (the home carousel) opens straight on that section.
@@ -536,7 +588,7 @@ export default function ArtSlides() {
       const id = decodeURIComponent(window.location.hash.slice(1));
       const i = slides.findIndex((s) => s.id === id);
       const el = root.current?.querySelector<HTMLElement>(`[data-index="${i}"]`);
-      if (i > 0 && el && root.current) { root.current.scrollTo({ top: el.offsetTop, behavior: "auto" }); setActive(i); }
+      if (i > 0 && el) { el.scrollIntoView({ behavior: "auto" }); setActive(i); }
     };
     const t = setTimeout(jump, 0);
     window.addEventListener("hashchange", jump);
@@ -583,7 +635,7 @@ export default function ArtSlides() {
   const inner = "h-full w-full will-change-transform origin-center";
 
   return (
-    <div className="fixed inset-0 art-theme art-page">
+    <div className="relative art-theme art-page">
       {/* Approved menu: large vertical labels, only the open section and its two neighbours are shown. */}
       <nav aria-label="Sections" className="fixed left-3 sm:left-5 top-14 sm:top-[72px] bottom-4 z-40 flex items-center gap-2 sm:gap-3 w-12 pointer-events-none">
         <div className="relative self-stretch my-6 w-px bg-[#3A3632] shrink-0">
@@ -606,12 +658,12 @@ export default function ArtSlides() {
         </ol>
       </nav>
 
-      <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
+      <div ref={root} className="relative w-full">
         {/* Slide 0: Art headline — Taormina stand-in for showreel; Safari needs muted start + sound icon */}
         {introOpen && typeof document !== "undefined" && createPortal(
           <div role="dialog" aria-modal="true" aria-label={taormina.title} onClick={() => setIntroOpen(false)} className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 max-md:bg-black backdrop-blur-sm p-4 max-md:p-0">
             <div onClick={(e) => e.stopPropagation()} className="relative aspect-video bg-black border border-white/15 rounded-xl overflow-hidden shadow-2xl max-md:border-0 max-md:rounded-none max-md:shadow-none" style={{ width: "min(90vw, calc(90svh * 16 / 9))" }}>
-              <video ref={introLb} src={taormina.src} poster={taormina.poster} loop playsInline autoPlay muted={introMuted} className="absolute inset-0 h-full w-full object-contain" />
+              <video ref={introLb} src={pickSrc(taormina.src, isPhone())} onError={fallbackToOriginal} poster={taormina.poster} loop playsInline autoPlay muted={introMuted} className="absolute inset-0 h-full w-full object-contain" />
               <SoundToggle muted={introMuted} onClick={toggleIntroLb} className="right-2 bottom-2" />
               <VideoScrubber video={introLb} pillClassName="!right-11" />
               <button onClick={() => setIntroOpen(false)} aria-label="Close" className="absolute right-3 top-3 h-9 w-9 rounded-full bg-black/60 text-white text-xl leading-none border border-white/20 hover:bg-black/80">×</button>
