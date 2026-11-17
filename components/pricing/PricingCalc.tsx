@@ -93,7 +93,7 @@ export default function PricingCalc() {
 
   return (
     <main className="art-theme pricing-page min-h-screen">
-      <div className={`mx-auto max-w-[1320px] px-5 sm:px-8 md:px-12 pb-28 md:pb-24 ${locale === "en" ? "pt-12 md:pt-20" : "pt-28 md:pt-24"}`}>
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-8 md:px-12 pt-12 md:pt-20 pb-28 md:pb-24">
         <header className="max-w-3xl">
           <h1 className="font-display font-normal text-[40px] md:text-[56px] leading-[1.05]">{tx("pricing.h1", "Pricing")}</h1>
           <div className="gold-rule mt-5 mb-6" />

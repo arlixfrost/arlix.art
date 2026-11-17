@@ -228,7 +228,7 @@ export default function TechSlides() {
             <div data-snap-inner className={inner}>
               {/* Same layout as Art: heading and points in the left third; in place of a film, four framed texts.
                   Phone: the frames move into Read more. */}
-              <div className={`sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4 md:gap-8 pr-[5.5rem] md:pr-28 pl-4 md:pl-6 pb-6 md:pb-8 ${locale === "en" ? "pt-20" : "pt-32 md:pt-24"}`}>
+              <div className={`sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4 md:gap-8 pr-[5.5rem] md:pr-28 pl-4 md:pl-6 pt-20 pb-6 md:pb-8`}>
                 <div className="sec-text flex flex-col md:justify-center md:order-2 md:col-start-2 md:row-start-1 md:pl-2 min-w-0">
                   <div className="sec-head">
                     <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>

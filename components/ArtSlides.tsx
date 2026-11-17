@@ -748,7 +748,7 @@ export default function ArtSlides() {
             <section key={s.id} data-snap-item data-index={i} id={s.id} className={slide}>
               <div data-snap-inner className={inner}>
                 {/* Computer: heading across the full width on top; under it 1/3 text | 2/3 media. Phone: heading above the media, description under it. */}
-                <div className={`sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pb-6 md:pb-8 ${locale === "en" ? "pt-20" : "pt-32 md:pt-24"}`}>
+                <div className={`sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] [&>*:nth-child(2)]:order-2 md:[&>*:nth-child(2)]:order-none gap-4 md:gap-8 pl-16 sm:pl-[4.5rem] pr-4 md:pr-6 pt-20 pb-6 md:pb-8`}>
                   <div className="sec-text contents md:flex md:flex-col md:justify-center md:pl-8 min-w-0">
                     <div className="sec-head order-1 md:order-none">
                       <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
