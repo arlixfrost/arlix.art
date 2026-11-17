@@ -212,7 +212,7 @@ export default function PricingCalc() {
           <aside id="estimate" className="estimate-card lg:sticky lg:top-[104px] border border-[rgba(201,169,98,0.55)] p-6 md:p-8 min-w-0">
             <div className="print-only font-display text-[22px] mb-4">Arlix · arlix.art</div>
             <div className="label">{tx("pricing.estimatedPrice", "Estimated price")}</div>
-            <div className="font-display text-[36px] md:text-[44px] leading-[1.05] mt-3">{eur(r.min, locale)}<span className="text-[#9B948B]"> {toWord} </span>{eur(r.max, locale)}</div>
+            <div className="font-display text-[36px] md:text-[44px] leading-[1.05] mt-3">{eur(r.min, locale)}<span className="text-[#9B948B]">{locale === "en" ? " to " : ` ${toWord} `}</span>{eur(r.max, locale)}</div>
             <p className="text-[14px] leading-[1.5] text-[#ADA59B] mt-3 mb-0">{notice}</p>
             <div className="gold-rule my-6" />
             <div className="label mb-3">{tx("pricing.yourChoices", "Your choices")}</div>
