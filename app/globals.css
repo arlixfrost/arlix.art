@@ -236,3 +236,18 @@ html.art-doc .layout-footer { display: none; }
   .tech-boxes { display: none !important; }
   .tech-more { display: block; }
 }
+
+
+.print-only{display:none;}
+/* Pricing page: the phone total bar never covers the footer; printing (Download PDF) keeps only the estimate. */
+@media (max-width: 1023px) { body:has(.pricing-page) .layout-footer { padding-bottom: calc(5rem + env(safe-area-inset-bottom)) !important; } }
+@media print {
+  @page { margin: 16mm; }
+  html, body { background: #fff !important; }
+  header, footer, .no-print, .pricing-questions { display: none !important; }
+  .pricing-page, .pricing-page * { color: #111 !important; background: transparent !important; }
+  .pricing-page .estimate-card { position: static !important; border-color: #C9A962 !important; }
+  .pricing-page > div { padding-top: 0 !important; padding-bottom: 0 !important; }
+  .pricing-page .print-only { display: block !important; }
+  .pricing-page .estimate-card .rounded-full { background: #C9A962 !important; }
+}

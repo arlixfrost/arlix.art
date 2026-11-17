@@ -670,6 +670,14 @@ export default function ArtSlides() {
               </li>
             );
           })}
+          {/* Pricing is its own page: the last menu label, shown next to Contact, opens it. */}
+          {active >= slides.length - 2 ? (
+            <li className="flex">
+              <Link href="/pricing" aria-label="Pricing" className="relative font-body uppercase whitespace-nowrap flex flex-row-reverse leading-[1.2] rotate-180 tracking-[0.18em] text-[#8A837A] text-[13px] hover:text-[#C9A962] transition-colors duration-300">
+                <span className="block [writing-mode:vertical-rl]">Pricing</span>
+              </Link>
+            </li>
+          ) : null}
         </ol>
       </nav>
 
@@ -766,7 +774,10 @@ export default function ArtSlides() {
               <div className="label mb-3">Contact</div>
               <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">Start a project</h2>
               <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
-              <Link href="/contact" className="frame-btn">Contact</Link>
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <Link href="/contact" className="frame-btn">Contact</Link>
+                <Link href="/pricing" className="frame-btn">See pricing</Link>
+              </div>
             </div>
             <SiteFooter className="shrink-0 mt-8 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]" />
             </div>
