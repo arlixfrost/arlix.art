@@ -86,7 +86,8 @@ export default function ContactForm() {
       Name: f.get("name"),
       Email: f.get("email"),
       Company: f.get("company") || "",
-      "Website or Instagram": f.get("site") || "",
+      Website: f.get("site") || "",
+      Instagram: f.get("instagram") || "",
       Interested: picked.join(", "),
       Message: f.get("message"),
       "Mutual NDA before the brief": nda ? "Yes" : "No",
@@ -106,7 +107,7 @@ export default function ContactForm() {
     return (
       <div className="border border-[rgba(201,169,98,0.7)] px-6 py-8 max-w-2xl">
         <p className="font-display text-[28px] md:text-[34px] leading-[1.15] m-0">{locale === "en" ? "Thank you." : t("contact.thanks")}</p>
-        <p className="mt-3 mb-0 text-[16px] md:text-[18px] leading-[1.55] text-[#E4DED5]">{locale === "en" ? "Your inquiry is on its way. Replies within 24 hours." : t("contact.sent")}</p>
+        <p className="mt-3 mb-0 text-[16px] md:text-[18px] leading-[1.55] text-[#E4DED5]">{locale === "en" ? "Your inquiry is on its way. Replies usually within 24 hours." : t("contact.sent")}</p>
       </div>
     );
   }
@@ -127,8 +128,12 @@ export default function ContactForm() {
         <input id="cf-company" name="company" autoComplete="organization" className={field} />
       </div>
       <div>
-        <label className={lab} htmlFor="cf-site">{locale === "en" ? "Website or Instagram (optional)" : t("contact.site")}</label>
+        <label className={lab} htmlFor="cf-site">{locale === "en" ? "Website (optional)" : t("contact.site")}</label>
         <input id="cf-site" name="site" className={field} />
+      </div>
+      <div>
+        <label className={lab} htmlFor="cf-ig">{locale === "en" ? "Instagram (optional)" : t("contact.instagram")}</label>
+        <input id="cf-ig" name="instagram" className={field} />
       </div>
 
       <div ref={boxRef} className="relative">
@@ -171,7 +176,7 @@ export default function ContactForm() {
         <button type="submit" disabled={state === "sending"} className="frame-btn disabled:opacity-60">
           {state === "sending" ? (locale === "en" ? "Sending" : t("contact.sending")) : (locale === "en" ? "Send inquiry" : t("contact.send"))}
         </button>
-        <span className="text-[14px] text-[#9B948B]">{locale === "en" ? "Replies within 24 hours." : t("contact.replies")}</span>
+        <span className="text-[14px] text-[#9B948B]">{locale === "en" ? "Replies usually within 24 hours." : t("contact.replies")}</span>
       </div>
       {state === "error" ? (
         <p className="m-0 text-[15px] text-[#E4DED5]">{locale === "en" ? "The message did not go through. Please write to " : t("contact.errorBefore")}<a className="underline decoration-[#C9A962] underline-offset-4" href="mailto:start@arlix.art">start@arlix.art</a>{locale === "en" ? "." : t("contact.errorAfter")}</p>

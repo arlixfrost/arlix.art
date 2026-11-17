@@ -62,7 +62,7 @@
     "name": "Name *",
     "email": "Email *",
     "company": "Company",
-    "site": "Website or Instagram (optional)",
+    "site": "Website (optional)",
     "interest": "What are you interested in? (select multiple)",
     "select": "Select",
     "somethingElse": "Something else",
@@ -71,11 +71,12 @@
     "nda": "I would like to sign a mutual NDA before sharing the brief",
     "send": "Send inquiry",
     "sending": "Sending",
-    "replies": "Replies within 24 hours.",
+    "replies": "Replies usually within 24 hours.",
     "thanks": "Thank you.",
-    "sent": "Your inquiry is on its way. Replies within 24 hours.",
+    "sent": "Your inquiry is on its way. Replies usually within 24 hours.",
     "errorBefore": "The message did not go through. Please write to ",
-    "errorAfter": "."
+    "errorAfter": ".",
+    "instagram": "Instagram (optional)"
   },
   "art": {
     "brandFashionFilms": {

@@ -5,7 +5,6 @@ import type { Locale, TFn } from "@/lib/i18n";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Ph } from "@/components/Ph";
 import { WorkVideo } from "@/components/ArtSlides";
 import { SiteFooter } from "./SiteFooter";
 import { ReadMore, type More } from "@/components/ReadMore";
@@ -178,6 +177,12 @@ export default function TechSlides() {
     return () => ctx.revert();
   }, []);
 
+  // The page under Tech must not scroll: otherwise at the end of Contact a phone hands the swipe to that page and Tech no longer scrolls back up.
+  useEffect(() => {
+    document.documentElement.classList.add("tech-doc");
+    return () => document.documentElement.classList.remove("tech-doc");
+  }, []);
+
   const go = (i: number) => {
     const el = root.current?.querySelector<HTMLElement>(`[data-index="${i}"]`);
     if (el && root.current) root.current.scrollTo({ top: el.offsetTop, behavior: "smooth" });
@@ -218,10 +223,18 @@ export default function TechSlides() {
               </li>
             );
           })}
+          {/* Phones: Rights does not fit the top menu, so it sits at the end of this side menu, next to Contact */}
+          {active >= slides.length - 2 ? (
+            <li className="flex sm:hidden">
+              <Link href={href("/rights")} className="relative font-body uppercase whitespace-nowrap flex flex-row-reverse leading-[1.25] tracking-[0.18em] transition-colors duration-300 text-[#8A837A] text-[13px] hover:text-[#C9A962]">
+                <span className="block [writing-mode:vertical-rl]">{locale === "en" ? "Rights" : t("nav.rights")}</span>
+              </Link>
+            </li>
+          ) : null}
         </ol>
       </nav>
 
-      <div ref={root} className="relative h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar">
+      <div ref={root} className="relative h-full w-full overflow-y-scroll overscroll-y-contain snap-y snap-mandatory no-scrollbar">
 
         {items.map((s, i) => s.boxes ? (
           <section key={s.id} data-snap-item data-index={i} id={s.id} className={slide}>
@@ -272,9 +285,7 @@ export default function TechSlides() {
                 <div className="gold-rule mb-6" />
                 {s.text ? (
                   <p className="text-lg md:text-xl leading-relaxed text-[#CFC8BE] max-w-2xl">{s.text}</p>
-                ) : (
-                  <Ph className="h-24 max-w-xl">[Description]</Ph>
-                )}
+                ) : null}
                 </div>
                 {s.video ? (
                   <div className="min-w-0 flex items-center">
@@ -293,8 +304,7 @@ export default function TechSlides() {
             <div className={`flex-1 flex flex-col items-center justify-center text-center ${pad}`}>
               <div className="label mb-4">{locale === "en" ? "Contact" : t("tech.cta.kicker")}</div>
               <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">{locale === "en" ? "Start a project" : t("tech.cta.title")}</h2>
-              <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
-              <Link href={href("/contact")} className="frame-btn">{locale === "en" ? "Contact" : t("tech.cta.contact")}</Link>
+              <Link href={href("/contact")} className="mt-2 frame-btn">{locale === "en" ? "Contact" : t("tech.cta.contact")}</Link>
             </div>
             <SiteFooter className="shrink-0 mt-8 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]" />
             </div>

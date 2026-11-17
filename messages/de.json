@@ -62,7 +62,7 @@
     "name": "Name *",
     "email": "E-Mail *",
     "company": "Unternehmen",
-    "site": "Website oder Instagram (optional)",
+    "site": "Website (optional)",
     "interest": "Wofür interessieren Sie sich? (Mehrfachauswahl)",
     "select": "Auswählen",
     "somethingElse": "Etwas anderes",
@@ -71,11 +71,12 @@
     "nda": "Ich möchte vor der Übergabe des Briefings ein gegenseitiges NDA unterzeichnen",
     "send": "Anfrage senden",
     "sending": "Wird gesendet",
-    "replies": "Antwort innerhalb von 24 Stunden.",
+    "replies": "Antwort in der Regel innerhalb von 24 Stunden.",
     "thanks": "Vielen Dank.",
-    "sent": "Ihre Anfrage ist unterwegs. Antwort innerhalb von 24 Stunden.",
+    "sent": "Ihre Anfrage ist unterwegs. Antwort in der Regel innerhalb von 24 Stunden.",
     "errorBefore": "Die Nachricht ist nicht durchgegangen. Bitte schreiben Sie an ",
-    "errorAfter": "."
+    "errorAfter": ".",
+    "instagram": "Instagram (optional)"
   },
   "art": {
     "brandFashionFilms": {

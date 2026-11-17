@@ -256,3 +256,7 @@ html.art-doc .layout-footer { display: none; }
   .pricing-page .print-only { display: block !important; }
   .pricing-page .estimate-card .rounded-full { background: #C9A962 !important; }
 }
+
+/* Tech: only the Tech block scrolls; the page underneath never does (phones handed the swipe to it at the end of Contact) */
+html.tech-doc, html.tech-doc body { overflow: hidden; height: 100%; overscroll-behavior: none; }
+html.tech-doc .layout-footer { display: none; }

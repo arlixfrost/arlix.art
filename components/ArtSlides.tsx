@@ -8,7 +8,6 @@ import Link from "next/link";
 import { createPortal, flushSync } from "react-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Ph } from "@/components/Ph";
 import { HybridCarousel } from "@/components/HybridCarousel";
 import { VideoScrubber } from "@/components/VideoScrubber";
 import { SoundToggle, ExpandButton } from "@/components/SoundToggle";
@@ -769,9 +768,7 @@ export default function ArtSlides() {
                       </div>
                     ) : s.text ? (
                       <p className="mt-2 text-[13px] md:text-base leading-relaxed text-[#CFC8BE] max-w-xl">{s.text}</p>
-                    ) : s.id === "artworks" ? null : (
-                      <Ph className="h-16 md:h-28 mt-2">{animation ? "[Description: cartoons and AI pets, why animals are hard to make, 2 to 3 lines]" : "[Description: what this service is, 2 to 3 lines]"}</Ph>
-                    )}
+                    ) : null}
                     {s.note && !s.short ? <p className="label mt-3 opacity-70">{s.note}</p> : null}
                     </div>
                   </div>
@@ -799,13 +796,7 @@ export default function ArtSlides() {
                     <div className="min-h-0 min-w-0 flex items-center justify-center">
                       <WorkVideo v={s.video} aspect={aspect} active={on} near={near} className={aspect === "portrait" ? "h-[var(--ph)] !w-[calc(var(--ph)*9/16)]" : undefined} />
                     </div>
-                  ) : (
-                    <div className="min-h-0 min-w-0 flex items-center justify-center">
-                      <Ph className={aspect === "portrait" ? "aspect-[9/16] h-[var(--ph)] w-auto" : "aspect-video w-full"}>
-                        <span>[{s.work}: final cut ~40s]</span>
-                      </Ph>
-                    </div>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </section>
@@ -819,8 +810,7 @@ export default function ArtSlides() {
             <div className="flex-1 flex flex-col items-center justify-center text-center pl-16 sm:pl-[4.5rem] lg:pl-24 pr-6">
               <div className="label mb-3">{locale === "en" ? "Contact" : t("art.cta.kicker")}</div>
               <h2 className="font-display font-normal text-3xl md:text-5xl mb-6">{locale === "en" ? "Start a project" : t("art.cta.title")}</h2>
-              <Ph className="h-12 mb-8 w-full max-w-xl">[CTA line: invite to start a project]</Ph>
-              <div className="flex flex-wrap items-center justify-center gap-3">
+              <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
                 <Link href={href("/contact")} className="frame-btn">{locale === "en" ? "Contact" : t("art.cta.contact")}</Link>
                 <Link href={href("/pricing")} className="frame-btn">{locale === "en" ? "Get Estimated Prices" : t("art.cta.getPrices")}</Link>
               </div>

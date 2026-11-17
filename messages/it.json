@@ -62,7 +62,7 @@
     "name": "Nome *",
     "email": "Email *",
     "company": "Azienda",
-    "site": "Sito o Instagram (facoltativo)",
+    "site": "Sito web (facoltativo)",
     "interest": "Che cosa vi interessa? (selezione multipla)",
     "select": "Seleziona",
     "somethingElse": "Qualcos'altro",
@@ -71,11 +71,12 @@
     "nda": "Vorrei firmare un NDA reciproco prima di condividere il brief",
     "send": "Invia la richiesta",
     "sending": "Invio in corso",
-    "replies": "Risposta entro 24 ore.",
+    "replies": "Di solito rispondiamo entro 24 ore.",
     "thanks": "Grazie.",
-    "sent": "La richiesta è in arrivo. Risposta entro 24 ore.",
+    "sent": "La richiesta è in arrivo. Di solito rispondiamo entro 24 ore.",
     "errorBefore": "Il messaggio non è andato a buon fine. Scrivete a ",
-    "errorAfter": "."
+    "errorAfter": ".",
+    "instagram": "Instagram (facoltativo)"
   },
   "art": {
     "brandFashionFilms": {
