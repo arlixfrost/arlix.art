@@ -82,7 +82,7 @@ const items: Item[] = [
       { h: "A personal assistant for your email and calendar.", p: "Your personal assistant sorts your [email], keeps your calendar in order and reminds you about every deadline. It takes care of the routine tasks that fill your day, so you can plan your time calmly. It works [24/7] and never misses a thing." },
       { h: "A content machine for your social media and blog.", p: "The content machine keeps your [social media] and blog running. It builds the content plan, prepares posts with both photos and videos, all in one [brand style]. Your posts are ready even in the weeks when you have no time to think about them." },
       { h: "A creative agent for photos, videos and cartoons.", p: "The creative agent works as a scriptwriter and director. It writes the [scripts], then creates photos, videos and even [cartoons] for your brand. Every idea starts from your business, so the result looks like yours, not like stock images. You get material for social media, your website or an advertising campaign." },
-      { h: "A 24/7 team that works for you.", big: true, p: "And any agent your business might need, so routine work no longer eats up your time. You describe the problem, and a ready solution is built for you." },
+      { h: "A 24/7 team that works for you.", p: "And any agent your business might need, so routine work no longer eats up your time. You describe the problem, and a ready solution is built for you." },
     ],
   },
   { id: "royalty-free-music", title: "Royalty Free music", menu: "Royalty Free\nMusic" },
