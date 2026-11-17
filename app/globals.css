@@ -129,6 +129,10 @@ html { scroll-behavior: smooth; }
   /* if the text is still taller than the screen, it never slides up under the header */
   .art-theme .sec-text { justify-content: flex-start !important; }
 }
+/* Computer window 700 to 820 high: a little more air between the points, it still fits */
+@media (min-width: 768px) and (min-height: 700px) and (max-height: 820px) {
+  .art-theme .short-list { gap: 26px !important; }
+}
 
 /* Art on a computer, tablet and phone turned sideways: the top of the section heading lines up with the top of the video.
    Text column starts at the top; the media column starts at the top too (never centred lower). */
