@@ -8,7 +8,7 @@ import { WorkVideo } from "@/components/ArtSlides";
 import { SiteFooter } from "./SiteFooter";
 import { ReadMore, type More } from "@/components/ReadMore";
 
-type Box = { h: string; p: string };
+type Box = { h: string; p: string; big?: boolean };
 type Item = { id: string; title: string; menu?: string; text?: string; price?: string; video?: { src: string; poster: string; title: string }; short?: string[]; boxes?: Box[] };
 
 // [text] = phrase set slightly bolder and lighter, as in Art.
@@ -68,7 +68,23 @@ const items: Item[] = [
       { h: "How is the month planned?", p: "The plan is made at the start of each month, around your calendar and together with your [SMM manager], if you have one. The amount of content is agreed in advance: 30 to 60 items. Publishing, posting and communication with your audience stay on your side or with your SMM manager. What you get is the audience analysis, AI content and the editing of your videos." },
     ],
   },
-  { id: "assistants-agents", title: "Assistants / Agents", menu: "AI Agents" },
+  {
+    id: "assistants-agents",
+    title: "Assistants / Agents",
+    menu: "Assistants /\nAgents",
+    short: [
+      "A personal assistant for your email and calendar.",
+      "A content machine for your social media and blog.",
+      "A creative agent for photos, videos and cartoons.",
+      "A 24/7 team that works for you.",
+    ],
+    boxes: [
+      { h: "A personal assistant for your email and calendar.", p: "Your personal assistant sorts your [email], keeps your calendar in order and reminds you about every deadline. It takes care of the routine tasks that fill your day, so you can plan your time calmly. It works [24/7] and never misses a thing." },
+      { h: "A content machine for your social media and blog.", p: "The content machine keeps your [social media] and blog running. It builds the content plan, prepares posts with both photos and videos, all in one [brand style]. Your posts are ready even in the weeks when you have no time to think about them." },
+      { h: "A creative agent for photos, videos and cartoons.", p: "The creative agent works as a scriptwriter and director. It writes the [scripts], then creates photos, videos and even [cartoons] for your brand. Every idea starts from your business, so the result looks like yours, not like stock images. You get material for social media, your website or an advertising campaign." },
+      { h: "A 24/7 team that works for you.", big: true, p: "And any agent your business might need, so routine work no longer eats up your time. You describe the problem, and a ready solution is built for you." },
+    ],
+  },
   { id: "royalty-free-music", title: "Royalty Free music", menu: "Royalty Free\nMusic" },
 ];
 
@@ -165,8 +181,8 @@ export default function TechSlides() {
             <div data-snap-inner className={inner}>
               {/* Same layout as Art: heading and points in the left third; in place of a film, four framed texts.
                   Phone: the frames move into Read more. */}
-              <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-4 md:gap-8 pr-[5.5rem] md:pr-28 pl-4 md:pl-6 pt-20 pb-6 md:pb-8">
-                <div className="sec-text flex flex-col md:justify-center md:pl-8 min-w-0">
+              <div className="sec-grid art-grid h-full w-full grid grid-rows-[auto_auto_1fr] content-start md:content-stretch md:grid-rows-1 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4 md:gap-8 pr-[5.5rem] md:pr-28 pl-4 md:pl-6 pt-20 pb-6 md:pb-8">
+                <div className="sec-text flex flex-col md:justify-center md:order-2 md:col-start-2 md:row-start-1 md:pl-2 min-w-0">
                   <div className="sec-head">
                     <h2 className="font-display font-normal text-3xl md:text-5xl leading-[1.05] mb-3 md:mb-5">{s.title}</h2>
                     <div className="gold-rule md:mb-3" />
@@ -187,12 +203,12 @@ export default function TechSlides() {
                     </div>
                   </div>
                 </div>
-                <div className="tech-boxes min-w-0 grid grid-cols-2 gap-5 content-center">
+                <div className="tech-boxes min-w-0 grid grid-cols-2 gap-5 content-center md:order-1 md:col-start-1 md:row-start-1">
                   {s.boxes.map((b) => (
                     <div key={b.h} className="border border-[#C9A962]/35 px-7 py-7">
                       <h3 className="font-display font-normal text-[26px] leading-[1.2] text-[#F2EDE6] m-0">{b.h}</h3>
                       <div className="w-12 h-px bg-[#C9A962] mt-4 mb-5" />
-                      <p className="m-0 text-[18px] leading-[1.55] font-normal text-[#E4DED5]">{rich(b.p)}</p>
+                      {b.big ? <p className="box-big m-0 font-display text-[26px] leading-[1.3] font-normal text-[#F2EDE6]">{rich(b.p)}</p> : <p className="m-0 text-[18px] leading-[1.55] font-normal text-[#E4DED5]">{rich(b.p)}</p>}
                     </div>
                   ))}
                 </div>
