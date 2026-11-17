@@ -519,6 +519,13 @@ export default function ArtSlides() {
 
     // The whole page scrolls (not a block inside it), so Safari hides its own bars while scrolling.
     const sc = window;
+    // Safari's bars hiding/showing change the screen height; nothing may rebuild because of that,
+    // otherwise the page jumps, Safari shows its bars again, and it goes round in circles.
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    const probe = document.createElement("div");
+    probe.style.cssText = "position:fixed;top:0;left:0;width:1px;height:100svh;visibility:hidden;pointer-events:none";
+    document.body.appendChild(probe);
+    const stableH = () => probe.offsetHeight || window.innerHeight;
     document.documentElement.classList.add("art-doc");
     const phoneUpright = () => window.matchMedia("(max-width: 767px) and (orientation: portrait)").matches;
     const cleanups: Array<() => void> = [];
@@ -555,18 +562,26 @@ export default function ArtSlides() {
           if (!media) { section.style.scrollMarginTop = ""; return; }
           let top = 0; let el: HTMLElement | null = media;
           while (el && el !== section) { top += el.offsetTop; el = el.offsetParent as HTMLElement | null; }
-          const m = Math.round(window.innerHeight / 2 - (top + media.offsetHeight / 2));
+          const m = Math.round(stableH() / 2 - (top + media.offsetHeight / 2));
           section.style.scrollMarginTop = `${m}px`;
         });
       };
       centreFilms();
-      window.addEventListener("resize", centreFilms);
+      // recompute only when the width changes (phone turned), never when Safari's bars move
+      let lastW = window.innerWidth;
+      const onResize = () => { if (window.innerWidth !== lastW) { lastW = window.innerWidth; centreFilms(); } };
+      window.addEventListener("resize", onResize);
       const t1 = window.setTimeout(centreFilms, 1200);
       // fonts and films settle after the first paint: measure again whenever a section changes size
-      const ro = new ResizeObserver(() => centreFilms());
+      const sizes = new WeakMap<Element, number>();
+      const ro = new ResizeObserver((entries) => {
+        let changed = false;
+        entries.forEach((e) => { const h = Math.round(e.contentRect.height); if (sizes.get(e.target) !== h) { sizes.set(e.target, h); changed = true; } });
+        if (changed) centreFilms();
+      });
       scroller.querySelectorAll<HTMLElement>("[data-snap-item] .sec-grid").forEach((g) => ro.observe(g));
       document.fonts?.ready.then(centreFilms).catch(() => {});
-      cleanups.push(() => { window.removeEventListener("resize", centreFilms); window.clearTimeout(t1); ro.disconnect(); });
+      cleanups.push(() => { window.removeEventListener("resize", onResize); probe.remove(); window.clearTimeout(t1); ro.disconnect(); });
 
       ScrollTrigger.create({
         scroller: sc, start: 0, end: "max",
