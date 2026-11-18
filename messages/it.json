@@ -53,10 +53,10 @@
     "selectedWork": "Lavoro selezionato"
   },
   "home": {
-    "tagline": "Produzione AI e hybrid a ciclo completo",
+    "tagline": "Produzione AI e ibrida a ciclo completo",
     "art": "Art",
     "tech": "Tech",
-    "foodRestaurants": "Cibo e ristoranti",
+    "foodRestaurants": "Food & ristoranti",
     "work03": "[Work 03]",
     "work04": "[Work 04]",
     "work05": "[Work 05]",
@@ -167,10 +167,10 @@
       ]
     },
     "foodRestaurants": {
-      "title": "Cibo e ristoranti",
-      "menu": "Cibo e\nristoranti",
+      "title": "Food & ristoranti",
+      "menu": "Food &\nristoranti",
       "works": {
-        "main": "Film Cibo e ristoranti",
+        "main": "Film Food & ristoranti",
         "reel0": "Arlix Catering",
         "reel1": "Redhead · torta",
         "reel2": "Marquis Homard · astice",
@@ -180,7 +180,7 @@
         "reel6": "Croissants"
       },
       "short": [
-        "Il video di cibo è uno dei set più difficili: va girato molto in fretta, senza una seconda possibilità.",
+        "I food video sono tra i set più difficili: vanno girati molto in fretta, senza una seconda possibilità.",
         "C'è tempo per filmare uno schizzo di salsa e un taglio. Dopo, tutto il piatto va rifatto.",
         "Le luci professionali scaldano la stanza, così il gelato si scioglie e la schiuma si sgonfia.",
         "L'AI tiene ogni piatto nel suo momento più seducente, per tutto il tempo che serve al film."
@@ -294,8 +294,8 @@
       ]
     },
     "artworks": {
-      "title": "Opere d'arte",
-      "menu": "Opere d'arte",
+      "title": "Artworks",
+      "menu": "Artworks",
       "workTitle": "Taormina · Sicilia"
     },
     "cta": {
@@ -342,7 +342,7 @@
       "title": "Consulenza e formazione AI",
       "menu": "Consulenza e\nformazione AI",
       "short": [
-        "In individuale o in un piccolo gruppo, online o di persona.",
+        "Individuale o in piccolo gruppo, online o di persona.",
         "Tutto parte dai problemi reali della vostra attività: si risolve prima ciò che è più urgente.",
         "Conoscenze che potete usare subito.",
         "Adattamento di CV e LinkedIn ai filtri ATS."
@@ -455,7 +455,7 @@
       "short": [
         "Playlist per la vostra attività: ristoranti, hotel, spa.",
         "Sound design professionale e musica per video e annunci.",
-        "Jingle e un sound brand per la vostra attività.",
+        "Jingle e un logo sonoro per la vostra attività.",
         "Pieni diritti commerciali su tutto ciò che ricevete."
       ],
       "boxes": [
@@ -472,8 +472,8 @@
           "p": "Ogni video, playlist o jingle finito è autorizzato all'uso commerciale. La musica scritta con l'AI per la vostra attività arriva con [pieni diritti commerciali]. La musica da una libreria professionale arriva con un [certificato di licenza], così se una piattaforma o una rete di annunci lo chiede, potete mostrare che la musica è autorizzata all'uso."
         },
         {
-          "h": "Jingle e un sound brand per la vostra attività.",
-          "p": "Un jingle è una melodia breve e memorabile per la vostra attività. Un [sound brand] è il vostro suono riconoscibile nei video, negli annunci e nel vostro locale, così le persone sanno che siete voi."
+          "h": "Jingle e un logo sonoro per la vostra attività.",
+          "p": "Un jingle è una melodia breve e memorabile per la vostra attività. Un [logo sonoro] è il vostro suono riconoscibile nei video, negli annunci e nel vostro locale, così le persone sanno che siete voi."
         }
       ]
     },
@@ -498,7 +498,7 @@
     "copied": "Copiato",
     "downloadPdf": "Scarica il PDF",
     "startProject": "Inizia un progetto",
-    "monthlyTitle": "Supporto content mensile",
+    "monthlyTitle": "Contenuti mensili",
     "monthlyBody": "Carousel, reel brevi e UGC per il vostro brand ogni mese, in uno stile coerente.",
     "from": "da",
     "perMonth": "al mese",
@@ -510,7 +510,7 @@
     "copyTitle": "Arlix: stima del progetto",
     "copyPrice": "Prezzo stimato: {range}",
     "copyChoices": "Le vostre scelte:",
-    "term0": "Sono inclusi due giri di revisioni.",
+    "term0": "Sono inclusi due round di revisione.",
     "term1": "50% di acconto, il saldo alla consegna.",
     "preset": {
       "reel": {
@@ -554,7 +554,7 @@
       "brand": "Linee guida del brand",
       "sources": "File sorgente",
       "timing": "Tempi",
-      "revisions": "Giri di revisioni extra"
+      "revisions": "Round di revisione extra"
     },
     "hint": {
       "duration": "Basta un numero. Le story durano circa 15 secondi, i reel circa 30, un film di brand da 90 a 120.",
@@ -571,7 +571,7 @@
       "sfx": "Passi, click, il suono della strada: i dettagli che fanno sentire vivo un film.",
       "brand": "I colori, i font e lo stile devono seguire un brand book alla lettera?",
       "sources": "File a livelli che il vostro designer può modificare in seguito. Non servono se usate solo i file finiti.",
-      "revisions": "Due giri sono inclusi. Ogni giro extra si aggiunge qui."
+      "revisions": "Due round sono inclusi. Ogni round extra si aggiunge qui."
     },
     "opt": {
       "video": "Video",
@@ -650,8 +650,8 @@
       "timingNormal": "Tempi standard",
       "timing48": "Entro 48 ore",
       "timing24": "Entro 24 ore",
-      "revOne": "{n} giro di revisioni extra",
-      "revMany": "{n} giri di revisioni extra"
+      "revOne": "{n} round di revisione extra",
+      "revMany": "{n} round di revisione extra"
     }
   },
   "privacy": {

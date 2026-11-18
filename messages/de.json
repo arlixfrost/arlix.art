@@ -180,7 +180,7 @@
         "reel6": "Croissants"
       },
       "short": [
-        "Food-Video gehört zu den schwierigsten Drehs: es muss sehr schnell gefilmt werden, ohne zweite Chance.",
+        "Food-Videos gehören zu den schwierigsten Drehs: Sie müssen sehr schnell gefilmt werden, ohne zweite Chance.",
         "Zeit bleibt für einen Spritzer Sauce und einen Schnitt. Danach muss das ganze Gericht neu angerichtet werden.",
         "Professionelles Licht heizt den Raum, Eis schmilzt und Schaum fällt zusammen.",
         "KI hält jedes Gericht in seinem verführerischsten Moment, so lange der Film es braucht."
@@ -294,8 +294,8 @@
       ]
     },
     "artworks": {
-      "title": "Kunstwerke",
-      "menu": "Kunstwerke",
+      "title": "Artworks",
+      "menu": "Artworks",
       "workTitle": "Taormina · Sizilien"
     },
     "cta": {
@@ -342,7 +342,7 @@
       "title": "KI-Beratung & Training",
       "menu": "KI-Beratung\n& Training",
       "short": [
-        "Einzelgespräch oder in einer kleinen Gruppe, online oder vor Ort.",
+        "Einzeln oder in einer kleinen Gruppe, online oder vor Ort.",
         "Alles beginnt bei Ihren echten Geschäftsproblemen: das Dringendste wird zuerst gelöst.",
         "Wissen, das Sie sofort anwenden können.",
         "Anpassung von CV und LinkedIn an ATS-Filter."
@@ -453,14 +453,14 @@
       "title": "Lizenzfreie Musik",
       "menu": "Lizenzfreie\nMusik",
       "short": [
-        "Playlists für Ihr Geschäft: Restaurants, Hotels, Spas.",
+        "Playlists für Ihr Unternehmen: Restaurants, Hotels, Spas.",
         "Professionelles Sounddesign und Musik für Videos und Werbung.",
-        "Jingles und ein Sound-Brand für Ihr Geschäft.",
+        "Jingles und ein Audio-Logo für Ihr Unternehmen.",
         "Volle kommerzielle Rechte an allem, was Sie erhalten."
       ],
       "boxes": [
         {
-          "h": "Playlists für Ihr Geschäft: Restaurants, Hotels, Spas.",
+          "h": "Playlists für Ihr Unternehmen: Restaurants, Hotels, Spas.",
           "p": "Vielleicht ist Ihnen aufgefallen, dass in manchen Restaurants Musik läuft, die bekannt klingt, und Shazam sie trotzdem nicht findet. Höchstwahrscheinlich ist sie mit KI entstanden, und so sparen Unternehmen [Musiklizenzen]. Die Musik wird in Ihrem Stil geschrieben, vielleicht sogar mit [Ihrem eigenen Text]. Solche Magie ist heute einfach."
         },
         {
@@ -469,11 +469,11 @@
         },
         {
           "h": "Volle kommerzielle Rechte an allem, was Sie erhalten.",
-          "p": "Jedes fertige Video, jede Playlist und jeder Jingle ist für die kommerzielle Nutzung freigegeben. Musik, die mit KI für Ihr Geschäft geschrieben wird, kommt mit [vollen kommerziellen Rechten]. Musik aus einer professionellen Bibliothek kommt mit einem [Lizenzzertifikat], sodass Sie, falls eine Plattform oder ein Anzeigennetz je nachfragt, zeigen können, dass die Musik zur Nutzung freigegeben ist."
+          "p": "Jedes fertige Video, jede Playlist und jeder Jingle ist für die kommerzielle Nutzung freigegeben. Musik, die mit KI für Ihr Unternehmen geschrieben wird, kommt mit [vollen kommerziellen Rechten]. Musik aus einer professionellen Bibliothek kommt mit einem [Lizenzzertifikat], sodass Sie, falls eine Plattform oder ein Anzeigennetz je nachfragt, zeigen können, dass die Musik zur Nutzung freigegeben ist."
         },
         {
-          "h": "Jingles und ein Sound-Brand für Ihr Geschäft.",
-          "p": "Ein Jingle ist eine kurze, einprägsame Melodie für Ihr Geschäft. Ein [Sound-Brand] ist Ihr wiedererkennbarer Klang in Videos, in der Werbung und an Ihrem Ort, damit die Menschen merken: das sind Sie."
+          "h": "Jingles und ein Audio-Logo für Ihr Unternehmen.",
+          "p": "Ein Jingle ist eine kurze, einprägsame Melodie für Ihr Unternehmen. Ein [Audio-Logo] ist Ihr wiedererkennbarer Klang in Videos, in der Werbung und an Ihrem Ort, damit die Menschen merken: das sind Sie."
         }
       ]
     },
@@ -498,7 +498,7 @@
     "copied": "Kopiert",
     "downloadPdf": "PDF herunterladen",
     "startProject": "Projekt starten",
-    "monthlyTitle": "Monatlicher Content-Support",
+    "monthlyTitle": "Content im Abo",
     "monthlyBody": "Karussells, kurze Reels und UGC für Ihre Marke jeden Monat, in einem einheitlichen Stil.",
     "from": "ab",
     "perMonth": "pro Monat",
@@ -542,7 +542,7 @@
       "formats": "Extraformate",
       "refs": "Haben Sie Referenzen?",
       "moodboard": "Konzept und Moodboard",
-      "characters": "Charaktere",
+      "characters": "Figuren",
       "scene": "Komplexität der Szene",
       "creative": "Kreativer Anteil",
       "music": "Musik",
@@ -560,11 +560,11 @@
       "duration": "Eine Zahl reicht. Stories dauern etwa 15 Sekunden, Reels etwa 30, ein Markenfilm 90 bis 120.",
       "scenes": "Eine Szene ist ein eigener Moment: ein anderer Ort, eine andere Einstellung, eine andere Handlung. Bis 10 Sekunden sind etwa 3 bis 5 Szenen, 30 Sekunden etwa 10 bis 15.",
       "hasScript": "Ein Drehbuch sagt, was in jeder Szene geschieht, in welcher Reihenfolge und mit welchem Text. Eine allgemeine Idee oder eine Stimmung ist noch kein Drehbuch.",
-      "imgCount": "Je mehr Bilder in einem Stil, desto weniger kostet das nächste. Ein neuer Stil oder ein neuer Charakter beginnt eine neue Serie.",
+      "imgCount": "Je mehr Bilder in einem Stil, desto weniger kostet das nächste. Ein neuer Stil oder eine neue Figur beginnt eine neue Serie.",
       "formats": "Jedes Bild, das an ein anderes Format angepasst wird (Story, Banner, Print), zählt als eine Datei.",
       "refs": "Beispiele dafür, was Ihnen gefällt: Links, Bilder, ein Film in der richtigen Stimmung. Wörter wie „modern“ oder „hell“ ohne Beispiele sind keine Referenzen.",
       "moodboard": "Die Idee, die visuelle Richtung und die Logik der Serie, zusammengestellt vor Produktionsbeginn.",
-      "characters": "Menschen, Tiere oder Maskottchen im Bild. Ein Charakter in verschiedenen Posen bleibt ein Charakter. Keine lebenden Figuren: auf 0 setzen.",
+      "characters": "Menschen, Tiere oder Maskottchen im Bild. Eine Figur in verschiedenen Posen bleibt eine Figur. Keine lebenden Figuren: auf 0 setzen.",
       "scene": "Einfach: eine Person oder ein Produkt, der Hintergrund spielt keine Rolle. Mittel: eine Person an einem Ort. Detailliert: Straßen, Menschenmengen, reiche Innenräume, Bewegung.",
       "creative": "Wie viel für Sie entwickelt wird. Nur Ihre Referenzen, Ihre Referenzen ausgearbeitet, ein vollständiges kreatives Konzept oder zwei bis drei Richtungen zur Auswahl.",
       "lipsync": "Die Lippen der Figur bewegen sich mit der Stimme. Nötig, wenn jemand im Bild spricht.",
@@ -612,16 +612,16 @@
       "film": "KI-Film, {n} Sekunden",
       "sceneOne": "{n} Szene",
       "sceneMany": "{n} Szenen",
-      "scriptWritten": "Drehbuch von uns geschrieben",
+      "scriptWritten": "Drehbuch für Sie geschrieben",
       "imageOne": "{n} realistisches KI-Bild",
       "imageMany": "{n} realistische KI-Bilder",
       "formatOne": "{n} Extraformat",
       "formatMany": "{n} Extraformate",
-      "refsFound": "Referenzen von uns recherchiert",
+      "refsFound": "Referenzen für Sie recherchiert",
       "yourRefs": "Ihre Referenzen",
       "moodboard": "Konzept und Moodboard",
-      "charOne": "{n} Charakter",
-      "charMany": "{n} Charaktere",
+      "charOne": "{n} Figur",
+      "charMany": "{n} Figuren",
       "scene": {
         "simple": "Einfache Szenen",
         "medium": "Szenen mit Umgebung",
@@ -647,7 +647,7 @@
       "brandFlexible": "Brand Book lose befolgt",
       "brandExact": "Brand Book genau befolgt",
       "sources": "Quelldateien",
-      "timingNormal": "Standardzeit",
+      "timingNormal": "Standard-Lieferzeit",
       "timing48": "Innerhalb von 48 Stunden",
       "timing24": "Innerhalb von 24 Stunden",
       "revOne": "{n} extra Korrekturrunde",
