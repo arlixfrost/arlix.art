@@ -29,7 +29,7 @@ export default function RightsPage() {
   const { locale, t } = useI18n();
   const title = locale === "en" ? "Rights & Compliance" : t("rights.h1");
   const note = locale === "en"
-    ? "A production studio, not a law firm: legal advice comes from your own counsel."
+    ? "For legal advice, please consult your own lawyer."
     : t("rights.note");
   return (
     <main className="art-theme min-h-screen">

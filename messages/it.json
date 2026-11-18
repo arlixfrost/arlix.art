@@ -16,7 +16,7 @@
     "privacyDescription": "Come vengono usati i dati del modulo di contatto su arlix.art."
   },
   "banner": {
-    "notice": "Questa pagina è stata tradotta automaticamente. Tutta la comunicazione avviene in inglese."
+    "notice": "Questo sito è tradotto per vostra comodità.\nTutta la comunicazione avviene in inglese.\nTutti i film su questo sito sono creati con l'AI."
   },
   "nav": {
     "art": "Art",
@@ -77,9 +77,9 @@
     "nda": "Vorrei firmare un NDA reciproco prima di condividere il brief",
     "send": "Invia la richiesta",
     "sending": "Invio in corso",
-    "replies": "Di solito rispondiamo entro 24 ore.",
+    "replies": "Risposta di solito entro 24 ore.",
     "thanks": "Grazie.",
-    "sent": "La richiesta è in arrivo. Di solito rispondiamo entro 24 ore.",
+    "sent": "La vostra richiesta è stata inviata. Risposta di solito entro 24 ore.",
     "errorBefore": "Il messaggio non è andato a buon fine. Scrivete a ",
     "errorAfter": ".",
     "instagram": "Instagram (facoltativo)"
@@ -99,7 +99,7 @@
         {
           "h": "Di che cosa può parlare un brand film?",
           "ps": [
-            "Un brand film può raccontare [come è nato il brand], o presentare [il fondatore], la persona dietro al nome e il percorso che ci è arrivato. Può cogliere [il punto di svolta], il momento in cui l'attività ha preso il volo, o mostrare [i valori] in cui il brand si riconosce.",
+            "Un brand film può raccontare [come è nato il brand], o presentare [il fondatore], la persona dietro al nome e il percorso che l'ha portato fin qui. Può cogliere [il punto di svolta], il momento in cui l'attività ha preso il volo, o mostrare [i valori] in cui il brand si riconosce.",
             "[Il mestiere] è un altro tema forte: come nasce il prodotto, le mani, i dettagli. Funzionano bene anche i grandi momenti, come [una nuova direzione, un rilancio, un anniversario o la storia della maison]."
           ]
         },
@@ -107,7 +107,7 @@
           "h": "Perché un brand ha bisogno di un film?",
           "ps": [
             "Un brand con un film tutto suo si legge come un'azienda con una storia alle spalle, e questo gli dà [peso]. L'immagine cinematografica [alza lo status del brand] prima ancora che sia detta una parola.",
-            "Il film fa entrare lo sguardo in azienda e far conoscere la squadra, e così costruisce [fiducia e lealtà]. Le persone [lo guardano con interesse], come una buona serie, e lo vedono fino alla fine più spesso di uno spot di vendita.",
+            "Il film fa entrare lo sguardo in azienda e conoscere la squadra, e così costruisce [fiducia e fedeltà]. Le persone [lo guardano con interesse], come una buona serie, e lo vedono fino alla fine più spesso di uno spot di vendita.",
             "Una campagna finisce con la stagione, mentre un brand film [può essere usato per anni]. Il pubblico [ricorda la storia] e non la prende come un discorso commerciale.",
             "[Un film funziona in molti posti]: sui social, sugli schermi del vostro ristorante, negozio o ufficio, all'inizio di una presentazione o in un evento."
           ]
@@ -117,7 +117,7 @@
           "ps": [
             "Tutto parte da [una vera sceneggiatura scritta da uno sceneggiatore professionista], con una trama pensata per tenere l'attenzione e accompagnare lo spettatore fino alla fine.",
             "I personaggi possono essere [ricreati da vecchie fotografie, anche in bianco e nero], e [lo stesso volto resta coerente] dal primo all'ultimo fotogramma.",
-            "La musica è [una colonna originale scritta per il film] oppure [musica in licenza, autorizzata all'uso commerciale], pubblicità compresa. Anche [il sound design è originale], ogni suono è fatto per questo film."
+            "La musica è [una colonna sonora originale scritta per il film] oppure [musica in licenza, autorizzata all'uso commerciale], pubblicità compresa. Anche [il sound design è originale], ogni suono è fatto per questo film."
           ]
         }
       ]
@@ -138,7 +138,7 @@
           "ps": [
             "In un film hybrid una parte arriva dalla [vita] e l'altra dall'[immaginazione]. Il luogo resta reale mentre i personaggi cambiano, oppure persone reali entrano in un mondo da sogno.",
             "Le riprese vere rendono il film [credibile], e l'AI aggiunge scala e atmosfera che la macchina da presa da sola non può dare.",
-            "Il film su {Le Plongeoir|https://www.instagram.com/leplongeoir/}, il ristorante conosciuto di Nizza, è nato da foto scattate con un [iPhone] durante una visita. Una signora e un cane sono stati creati interamente con l'AI, e il risultato è un film che si ricorda."
+            "Il film su {Le Plongeoir|https://www.instagram.com/leplongeoir/}, il noto ristorante di Nizza, è nato da foto scattate con un [iPhone] durante una visita. Una signora e un cane sono stati creati interamente con l'AI, e il risultato è un film che si ricorda."
           ]
         },
         {
@@ -196,13 +196,13 @@
         {
           "h": "Che cosa deve fare un film di cibo?",
           "ps": [
-            "Un buon film di cibo fa [venire voglia] del piatto e porta il cliente a prenotare un tavolo subito. Oppure fa sentire l'atmosfera del luogo e [immaginare di essere già lì], tra persone belle."
+            "Un buon food film fa [venire voglia] del piatto e porta il cliente a prenotare un tavolo subito. Oppure fa sentire l'atmosfera del luogo e [immaginare di essere già lì], tra belle persone."
           ]
         },
         {
           "h": "Perché contano le persone inquadro?",
           "ps": [
-            "Molti ristoranti mostrano solo il cibo, o risparmiano sulle modelle e filmano amici o ospiti occasionali. Chi non è a proprio agio in camera, però, dà a un locale premium un [aspetto provinciale], va guidato con cura sul set e deve firmare una [liberatoria]. Le modelle professioniste, d'altra parte, [gonfiano il budget], perché arriva tutta la squadra: stylist, make-up e noleggio degli abiti."
+            "Molti ristoranti mostrano solo il cibo, o risparmiano sulle modelle e filmano amici o ospiti occasionali. Chi non è a proprio agio davanti alla telecamera, però, dà a un locale premium un [aspetto provinciale], va guidato con cura sul set e deve firmare una [liberatoria]. Le modelle professioniste, d'altra parte, [gonfiano il budget], perché arriva tutta la squadra: stylist, make-up e noleggio degli abiti."
           ]
         },
         {
@@ -231,7 +231,7 @@
         {
           "h": "Perché dare a un brand un viso AI tutto suo?",
           "ps": [
-            "Una modella vera lavora spesso con più brand nello stesso periodo. Oggi indossa i vostri gioielli esclusivi, domani lo stesso viso è su un manifesto per un supermercato economico. La gente se ne accorge, e il [valore premium] del vostro prodotto scende. Una modella AI appartiene [solo a voi]: non lascia, non lavora per nessun altro e tiene lo stesso viso in ogni campagna, senza casting, calendari di prenotazione o diritti d'uso da rinnovare."
+            "Una modella vera lavora spesso con più brand nello stesso periodo. Oggi indossa i vostri gioielli esclusivi, domani lo stesso viso è su un manifesto di un discount. La gente se ne accorge, e il [valore premium] del vostro prodotto scende. Una modella AI appartiene [solo a voi]: non se ne va, non lavora per nessun altro e tiene lo stesso viso in ogni campagna, senza casting, calendari di prenotazione o diritti d'uso da rinnovare."
           ]
         },
         {
@@ -249,7 +249,7 @@
         {
           "h": "Perché è più rapido e il risultato resta sotto controllo?",
           "ps": [
-            "Come una collezione campione mostrata agli acquirenti, i pezzi si possono mostrare sulle modelle [prima della produzione], così entra in produzione solo ciò che è richiesto. Gli errori si correggono e si aggiungono pezzi nuovi senza un nuovo set. Una tendenza o una notizia si può cogliere [mentre è ancora fresca]. [Approvate ogni fase], con modifiche ragionevoli lungo il percorso. Il risultato resta sotto controllo e arriva molto prima che da un videomaker."
+            "Come una collezione campione mostrata agli acquirenti, i pezzi si possono mostrare sulle modelle [prima della produzione], così entra in produzione solo ciò che è richiesto. Gli errori si correggono e si aggiungono pezzi nuovi senza un nuovo set. Una tendenza o una notizia si può cogliere [mentre è ancora fresca]. [Approvate ogni fase], con modifiche ragionevoli lungo il percorso. Il risultato resta sotto controllo e arriva molto prima che con un videomaker."
           ]
         }
       ]
@@ -270,7 +270,7 @@
         {
           "h": "Perché un brand ha bisogno di un personaggio tutto suo?",
           "ps": [
-            "I cartoon AI sono più delle banane e delle fragole di cui tutti sono stufi. Un personaggio creato per un brand è uno dei suoi [asset più forti]. Uno {studio di Ipsos|https://www.ipsos.com/en-ph/power-you-why-distinctive-brand-assets-are-driving-force-creative-effectiveness}, una delle più grandi società di ricerche al mondo, ha esaminato più di 2.000 video pubblicitari e ha scoperto che i personaggi compaiono [sei volte più spesso] negli spot di maggior successo. Una {ricerca di System1|https://www.smartbrief.com/original/report-brand-characters-beat-celebrities-in-super-bowl-ads}, che misura come il pubblico reagisce alla pubblicità, ha analizzato gli spot del Super Bowl e ha visto che i personaggi di brand [superano i VIP] per appeal, riconoscimento del brand e impatto sulle vendite."
+            "I cartoon AI sono più delle banane e delle fragole di cui tutti sono stufi. Un personaggio creato per un brand è uno dei suoi [asset più forti]. Uno {studio di Ipsos|https://www.ipsos.com/en-ph/power-you-why-distinctive-brand-assets-are-driving-force-creative-effectiveness}, una delle più grandi società di ricerche al mondo, ha esaminato più di 2.000 video pubblicitari e ha scoperto che i personaggi compaiono [sei volte più spesso] negli spot di maggior successo. Una {ricerca di System1|https://www.smartbrief.com/original/report-brand-characters-beat-celebrities-in-super-bowl-ads}, che misura come il pubblico reagisce alla pubblicità, ha analizzato gli spot del Super Bowl e ha visto che i personaggi di brand [superano le celebrità] per appeal, riconoscimento del brand e impatto sulle vendite."
           ]
         },
         {
@@ -312,7 +312,7 @@
   },
   "rights": {
     "h1": "Diritti e compliance",
-    "note": "Uno studio di produzione, non uno studio legale: il parere legale arriva dal vostro consulente.",
+    "note": "Per la consulenza legale, rivolgetevi al vostro avvocato.",
     "nda": {
       "title": "NDA",
       "l0": "Si può firmare un NDA reciproco prima di discutere il brief."
@@ -334,7 +334,7 @@
     },
     "labelling": {
       "title": "Etichettatura AI",
-      "l0": "I contenuti AI sono etichettati in linea con l'AI Act dell'UE, concordato per ogni progetto."
+      "l0": "I contenuti AI sono etichettati in linea con l'AI Act dell'UE, secondo quanto concordato per ogni progetto."
     }
   },
   "tech": {
@@ -350,7 +350,7 @@
       "boxes": [
         {
           "h": "Da dove si comincia con l'AI?",
-          "p": "Il punto di partenza sono i bisogni urgenti della vostra attività, non la teoria. Avete [anni di esperienza] nel vostro campo, e l'AI è semplicemente lo [strumento successivo] per rendervi i giorni più semplici. Le cose migliori da affidarle sono quelle che non vi sono mai piaciute: routine, ripetizione e caos organizzativo."
+          "p": "Il punto di partenza sono i bisogni urgenti della vostra attività, non la teoria. Avete [anni di esperienza] nel vostro campo, e l'AI è semplicemente lo [strumento successivo] per semplificarvi la giornata. Le cose migliori da affidarle sono quelle che non vi sono mai piaciute: routine, ripetizione e caos organizzativo."
         },
         {
           "h": "Che cosa succede nella prima chiamata?",
@@ -417,7 +417,7 @@
         },
         {
           "h": "Come si pianifica il mese?",
-          "p": "Il piano si fa all'inizio di ogni mese, intorno al vostro calendario e insieme al vostro [SMM manager], se ne avete uno. La quantità di contenuti si accorda in anticipo: da 30 a 60 pezzi. Pubblicazione, posting e il rapporto con il pubblico restano da voi o dal vostro SMM manager. Voi ricevete l'analisi del pubblico, i contenuti AI e il montaggio dei vostri video."
+          "p": "Il piano si fa all'inizio di ogni mese, intorno al vostro calendario e insieme al vostro [social media manager], se ne avete uno. La quantità di contenuti si accorda in anticipo: da 30 a 60 pezzi. Pubblicazione, posting e il rapporto con il pubblico restano da voi o dal vostro social media manager. Voi ricevete l'analisi del pubblico, i contenuti AI e il montaggio dei vostri video."
         }
       ]
     },
@@ -441,7 +441,7 @@
         },
         {
           "h": "Un agente creativo per foto, video e cartoon.",
-          "p": "L'agente creativo lavora come sceneggiatore e regista. Scrive le [sceneggiature], poi crea foto, video e anche [cartoon] per il vostro brand. Ogni idea parte dalla vostra attività, così il risultato vi assomiglia, non assomiglia a uno stock. Ottenete materiale per i social, il sito o una campagna pubblicitaria."
+          "p": "L'agente creativo lavora come sceneggiatore e regista. Scrive le [sceneggiature], poi crea foto, video e anche [cartoon] per il vostro brand. Ogni idea parte dalla vostra attività, così il risultato vi assomiglia, non a immagini di repertorio. Ottenete materiale per i social, il sito o una campagna pubblicitaria."
         },
         {
           "h": "Un team che lavora per voi 24 ore su 24.",
@@ -465,7 +465,7 @@
         },
         {
           "h": "Sound design professionale e musica per video e annunci.",
-          "p": "I brani senza licenza, o quelli della libreria di Instagram, sono un rischio per gli annunci: Instagram molto probabilmente bloccherà l'annuncio o lo pubblicherà senza audio. Un [sound design] di qualità e un montaggio a tempo col ritmo fanno la parte del leone nel successo di un video. La musica è scritta per il vostro video o scelta da librerie professionali, sempre [con licenza per l'uso commerciale]."
+          "p": "I brani senza licenza, o quelli della libreria di Instagram, sono un rischio per gli annunci: Instagram molto probabilmente bloccherà l'annuncio o lo pubblicherà senza audio. Un [sound design] di qualità e un montaggio a tempo di musica fanno la parte del leone nel successo di un video. La musica è scritta per il vostro video o scelta da librerie professionali, sempre [con licenza per l'uso commerciale]."
         },
         {
           "h": "Pieni diritti commerciali su tutto ciò che ricevete.",

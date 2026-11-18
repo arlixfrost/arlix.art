@@ -16,7 +16,7 @@
     "privacyDescription": "Wie die Angaben aus dem Kontaktformular auf arlix.art verwendet werden."
   },
   "banner": {
-    "notice": "Diese Seite wurde automatisch übersetzt. Die gesamte Kommunikation erfolgt auf Englisch."
+    "notice": "Diese Website wurde für Sie übersetzt.\nDie gesamte Kommunikation erfolgt auf Englisch.\nAlle Filme auf dieser Seite sind mit KI entstanden."
   },
   "nav": {
     "art": "Art",
@@ -312,7 +312,7 @@
   },
   "rights": {
     "h1": "Rechte und Compliance",
-    "note": "Ein Produktionsstudio, keine Anwaltskanzlei: rechtliche Beratung kommt von Ihrer eigenen Beratung.",
+    "note": "Für rechtliche Fragen wenden Sie sich bitte an Ihren eigenen Anwalt.",
     "nda": {
       "title": "NDA",
       "l0": "Ein gegenseitiges NDA kann unterzeichnet werden, bevor das Briefing besprochen wird."
@@ -362,7 +362,7 @@
         },
         {
           "h": "Sie suchen einen neuen Job, aber es kommt keine Antwort?",
-          "p": "Vielleicht ist Ihr CV einfach unsichtbar. Recruiter nutzen [ATS-Filter] – Programme, die CVs nach Stichworten durchsuchen. Ist Ihr CV nicht angepasst, kommt er nicht durch, und ein Mensch in der Personalabteilung sieht ihn nie. Ohne Anpassung an [heutige Standards] hat er keine Chance, bei einem Menschen anzukommen."
+          "p": "Vielleicht ist Ihr CV einfach unsichtbar. Recruiter nutzen [ATS-Filter]: Programme, die CVs nach Stichworten durchsuchen. Ist Ihr CV nicht angepasst, kommt er nicht durch, und ein Mensch in der Personalabteilung sieht ihn nie. Ohne Anpassung an [heutige Standards] hat er keine Chance, bei einem Menschen anzukommen."
         }
       ]
     },
@@ -417,7 +417,7 @@
         },
         {
           "h": "Wie wird der Monat geplant?",
-          "p": "Der Plan entsteht zu Beginn jedes Monats, um Ihren Kalender herum und gemeinsam mit Ihrem [SMM-Manager], falls Sie einen haben. Die Menge an Content wird im Voraus vereinbart: 30 bis 60 Beiträge. Veröffentlichung, Posting und der Austausch mit Ihrem Publikum bleiben bei Ihnen oder Ihrem SMM-Manager. Sie erhalten die Zielgruppenanalyse, den KI-Content und den Schnitt Ihrer Videos."
+          "p": "Der Plan entsteht zu Beginn jedes Monats, um Ihren Kalender herum und gemeinsam mit Ihrem [Social-Media-Manager], falls Sie einen haben. Die Menge an Content wird im Voraus vereinbart: 30 bis 60 Beiträge. Veröffentlichung, Posting und der Austausch mit Ihrem Publikum bleiben bei Ihnen oder Ihrem Social-Media-Manager. Sie erhalten die Zielgruppenanalyse, den KI-Content und den Schnitt Ihrer Videos."
         }
       ]
     },

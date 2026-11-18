@@ -51,7 +51,7 @@ export function LangBanner() {
       className="fixed inset-0 z-[60] flex items-center justify-center p-6"
     >
       <div className="flex aspect-square w-[min(88vw,26rem)] flex-col items-center justify-center gap-8 px-8 py-8 bg-black/55 border border-white/20 backdrop-blur-sm font-body text-[#C9C3BA]">
-        <p id="lang-notice-text" className="m-0 text-center text-[16px] sm:text-[17px] leading-[1.55]">
+        <p id="lang-notice-text" className="m-0 whitespace-pre-line text-center text-[16px] sm:text-[17px] leading-[1.55]">
           {t("banner.notice")}
         </p>
         <button
