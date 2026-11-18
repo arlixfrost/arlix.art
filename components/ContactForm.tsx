@@ -19,7 +19,7 @@ function Check({ on }: { on: boolean }) {
 }
 
 export default function ContactForm() {
-  const { locale, t } = useI18n();
+  const { locale, t, href } = useI18n();
   const groups: { title: string; items: { id: string; label: string }[] }[] =
     locale === "en"
       ? [
@@ -59,6 +59,8 @@ export default function ContactForm() {
   const [picked, setPicked] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const [nda, setNda] = useState(false);
+  const [agree, setAgree] = useState(false);
+  const [agreeMiss, setAgreeMiss] = useState(false);
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -81,6 +83,7 @@ export default function ContactForm() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     if (f.get("_honey")) return;
+    if (!agree) { setAgreeMiss(true); return; }
     setState("sending");
     const body = {
       Name: f.get("name"),
@@ -172,6 +175,19 @@ export default function ContactForm() {
         <Check on={nda} />
         {locale === "en" ? "I would like to sign a mutual NDA before sharing the brief" : t("contact.nda")}
       </button>
+
+      {/* Required consent to the Privacy Policy, right above the button. */}
+      <div className="flex items-center gap-3 text-left text-[15px] md:text-[16px] text-[#E4DED5]">
+        <button type="button" role="checkbox" aria-checked={agree} aria-required="true" aria-label={t("privacy.agreeLink")}
+          onClick={() => { setAgree((v) => !v); setAgreeMiss(false); }} className={agreeMiss ? "outline outline-1 outline-[#C9A962] outline-offset-2" : ""}>
+          <Check on={agree} />
+        </button>
+        <span>
+          <span className="cursor-pointer" onClick={() => { setAgree((v) => !v); setAgreeMiss(false); }}>{t("privacy.agreeBefore")}</span>
+          <a href={href("/privacy/")} target="_blank" rel="noopener" className="underline decoration-[#C9A962] underline-offset-4">{t("privacy.agreeLink")}</a>
+          {t("privacy.agreeAfter")}
+        </span>
+      </div>
 
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-2">
         <button type="submit" disabled={state === "sending"} className="frame-btn disabled:opacity-60">

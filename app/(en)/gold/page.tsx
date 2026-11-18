@@ -1,7 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Showreel from "@/components/Showreel";
 import SnakeCarousel from "@/components/SnakeCarousel";
 import FoxLogo from "@/components/FoxLogo";
+
+// Hidden from search engines: a saved copy of the home page.
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 // Saved gold-logo variant of the home page (kept in case we go back to it).
 export default function HomeGold() {

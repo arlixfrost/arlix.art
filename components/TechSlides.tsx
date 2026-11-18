@@ -71,8 +71,8 @@ const EN_ITEMS: Item[] = [
   },
   {
     id: "assistants-agents",
-    title: "Assistants / Agents",
-    menu: "Assistants /\nAgents",
+    title: "AI Agents",
+    menu: "AI Agents",
     short: [
       "A personal assistant for your email and calendar.",
       "A content machine for your social media and blog.",

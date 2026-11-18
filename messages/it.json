@@ -1,13 +1,19 @@
 {
   "meta": {
-    "title": "Arlix",
-    "description": "Produzione AI e hybrid a ciclo completo",
+    "title": "Arlix | Film AI e produzione ibrida",
+    "description": "Brand film e fashion film AI, video per ristoranti, modelle AI e cartoni animati, oltre a consulenza AI, siti web e agenti AI.",
     "pricingTitle": "Prezzi | Arlix",
     "pricingDescription": "Prezzi indicativi per film e immagini AI di Arlix.",
     "contactTitle": "Contatti | Arlix",
     "contactDescription": "Inizia un progetto con Arlix.",
     "rightsTitle": "Diritti e compliance | Arlix",
-    "rightsDescription": "NDA, diritti sull'opera finita, strumenti AI con licenza, musica e etichettatura AI."
+    "rightsDescription": "NDA, diritti sull'opera finita, strumenti AI con licenza, musica e etichettatura AI.",
+    "artTitle": "Art | Brand film AI, video food e moda | Arlix",
+    "artDescription": "Brand film e fashion film AI, film ibridi dalle vostre foto, video per ristoranti, modelle AI per UGC, cartoni animati e animali AI.",
+    "techTitle": "Tech | Consulenza AI, siti web e agenti AI | Arlix",
+    "techDescription": "Consulenza e formazione AI, siti multilingue, contenuti mensili, agenti AI e musica royalty free per le aziende.",
+    "privacyTitle": "Informativa sulla privacy | Arlix",
+    "privacyDescription": "Come vengono usati i dati del modulo di contatto su arlix.art."
   },
   "banner": {
     "notice": "Questa pagina è stata tradotta automaticamente. Tutta la comunicazione avviene in inglese."
@@ -416,8 +422,8 @@
       ]
     },
     "assistantsAgents": {
-      "title": "Assistenti / Agenti",
-      "menu": "Assistenti /\nAgenti",
+      "title": "Agenti AI",
+      "menu": "Agenti AI",
       "short": [
         "Un assistente personale per email e calendario.",
         "Una macchina di contenuti per i social e il blog.",
@@ -647,5 +653,39 @@
       "revOne": "{n} giro di revisioni extra",
       "revMany": "{n} giri di revisioni extra"
     }
+  },
+  "privacy": {
+    "h1": "Informativa sulla privacy",
+    "link": "Privacy",
+    "agreeBefore": "Accetto l’",
+    "agreeLink": "informativa sulla privacy",
+    "agreeAfter": "",
+    "updated": "Aggiornato: novembre 2026",
+    "blocks": [
+      {
+        "h": "Quali dati",
+        "p": "Quando inviate il modulo di contatto, riceviamo i dati che inserite: nome, email e, se li aggiungete, azienda, sito web, Instagram, i vostri interessi e il vostro messaggio."
+      },
+      {
+        "h": "Perché",
+        "p": "Solo per rispondere alla vostra richiesta e parlare di un possibile progetto. I vostri dati non vengono venduti, ceduti per pubblicità o usati per newsletter."
+      },
+      {
+        "h": "Come funziona il modulo",
+        "p": "Il modulo viene recapitato via email tramite FormSubmit. I messaggi sono conservati in una casella di posta con sede nell’UE."
+      },
+      {
+        "h": "Per quanto tempo",
+        "p": "Le richieste vengono conservate per il tempo necessario a rispondere e, se nasce un progetto, per il periodo previsto dalla legge."
+      },
+      {
+        "h": "Cookie",
+        "p": "Questo sito non usa cookie di tracciamento o pubblicitari e nessun servizio di analisi."
+      },
+      {
+        "h": "I vostri diritti",
+        "p": "In base al GDPR potete chiedere di vedere, correggere o cancellare i vostri dati, oppure opporvi al loro uso. Scrivete a start@arlix.art."
+      }
+    ]
   }
 }

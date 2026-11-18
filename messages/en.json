@@ -1,13 +1,19 @@
 {
   "meta": {
-    "title": "Arlix",
-    "description": "Full-cycle AI & hybrid production",
+    "title": "Arlix | AI films and hybrid production",
+    "description": "AI brand films, fashion films, food and restaurant videos, AI models and cartoons, plus AI consulting, websites and AI agents.",
     "pricingTitle": "Pricing | Arlix",
     "pricingDescription": "Estimated prices for AI films and images by Arlix.",
     "contactTitle": "Contact | Arlix",
     "contactDescription": "Start a project with Arlix.",
     "rightsTitle": "Rights & Compliance | Arlix",
-    "rightsDescription": "NDA, rights to the finished work, licensed AI tools, music and AI labelling."
+    "rightsDescription": "NDA, rights to the finished work, licensed AI tools, music and AI labelling.",
+    "artTitle": "Art | AI brand films, food and fashion videos | Arlix",
+    "artDescription": "AI brand and fashion films, hybrid films from your photos, food and restaurant videos, AI models for UGC, cartoons and AI pets.",
+    "techTitle": "Tech | AI consulting, websites and AI agents | Arlix",
+    "techDescription": "AI consulting and training, multilingual websites, monthly content, AI agents and royalty free music for business.",
+    "privacyTitle": "Privacy Policy | Arlix",
+    "privacyDescription": "How the details from the contact form on arlix.art are used."
   },
   "banner": {
     "notice": "This page was translated automatically. All communication is in English."
@@ -389,8 +395,8 @@
       ]
     },
     "assistantsAgents": {
-      "title": "Assistants / Agents",
-      "menu": "Assistants /\nAgents",
+      "title": "AI Agents",
+      "menu": "AI Agents",
       "short": [
         "A personal assistant for your email and calendar.",
         "A content machine for your social media and blog.",
@@ -620,5 +626,39 @@
       "revOne": "{n} extra round of revisions",
       "revMany": "{n} extra rounds of revisions"
     }
+  },
+  "privacy": {
+    "h1": "Privacy Policy",
+    "link": "Privacy Policy",
+    "agreeBefore": "I agree to the ",
+    "agreeLink": "Privacy Policy",
+    "agreeAfter": "",
+    "updated": "Updated: November 2026",
+    "blocks": [
+      {
+        "h": "What we collect",
+        "p": "When you send the contact form, we receive the details you enter: name, email, and, if you add them, company, website, Instagram, your areas of interest and your message."
+      },
+      {
+        "h": "Why",
+        "p": "Only to reply to your inquiry and to discuss a possible project. Your details are not sold, shared for advertising or used for newsletters."
+      },
+      {
+        "h": "How the form works",
+        "p": "The form is delivered by email through FormSubmit. Messages are kept in a mailbox hosted in the EU."
+      },
+      {
+        "h": "How long",
+        "p": "Inquiries are kept for as long as needed to answer them and, if a project follows, for the period required by law."
+      },
+      {
+        "h": "Cookies",
+        "p": "This site does not use tracking or advertising cookies and does not run analytics."
+      },
+      {
+        "h": "Your rights",
+        "p": "Under the GDPR you can ask to see, correct or delete your details, or object to their use. Write to start@arlix.art."
+      }
+    ]
   }
 }

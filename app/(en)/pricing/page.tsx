@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeMeta } from "@/lib/meta";
 import PricingCalc from "@/components/pricing/PricingCalc";
-export const metadata: Metadata = { title: "Pricing | Arlix", description: "Estimated prices for AI films and images by Arlix." };
+export const metadata: Metadata = localeMeta("en", "/pricing/", "meta.pricingTitle", "meta.pricingDescription");
 export default function Pricing() { return <PricingCalc />; }

@@ -1,13 +1,19 @@
 {
   "meta": {
-    "title": "Arlix",
-    "description": "KI- und Hybridproduktion aus einer Hand",
+    "title": "Arlix | KI-Filme und Hybridproduktion",
+    "description": "KI-Markenfilme, Modefilme, Videos für Restaurants, KI-Models und Cartoons, dazu KI-Beratung, Websites und KI-Agenten.",
     "pricingTitle": "Preise | Arlix",
     "pricingDescription": "Geschätzte Preise für KI-Filme und -Bilder von Arlix.",
     "contactTitle": "Kontakt | Arlix",
     "contactDescription": "Starten Sie ein Projekt mit Arlix.",
     "rightsTitle": "Rechte und Compliance | Arlix",
-    "rightsDescription": "NDA, Rechte am fertigen Werk, lizenzierte KI-Tools, Musik und KI-Kennzeichnung."
+    "rightsDescription": "NDA, Rechte am fertigen Werk, lizenzierte KI-Tools, Musik und KI-Kennzeichnung.",
+    "artTitle": "Art | KI-Markenfilme, Food- und Modevideos | Arlix",
+    "artDescription": "KI-Marken- und Modefilme, Hybridfilme aus Ihren Fotos, Videos für Restaurants, KI-Models für UGC, Cartoons und KI-Tiere.",
+    "techTitle": "Tech | KI-Beratung, Websites und KI-Agenten | Arlix",
+    "techDescription": "KI-Beratung und Schulungen, mehrsprachige Websites, monatlicher Content, KI-Agenten und lizenzfreie Musik für Unternehmen.",
+    "privacyTitle": "Datenschutzerklärung | Arlix",
+    "privacyDescription": "Wie die Angaben aus dem Kontaktformular auf arlix.art verwendet werden."
   },
   "banner": {
     "notice": "Diese Seite wurde automatisch übersetzt. Die gesamte Kommunikation erfolgt auf Englisch."
@@ -416,8 +422,8 @@
       ]
     },
     "assistantsAgents": {
-      "title": "KI-Assistenten / Agenten",
-      "menu": "KI-Assistenten /\nAgenten",
+      "title": "KI-Agenten",
+      "menu": "KI-Agenten",
       "short": [
         "Ein persönlicher Assistent für E-Mail und Kalender.",
         "Eine Content-Maschine für Ihre sozialen Medien und Ihren Blog.",
@@ -647,5 +653,39 @@
       "revOne": "{n} extra Korrekturrunde",
       "revMany": "{n} extra Korrekturrunden"
     }
+  },
+  "privacy": {
+    "h1": "Datenschutzerklärung",
+    "link": "Datenschutz",
+    "agreeBefore": "Ich stimme der ",
+    "agreeLink": "Datenschutzerklärung",
+    "agreeAfter": " zu",
+    "updated": "Stand: November 2026",
+    "blocks": [
+      {
+        "h": "Welche Daten",
+        "p": "Wenn Sie das Kontaktformular senden, erhalten wir die Angaben, die Sie eintragen: Name, E-Mail und, falls angegeben, Unternehmen, Website, Instagram, Ihre Interessen und Ihre Nachricht."
+      },
+      {
+        "h": "Wozu",
+        "p": "Nur um Ihre Anfrage zu beantworten und ein mögliches Projekt zu besprechen. Ihre Daten werden nicht verkauft, nicht für Werbung weitergegeben und nicht für Newsletter verwendet."
+      },
+      {
+        "h": "Wie das Formular funktioniert",
+        "p": "Das Formular wird über FormSubmit per E-Mail zugestellt. Die Nachrichten liegen in einem Postfach mit Sitz in der EU."
+      },
+      {
+        "h": "Wie lange",
+        "p": "Anfragen werden so lange aufbewahrt, wie es für die Antwort nötig ist, und wenn daraus ein Projekt entsteht, so lange, wie es das Gesetz verlangt."
+      },
+      {
+        "h": "Cookies",
+        "p": "Diese Website verwendet keine Tracking- oder Werbe-Cookies und keine Analysedienste."
+      },
+      {
+        "h": "Ihre Rechte",
+        "p": "Nach der DSGVO können Sie Auskunft, Berichtigung oder Löschung Ihrer Daten verlangen oder der Nutzung widersprechen. Schreiben Sie an start@arlix.art."
+      }
+    ]
   }
 }

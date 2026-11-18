@@ -6,7 +6,7 @@ import { localeMeta } from "@/lib/meta";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return localeMeta(locale as Locale, "/tech/", "meta.title", "meta.description");
+  return localeMeta(locale as Locale, "/tech/", "meta.techTitle", "meta.techDescription");
 }
 
 export default function Tech() {

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { localeMeta } from "@/lib/meta";
 import ContactForm from "@/components/ContactForm";
 
-export const metadata: Metadata = { title: "Contact | Arlix", description: "Start a project with Arlix." };
+export const metadata: Metadata = localeMeta("en", "/contact/", "meta.contactTitle", "meta.contactDescription");
 
 export default function Contact() {
   return (
