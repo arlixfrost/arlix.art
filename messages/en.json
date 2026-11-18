@@ -657,7 +657,7 @@
       },
       {
         "h": "Your rights",
-        "p": "Under the GDPR you can ask to see, correct or delete your details, or object to their use. Write to start@arlix.art."
+        "p": "Under the GDPR you can ask to see, correct or delete your details, or object to their use. Write to {email}."
       }
     ]
   }

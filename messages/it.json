@@ -684,7 +684,7 @@
       },
       {
         "h": "I vostri diritti",
-        "p": "In base al GDPR potete chiedere di vedere, correggere o cancellare i vostri dati, oppure opporvi al loro uso. Scrivete a start@arlix.art."
+        "p": "In base al GDPR potete chiedere di vedere, correggere o cancellare i vostri dati, oppure opporvi al loro uso. Scrivete a {email}."
       }
     ]
   }

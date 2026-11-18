@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/components/LocaleProvider";
+import ProtectedEmail, { emailAddress } from "@/components/ProtectedEmail";
 
-// Contact form. Letters go to start@arlix.art through FormSubmit (activated on start@arlix.art; the site itself is static and cannot send mail).
-const ENDPOINT = "https://formsubmit.co/ajax/start@arlix.art";
+// Contact form. Letters go to the site mailbox through FormSubmit (activated on start@arlix.art; the site itself is static and cannot send mail).
+const endpoint = () => "https://formsubmit.co/ajax/" + emailAddress();
 
 
 const field =
@@ -100,7 +101,7 @@ export default function ContactForm() {
       _captcha: "false",
     };
     try {
-      const r = await fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) });
+      const r = await fetch(endpoint(), { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) });
       setState(r.ok ? "sent" : "error");
     } catch {
       setState("error");
@@ -196,7 +197,7 @@ export default function ContactForm() {
         <span className="text-[14px] text-[#9B948B]">{locale === "en" ? "Replies usually within 24 hours." : t("contact.replies")}</span>
       </div>
       {state === "error" ? (
-        <p className="m-0 text-[15px] text-[#E4DED5]">{locale === "en" ? "The message did not go through. Please write to " : t("contact.errorBefore")}<a className="underline decoration-[#C9A962] underline-offset-4" href="mailto:start@arlix.art">start@arlix.art</a>{locale === "en" ? "." : t("contact.errorAfter")}</p>
+        <p className="m-0 text-[15px] text-[#E4DED5]">{locale === "en" ? "The message did not go through. Please write to " : t("contact.errorBefore")}<ProtectedEmail className="underline decoration-[#C9A962] underline-offset-4" />{locale === "en" ? "." : t("contact.errorAfter")}</p>
       ) : null}
     </form>
   );

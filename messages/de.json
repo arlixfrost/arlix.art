@@ -684,7 +684,7 @@
       },
       {
         "h": "Ihre Rechte",
-        "p": "Nach der DSGVO können Sie Auskunft, Berichtigung oder Löschung Ihrer Daten verlangen oder der Nutzung widersprechen. Schreiben Sie an start@arlix.art."
+        "p": "Nach der DSGVO können Sie Auskunft, Berichtigung oder Löschung Ihrer Daten verlangen oder der Nutzung widersprechen. Schreiben Sie an {email}."
       }
     ]
   }
