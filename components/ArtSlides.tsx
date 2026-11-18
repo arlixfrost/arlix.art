@@ -110,7 +110,7 @@ const EN_SECTIONS: Section[] = [
     title: "Food & Restaurants",
     menu: "Food & Resto",
     work: "Food / restaurant piece",
-    main: { src: "/art/food/cherry-garden-web.mp4", poster: "/art/food/cherry-garden.jpg", title: "Food & Restaurants film" },
+    main: { src: "/art/food/cherry-final-web.mp4", poster: "/art/food/cherry-final.jpg", title: "Food & Restaurants film" },
     reelStart: 0,
     short: [
       ["Food video is one", "of the hardest shoots:", "it has to be filmed very fast,", "with no second chance."],
