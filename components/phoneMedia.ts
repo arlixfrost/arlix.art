@@ -6,7 +6,7 @@ const LIGHT = new Set([
   "/art/artworks/taormina.mp4",
   "/art/brand-fashion-films.mp4",
   "/art/hybrid/le-plongeoir-web.mp4",
-  "/art/food/cherry-final-web.mp4",
+  "/art/food/cherry-v2-web.mp4",
   "/art/commercials/lingerie-model-web.mp4",
   "/art/social/paris-red-suit-web.mp4",
   "/art/ai-models/keira-fashion-web.mp4",
