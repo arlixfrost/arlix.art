@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import ContactDirect from "@/components/ContactDirect";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { localeMeta } from "@/lib/meta";
 import { t } from "@/lib/i18n";
@@ -19,6 +20,7 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
         <h1 className="font-display font-normal text-[40px] md:text-[56px] leading-[1.05]">{t(loc, "contact.h1")}</h1>
         <div className="gold-rule mt-5 mb-10 md:mb-14" />
         <ContactForm />
+        <ContactDirect />
       </div>
     </main>
   );

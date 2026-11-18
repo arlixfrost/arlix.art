@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { localeMeta } from "@/lib/meta";
 import ContactForm from "@/components/ContactForm";
+import ContactDirect from "@/components/ContactDirect";
 
 export const metadata: Metadata = localeMeta("en", "/contact/", "meta.contactTitle", "meta.contactDescription");
 
@@ -11,6 +12,7 @@ export default function Contact() {
         <h1 className="font-display font-normal text-[40px] md:text-[56px] leading-[1.05]">Contact</h1>
         <div className="gold-rule mt-5 mb-10 md:mb-14" />
         <ContactForm />
+        <ContactDirect />
       </div>
     </main>
   );
