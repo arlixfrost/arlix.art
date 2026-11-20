@@ -9,7 +9,7 @@ import { localeMeta } from "@/lib/meta";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ locale: "de" }, { locale: "it" }];
+  return [{ locale: "de" }, { locale: "it" }, { locale: "fr" }, { locale: "pl" }, { locale: "ru" }];
 }
 
 type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };

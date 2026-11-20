@@ -138,8 +138,10 @@ export function estimate(i: Inputs) {
   return { min: round(sum("mn")), max: round(sum("mx")), avg: round(sum("avg")), items: lines.map((l) => l.label) };
 }
 
-export const eur = (v: number, locale: "en" | "de" | "it" = "en") => {
+export const eur = (v: number, locale: "en" | "de" | "it" | "fr" | "pl" | "ru" = "en") => {
   if (locale === "en") return "€" + v.toLocaleString("en-GB");
+  // fr, pl, ru: no-break space as the thousands separator, always grouped (pl-PL would skip 4-digit numbers).
+  if (locale === "fr" || locale === "pl" || locale === "ru") return Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u00A0") + " €";
   // de-DE and it-IT both use a dot as the thousands separator. it-IT may skip grouping under 10.000, so format it by hand.
   const grouped = Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return grouped + " €";

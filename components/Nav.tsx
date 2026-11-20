@@ -19,6 +19,9 @@ const LANGS: { id: Locale; label: string }[] = [
   { id: "en", label: "EN" },
   { id: "de", label: "DE" },
   { id: "it", label: "IT" },
+  { id: "fr", label: "FR" },
+  { id: "pl", label: "PL" },
+  { id: "ru", label: "RU" },
 ];
 
 function LangSwitch({ rawPath, current }: { rawPath: string; current: Locale }) {

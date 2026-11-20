@@ -1,0 +1,691 @@
+{
+  "meta": {
+    "title": "Arlix | Filmy AI i produkcja hybrydowa",
+    "description": "Filmy wizerunkowe i modowe AI, wideo dla restauracji, modelki AI i kreskówki, a także doradztwo AI, strony internetowe i agenci AI.",
+    "pricingTitle": "Cennik | Arlix",
+    "pricingDescription": "Szacunkowe ceny filmów i obrazów AI od Arlix.",
+    "contactTitle": "Kontakt | Arlix",
+    "contactDescription": "Zacznij projekt z Arlix.",
+    "rightsTitle": "Prawa i zgodność | Arlix",
+    "rightsDescription": "NDA, prawa do gotowego dzieła, licencjonowane narzędzia AI, muzyka i oznaczanie AI.",
+    "artTitle": "Art | Filmy wizerunkowe AI, wideo food i moda | Arlix",
+    "artDescription": "Filmy wizerunkowe i modowe AI, filmy hybrydowe z Twoich zdjęć, wideo dla restauracji, modelki AI do UGC, kreskówki i zwierzęta AI.",
+    "techTitle": "Tech | Doradztwo AI, strony internetowe i agenci AI | Arlix",
+    "techDescription": "Doradztwo i szkolenia AI, wielojęzyczne strony, comiesięczne treści, agenci AI i muzyka royalty free dla firm.",
+    "privacyTitle": "Polityka prywatności | Arlix",
+    "privacyDescription": "Jak wykorzystywane są dane z formularza kontaktowego na arlix.art."
+  },
+  "banner": {
+    "notice": "Ta strona została przetłumaczona dla Twojej wygody.\nCała komunikacja odbywa się po angielsku.\nWszystkie filmy na tej stronie są stworzone z AI."
+  },
+  "nav": {
+    "art": "Art",
+    "tech": "Tech",
+    "pricing": "Cennik",
+    "rights": "Prawa",
+    "contact": "Kontakt"
+  },
+  "footer": {
+    "copyright": "© Arlix 2026",
+    "aiNote": "Wszystkie filmy na tej stronie są stworzone z AI."
+  },
+  "common": {
+    "readMore": "Więcej",
+    "close": "Zamknij",
+    "scrollDown": "Przewiń w dół",
+    "turnSoundOn": "Włącz dźwięk",
+    "turnSoundOff": "Wyłącz dźwięk",
+    "watchFullScreen": "Oglądaj na pełnym ekranie",
+    "play": "Odtwórz",
+    "pause": "Pauza",
+    "seek": "Przewiń",
+    "previous": "Wstecz",
+    "next": "Dalej",
+    "previousWork": "Poprzednia praca",
+    "nextWork": "Następna praca",
+    "sections": "Sekcje",
+    "works": "Prace",
+    "playTitle": "Odtwórz {title}",
+    "clickToEnlarge": "{title} (kliknij, aby powiększyć)",
+    "openShowreel": "Otwórz showreel",
+    "playShowreel": "Odtwórz showreel",
+    "showreel": "Showreel",
+    "selectedWork": "Wybrana praca"
+  },
+  "home": {
+    "tagline": "Pełna produkcja AI i hybrydowa",
+    "art": "Art",
+    "tech": "Tech",
+    "foodRestaurants": "Food & restauracje",
+    "work03": "[Work 03]",
+    "work04": "[Work 04]",
+    "work05": "[Work 05]",
+    "work06": "[Work 06]",
+    "work07": "[Work 07]"
+  },
+  "contact": {
+    "h1": "Kontakt",
+    "name": "Imię i nazwisko *",
+    "email": "E-mail *",
+    "company": "Firma",
+    "site": "Strona internetowa (opcjonalnie)",
+    "interest": "Co Cię interesuje? (możesz wybrać kilka)",
+    "select": "Wybierz",
+    "somethingElse": "Coś innego",
+    "aiAgents": "Agenci AI",
+    "message": "Wiadomość *",
+    "nda": "Chcę podpisać wzajemne NDA przed przekazaniem briefu",
+    "send": "Wyślij zapytanie",
+    "sending": "Wysyłanie",
+    "replies": "Odpowiedź zwykle w ciągu 24 godzin.",
+    "thanks": "Dziękujemy.",
+    "sent": "Twoje zapytanie zostało wysłane. Odpowiedź zwykle w ciągu 24 godzin.",
+    "errorBefore": "Wiadomość nie dotarła. Napisz do nas na ",
+    "errorAfter": ".",
+    "instagram": "Instagram (opcjonalnie)"
+  },
+  "art": {
+    "brandFashionFilms": {
+      "title": "Filmy wizerunkowe i modowe",
+      "menu": "Filmy wizerunkowe\ni modowe",
+      "workTitle": "Hervé Léger · film o początkach",
+      "short": [
+        "Historia marki, jej założyciela albo chwili, w której wystartowała, opowiedziana językiem kina.",
+        "Zaufanie, którego nie zbuduje spot sprzedażowy.",
+        "Ludzie oglądają go z zainteresowaniem i nie mają poczucia, że ktoś próbuje im coś sprzedać.",
+        "Film, który działa przez lata i zostaje w pamięci jak opowieść."
+      ],
+      "more": [
+        {
+          "h": "O czym może być film wizerunkowy?",
+          "ps": [
+            "Film wizerunkowy może opowiedzieć, [jak powstała marka], albo przedstawić [założyciela], człowieka stojącego za nazwą i drogę, która go do niej doprowadziła. Może uchwycić [punkt zwrotny], moment, w którym biznes wystartował, albo pokazać [wartości], za którymi stoi marka.",
+            "[Rzemiosło] to kolejny mocny temat: jak powstaje produkt, dłonie, detale. Do tego formatu świetnie pasują też wielkie chwile, takie jak [nowy kierunek, relaunch, jubileusz albo historia domu mody]."
+          ]
+        },
+        {
+          "h": "Po co marce film?",
+          "ps": [
+            "Marka z własnym filmem wygląda jak firma z historią, a to dodaje jej [wagi]. Kinowy obraz [podnosi status marki], zanim padnie choćby jedno słowo.",
+            "Film pozwala widzom zajrzeć do wnętrza firmy i poznać zespół, a to buduje [zaufanie i lojalność]. Ludzie [oglądają go z zainteresowaniem], jak dobry serial, i częściej oglądają go do końca niż spot sprzedażowy.",
+            "Kampania kończy się razem z sezonem, a film wizerunkowy [może służyć latami]. Widzowie [zapamiętują historię] i nie odbierają jej jako reklamy.",
+            "[Jeden film działa w wielu miejscach]: w mediach społecznościowych, na ekranach w Twojej restauracji, sklepie czy biurze, na początku prezentacji albo podczas wydarzenia."
+          ]
+        },
+        {
+          "h": "Jak powstaje?",
+          "ps": [
+            "Wszystko zaczyna się od [prawdziwego scenariusza napisanego przez zawodowego scenarzystę], z fabułą zbudowaną tak, by trzymać uwagę i zostać z widzem do samego końca.",
+            "Postacie można [odtworzyć ze starych zdjęć, nawet czarno-białych], a [ta sama twarz pozostaje spójna] od pierwszego do ostatniego kadru.",
+            "Muzyka to albo [oryginalna ścieżka napisana do filmu], albo [licencjonowana muzyka dopuszczona do użytku komercyjnego], także w reklamie. [Sound design też jest oryginalny], każdy dźwięk powstaje do tego filmu."
+          ]
+        }
+      ]
+    },
+    "hybrid": {
+      "title": "Hybrid",
+      "menu": "Hybrid",
+      "workTitle": "Le Plongeoir · Nicea · film hybrydowy",
+      "short": [
+        "Prawdziwe miejsce albo prawdziwi ludzie, przeniesieni do świata ze snu albo w towarzystwie postaci AI.",
+        "Dziś najczęściej zamawiany format w produkcji AI.",
+        "Bez zdjęć na planie, bez dronów, bez ekipy, bez modeli, a lokal pozostaje otwarty.",
+        "Film na poziomie światowych marek, zrobiony z kilku dobrych zdjęć, nawet z iPhone'a, i mocnego scenariusza."
+      ],
+      "more": [
+        {
+          "h": "Czym jest film hybrydowy?",
+          "ps": [
+            "W filmie hybrydowym jedna część pochodzi z [życia], a druga z [wyobraźni]. Miejsce pozostaje prawdziwe, a postacie się zmieniają, albo prawdziwi ludzie wchodzą do świata ze snu.",
+            "Prawdziwe ujęcia sprawiają, że film jest [wiarygodny], a AI dodaje rozmach i klimat, których sama kamera nie da.",
+            "Film o {Le Plongeoir|https://www.instagram.com/leplongeoir/}, słynnej restauracji w Nicei, powstał ze zdjęć zrobionych [iPhone'em] podczas wizyty. Kobieta i pies zostali w całości stworzeni w AI, a efektem jest film, który się pamięta."
+          ]
+        },
+        {
+          "h": "Dlaczego hybryda?",
+          "ps": [
+            "Pozwala tworzyć sceny, które [trudno albo bardzo drogo nakręcić].",
+            "Z jednej sesji może powstać [kilka wersji]: to samo miejsce latem i zimą, w dzień i w nocy.",
+            "Przy tradycyjnych zdjęciach nikt nie widzi efektu aż do samego końca. Film planuje się pod [kampanię sezonową], datę, kiedy wszystko ma się pojawić w mediach społecznościowych i w reklamie. Lwia część budżetu, poza operatorem, idzie na cały zespół: asystentów, modeli, fryzjerów i makijażystów, do tego loty, hotele i transfery dla wszystkich. Jeśli po długim czekaniu efekt rozczarowuje, marka zostaje [bez materiału] na kampanię, z dziurą w budżecie i bez czasu na poprawki.",
+            "Film hybrydowy działa odwrotnie: [zatwierdzasz każdy etap], poprawiasz szczegóły na bieżąco, a cała produkcja idzie znacznie szybciej."
+          ]
+        },
+        {
+          "h": "Ile oszczędzasz w porównaniu z tradycyjnymi zdjęciami?",
+          "ps": [
+            "Tradycyjna produkcja to ekipa filmowa, ludzie wynajęci do występu przed kamerą i lokal zamknięty na cały dzień. Film hybrydowy powstaje po prostu z [dobrych zdjęć albo nagrań] Twojego miejsca.",
+            "Gdziekolwiek jest Twój biznes, nawet w [trudno dostępnych miejscach], możesz mieć film na poziomie [światowych marek]. Nie trzeba namawiać operatora z Mediolanu czy Paryża, żeby przyleciał, ani pokrywać kosztów podróży całej ekipy i modeli, żeby uzyskać [ten sam efekt]."
+          ]
+        },
+        {
+          "h": "Co się na niego składa?",
+          "ps": [
+            "Film hybrydowy to [prawdziwe rzemiosło]. Mocna historia i porządna reżyseria, razem z profesjonalnym sound designem i montażem, sprawiają, że chce się go oglądać.",
+            "Każdy film obejmuje scenariusz, charakter marki, modeli i oryginalną muzykę."
+          ]
+        }
+      ]
+    },
+    "foodRestaurants": {
+      "title": "Food & restauracje",
+      "menu": "Food &\nrestauracje",
+      "works": {
+        "main": "Film Food & restauracje",
+        "reel0": "Arlix Catering",
+        "reel1": "Redhead · tort",
+        "reel2": "Marquis Homard · homar",
+        "reel3": "Rupert · Petrus",
+        "reel4": "Hostessa",
+        "reel5": "Angel · kelner",
+        "reel6": "Croissants"
+      },
+      "short": [
+        "Wideo z jedzeniem to jedne z najtrudniejszych zdjęć: trzeba kręcić bardzo szybko, bez drugiej szansy.",
+        "Jest czas na jeden chlust sosu i jedno cięcie. Potem całe danie trzeba przygotować od nowa.",
+        "Profesjonalne lampy nagrzewają pomieszczenie, lody się topią, a pianka opada.",
+        "AI utrzymuje każde danie w jego najbardziej kuszącym momencie tak długo, jak potrzebuje tego film."
+      ],
+      "more": [
+        {
+          "h": "Dlaczego jedzenie tak trudno filmować?",
+          "ps": [
+            "Na planie danie ma [krótkie życie]. W gorącym świetle zaczyna tracić formę, a każdy dubel wymaga nowego talerza, więc drogie składniki idą do kosza, zanim powstanie dobre ujęcie, zwłaszcza na wideo.",
+            "Jeśli kręcisz we własnej restauracji, musi ona być [zamknięta] co najmniej przez jeden dzień i wyposażona w oświetlenie i sprzęt."
+          ]
+        },
+        {
+          "h": "Co powinien robić film o jedzeniu?",
+          "ps": [
+            "Dobry film o jedzeniu sprawia, że klient [ma ochotę] na danie i od razu rezerwuje stolik. Albo pozwala mu poczuć klimat miejsca i [wyobrazić sobie, że tam jest], wśród pięknych ludzi."
+          ]
+        },
+        {
+          "h": "Dlaczego ludzie w kadrze są ważni?",
+          "ps": [
+            "Wiele restauracji pokazuje tylko jedzenie albo oszczędza na modelach i filmuje znajomych czy przypadkowych gości. Tymczasem ludzie, którzy nie czują się swobodnie przed kamerą, nadają lokalowi premium [prowincjonalny wygląd], wymagają uważnej reżyserii na planie i muszą podpisać [zgodę na wykorzystanie wizerunku]. Profesjonalni modele z kolei [rozdmuchują budżet], bo przychodzi z nimi cały zespół: styliści, makijażyści i wypożyczenie ubrań."
+          ]
+        },
+        {
+          "h": "Co zmienia AI?",
+          "ps": [
+            "AI pozwala pokazać każde danie w jego najbardziej [kuszącej] odsłonie: chrupiące, soczyste i nie do odparcia, tak długo, jak potrzebuje tego film.",
+            "Modele AI powstają pod styl Twojej marki, nastrój, format i [klimat] Twojej restauracji. Ci sami modele pojawiają się w całym filmie, więc jest on spójny i jednolity.",
+            "Twoja kuchnia pracuje dalej, restauracja jest otwarta, a żaden składnik się nie marnuje.",
+            "Film AI lub hybrydowy może powstać z samych [dobrych zdjęć albo nagrań] Twojej restauracji i dań, nawet w [trudno dostępnych miejscach]."
+          ]
+        }
+      ]
+    },
+    "aiModelsUgc": {
+      "title": "Modelki AI & UGC",
+      "menu": "Modelki AI",
+      "workTitle": "Keira · film modowy",
+      "reel0": "Arlix Pâtisserie · makaroniki",
+      "short": [
+        "Twarz, która należy tylko do Twojej marki i nie pojawia się nigdzie indziej.",
+        "Jedna modelka do każdego formatu: influencerka gawędząca w swojej kuchni, pokaz na wybiegu albo kampania reklamowa.",
+        "Mówi w każdym języku i odpowiada kanonom piękna na każdym rynku.",
+        "Kolekcje można przetestować przed produkcją, a reklamy sprawdzić na różnych modelkach i sylwetkach."
+      ],
+      "more": [
+        {
+          "h": "Po co marce własna twarz AI?",
+          "ps": [
+            "Prawdziwa modelka pracuje jednocześnie z kilkoma markami. Dziś nosi Twoją ekskluzywną biżuterię, jutro ta sama twarz jest na billboardzie taniego supermarketu. Ludzie to zauważają i [wartość premium] Twojego produktu spada. Modelka AI należy [tylko do Ciebie]: nigdy nie odchodzi, nie pracuje dla nikogo innego i ma tę samą twarz w każdej kampanii, bez castingów, kalendarzy rezerwacji i praw do wizerunku do odnawiania."
+          ]
+        },
+        {
+          "h": "Co potrafi jedna modelka?",
+          "ps": [
+            "Ta sama modelka może wystąpić jako influencerka gawędząca w swojej kuchni, przejść się na [pokazie mody] albo zagrać główną rolę w kampanii reklamowej. Każdy look powstaje w AI, co oszczędza budżet zwykle wydawany na stylistów, fryzjerów i makijażystów. Twoi odbiorcy widzą [jedną znajomą twarz] w każdym formacie, więc markę łatwiej zapamiętać."
+          ]
+        },
+        {
+          "h": "Jak to działa na rynkach międzynarodowych?",
+          "ps": [
+            "Jeśli działasz na rynkach międzynarodowych albo w kilku krajach, kanony piękna różnią się między nimi: wygląd, który działa w Skandynawii, często nie działa w Europie Wschodniej czy Ameryce Łacińskiej. Dla każdego rynku można stworzyć postać, która jest bliska Twoim klientom i [mówi ich językiem]. Jedną rzecz można też pokazać w różnych stylizacjach, a tę samą reklamę przetestować na [różnych modelkach i sylwetkach]."
+          ]
+        },
+        {
+          "h": "Dlaczego to szybsze, a efekt bardziej pod kontrolą?",
+          "ps": [
+            "Jak kolekcję próbną pokazywaną kupcom, rzeczy można zaprezentować na modelkach [przed produkcją], tak by do pełnej produkcji trafiły tylko te, na które jest popyt. Błędy poprawia się, a nowe rzeczy dodaje bez ponownej sesji. Trend albo news można złapać, [póki jest świeży]. [Zatwierdzasz każdy etap], a rozsądne zmiany wprowadza się na bieżąco. Efekt pozostaje pod kontrolą i jest gotowy znacznie szybciej niż u operatora."
+          ]
+        }
+      ]
+    },
+    "cartoonsAiPets": {
+      "title": "Kreskówki & zwierzęta AI",
+      "menu": "Kreskówki",
+      "workTitle": "Amber City · Ep 1 · Oskar",
+      "reel0": "Paryż · czerwony garnitur · szpic miniaturowy",
+      "reel1": "Lingerie · modelka + kot",
+      "short": [
+        "Kreskówka albo maskotka stworzona specjalnie dla Twojej marki.",
+        "Historia napisana z lokalnym humorem i mentalnością, żeby trafiła prosto do serca widza.",
+        "Rozpoznawalna postać, z której wyrasta serial.",
+        "Zwierzęta sprzedają każdy produkt na każdym rynku. Zwierzę AI robi dokładnie to, czego wymaga scena, a żadne prawdziwe zwierzę nie przeżywa stresu zdjęć."
+      ],
+      "more": [
+        {
+          "h": "Po co marce własna postać?",
+          "ps": [
+            "Kreskówki AI to coś więcej niż banany i truskawki, które wszystkim się już przejadły. Postać stworzona dla marki to jeden z jej [najmocniejszych atutów]. {Badanie Ipsos|https://www.ipsos.com/en-ph/power-you-why-distinctive-brand-assets-are-driving-force-creative-effectiveness}, jednej z największych firm badań rynku na świecie, objęło ponad 2000 reklam wideo i wykazało, że postacie pojawiają się [sześć razy częściej] w najskuteczniejszych reklamach. {Badanie System1|https://www.smartbrief.com/original/report-brand-characters-beat-celebrities-in-super-bowl-ads}, firmy mierzącej, co widzowie czują wobec reklam, objęło spoty z Super Bowl i pokazało, że postacie marek [wygrywają z celebrytami] pod względem sympatii, rozpoznawalności marki i wpływu na sprzedaż."
+          ]
+        },
+        {
+          "h": "Jak powstaje postać dla Twojego rynku?",
+          "ps": [
+            "Postać z kreskówki powstaje dla Twojej marki i Twoich odbiorców, z myślą o mentalności, kulturze, tradycjach i baśniach Twojego rynku. [Storytelling jest niezwykle ważny.] Kiedy postać jest dobrze napisana, z lokalnym humorem, a czasem ze slangiem, trafia prosto do [serca widza]."
+          ]
+        },
+        {
+          "h": "Jak z postaci robi się serial?",
+          "ps": [
+            "Rozpoznawalna postać sprawia, że ludzie wracają po [kolejny odcinek]. Może to być barman o nietypowym wyglądzie, który opowiada historie o gościach, albo dowcipny szef kuchni, który filetuje ryby jak wirtuoz i żartobliwie docina konkurencji. Z czasem postać staje się [własnym głosem marki] w mediach społecznościowych."
+          ]
+        },
+        {
+          "h": "Dlaczego zwierzęta AI?",
+          "ps": [
+            "Zwierzęta działają dla każdej marki: wszyscy kochają puchate pupile. Na prawdziwym planie jednak powtarzanie ze zwierzętami dubla za dublem jest dalekie od humanitarnego, a zdjęcia wymagają tresera. W zależności od kraju na planie potrzebny jest też [przedstawiciel organizacji ochrony zwierząt]: w USA dodaje to [1200 $ dziennie] do budżetu reklamowego. W AI ruchy, wygląd i zachowanie zwierzęcia są [w pełni pod kontrolą], bez stresu dla jakiejkolwiek żywej istoty."
+          ]
+        }
+      ]
+    },
+    "artworks": {
+      "title": "Artworks",
+      "menu": "Artworks",
+      "workTitle": "Taormina · Sycylia"
+    },
+    "cta": {
+      "kicker": "Kontakt",
+      "title": "Zacznij projekt",
+      "line": "[CTA line: invite to start a project]",
+      "contact": "Kontakt",
+      "getPrices": "Zobacz szacunkowe ceny"
+    },
+    "menu": {
+      "contact": "Kontakt",
+      "pricing": "Cennik"
+    }
+  },
+  "rights": {
+    "h1": "Prawa i zgodność",
+    "note": "W sprawach prawnych skonsultuj się z własnym prawnikiem.",
+    "nda": {
+      "title": "NDA",
+      "l0": "Wzajemne NDA można podpisać przed omówieniem briefu."
+    },
+    "rights": {
+      "title": "Twoje prawa",
+      "l0": "Wszystkie prawa do gotowego dzieła przechodzą na Ciebie po końcowej płatności.",
+      "l1": "Pokazanie pracy w portfolio jest uzgadniane z Tobą osobno."
+    },
+    "tools": {
+      "title": "Licencjonowane narzędzia",
+      "l0": "Cała produkcja odbywa się na płatnych planach z licencjami komercyjnymi.",
+      "l1": "Seedance, Seedream, Google Veo, Nano Banana, GPT Image, Midjourney, Higgsfield, Magnific, Recraft, Topaz, HeyGen, Suno, ElevenLabs, Claude, Grok i wiele, wiele innych, zależnie od projektu.",
+      "l2": "Nazwy narzędzi wskazują oprogramowanie używane w produkcji, a nie partnerstwo czy rekomendację."
+    },
+    "music": {
+      "title": "Muzyka",
+      "l0": "Oryginalna muzyka albo utwory licencjonowane do użytku komercyjnego."
+    },
+    "labelling": {
+      "title": "Oznaczanie AI",
+      "l0": "Treści AI są oznaczane zgodnie z unijnym AI Act, w sposób uzgodniony dla każdego projektu."
+    }
+  },
+  "tech": {
+    "consultingTraining": {
+      "title": "Doradztwo i szkolenia AI",
+      "menu": "Doradztwo\ni szkolenia AI",
+      "short": [
+        "Indywidualnie lub w małej grupie, online albo na żywo.",
+        "Wszystko zaczyna się od prawdziwych problemów Twojej firmy: najpilniejsze rozwiązujemy najpierw.",
+        "Wiedza, z której korzystasz od razu.",
+        "Dostosowanie CV i profilu LinkedIn do filtrów ATS."
+      ],
+      "boxes": [
+        {
+          "h": "Od czego zacząć z AI?",
+          "p": "Punktem wyjścia są pilne potrzeby Twojej firmy, a nie teoria. Masz [lata doświadczenia] w swojej branży, a AI to po prostu [kolejne narzędzie], które ułatwia dzień. Najlepiej oddać mu to, czego nigdy nie lubiłeś: rutynę, powtarzalne zadania i organizacyjny chaos."
+        },
+        {
+          "h": "Co dzieje się podczas pierwszej rozmowy?",
+          "p": "Podczas pierwszej rozmowy omawiasz, co naprawdę spowalnia Twój biznes i czego potrzebuje on w tej chwili. Powstaje z tego krótka lista [narzędzi AI] dobranych do tego, czym się zajmujesz: tych, których warto się nauczyć i zacząć używać od razu. Możesz wdrożyć je jeszcze w trakcie sesji albo zaraz po niej."
+        },
+        {
+          "h": "Jak wyglądają zajęcia?",
+          "p": "Każde zajęcia są [indywidualne] i zaczynają się od Twoich [najpilniejszych potrzeb]: dużo grafik do mediów społecznościowych, proste automatyzacje albo agent do obsługi zapytań. Są zaprojektowane tak, żebyś mógł od razu z nich skorzystać i ułatwić sobie życie i pracę. Zajęcia odbywają się online albo na żywo, a agentów AI można skonfigurować bezpośrednio na Twoim komputerze, więc Twoje dane zostają u Ciebie."
+        },
+        {
+          "h": "Szukasz nowej pracy, ale nikt nie odpowiada?",
+          "p": "Być może Twoje CV jest po prostu niewidoczne. Rekruterzy korzystają z [filtrów ATS], programów, które skanują CV w poszukiwaniu słów kluczowych. Jeśli CV nie zostało dostosowane, nie przechodzi przez nie i prawdziwa osoba z HR nigdy go nie zobaczy. Bez dostosowania do [nowoczesnych standardów] nie ma szans dotrzeć do człowieka."
+        }
+      ]
+    },
+    "webDesign": {
+      "title": "Web design",
+      "menu": "Web design",
+      "short": [
+        "Nowoczesna [wielojęzyczna] strona, gotowa w 1 tydzień.",
+        "Zarządzasz nią sam: bez programisty.",
+        "Bez szablonów i bez miesięcznych opłat.",
+        "Nie nadaje się do płatności online."
+      ],
+      "boxes": [
+        {
+          "h": "Co obejmuje strona?",
+          "p": "Dostajesz stronę zaprojektowaną od zera i w pełni skonfigurowaną. Ma [nowoczesną grafikę] i motion design na poziomie 2026 roku. Strona może być też interaktywna, a nawet przypominać grę, żeby przyciągać uwagę klientów i utrzymać ich zainteresowanie. Po uruchomieniu [krótka lekcja] lub instrukcja pokazuje, jak samodzielnie ją edytować."
+        },
+        {
+          "h": "Pełna kontrola bez czekania?",
+          "p": "Masz [pełną kontrolę] nad swoją stroną. Ceny, promocje, nowe produkty, sezonowe menu, wyprzedaże: zmieniasz wszystko [sam], w kilka minut. Koniec z długim czekaniem, aż informatyk wprowadzi poprawki. Zmiany pojawiają się na stronie szybko, nawet późnym wieczorem czy w weekend."
+        },
+        {
+          "h": "Czy wyróżni się na tle konkurencji?",
+          "p": "Strona powstaje w całości dla Ciebie, bez [szablonów], więc nie przypomina stron Twojej konkurencji. Opiera się na analizie [stylu Twojej marki]: nie tylko kolorów, ale też fontów, logo, zdjęć i tonu Twoich tekstów. Dzięki temu pasuje do wizerunku marki w mediach społecznościowych i w reklamie zewnętrznej."
+        },
+        {
+          "h": "Co dzieje się po przekazaniu?",
+          "p": "Od tej chwili każda strona i każdy plik należą do Ciebie. Nie ma dodatkowych [miesięcznych opłat] ani pensji programisty. Wystarczy subskrypcja Claude / ChatGPT / Grok / Gemini, która pomaga aktualizować stronę, kiedy tylko chcesz."
+        }
+      ]
+    },
+    "monthlyContent": {
+      "title": "Treści co miesiąc",
+      "menu": "Treści\nco miesiąc",
+      "short": [
+        "Wyraziste, przyciągające wzrok treści zaplanowane miesiąc do przodu.",
+        "Karuzele, wideo i infografiki w jednym stylu marki.",
+        "Hybryda: Twoje prawdziwe zdjęcia i wideo plus treści AI."
+      ],
+      "boxes": [
+        {
+          "h": "Po co publikować codziennie?",
+          "p": "Rozwijanie marki oznacza codzienne publikacje. Tak dziś działają [algorytmy], niestety. Ale Ty masz biznes do prowadzenia, a nie godziny na nagrywanie i montaż. Koniec z [bólem głowy], gdy trzeba zamykać lokal na sesję zdjęciową lub wideo albo samemu nagrywać filmy."
+        },
+        {
+          "h": "Jak działa hybryda?",
+          "p": "Najmocniejsze połączenie na Instagramie to prawdziwe treści razem z treściami AI: wtedy promowane są zarówno Twoje nagrania, jak i treści AI. Nagrać wideo jest łatwo. Trudniej sprawić, żeby się wyróżniało: profesjonalny [montaż] z infografikami i karuzele w jednym stylu, żeby ludzie od razu rozpoznawali Twoją [markę]."
+        },
+        {
+          "h": "Co dostajesz co miesiąc?",
+          "p": "Dostajesz karuzele, zmontowane wideo albo dowolny inny format, którego potrzebujesz. Ty wybierasz: treści z Twoich własnych zdjęć i nagrań albo przygotowane w całości dla Ciebie. Wszystko powstaje szybko i starannie, według nowoczesnych standardów, w jednym [stylu marki]. Do każdego miesiąca dołączona jest [analiza odbiorców]."
+        },
+        {
+          "h": "Jak planowany jest miesiąc?",
+          "p": "Plan powstaje na początku każdego miesiąca, pod Twój kalendarz i razem z Twoim [SMM managerem], jeśli go masz. Liczba treści jest ustalana z góry: od 30 do 60. Publikacja i kontakt z odbiorcami zostają po Twojej stronie albo po stronie SMM managera. Ty dostajesz analizę odbiorców, treści AI i montaż Twoich nagrań."
+        }
+      ]
+    },
+    "assistantsAgents": {
+      "title": "Agenci AI",
+      "menu": "Agenci AI",
+      "short": [
+        "Osobisty asystent do poczty i kalendarza.",
+        "Maszyna do treści dla Twoich mediów społecznościowych i bloga.",
+        "Kreatywny agent do zdjęć, wideo i kreskówek.",
+        "Zespół 24/7, który pracuje dla Ciebie."
+      ],
+      "boxes": [
+        {
+          "h": "Osobisty asystent do poczty i kalendarza.",
+          "p": "Twój osobisty asystent porządkuje [pocztę], pilnuje kalendarza i przypomina o każdym terminie. Zajmuje się rutynowymi zadaniami, które wypełniają dzień, żebyś mógł spokojnie planować swój czas. Pracuje [24/7] i niczego nie przeoczy."
+        },
+        {
+          "h": "Maszyna do treści dla Twoich mediów społecznościowych i bloga.",
+          "p": "Maszyna do treści dba o Twoje [media społecznościowe] i bloga. Tworzy plan treści, przygotowuje posty ze zdjęciami i wideo, wszystko w jednym [stylu marki]. Twoje posty są gotowe nawet w tygodniach, gdy nie masz czasu o nich myśleć."
+        },
+        {
+          "h": "Kreatywny agent do zdjęć, wideo i kreskówek.",
+          "p": "Kreatywny agent pracuje jak scenarzysta i reżyser. Pisze [scenariusze], a potem tworzy zdjęcia, wideo, a nawet [kreskówki] dla Twojej marki. Każdy pomysł wychodzi od Twojego biznesu, więc efekt wygląda jak Twój, a nie jak zdjęcia ze stocku. Dostajesz materiały do mediów społecznościowych, na stronę albo do kampanii reklamowej."
+        },
+        {
+          "h": "Zespół 24/7, który pracuje dla Ciebie.",
+          "p": "I każdy agent, jakiego może potrzebować Twój biznes, żeby rutyna nie zjadała już Twojego czasu. Opisujesz problem, a gotowe rozwiązanie powstaje dla Ciebie."
+        }
+      ]
+    },
+    "royaltyFreeMusic": {
+      "title": "Muzyka royalty free",
+      "menu": "Muzyka\nroyalty free",
+      "short": [
+        "Playlisty dla Twojego biznesu: restauracje, hotele, spa.",
+        "Profesjonalny sound design i muzyka do wideo i reklam.",
+        "Dżingle i logo dźwiękowe dla Twojej firmy.",
+        "Pełne prawa komercyjne do wszystkiego, co dostajesz."
+      ],
+      "boxes": [
+        {
+          "h": "Playlisty dla Twojego biznesu: restauracje, hotele, spa.",
+          "p": "Być może zauważyłeś, że w niektórych restauracjach gra muzyka, która brzmi znajomo, a jednak Shazam jej nie znajduje. Najpewniej powstała z AI i w ten sposób firmy oszczędzają na [licencjach muzycznych]. Muzyka jest pisana w Twoim stylu, może nawet z [Twoim własnym tekstem]. Dziś taka magia jest prosta."
+        },
+        {
+          "h": "Profesjonalny sound design i muzyka do wideo i reklam.",
+          "p": "Utwory bez licencji albo z biblioteki Instagrama to ryzyko dla reklam: Instagram najpewniej zablokuje reklamę albo puści ją bez dźwięku. Dobry [sound design] i montaż do rytmu to lwia część sukcesu wideo. Muzyka jest pisana do Twojego wideo albo wybierana z profesjonalnych bibliotek, zawsze [licencjonowana do użytku komercyjnego]."
+        },
+        {
+          "h": "Pełne prawa komercyjne do wszystkiego, co dostajesz.",
+          "p": "Każde gotowe wideo, playlista czy dżingiel są dopuszczone do użytku komercyjnego. Muzyka napisana z AI dla Twojej firmy ma [pełne prawa komercyjne]. Muzyka z profesjonalnej biblioteki ma [certyfikat licencji], więc jeśli platforma albo sieć reklamowa kiedyś zapyta, możesz pokazać, że muzyka jest dopuszczona do użytku."
+        },
+        {
+          "h": "Dżingle i logo dźwiękowe dla Twojej firmy.",
+          "p": "Dżingiel to krótka, łatwa do zapamiętania melodia dla Twojej firmy. [Logo dźwiękowe] to Twój rozpoznawalny dźwięk w wideo, reklamach i w Twoim lokalu, żeby ludzie wiedzieli, że to Ty."
+        }
+      ]
+    },
+    "cta": {
+      "kicker": "Kontakt",
+      "title": "Zacznij projekt",
+      "line": "[CTA line: invite to start a project]",
+      "contact": "Kontakt"
+    },
+    "menu": {
+      "contact": "Kontakt"
+    }
+  },
+  "pricing": {
+    "h1": "Cennik",
+    "intro": "Tutaj możesz zorientować się, ile mniej więcej może kosztować Twój projekt.",
+    "notice": "Pamiętaj, że wszystkie ceny podane tutaj są tylko szacunkowe. Każdy projekt jest indywidualny, a ostateczną cenę zawsze ustalamy z Tobą osobiście.",
+    "quickStart": "Szybki start",
+    "estimatedPrice": "Szacunkowa cena",
+    "yourChoices": "Twój wybór",
+    "copyEstimate": "Kopiuj wycenę",
+    "copied": "Skopiowano",
+    "downloadPdf": "Pobierz PDF",
+    "startProject": "Zacznij projekt",
+    "monthlyTitle": "Treści co miesiąc",
+    "monthlyBody": "Karuzele, krótkie rolki i UGC dla Twojej marki co miesiąc, w jednym spójnym stylu.",
+    "from": "od",
+    "perMonth": "miesięcznie",
+    "estimated": "Szacunkowo",
+    "to": "do",
+    "sec": "s",
+    "less": "Mniej",
+    "more": "Więcej",
+    "copyTitle": "Arlix: wycena projektu",
+    "copyPrice": "Szacunkowa cena: {range}",
+    "copyChoices": "Twój wybór:",
+    "term0": "Dwie rundy poprawek są w cenie.",
+    "term1": "50% przedpłaty, reszta przy odbiorze.",
+    "preset": {
+      "reel": {
+        "label": "Rolka do social media",
+        "note": "15 sekund"
+      },
+      "film": {
+        "label": "Film wizerunkowy",
+        "note": "od 90 sekund"
+      },
+      "photos": {
+        "label": "Seria zdjęć",
+        "note": "10 realistycznych obrazów"
+      }
+    },
+    "group": {
+      "format": "Format",
+      "basics": "Podstawy",
+      "details": "Szczegóły",
+      "sound": "Dźwięk",
+      "rights": "Prawa i terminy"
+    },
+    "q": {
+      "kind": "Czego potrzebujesz?",
+      "duration": "Długość filmu",
+      "scenes": "Liczba scen",
+      "hasScript": "Masz scenariusz?",
+      "imgCount": "Ile obrazów?",
+      "formats": "Dodatkowe formaty",
+      "refs": "Masz referencje?",
+      "moodboard": "Koncepcja i mood board",
+      "characters": "Postacie",
+      "scene": "Złożoność scen",
+      "creative": "Wkład kreatywny",
+      "music": "Muzyka",
+      "voice": "Lektor",
+      "lipsync": "Lip sync",
+      "sfx": "Sound design",
+      "subs": "Napisy",
+      "usage": "Gdzie będzie używany?",
+      "brand": "Wytyczne marki",
+      "sources": "Pliki źródłowe",
+      "timing": "Termin",
+      "revisions": "Dodatkowe rundy poprawek"
+    },
+    "hint": {
+      "duration": "Wystarczy jedna liczba. Relacja trwa około 15 sekund, rolka około 30, film wizerunkowy od 90 do 120.",
+      "scenes": "Scena to jeden osobny moment: inne miejsce, inne ujęcie, inna akcja. Do 10 sekund to około 3 do 5 scen, 30 sekund około 10 do 15.",
+      "hasScript": "Scenariusz mówi, co dzieje się w każdej scenie, w jakiej kolejności i z jakim tekstem. Ogólny pomysł albo nastrój to jeszcze nie scenariusz.",
+      "imgCount": "Im więcej obrazów w jednym stylu, tym mniej kosztuje każdy kolejny. Nowy styl albo nowa postać to początek nowej serii.",
+      "formats": "Każdy obraz dopasowany do innego rozmiaru (relacja, baner, druk) liczy się jako jeden plik.",
+      "refs": "Przykłady tego, co Ci się podoba: linki, obrazy, film w odpowiednim nastroju. Słowa takie jak „nowoczesny” czy „jasny” bez przykładów to nie referencje.",
+      "moodboard": "Pomysł, kierunek wizualny i logika serii, zebrane przed rozpoczęciem produkcji.",
+      "characters": "Ludzie, zwierzęta albo maskotki w kadrze. Jedna postać w różnych pozach to wciąż jedna postać. Bez żywych postaci: ustaw 0.",
+      "scene": "Prosta: osoba albo produkt, tło nie ma znaczenia. Średnia: osoba w jakimś miejscu. Szczegółowa: ulice, tłumy, bogate wnętrza, ruch.",
+      "creative": "Ile wymyślamy za Ciebie. Tylko Twoje referencje, Twoje referencje dopracowane, pełna koncepcja kreatywna albo dwa, trzy kierunki do wyboru.",
+      "lipsync": "Usta postaci poruszają się zgodnie z głosem. Potrzebne, gdy ktoś mówi do kamery.",
+      "sfx": "Kroki, kliknięcia, odgłosy ulicy: detale, dzięki którym film żyje.",
+      "brand": "Czy kolory, fonty i styl muszą dokładnie trzymać się brand booka?",
+      "sources": "Pliki z warstwami, które Twój grafik może później zmienić. Niepotrzebne, jeśli używasz tylko gotowych plików.",
+      "revisions": "Dwie rundy są w cenie. Każdą dodatkową rundę dodajesz tutaj."
+    },
+    "opt": {
+      "video": "Wideo",
+      "image": "Obrazy",
+      "scriptYes": "Tak, mam",
+      "scriptNo": "Nie, napiszcie go",
+      "refsYes": "Tak, wyślę je",
+      "refsNo": "Nie, znajdźcie je",
+      "notNeeded": "Niepotrzebne",
+      "yesPlease": "Tak, poproszę",
+      "simple": "Prosta",
+      "medium": "Średnia",
+      "detailed": "Szczegółowa",
+      "refsOnly": "Twoje referencje",
+      "refined": "Dopracowane",
+      "fullConcept": "Pełna koncepcja",
+      "directions": "Kierunki do wyboru",
+      "noMusic": "Bez muzyki",
+      "licensedTrack": "Utwór licencjonowany",
+      "originalTrack": "Oryginalny utwór",
+      "none": "Brak",
+      "haveRecording": "Mam nagranie",
+      "createIt": "Stwórzcie go",
+      "no": "Nie",
+      "yes": "Tak",
+      "styled": "Stylizowane",
+      "withTranslation": "Z tłumaczeniem",
+      "personal": "Prywatnie lub portfolio",
+      "brandSite": "Social media i strona marki",
+      "noBrandBook": "Bez brand booka",
+      "loosely": "Swobodnie",
+      "exactly": "Dokładnie",
+      "standard": "Standardowy",
+      "h48": "W ciągu 48 godzin",
+      "h24": "W ciągu 24 godzin"
+    },
+    "choice": {
+      "film": "Film AI, {n} s",
+      "sceneOne": "{n} scena",
+      "sceneMany": "Sceny: {n}",
+      "scriptWritten": "Scenariusz napisany dla Ciebie",
+      "imageOne": "{n} realistyczny obraz AI",
+      "imageMany": "Realistyczne obrazy AI: {n}",
+      "formatOne": "{n} dodatkowy format",
+      "formatMany": "Dodatkowe formaty: {n}",
+      "refsFound": "Referencje znalezione dla Ciebie",
+      "yourRefs": "Twoje referencje",
+      "moodboard": "Koncepcja i mood board",
+      "charOne": "{n} postać",
+      "charMany": "Postacie: {n}",
+      "scene": {
+        "simple": "Proste sceny",
+        "medium": "Sceny w otoczeniu",
+        "complex": "Szczegółowe sceny"
+      },
+      "creative": {
+        "none": "Na podstawie Twoich referencji",
+        "light": "Twoje referencje, dopracowane",
+        "full": "Pełna koncepcja kreatywna",
+        "variants": "Dwa, trzy kierunki do wyboru"
+      },
+      "licensedMusic": "Licencjonowany utwór muzyczny",
+      "originalMusic": "Oryginalny utwór muzyczny",
+      "voiceMix": "Twoje nagranie lektora wmiksowane",
+      "voiceCreate": "Lektor przygotowany dla Ciebie",
+      "lipsync": "Lip sync",
+      "sfx": "Sound design",
+      "subsSimple": "Proste napisy",
+      "subsStyled": "Stylizowane napisy",
+      "subsTranslate": "Napisy z tłumaczeniem",
+      "usePersonal": "Użytek prywatny lub portfolio",
+      "useBrand": "Social media i strona marki",
+      "brandFlexible": "Swobodnie według brand booka",
+      "brandExact": "Dokładnie według brand booka",
+      "sources": "Pliki źródłowe",
+      "timingNormal": "Standardowy termin",
+      "timing48": "W ciągu 48 godzin",
+      "timing24": "W ciągu 24 godzin",
+      "revOne": "{n} dodatkowa runda poprawek",
+      "revMany": "Dodatkowe rundy poprawek: {n}"
+    }
+  },
+  "privacy": {
+    "h1": "Polityka prywatności",
+    "link": "Polityka prywatności",
+    "agreeBefore": "Akceptuję ",
+    "agreeLink": "politykę prywatności",
+    "agreeAfter": "",
+    "updated": "Aktualizacja: listopad 2026",
+    "blocks": [
+      {
+        "h": "Jakie dane zbieramy",
+        "p": "Gdy wysyłasz formularz kontaktowy, otrzymujemy wpisane dane: imię i nazwisko, e-mail oraz, jeśli je dodasz, firmę, stronę internetową, Instagram, Twoje zainteresowania i wiadomość."
+      },
+      {
+        "h": "Po co",
+        "p": "Wyłącznie po to, żeby odpowiedzieć na Twoje zapytanie i omówić możliwy projekt. Twoje dane nie są sprzedawane, udostępniane w celach reklamowych ani używane do newsletterów."
+      },
+      {
+        "h": "Jak działa formularz",
+        "p": "Formularz jest dostarczany e-mailem przez FormSubmit. Wiadomości są przechowywane w skrzynce pocztowej z serwerem w UE."
+      },
+      {
+        "h": "Jak długo",
+        "p": "Zapytania przechowujemy tak długo, jak trzeba, żeby na nie odpowiedzieć, a jeśli powstanie projekt, przez okres wymagany przez prawo."
+      },
+      {
+        "h": "Pliki cookie",
+        "p": "Ta strona nie używa plików cookie śledzących ani reklamowych i nie korzysta z narzędzi analitycznych."
+      },
+      {
+        "h": "Twoje prawa",
+        "p": "Zgodnie z RODO możesz poprosić o wgląd w swoje dane, ich poprawienie lub usunięcie albo sprzeciwić się ich wykorzystaniu. Napisz na {email}."
+      }
+    ]
+  }
+}
