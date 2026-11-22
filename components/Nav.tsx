@@ -14,14 +14,13 @@ const linkDefs: { href: string; labelKey: string; fallback: string; wide?: boole
   { href: "/contact", labelKey: "nav.contact", fallback: "Contact" },
 ];
 
-// Data-driven language list: add { id: "ru", label: "RU" } here (and in lib/i18n.ts) for later languages.
+// Data-driven language list: add a language here (and in lib/i18n.ts) for later languages.
 const LANGS: { id: Locale; label: string }[] = [
   { id: "en", label: "EN" },
   { id: "de", label: "DE" },
   { id: "it", label: "IT" },
   { id: "fr", label: "FR" },
   { id: "pl", label: "PL" },
-  { id: "ru", label: "RU" },
 ];
 
 function LangSwitch({ rawPath, current }: { rawPath: string; current: Locale }) {

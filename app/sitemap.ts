@@ -9,9 +9,9 @@ const url = (l: string, p: string) => (l === "en" ? BASE + p : BASE + (p === "/"
 // Map of all pages for search engines, each with its German and Italian versions.
 export default function sitemap(): MetadataRoute.Sitemap {
   return PAGES.flatMap((p) =>
-    ["en", "de", "it", "fr", "pl", "ru"].map((l) => ({
+    ["en", "de", "it", "fr", "pl"].map((l) => ({
       url: url(l, p),
-      alternates: { languages: { en: url("en", p), de: url("de", p), it: url("it", p), fr: url("fr", p), pl: url("pl", p), ru: url("ru", p) } },
+      alternates: { languages: { en: url("en", p), de: url("de", p), it: url("it", p), fr: url("fr", p), pl: url("pl", p) } },
     })),
   );
 }

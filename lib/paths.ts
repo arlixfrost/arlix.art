@@ -5,13 +5,13 @@ export function stripLocale(pathname: string): string {
   const i = pathname.indexOf("#");
   const hash = i >= 0 ? pathname.slice(i) : "";
   const path = i >= 0 ? pathname.slice(0, i) : pathname;
-  const stripped = path.replace(/^\/(de|it|fr|pl|ru)(?=\/|$)/, "") || "/";
+  const stripped = path.replace(/^\/(de|it|fr|pl)(?=\/|$)/, "") || "/";
   return stripped + hash;
 }
 
 export function detectLocale(pathname: string): Locale {
   const path = pathname.split("#")[0];
-  const m = path.match(/^\/(de|it|fr|pl|ru)(?=\/|$)/);
+  const m = path.match(/^\/(de|it|fr|pl)(?=\/|$)/);
   return (m?.[1] as Locale) || defaultLocale;
 }
 

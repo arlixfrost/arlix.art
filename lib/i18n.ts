@@ -3,9 +3,8 @@ import de from "@/messages/de.json";
 import it from "@/messages/it.json";
 import fr from "@/messages/fr.json";
 import pl from "@/messages/pl.json";
-import ru from "@/messages/ru.json";
 
-export const locales = ["en", "de", "it", "fr", "pl", "ru"] as const;
+export const locales = ["en", "de", "it", "fr", "pl"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "en";
 
@@ -15,7 +14,6 @@ const dictionaries: Record<Locale, Record<string, unknown>> = {
   it: it as Record<string, unknown>,
   fr: fr as Record<string, unknown>,
   pl: pl as Record<string, unknown>,
-  ru: ru as Record<string, unknown>,
 };
 
 export function isLocale(v: string): v is Locale {

@@ -24,7 +24,6 @@ export function localeMeta(locale: Locale, path: string, titleKey: string, descK
         it: abs("it", path),
         fr: abs("fr", path),
         pl: abs("pl", path),
-        ru: abs("ru", path),
         "x-default": abs("en", path),
       },
     },
