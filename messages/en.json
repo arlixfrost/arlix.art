@@ -636,6 +636,10 @@
     "updated": "Updated: November 2026",
     "blocks": [
       {
+        "h": "Who we are",
+        "p": "The data controller is MAEVE DESIGN PAVLOVA, org.nr. 925 481 173, Valkendorfsgaten 9, 5012 Bergen, Norway. Contact: {email}"
+      },
+      {
         "h": "What we collect",
         "p": "When you send the contact form, we receive the details you enter: name, email, and, if you add them, company, website, Instagram, your areas of interest and your message."
       },
