@@ -663,6 +663,10 @@
     "updated": "Mise à jour : novembre 2026",
     "blocks": [
       {
+        "h": "Qui sommes-nous",
+        "p": "Le responsable du traitement des données est MAEVE DESIGN PAVLOVA, org.nr. 925 481 173, Valkendorfsgaten 9, 5012 Bergen, Norvège. Contact : {email}"
+      },
+      {
         "h": "Ce que nous recueillons",
         "p": "Quand vous envoyez le formulaire de contact, nous recevons les données que vous saisissez : nom, e-mail et, si vous les ajoutez, entreprise, site web, Instagram, vos centres d'intérêt et votre message."
       },

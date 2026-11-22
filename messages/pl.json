@@ -663,6 +663,10 @@
     "updated": "Aktualizacja: listopad 2026",
     "blocks": [
       {
+        "h": "Kim jesteśmy",
+        "p": "Administratorem danych jest MAEVE DESIGN PAVLOVA, org.nr. 925 481 173, Valkendorfsgaten 9, 5012 Bergen, Norwegia. Kontakt: {email}"
+      },
+      {
         "h": "Jakie dane zbieramy",
         "p": "Gdy wysyłasz formularz kontaktowy, otrzymujemy wpisane dane: imię i nazwisko, e-mail oraz, jeśli je dodasz, firmę, stronę internetową, Instagram, Twoje zainteresowania i wiadomość."
       },
