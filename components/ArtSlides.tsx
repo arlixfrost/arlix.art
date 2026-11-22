@@ -222,7 +222,7 @@ const EN_SECTIONS: Section[] = [
 // (on phones: black, edge to edge); it plays straight away like the films that autoplay.
 // Sound choice is shared by every ribbon player on the page, like Instagram: once a visitor turns the sound on,
 // every next work opens with sound; with sound off they all open silent.
-let reelSoundOn = false;
+let reelSoundOn = true; // the framed player opens with sound; muting it there keeps it muted for the visit
 
 // lead: the big film above the ribbon. Opening it starts the same player, and the arrows go on through the ribbon works.
 function Reel({ items: ribbon, heightCss, lead, opener, start, leadBox }: { items: Video[]; heightCss?: string; lead?: Video; opener?: React.MutableRefObject<(() => void) | null>; start?: number; leadBox?: React.RefObject<HTMLDivElement | null> }) {
@@ -424,7 +424,7 @@ export function WorkVideo({ v, className = "", aspect = "video", active = false,
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     const src = ref.current; const el = lb.current;
-    if (src && el) { el.currentTime = 0; el.muted = muted; soloAudio(el); el.play().catch(() => {}); src.pause(); }
+    if (src && el) { el.currentTime = 0; el.muted = false; setMuted(false); soloAudio(el); el.play().catch(() => { el.muted = true; setMuted(true); el.play().catch(() => {}); }); src.pause(); }
     return () => {
       window.removeEventListener("keydown", onKey); document.body.style.overflow = prev;
       // Resume inline playback only if the section is still on screen.
@@ -547,7 +547,7 @@ export default function ArtSlides() {
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     const src = introVid.current; const el = introLb.current;
-    if (src && el) { el.currentTime = 0; el.muted = introMuted; soloAudio(el); el.play().catch(() => {}); src.pause(); }
+    if (src && el) { el.currentTime = 0; el.muted = false; setIntroMuted(false); soloAudio(el); el.play().catch(() => { el.muted = true; setIntroMuted(true); el.play().catch(() => {}); }); src.pause(); }
     return () => {
       window.removeEventListener("keydown", onKey); document.body.style.overflow = prev;
       const s2 = introVid.current; if (s2) { s2.muted = true; setIntroMuted(true); s2.play().catch(() => {}); }

@@ -50,7 +50,7 @@ export default function Showreel({ className = "", children, fade }: { className
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     const src = ref.current; const el = lb.current;
-    if (src && el) { el.currentTime = 0; el.muted = muted; soloAudio(el); el.play().catch(() => {}); src.pause(); }
+    if (src && el) { el.currentTime = 0; el.muted = false; setMuted(false); soloAudio(el); el.play().catch(() => { el.muted = true; setMuted(true); el.play().catch(() => {}); }); src.pause(); }
     return () => {
       window.removeEventListener("keydown", onKey); document.body.style.overflow = prev;
       const s2 = ref.current; if (s2) { s2.muted = true; setMuted(true); s2.play().catch(() => {}); }
